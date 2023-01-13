@@ -18,14 +18,17 @@ public class CartService implements MyService<Integer, CartDTO>{
 	
 	@Override
 	public void register(CartDTO v) throws Exception {
+		mapper.insert(v);
 	}
 
 	@Override
 	public void remove(Integer k) throws Exception {
+		mapper.delete(k);
 	}
 
 	@Override
 	public void modify(CartDTO v) throws Exception {
+		mapper.update(v);
 	}
 
 	@Override
@@ -39,5 +42,10 @@ public class CartService implements MyService<Integer, CartDTO>{
 	}
 	
 	
+	// 특정 사용자의 장바구니 리스트 내용물 가져오기
+	public List<CartDTO> CartList(Integer k) throws Exception {
+		return mapper.CartList(k);
+	}
 
 }
+
