@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,6 @@ import com.shop.service.CartService;
 
 
 @Controller
-@RequestMapping("/cart")
 public class CartController {
 
 
@@ -35,6 +35,7 @@ public class CartController {
 	@GetMapping("/cart")
 	public String cartPage(Model model, HttpServletRequest req) {
 		
+		HttpSession session = req.getSession();
 		
 		// 여러개의 장바구니의 가격 총합.
 		int totalPrice = 0;
@@ -46,14 +47,14 @@ public class CartController {
 		int fee = 3000;
 		
 		
-		// 세션값 가져오기. (int)req.getAttribute("key");
+		int sessionKey = (int)session.getAttribute("cust_key");
+		System.out.println(sessionKey);
 		
-		int sessionKey = 1;
 		
 		// 세션값이 없으면 로그인이 안되있는 상태 이므로 애초에 장바구니 페이지로 못온다.     if there is no sessionValue, user can't access to cart page
 		// 세션값을 받은게 있다면 장바구니 페이지로 이동.                             else sessionValue Exits. -> move to cart page.
-		if(sessionKey > 0) {
-			model.addAttribute("key", sessionKey);
+		
+			
 			
 			// Model 객체에 세션값과 일치하는 사용자의 장바구니 정보를 담아야 한다.       you have to Add attribute( which mean : customer's cart info ) to Model object  
 			// 이때 담겨있는 제품이 한개일수도 여러개 일수도 있다 -> ArrayList로 받아온다.   product could be only one or many. So need ArrayList for result of service Method   
@@ -108,9 +109,8 @@ public class CartController {
 			model.addAttribute("finalPrice", finalPrice);
 			
 			
-			
-			return "main";
-		}
+		
+		
 		
 		// 세션값이 없으면 중간에 장바구니 페이지로 리턴 되지 않고, 마지막에 login페이지로 return한다.    without sessionValue, don't stop At 28 rows (return cart). must move to login.html  
 		return "main";

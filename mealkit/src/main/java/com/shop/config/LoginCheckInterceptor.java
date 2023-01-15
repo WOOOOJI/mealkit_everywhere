@@ -20,7 +20,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         System.out.println("----------------------------------------------------------------------");
 
         HttpSession session = request.getSession();
-        String cust_key = (String)session.getAttribute("cust_key");
+        String cust_key = String.valueOf(session.getAttribute("cust_key"));
 
         if(cust_key != null) {
             return true;
