@@ -1,3 +1,4 @@
+package com.shop.config;
 //package com.shop.config;
 //
 //import org.springframework.context.annotation.Bean;
