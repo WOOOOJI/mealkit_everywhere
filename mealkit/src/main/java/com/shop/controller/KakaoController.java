@@ -46,6 +46,8 @@ public class KakaoController {
 		
 		CustomerDTO dto = new CustomerDTO();
 		//System.out.println("데이터연결안했다"+dto);
+		System.out.println("#"+kemail);
+		System.out.println("#"+nickname);
 		dto.setEmail(kemail2);
 		dto.setUsername(cname);
 		
@@ -56,12 +58,14 @@ public class KakaoController {
 			 cust_service.addMember(dto); //신규 유저 생성
 		 }
 		 
-
-		session.setAttribute("cust_key", dto.getCust_key());
+		int cust_key = service.findCustKey(kemail2);
+		 
+		session.setAttribute("email", dto.getEmail());
+		session.setAttribute("cust_key", cust_key);
 				model.addAttribute("loginResult", "success");
 				model.addAttribute("username", dto.getUsername());
 		
-		return "trash";
+		return "main";
     }
  
 

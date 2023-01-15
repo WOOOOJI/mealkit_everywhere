@@ -77,8 +77,12 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 		}
 	}
 	//아이디와 전화번호가 일치하는 유저
-	public CustomerDTO resetPwd(CustomerDTO dto) throws Exception{	
-		return mapper.resetPwd(dto);
+	public CustomerDTO resetPwdForm(CustomerDTO dto) throws Exception{	
+		return mapper.resetPwdForm(dto);
+	}
+	
+	public int resetPwd(String pwd1, String pwd2, int cust_key) throws Exception{
+		return mapper.resetPwd(pwd1, pwd2, cust_key);
 	}
 	
 }

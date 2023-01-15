@@ -9,17 +9,23 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.shop.dto.CustomerDTO;
+import com.shop.mapper.CustomerMapper;
 
 //카카오 로그인 API
 @Service
 public class KakaoService {
 
+	@Autowired
+	CustomerMapper mapper;
+	
+	
 	public String getAccessToken(String authorize_code) {
 		String access_Token = "";
 		String refresh_Token = "";
@@ -111,7 +117,9 @@ public class KakaoService {
 	
 
 	
-	
+	public int findCustKey(String email) {
+		return mapper.findCustKey(email);
+	}
 	
 	
 	

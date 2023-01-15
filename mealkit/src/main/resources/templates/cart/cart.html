@@ -59,10 +59,10 @@
 			data:{'cnt': cnt, 'cart_key':cart_key},
 			success:function(data){
 				if(data == 1){
-					location.href='[[@{/cart}]]'
+					location.href='[[@{/cart/list}]]'
 				}else{
 					alert("수량 변경에 실패하였습니다. 잠시 후 다시 시도해주세요.");
-					location.href='[[@{/cart}]]'
+					location.href='[[@{/cart/list}]]'
 				}
 			}
 		});
@@ -72,7 +72,7 @@
 	
 
 
-    <div class="hero-wrap hero-bread" style="background-image: url('images/home3.jpg');">
+    <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
@@ -107,7 +107,7 @@
 						      	<!-- 삭제 버튼 -->
 						        <td class="product-remove"><a href="#" th:onclick="del([[${c.cart_key}]])"><span class="ion-ios-close"></span></a></td>
 						        <!-- 상품이미지 -->
-						        <td class="image-prod"><a class="itemhover" th:href="@{/item(item_key=${c.item_key})}"><img th:src="@{/images/images.jpeg}"></a></td>
+						        <td class="image-prod"><a class="itemhover" th:href="@{/item(item_key=${c.item_key})}"><img th:src="@{/img/images.jpeg}"></a></td>
 						        
 						        <td class="product-name">
 						        	<!-- 상품명 -->

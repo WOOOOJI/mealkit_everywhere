@@ -66,29 +66,29 @@
 					<div class="row">
 						<div class="col-md-9 col-lg-8 mx-auto">
 							<div class="text-center mb-8">
-				               <h3 class="text-uppercase"><strong>F I N D &nbsp&nbsp&nbsp  P W D</strong></h3>
+				               <h3 class="text-uppercase"><strong>R E S E T &nbsp&nbsp&nbsp  P W D</strong></h3>
 				            </div>
 
 		
 									
 							<!-- 로그인 폼 -->
-							<form id="loginForm" th:action="@{/customer/resetPwdForm}" method="post">
+							<form id="loginForm" th:action="@{/customer/resetPwd}" method="post">
 								<div class="form-floating mb-3">
-									<input name="email" type="text" class="form-control"
-										id="inputId" placeholder="name@example.com"> <label
-										for="id">아이디 (이메일)</label>
+									<input name="pwd1" type="password" class="form-control"
+										id="inputPwd1" placeholder="Password"><label
+										for="userpwd1">재설정 비밀번호</label>
 								</div>
 								<div class="form-floating mb-3">
-									<input name="tel" type="text" class="form-control"
-										id="inputTel" placeholder="Password"> <label
-										for="userpwd">전화번호</label>
+									<input name="pwd2" type="password" class="form-control"
+										id="inputPwd2" placeholder="Password"><label
+										for="userpwd2">비밀번호 재입력</label>
 								</div>
-					             
+					            <input type="hidden" name="cust_key" th:value="${cust_key}">
 
 								<div class="d-grid">
 									<button
 										class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2"
-										type="submit" id="searchBtn">비밀번호 찾기</button>
+										type="submit" id="searchBtn">비밀번호 재설정</button>
 					
 									
 								</div>
@@ -102,23 +102,32 @@
 </div>
 
  <script>
-	
-	$('#searchBtn').click(function(){
-		if ($("#inputId").val() == "" || $("#inputId").val() == null) {
-			alert("ID 입력 후 확인하세요.");
+ 
+ 	
+ 
+ 
+ 
+	document.getElementById("searchBtn").onclick = function() {
+
+		
+		if ($("#inputPwd1").val() == "" || $("#inputPwd1").val() == null) {
+			alert("비밀번호를 입력해주세요.");
 			return false;
 		}
 
-		if ($("#inputTel").val() == "" || $("#inputTel").val() == null) {
-			alert("전화번호 입력 후 확인하세요.");
+		if ($("#inputPwd2").val() == "" || $("#inputPwd2").val() == null) {
+			alert("비밀번호를 한번 더 입력해주세요.");
 			return false;
 		}
 		
-		return true;
-	});
+		if( $("#inputPwd1").val() != $("#inputPwd2").val() ) { //비밀번호 확인 
+			alert("비밀번호 값이 다릅니다.");
+			return false;
+		}
 		
 		
-
+		 return true;
+	};	
 </script> 
 <!-- 
 <script>

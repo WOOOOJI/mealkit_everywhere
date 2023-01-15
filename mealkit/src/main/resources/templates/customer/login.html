@@ -114,6 +114,17 @@
 	</div>
 </div>
 
+<script>
+	if('[[${result}]]'== 1){
+		alert("회원가입이 정상적으로 완료되었습니다!");
+	}
+	
+	if('[[${result}]]'== 2){
+		alert("비밀번호가 정상적으로 변경 되었습니다!");
+	}
+</script>
+
+
 <script th:inline="javascript">
 	/*<![CDATA[*/
 	var message = /*[[${loginResult}]]*/'default';

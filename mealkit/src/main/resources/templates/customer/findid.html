@@ -2,6 +2,49 @@
 
 </th:block>
 
+
+<style>
+.login {
+	min-height: 100vh;
+}
+
+.bg-image {
+	background-image:
+		url('/img/loginhome.jpg');
+	background-size: cover;
+	background-position: center;
+}
+
+.login-heading {
+	font-weight: 300;
+}
+
+.btn-login {
+	font-size: 0.9rem;
+	letter-spacing: 0.05rem;
+	padding: 0.75rem 1rem;
+}
+
+#kakao {
+	width: 298px;
+	height: 44px;
+	margin-left: 76px;
+	margin-bottom: 46px;
+}
+
+#forgotpwd{
+	float:right;
+	margin-left:16px;
+}
+
+#forgotid{
+	float:right;
+  	margin-left:230px;
+}
+
+
+</style>
+
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -16,7 +59,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 
-<div class="full">
+<!-- <div class="full">
 	<div class="container">
 		<div class="area_inputs wow fadeIn">
 			<div class="sub_title font-weight-bold text-white">
@@ -47,7 +90,54 @@
 
 		</div>
 	</div>
+</div> -->
+
+<div class="container-fluid ps-md-0">
+	<div class="row g-0">
+		<div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+		<div class="col-md-8 col-lg-6">
+			<div class="login d-flex align-items-center py-5">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-9 col-lg-8 mx-auto">
+							<div class="text-center mb-8">
+				               <h3 class="text-uppercase"><strong>F I N D &nbsp&nbsp&nbsp  I D</strong></h3>
+				            </div>
+
+		
+									
+							<!-- 로그인 폼 -->
+							<form id="loginForm" th:action="@{/customer/login}" method="post">
+								<div class="form-floating mb-3">
+									<input name="email" type="text" class="form-control"
+										id="inputName" placeholder="name@example.com"> <label
+										for="name">이름</label>
+								</div>
+								<div class="form-floating mb-3">
+									<input name="text" type="text" class="form-control"
+										id="inputTel" placeholder="Password"> <label
+										for="userpwd">전화번호</label>
+								</div>
+					             
+
+								<div class="d-grid">
+									<button
+										class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2"
+										type="submit" id="searchBtn">아이디 찾기</button>
+					
+									
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+
+
 </html>
 <script>
 	document.getElementById("searchBtn").onclick = function() {

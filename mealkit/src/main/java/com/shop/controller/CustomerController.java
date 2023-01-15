@@ -115,12 +115,11 @@ public class CustomerController {
 	}
 	
 	// 비밀번호 리셋폼
-	@PostMapping("/resetPwd")
-	@ResponseBody
-	public String resetPwd(CustomerDTO dto, Model model) {
+	@PostMapping("/resetPwdForm")
+	public String resetPwdForm(CustomerDTO dto, Model model) {
 		CustomerDTO d = null;
 		try {
-			d = service.resetPwd(dto);
+			d = service.resetPwdForm(dto);
 		} catch (Exception e) {
 		
 			e.printStackTrace();
@@ -128,11 +127,39 @@ public class CustomerController {
 		
 		if(d != null) {
 			model.addAttribute("cust_key", d.getCust_key());
-			return "resetpwd";
+			return "customer/resetpwd";
 		}
 		model.addAttribute("num", 0);
-		return "findpwd";
+		return "customer/findpwd";
 	}
+	
+	
+	@PostMapping("/resetPwd")
+	public String resetPwd(String pwd1, String pwd2, int cust_key, Model model) {
+		int result = 0;
+		
+		try {
+			result = service.resetPwd(pwd1, pwd2, cust_key);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		if(result == 0) {
+			
+			model.addAttribute("result", result);
+			return "customer/resetPwd";
+		}
+		result=2;
+		model.addAttribute("result", result);
+		
+		return "customer/login";
+	}
+	
+	
+	
 
 
 	

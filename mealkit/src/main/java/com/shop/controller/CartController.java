@@ -69,7 +69,7 @@ public class CartController {
 			// content에 cart.html을 담아준다.									 set View path to Like cart/cart.
 			model.addAttribute("content", dir+"cart");
 			// Test용 출력문 -> ArrayList가 비어있지 않은지 확인해준다.               // TEST Print
-			System.out.println(cartList.toString());
+			// System.out.println(cartList.toString());
 			
 			
 			
@@ -81,7 +81,7 @@ public class CartController {
 				 salePrice += (dto.getPrice() - dto.getSale()) * dto.getCnt();
 			}
 			
-			System.out.println(salePrice);
+			// System.out.println(salePrice);
 			
 			// 총합계 금액에 배달비를 더해준다.                    							// add delivery fee at totalPrice
 			totalPrice += fee;
