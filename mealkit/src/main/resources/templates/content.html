@@ -2,20 +2,13 @@
 
 
 <script>
-
+history.scrollRestoration = "auto";
 // 장바구니 제품 추가
 
 function insertCart(item, cnt){
 	var item_key = item;
 	var cnt = cnt;
-	$.ajax({
-		method:'get',
-		url:'[[@{/cart/cartInsert}]]',
-		data:{'item_key':item_key, "cnt": cnt},
-		success:function(data){
-			
-		}
-	});
+	location.href="/cart/cartInsert?item_key="+item_key+"&cnt="+cnt;
 };
 </script>
 
@@ -29,7 +22,7 @@ function insertCart(item, cnt){
 
     <section id="home-section" class="hero">
 		  <div class="home-slider owl-carousel">
-	      <div class="slider-item" style="background-image: url(images/home3.jpg);">
+	      <div class="slider-item" style="background-image: url(/img/home3.jpg);">
 	      	<div class="overlay"></div>
 	        <div class="container">
 	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
@@ -44,7 +37,10 @@ function insertCart(item, cnt){
 	        </div>
 	      </div>
 
-	      <div class="slider-item" style="background-image: url(images/home2.jpg);">
+			
+
+
+	      <div class="slider-item" style="background-image: url(img/home2.jpg);">
 	      	<div class="overlay"></div>
 	        <div class="container">
 	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
@@ -59,7 +55,7 @@ function insertCart(item, cnt){
 	        </div>
 	      </div>
 	      
-	      <div class="slider-item" style="background-image: url(images/home1.jpg);">
+	      <div class="slider-item" style="background-image: url(img/home1.jpg);">
 	      	<div class="overlay"></div>
 	        <div class="container">
 	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
@@ -75,7 +71,7 @@ function insertCart(item, cnt){
 	      </div>
 	      
 	      
-	      <div class="slider-item" style="background-image: url(images/backjong1.jpg);">
+	      <div class="slider-item" style="background-image: url(img/backjong1.jpg);">
 	      	<div class="overlay"></div>
 	        <div class="container">
 	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
@@ -150,7 +146,7 @@ function insertCart(item, cnt){
 					<div class="col-md-8">
 						<div class="row">
 							<div class="col-md-6 order-md-last align-items-stretch d-flex">
-								<div class="category-wrap-2 ftco-animate img align-self-stretch d-flex" style="background-image: url(images/cook.jpg);">
+								<div class="category-wrap-2 ftco-animate img align-self-stretch d-flex" style="background-image: url(img/cook.jpg);">
 									<div class="text text-center">
 										<h2>신선함을 지금 만나보세요!</h2>
 										<p>여러분이 원하는 모든 음식을 집앞에서 만나보세요</p>
@@ -159,12 +155,12 @@ function insertCart(item, cnt){
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/ko.jpg);">
+								<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(img/ko.jpg);">
 									<div class="text px-3 py-1">
 										<h2 class="mb-0"><a href="#">한식</a></h2>
 									</div>
 								</div>
-								<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/ch.jpg);">
+								<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(img/ch.jpg);">
 									<div class="text px-3 py-1">
 										<h2 class="mb-0"><a href="#">중식</a></h2>
 									</div>
@@ -174,12 +170,12 @@ function insertCart(item, cnt){
 					</div>
 
 					<div class="col-md-4">
-						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/jp.jpg);">
+						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(img/jp.jpg);">
 							<div class="text px-3 py-1">
 								<h2 class="mb-0"><a href="#">일식</a></h2>
 							</div>		
 						</div>
-						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/en.jpg);">
+						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(img/en.jpg);">
 							<div class="text px-3 py-1">
 								<h2 class="mb-0"><a href="#">양식</a></h2>
 							</div>
@@ -207,7 +203,7 @@ function insertCart(item, cnt){
     			<input type="hidden" th:value="${i.item_key}">
     				<div class="product">
     				<!-- 이미지 -->
-    					<a href="#" class="img-prod"><img class="img-fluid" th:src="@{/images/cook.jpg}" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" th:src="@{/img/cook.jpg}" alt="Colorlib Template">
     					<!-- 할인률 -->
     						<span class="status per" th:if="${i.per > 0}" th:text="${i.per}+'% SALE'"></span>
     						<div class="overlay"></div>
@@ -261,7 +257,7 @@ function insertCart(item, cnt){
     			<input type="hidden" th:value="${i.item_key}">
     				<div class="product">
     				<!-- 이미지 -->
-    					<a href="#" class="img-prod"><img class="img-fluid" th:src="@{/images/cook.jpg}" alt="Colorlib Template">
+    					<a href="#" class="img-prod"><img class="img-fluid" th:src="@{/img/cook.jpg}" alt="Colorlib Template">
     					<!-- 할인률 -->
     						<span class="status per" th:if="${i.per > 0}" th:text="${i.per}+'% SALE'"></span>
     						<div class="overlay"></div>
@@ -297,7 +293,7 @@ function insertCart(item, cnt){
     </section>
     
 		
-		<section class="ftco-section img" style="background-image: url(images/event1.jpg);">
+		<section class="ftco-section img" style="background-image: url(img/event1.jpg);">
     	<div class="container">
 				<div class="row justify-content-end">
           <div class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate">

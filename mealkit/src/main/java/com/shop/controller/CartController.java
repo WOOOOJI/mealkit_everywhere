@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.shop.dto.CartDTO;
 import com.shop.service.CartService;
 
+
 @Controller
 public class CartController {
+
 
 	@Autowired
 	CartService service;
@@ -27,7 +29,7 @@ public class CartController {
 	String dir = "cart/";
 	
 	// 카트 페이지로 이동         Move to cart.html Page        ------------------------------------------------------------------------------------------------
-	@GetMapping("/cart")
+	@GetMapping("/cart/list")
 	public String cartPage(Model model, HttpServletRequest req) {
 		
 		HttpSession session = req.getSession();
@@ -41,21 +43,21 @@ public class CartController {
 		// 기본 택배비
 		int fee = 3000;
 		
-		
-		
-		int sessionKey = (int)session.getAttribute("cust_key");
-		System.out.println(sessionKey);
+
+		int cust_key = (int)session.getAttribute("cust_key");
+		System.out.println(cust_key);
+
 		
 		// 세션값이 없으면 로그인이 안되있는 상태 이므로 애초에 장바구니 페이지로 못온다.     if there is no sessionValue, user can't access to cart page
 		// 세션값을 받은게 있다면 장바구니 페이지로 이동.                             else sessionValue Exits. -> move to cart page.
-		if(sessionKey > 0) {
-			model.addAttribute("key", sessionKey);
+		
+			
 			
 			// Model 객체에 세션값과 일치하는 사용자의 장바구니 정보를 담아야 한다.       you have to Add attribute( which mean : customer's cart info ) to Model object  
 			// 이때 담겨있는 제품이 한개일수도 여러개 일수도 있다 -> ArrayList로 받아온다.   product could be only one or many. So need ArrayList for result of service Method   
 			List<CartDTO> cartList = new ArrayList<CartDTO>();
 			try {
-				cartList = service.CartList(sessionKey);
+				cartList = service.CartList(cust_key);
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("-------------- CartController.java cause Error: row 38 --------------");
@@ -104,9 +106,8 @@ public class CartController {
 			model.addAttribute("finalPrice", finalPrice);
 			
 			
-			
-			return "main";
-		}
+		
+		
 		
 		// 세션값이 없으면 중간에 장바구니 페이지로 리턴 되지 않고, 마지막에 login페이지로 return한다.    without sessionValue, don't stop At 28 rows (return cart). must move to login.html  
 		return "main";
@@ -173,15 +174,16 @@ public class CartController {
 			return result;
 		}
 	// 장바구니 수량 수정.      Delete cnt of user's CART        ------------------------------------------------------------------------------------------------
-		
-		
+
 		
 
 	// 장바구니에 상품 담기.     Insert Item on user's CART        ------------------------------------------------------------------------------------------------
 		@GetMapping("/cart/cartInsert")
-		@ResponseBody
-		public void cartInsert(int item_key, int cnt) {
-			int cust_key = 3;
+		public String cartInsert(int item_key, int cnt, HttpServletRequest req) {
+			
+			HttpSession session = req.getSession();
+			int cust_key = (int)session.getAttribute("cust_key");
+			
 			
 			if(cnt == 0) cnt = 1;
 			
@@ -191,7 +193,7 @@ public class CartController {
 				for(CartDTO c : dto) {
 					if(c.getItem_key()==item_key) {
 						service.increaseCart(c.getCart_key(), item_key, cnt);
-						return;
+						break;
 					}
 				}
 				
@@ -199,12 +201,13 @@ public class CartController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+			return "redirect:/";
 		}
 		
 		
 		
 		
 	// 장바구니 수량 수정.      Delete cnt of user's CART        ------------------------------------------------------------------------------------------------
-		
-		
+
 }

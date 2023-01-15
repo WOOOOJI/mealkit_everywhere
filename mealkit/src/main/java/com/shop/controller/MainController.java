@@ -3,6 +3,9 @@ package com.shop.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +24,15 @@ public class MainController {
 	CartService cService;
 	
 	
+	
 	@RequestMapping("/")
-	public String main(Model model) {
+	public String main(Model model, HttpServletRequest req) {
 		// 인기상품을 담을 리스트                                  			  ArrayList for bestItems
 		List<ItemDTO> bestList = new ArrayList<ItemDTO>();
 		// 신상품을 담을 리스트                                 				  ArrayList for newItems
 		List<ItemDTO> newList = new ArrayList<ItemDTO>();
 		
-		
+		HttpSession session = req.getSession();
 		
 		// 인기상품 ----------------------------------------------------------------------------------------------------------------------
 		try {
@@ -90,14 +94,21 @@ public class MainController {
 		// 장바구니 수량 보여주기 ------------------------------------------------------------------------------------------------------------
 		
 		// 세션값 가져오기. (int)req.getAttribute("cust_key");
-		int cust_key = 3;
 		
 		
-		try {
-			model.addAttribute("cartCnt", cService.cntCart(cust_key));
-		} catch (Exception e) {
-			e.getMessage();
-		}
+		
+//		if((int)session.getAttribute("cust_key")==0) {
+//			
+//		}else {
+//			int cust_key = (int)session.getAttribute("cust_key");
+//			try {
+//				model.addAttribute("cartCnt", cService.cntCart(cust_key));
+//			} catch (Exception e) {
+//				e.getMessage();
+//			}
+//		}
+		
+		
 		
 		return "main";
 	}

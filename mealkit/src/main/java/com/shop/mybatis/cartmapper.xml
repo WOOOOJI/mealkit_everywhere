@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		i.img1 AS "img1", i.name AS "name" FROM cart c
 		JOIN customer cust ON cust.cust_key = c.cust_key
 		JOIN item i ON i.item_key = c.item_key
-		WHERE c.cust_key = ${sessionKey}
+		WHERE c.cust_key = ${cust_key}
 	</select>
 	
 	<!-- 사용자의 장바구니 제품 삭제하기 -->
@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- 사용자의 장바구니에 담긴 상품 개수 가져오기 -->
 	<select id="cntCart" resultType="int" parameterType="Integer">
-		SELECT count(cart_key) AS "cartcnt" FROM cart WHERE cust_key = 3;
+		SELECT count(cart_key) AS "cartcnt" FROM cart WHERE cust_key = ${cust_key};
 	</select>
 	
 	
