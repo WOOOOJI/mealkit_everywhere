@@ -1,0 +1,250 @@
+<style>
+.login {
+	min-height: 100vh;
+}
+
+.bg-image {
+	background-image:
+		url('https://www.dailypop.kr/news/photo/202006/45407_88923_5125.jpg');
+	background-size: cover;
+	background-position: center;
+}
+
+.login-heading {
+	font-weight: 300;
+}
+
+.btn-login {
+	font-size: 0.9rem;
+	letter-spacing: 0.05rem;
+	padding: 0.75rem 1rem;
+}
+</style>
+<th:block layout:fragment="customScript">
+
+</th:block>
+
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="css/style.css">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<div class="container-fluid ps-md-0">
+	<div class="row g-0">
+		<div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+		<div class="col-md-8 col-lg-6">
+			<div class="login d-flex align-items-center py-5">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-9 col-lg-8 mx-auto">
+							<h3 class="login-heading mb-4">Sign up</h3>
+
+							<!-- 회원가입폼 -->
+							<form id="memberForm" th:action="@{/customer/memberForm}" method="post">
+								<div class="form-floating mb-3">
+									<input name="email" type="email" class="form-control" id="email" placeholder="name@example.com"	oninput="inputChange()"> 
+									<label for="email">ID(name@example.com)</label>
+								</div>
+								<div>
+									<button type="button" id="idCheck" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2">ID중복체크</button>
+								</div>
+								<div class="form-floating mb-3">
+									<input name="userpwd" type="password" class="form-control" id="userpwd" placeholder="Password"> <label for="userpwd">비밀번호</label>
+								</div>
+								<div id="pw1"></div>
+
+								<div class="form-floating mb-3">
+									<input type="password" class="form-control" id="userpwd2" placeholder="Password"> <label for="userpwd2">비밀번호 확인</label>
+								</div>
+								<div id="pw2"></div>
+
+								<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+								<!-- 추가 -->
+								<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+
+								<div class="form-floating mb-3">
+									<input name="username" type="text" class="form-control" id="username" placeholder="Username"> <label for="username">이름</label>
+								</div>
+
+
+								<div class="form-floating mb-3">
+									<input name="tel" type="text" class="form-control" id="tel" placeholder="Tel"> <label for="tel">전화번호</label>
+								</div>
+
+								<div class="d-grid">
+									<button id="memberBtn" class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit" onclick="formSubmit(); return false;">회원가입</button>
+									<div class="text-center"></div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</html>
+
+<script>
+let isEmailChecked = false;  //중복확인(체크) 여부
+let isEmailDuplicate = true; //중복 여부
+
+function inputChange() { //oninput 이벤트는 input 태그 안의 값들이 변경 될때마다 이벤트가 발생
+	isEmailChecked = false;
+}
+
+document.getElementById("idCheck").onclick = function() {
+	
+	
+	if( $("#email").val() == "" || $("#email").val() == null ){ //ID없이 중복확인 눌렀을 때
+		alert("ID 입력 후 확인하세요.");
+		return false;
+	}
+	//아이디(이메일) 유효성검사		
+	//reg = /^\w{6,15}[@][a-z0-9]{2,8}[.][a-z]{2,3}([.][a-z]{2,3})?$/ 이거할까요..? 예전에 강사님이랑 한거 
+	reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+	if(!reg.test($("#email").val())){
+		alert("잘못된 이메일 주소입니다.");
+		return false;	
+	}
+	$.post("idCheck", 
+			{email: $("#email").val() }, 
+	   		function(data){
+				console.log(data);
+	    		if( data > 0 ) {
+	    			alert("ID 중복입니다.");
+	    			isEmailChecked = true;
+	    			isEmailDuplicate = true;
+	    		}
+	    		else{
+	    			alert('사용가능한 ID입니다.')
+	    			isEmailChecked = true;
+	    			isEmailDuplicate = false;
+	    		}
+			}
+		)
+};
+
+
+$('#userpwd').keyup(function(){
+	correctPwd();
+});
+
+
+$("#alert-success").hide();
+$("#alert-danger").hide();
+
+$('#userpwd2').keyup(function(){
+	var pwd1 = $('#userpwd').val();
+	var pwd2 = $('#userpwd2').val();
+	if(pwd1 != "" || pwd2 != ""){
+		if(pwd1==pwd2){
+			 $("#alert-success").show(); 
+	         $("#alert-danger").hide();  
+		}else{
+			$("#alert-success").hide();  
+	        $("#alert-danger").show();  
+		}
+	}
+});
+
+$('#pw1').css("color","red");  
+//$('#pw2').css("color","red");  
+
+function formSubmit() {
+	if( isEmailChecked == false) { //ID 중복체크 전, 회원가입버튼 눌렀을 때
+		alert("ID 중복체크 후 가입하세요");
+		return false;
+	}
+		
+ 	if( isEmailDuplicate == true) {//ID 중복체크 후, 중복인데 회원가입버튼 눌렀을 때
+		alert("email 중복입니다.");
+		return false;
+	} 
+ 	
+	let result = chkPwd();
+	if(result == false ) return false;
+	if( $("#userpwd").val() != $("#userpwd2").val() ) { //비밀번호 확인 
+		alert("비밀번호 값이 다릅니다.");
+		return false;
+	}
+	
+	reg = /^[가-힣]{2,7}$/;
+	if(!reg.test($("#username").val())){ //이름 유효성 검사
+		alert("이름은 한글 2-7자까지 허용합니다.");
+		return false;
+	}
+	
+	reg = /^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/;
+	if (!reg.test($("#tel").val())) { 	//전화번호 유효성 검사
+		alert("유효하지 않는 전화번호입니다.");
+	    return false;
+    }
+	
+	$("#memberForm").submit();    	
+}
+
+
+function chkPwd(){
+
+	 var pw = $("#userpwd").val();
+	 var num = pw.search(/[0-9]/g);
+	 var eng = pw.search(/[a-z]/ig);
+	 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+	 if(pw.length < 8 || pw.length > 20){
+
+	  alert("8자리 ~ 20자리 이내로 입력해주세요.");
+	  return false;
+	 }else if(pw.search(/\s/) != -1){
+	  alert("비밀번호는 공백 없이 입력해주세요.");
+	  return false;
+	 }else if(num < 0 || eng < 0 || spe < 0 ){
+	  alert("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
+	  return false;
+	 }else {
+		console.log("통과"); 
+	    return true;
+	 }
+
+}	
+
+function correctPwd(){
+
+	 var pw = $('#userpwd').val();
+	 var num = pw.search(/[0-9]/g);
+	 var eng = pw.search(/[a-z]/ig);
+	 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+	 if(pw.length < 8 || pw.length > 20){
+	  $('#pw1').text("8자리 ~ 20자리 이내로 입력해주세요.");
+	 }else if(pw.search(/\s/) != -1){
+		 $('#pw1').text("비밀번호는 공백 없이 입력해주세요.");
+	 
+	 }else if(num < 0 || eng < 0 || spe < 0 ){
+		 $('#pw1').text("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
+	  
+	 }else {
+		$('#pw1').text("");
+	 }
+
+}	
+
+
+function samePwd(){
+	let result = chkPwd();
+	if(result == false ) return false;
+	if( $("#userpwd").val() != $("#userpwd2").val() ) { //비밀번호 확인 
+		alert("비밀번호 값이 다릅니다.");
+		return false;
+	}
+}
+
+</script>
