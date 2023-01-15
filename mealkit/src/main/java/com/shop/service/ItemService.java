@@ -45,6 +45,14 @@ public class ItemService implements MyService<Integer, ItemDTO>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public List<ItemDTO> bestItem() throws Exception{
+		return mapper.bestItem();
+	}
+	
+	public List<ItemDTO> newItem() throws Exception{
+		return mapper.newItem();
+	}
 
 
 

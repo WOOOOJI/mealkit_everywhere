@@ -15,7 +15,6 @@ public class CartService implements MyService<Integer, CartDTO>{
 	@Autowired
 	CartMapper mapper;
 	
-	
 	@Override
 	public void register(CartDTO v) throws Exception {
 		mapper.insert(v);
@@ -47,5 +46,19 @@ public class CartService implements MyService<Integer, CartDTO>{
 		return mapper.CartList(k);
 	}
 
+	// 사용자의 장바구니에 담긴 상품의 개수 가져오기
+	public int cntCart(Integer k) throws Exception{
+		return mapper.cntCart(k);
+	}
+	
+	// 장바구니에 물건 담기
+	public void insertCart(int cust_key, int item_key, int cnt) throws Exception{
+		mapper.insertCart(cust_key, item_key, cnt);
+	}
+	
+	// 장바구니에 이미 존재하는 물건을 추가를 하면 수량을 증가시키기
+	public void increaseCart(int cart_key, int item_key, int cnt) throws Exception{
+		mapper.increaseCart(cart_key, item_key, cnt);
+	}
 }
 

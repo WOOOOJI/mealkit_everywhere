@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ public class CartController {
 	@GetMapping("/cart")
 	public String cartPage(Model model, HttpServletRequest req) {
 		
+		HttpSession session = req.getSession();
 		
 		// 여러개의 장바구니의 가격 총합.
 		int totalPrice = 0;
@@ -40,9 +42,9 @@ public class CartController {
 		int fee = 3000;
 		
 		
-		// 세션값 가져오기. (int)req.getAttribute("key");
 		
-		int sessionKey = 1;
+		int sessionKey = (int)session.getAttribute("cust_key");
+		System.out.println(sessionKey);
 		
 		// 세션값이 없으면 로그인이 안되있는 상태 이므로 애초에 장바구니 페이지로 못온다.     if there is no sessionValue, user can't access to cart page
 		// 세션값을 받은게 있다면 장바구니 페이지로 이동.                             else sessionValue Exits. -> move to cart page.
@@ -128,6 +130,13 @@ public class CartController {
 		public int cartList(int cust_key) {
 			int result=0;
 			System.out.println(cust_key);
+			
+			
+			
+			// 표기법 통일
+			
+			
+			
 			try {
 				service.remove(cust_key);
 				result=1;
@@ -163,6 +172,38 @@ public class CartController {
 			
 			return result;
 		}
+	// 장바구니 수량 수정.      Delete cnt of user's CART        ------------------------------------------------------------------------------------------------
+		
+		
+		
+
+	// 장바구니에 상품 담기.     Insert Item on user's CART        ------------------------------------------------------------------------------------------------
+		@GetMapping("/cart/cartInsert")
+		@ResponseBody
+		public void cartInsert(int item_key, int cnt) {
+			int cust_key = 3;
+			
+			if(cnt == 0) cnt = 1;
+			
+			List<CartDTO> dto = new ArrayList<CartDTO>();
+			try {
+				dto = service.CartList(cust_key);
+				for(CartDTO c : dto) {
+					if(c.getItem_key()==item_key) {
+						service.increaseCart(c.getCart_key(), item_key, cnt);
+						return;
+					}
+				}
+				
+				service.insertCart(cust_key, item_key, cnt);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
 	// 장바구니 수량 수정.      Delete cnt of user's CART        ------------------------------------------------------------------------------------------------
 		
 		

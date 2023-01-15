@@ -25,4 +25,19 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		UPDATE cart SET cnt=${cnt} WHERE cart_key = ${cart_key}
 	</update>
 	
+	<!-- 사용자의 장바구니에 담긴 상품 개수 가져오기 -->
+	<select id="cntCart" resultType="int" parameterType="Integer">
+		SELECT count(cart_key) AS "cartcnt" FROM cart WHERE cust_key = 3;
+	</select>
+	
+	
+	<!-- 장바구니에 제품 담기. -->
+	<insert id="insertCart">
+		INSERT INTO cart(cust_key, item_key, cnt) VALUES(${cust_key}, ${item_key}, ${cnt});
+	</insert>
+	
+	<!-- 장바구니에 존재하는 제품 추가시 수량 증가 -->
+	<update id="increaseCart">
+		UPDATE cart SET cnt=cnt+${cnt} WHERE cart_key=${cart_key}
+	</update>
 </mapper>

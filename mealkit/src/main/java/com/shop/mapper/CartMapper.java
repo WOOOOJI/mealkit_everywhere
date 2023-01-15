@@ -14,4 +14,14 @@ public interface CartMapper extends MyMapper<Integer, CartDTO>{
 	
 	// 특정 사용자의 장바구니 리스트 내용물 가져오기
 	public List<CartDTO> CartList(int sessionKey) throws Exception;
+	
+	// 장바구니에 담긴 상품 개수를 가져오기
+	public int cntCart(int custKey) throws Exception;
+	
+	// 장바구니에 물건 담기
+	public void insertCart(int cust_key, int item_key, int cnt) throws Exception;
+	
+	// 장바구니에 이미 존재하는 물건을 추가를 하면 수량을 증가시키기
+	public void increaseCart(int cart_key, int item_key, int cnt) throws Exception;
+	
 }

@@ -22,6 +22,9 @@ public class ItemDTO {
 	private int price;
 	private int sale;
 	private int cnt;
+	
+	
+	
 	private SimpleDateFormat rdate;
 	
 	
@@ -30,4 +33,8 @@ public class ItemDTO {
 	private MultipartFile imgfile3;
 	private MultipartFile imgfile4;
 	private MultipartFile imgfile5;
+	
+	
+	// 퍼센티지 변수 추가
+	private int per;
 }
