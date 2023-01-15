@@ -18,6 +18,7 @@ import com.shop.service.CustomerService;
 @RequestMapping("/customer")
 public class CustomerController {
 
+
 	@Autowired
 	CustomerService service;
 
@@ -131,5 +132,7 @@ public class CustomerController {
 		model.addAttribute("num", 0);
 		return "findpwd";
 	}
+
+
 	
 }
