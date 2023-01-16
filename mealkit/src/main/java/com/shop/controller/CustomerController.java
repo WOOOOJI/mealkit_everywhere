@@ -51,7 +51,7 @@ public class CustomerController {
 	}
 
 	// 로그인 폼
-	@GetMapping("/login")
+	@GetMapping("/loginForm")
 	public String loginForm(Model model) {
 		return "customer/login";
 	}
@@ -70,11 +70,11 @@ public class CustomerController {
 			model.addAttribute("loginResult", "success");
 			model.addAttribute("username", customerDTO.getUsername()); // 로그인 성공시 메인에서 '___님 환영합니다' 메세지
 			System.out.println(session);
-			return "main";
+			return "trash";
 		} else {
 			model.addAttribute("loginResult", "fail"); // 로그인 실패시 '아이디와 비밀번호를 확인하세요.' 메세지
 			model.addAttribute("content", "customer/login");
-			return "main";
+			return "customer/login";
 		}
 	}
 
@@ -93,10 +93,15 @@ public class CustomerController {
 
 	// 아이디 찾기
 	@PostMapping("/findId")
-	@ResponseBody
-	public String findId(CustomerDTO dto) throws Exception {
+	public String findId(CustomerDTO dto, Model model) throws Exception {
 		String result = service.findId(dto);
-		return result;
+		model.addAttribute("result", result);
+		
+		if(result==null || result.equals("")) {
+			return "customer/findid";
+		}
+		
+		return "redirect:/customer/loginForm";
 	}
 
 	// 비밀번호 찾기 폼
@@ -133,7 +138,7 @@ public class CustomerController {
 		return "customer/findpwd";
 	}
 	
-	
+	// 비밀번호 재설정
 	@PostMapping("/resetPwd")
 	public String resetPwd(String pwd1, String pwd2, int cust_key, Model model) {
 		int result = 0;
@@ -148,7 +153,6 @@ public class CustomerController {
 		
 		
 		if(result == 0) {
-			
 			model.addAttribute("result", result);
 			return "customer/resetPwd";
 		}

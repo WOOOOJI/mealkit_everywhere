@@ -106,8 +106,8 @@
 
 		
 									
-							<!-- 로그인 폼 -->
-							<form id="loginForm" th:action="@{/customer/login}" method="post">
+							<!-- 아이디 찾기 폼 -->
+							<form id="loginForm" th:action="@{/customer/findId}" method="post">
 								<div class="form-floating mb-3">
 									<input name="email" type="text" class="form-control"
 										id="inputName" placeholder="name@example.com"> <label
@@ -152,6 +152,9 @@
 			return false;
 		}
 		
+		
+	 	
+		
 		 $.post("findPwd", {
 		 username : $("#inputName").val(),
 		 tel : $("#inputTel").val()}, 
@@ -159,7 +162,7 @@
 		 function(data) {
 		 console.log(data);
 		 alert(data)		 
-		 })
+		 }) 
 	};
 </script>
 

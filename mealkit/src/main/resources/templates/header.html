@@ -28,6 +28,12 @@
     <link rel="stylesheet" th:href="@{/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     
+    <style>
+    	#cart{
+    		margin-top:3px;
+    	}
+    </style>
+    
   </head>
   <body class="goto-here">
 		<div class="py-1 bg-primary">
@@ -78,13 +84,13 @@
 	          <li class="nav-item"><a href="contact.html" class="nav-link">공지사항</a></li>
 	          
 	          <li class="nav-item" th:if="${session.cust_key == null}" ><a th:href="@{/customer/memberForm}" class="nav-link">회원가입</a></li>
-	          <li class="nav-item" th:if="${session.cust_key == null}" ><a th:href="@{/customer/login}" class="nav-link">로그인</a></li>
+	          <li class="nav-item" th:if="${session.cust_key == null}" ><a th:href="@{/customer/loginForm}" class="nav-link">로그인</a></li>
 	          
 	          <li class="nav-item" th:if="${session.cust_key != null}" ><a th:href="@{/customer/mypage}" class="nav-link">My Page</a></li>
 	          <li class="nav-item" th:if="${session.cust_key != null}" ><a th:href="@{/customer/logout}" class="nav-link" >로그아웃</a></li>
 	          
 
-	          <li class="nav-item cta cta-colored"><a th:href="@{/cart/list}" class="nav-link"><span class="icon-shopping_cart" th:text="${cartCnt}">[]</span></a></li>
+	          <li class="nav-item cta cta-colored" id="cart"><a th:href="@{/cart/list}" class="nav-link"><span class="icon-shopping_cart" th:text="${cartCnt}">[]</span></a></li>
 
 	        </ul>
 	      </div>
