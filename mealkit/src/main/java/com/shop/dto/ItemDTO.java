@@ -1,27 +1,33 @@
 package com.shop.dto;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class ItemDTO {
-	private int item_key;
-	private int category_key;
-	private String name;
+	private int item_key;		//not null
+	private int category_key;	//not null
+	private String name;		//not null
 	
-	private String img1;
+	private String img1;		//not null
 	private String img2;
 	private String img3;
 	private String img4;
 	private String img5;
 	
 	private String content;
-	private int price;
-	private int sale;
-	private int cnt;
+	private int price;			//not null
+	private int sale;			//not null
+	private int cnt;			//not null
 	private SimpleDateFormat rdate;
 	
 	
@@ -30,4 +36,8 @@ public class ItemDTO {
 	private MultipartFile imgfile3;
 	private MultipartFile imgfile4;
 	private MultipartFile imgfile5;
+	
+	
+    private List<ItemDTO> itemlist = new ArrayList<>();
+
 }

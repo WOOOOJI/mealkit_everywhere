@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" >
+ 	
+    <div class="hero-wrap hero-bread" style="background-image: url('/images/bg_2.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Products</span></p>
+            <h1 class="mb-0 bread">한식</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <section class="ftco-section">
+    	<div class="container">
+    	
+    	
+    		<div class="row justify-content-center">
+    			<div class="col-md-10 mb-5 text-center">
+    				<ul class="product-category">
+    					<!-- 상품 카테고리 -->
+    					<li><a href="/shoplist">모든 상품</a></li>
+    					<li><a href="/shoplist/korean" class="active">한식</a></li>
+    					<li><a href="/shoplist/japanese">일식</a></li>
+    					<li><a href="/shoplist/chinese">중식</a></li>
+    					<li><a href="/shoplist/southasia">동남아</a></li>
+    				</ul>
+    			</div>
+    		</div>
+    		
+    		
+    		
+    		<div class="row">
+    		
+	    		<!-- 상품 리스트 구간 -->
+		    	<th:block th:if="${itemList != 'empty'}" th:each="item : ${itemList}">
+		    		<div class="col-md-6 col-lg-3 ftco-animate">
+		    			<div class="product">
+		    				<a href="#" class="img-prod"><img class="img-fluid" th:src="@{/images/}+${item.img1}" alt="No image">
+		    					<!-- 썸네일 위에 표시 되는 할인율 -->
+		    					<!-- span class="status">30%</span> -->
+		    					<div class="overlay"></div>
+		    				</a>
+		    				<div class="text py-3 pb-4 px-3 text-center">
+		    					<h3><a href="#"><span th:text="${item.name}"></span></a></h3>
+		    					<div class="d-flex">
+		    						<div class="pricing">
+				    					<p class="price"><span class="mr-2 price-dc" th:text="${item.price}"></span><span class="price-sale" th:text="${item.sale}"></span></p>
+				    				</div>
+			    				</div>
+			    				<div class="bottom-area d-flex px-3">
+			    					<div class="m-auto d-flex">
+			    						<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+			    							<span><i class="ion-ios-menu"></i></span>
+			    						</a>
+			    						<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+			    							<span><i class="ion-ios-cart"></i></span>
+			    						</a>
+			    						<a href="#" class="heart d-flex justify-content-center align-items-center ">
+			    							<span><i class="ion-ios-heart"></i></span>
+			   							</a>
+		    						</div>
+		   						</div>
+		   					</div>
+		   				</div>
+		   			</div>
+				</th:block>
+				
+				<!-- 등록된 상품이 없을 때 -->
+				<th:block th:if="${itemList == 'empty'}">
+					<p>등록된 상품이 없습니다</p>
+				</th:block>
+					    		 
+	        </div>
+    		
+    		
+    		
+    			<!-- 페이징 바 -->
+		    	<div class="row mt-5">
+		          <div class="col text-center">
+		            <div class="block-27">
+		              <ul>
+		              	<!-- <a>태그의 href는 get방식만 가능하다? -->
+		              	
+		              	
+		              	<!-- th:if="${pageMaker.prev == true에서 ture를 ''로 묶으면 문자열로 인식한다. 따라서 true로 써야 한다 -->
+		                <!-- 클래스는 공백으로도 설정이 된다 -->
+	                	<!-- 타임리프로 클래스 설정시 문자열이 아닌 값으로 넘긴다 -->
+
+		                <!-- 이전 버튼 -->
+		                <li class="prevbtn"><a th:if="${pageMaker.prev == true}" th:href="@{/shoplist/korean(pageNum = ${pageMaker.pageStart - 1})}">&lt;</a></li>
+							<!-- 페이지 번호 출력 -->
+		                	<li th:each="pageNum : ${pageNumList}"  class="active">
+		                		<a th:href="@{/shoplist/korean(pageNum = ${pageNum})}" th:text="${pageNum}"></a>
+		                	</li>
+		                <!-- 다음 버튼 -->
+		                <li class="nextbtn"><a th:if="${pageMaker.next == true}" th:href="@{/shoplist/korean(pageNum = ${pageMaker.pageEnd + 1})}">&gt;</a></li>
+		              </ul>
+		            </div>
+		          </div>
+		        </div>
+	        
+    	</div>
+    </section>
+
+	
+    
