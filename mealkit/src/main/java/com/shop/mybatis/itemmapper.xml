@@ -8,4 +8,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	UPDATE item SET cnt=cnt-(SELECT cnt from order_detail where orderdet_key=${orderdet_key})
 	WHERE item_key=(SELECT item_key FROM order_detail WHERE orderdet_key=${orderdet_key});
 	</update>
+
+	<select id="bestItem" resultType="ItemDTO">
+		SELECT * FROM item ORDER BY RAND() Limit 8;
+	</select>
+	
+	<select id="newItem" resultType="ItemDTO">
+		SELECT * FROM item ORDER BY item_key desc limit 8;
+	</select>
 </mapper>

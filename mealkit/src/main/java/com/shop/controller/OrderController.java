@@ -67,9 +67,8 @@ public class OrderController {
 		
 		
 		//세션에 저장된 유저의 key를 갖고온다.
-		//int cust_key=(int)session.getAttribute("cust_key");
-		int cust_key=1;
-		
+		int cust_key=(int)session.getAttribute("cust_key");
+
 		//0이면 로그인 페이지로 아니면 주문하기 페이지로 이동
 		if(cust_key==0) {
 			model.addAttribute("content", null);
@@ -158,8 +157,7 @@ public class OrderController {
 		
 		
 		//세션에 저장된 유저의 key를 갖고온다.
-		//int cust_key=(int)session.getAttribute("cust_key");
-		int cust_key=1;
+		int cust_key=(int)session.getAttribute("cust_key");
 		
 		try {
 			addrlist=addrservice.user_addr(cust_key);
@@ -188,8 +186,7 @@ public class OrderController {
 		OrderDTO order=null;
 		
 		//세션에 저장된 유저의 key를 갖고온다.
-		//int cust_key=(int)session.getAttribute("cust_key");
-		int cust_key=1;
+		int cust_key=(int)session.getAttribute("cust_key");
 		
 		//0이면 로그인 페이지로 아니면 주문하기 페이지로 이동
 		if(cust_key==0) {

@@ -1,5 +1,7 @@
 package com.shop.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +14,8 @@ import com.shop.frame.MyMapper;
 public interface ItemMapper extends MyMapper<Integer, ItemDTO>{
 	//주문 완료 후 수량을 줄여주는 기능
 	public void cntdown(OrderDetailDTO od) throws Exception;
+	
+	public List<ItemDTO> bestItem();
+	
+	public List<ItemDTO> newItem();
 }

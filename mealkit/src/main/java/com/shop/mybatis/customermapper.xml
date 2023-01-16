@@ -2,6 +2,55 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.shop.mapper.CustomerMapper">
+ 	
+ 	<!-- 아이디 중복확인 -->
+ 	<select id="isEmailExist" parameterType="CustomerDTO" resultType="int">
+		SELECT count(email) FROM customer WHERE email=#{email}
+	</select>
+
+	 <!-- 회원 가입 -->
+    <insert id="addMember" parameterType="CustomerDTO">
+        INSERT INTO customer(email, username, userpwd, tel)
+        VALUES (#{email}, #{username}, #{userpwd}, #{tel})
+    </insert>
+    
+   <!--  로그인 -->
+    <select id="loginCheck" parameterType="CustomerDto" resultType="CustomerDto">
+        SELECT email, username, userpwd, tel, cust_key FROM customer
+        WHERE email = #{email} AND userpwd = #{userpwd}
+    </select>
+    
+    <!-- 아이디찾기 -->
+    <select id="findId" parameterType="CustomerDto" resultType="CustomerDto">
+    	SELECT email FROM customer 
+    	WHERE username=#{username} AND tel=#{tel} 
+    </select>
+    
+    <!-- 비밀번호 찾기 : 이메일로 임시 비밀번호 보내기 -->
+    <select id="findPwd" parameterType="CustomerDto" resultType="CustomerDto">   
+    	SELECT email FROM customer 
+    	WHERE email=#{email} AND tel=#{tel} 
+    </select>
+    
+    <!-- 아이디, 전화번호 일치여부 -->
+    <select id="resetPwdForm" resultType="CustomerDTO">
+    	SELECT cust_key FROM customer
+    	WHERE email=#{email} AND tel=#{tel}
+    </select> 
+    
+    <!-- 이메일이 일치하는 회원의 고유번호 가져오기 -->
+	<select id="findCustKey" resultType="int">
+		SELECT cust_key FROM customer WHERE email = #{email}
+	</select>    
+	
+	<update id="resetPwd">
+		UPDATE customer SET userpwd = #{pwd1} WHERE cust_key = ${cust_key}
+	</update>
 	
 </mapper>
+
+
+
+
