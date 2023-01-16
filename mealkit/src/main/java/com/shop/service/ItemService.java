@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shop.dto.ItemDTO;
+import com.shop.dto.OrderDetailDTO;
 import com.shop.frame.MyService;
 import com.shop.mapper.ItemMapper;
 
@@ -44,6 +45,10 @@ public class ItemService implements MyService<Integer, ItemDTO>{
 	public List<ItemDTO> get() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void cntdown(OrderDetailDTO od) throws Exception{
+		mapper.cntdown(od);
 	}
 
 

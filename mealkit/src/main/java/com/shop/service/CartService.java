@@ -38,6 +38,8 @@ public class CartService implements MyService<Integer, CartDTO>{
 		return mapper.selectall();
 	}
 	
-	
+	public void cart_delete(int cust_key) throws Exception{
+		mapper.cart_delete(cust_key);
+	}
 
 }

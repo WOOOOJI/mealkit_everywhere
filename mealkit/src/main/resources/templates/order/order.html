@@ -1,0 +1,189 @@
+<style>
+#cart_to_order{
+float:left;
+}
+
+#cart_to_order>li{
+	list-style:none;
+	float:left;
+}
+
+#cart_to_order>li>a>img{
+	width:100px;
+	height:100px;
+}
+</style>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+
+	function payment() {
+		if('[[${def}]]'==null){
+			alert('배송지를 선택해주세요');
+			return false;
+		}
+	    document.addr_form.action = "[[@{/order/payment}]]";
+	    document.addr_form.submit();
+	}
+	
+	
+	if('[[${res}]]'<0){
+		alert('[[${item}]]'+'의 재고가 부족합니다. 메인페이지로 돌아갑니다.');
+		location.href='[[@{/}]]';
+	}
+	
+	
+	$(document).ready(function(){
+		$('#select_addr').click(function(){
+			window.open('[[@{/order/selectaddr}]]','popup','width=700px,height=800px,resizable=no')
+		}); 
+		
+	});
+	
+</script>
+
+
+    <div class="hero-wrap hero-bread" style="background-image: url('/images/bg_1.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"><a th:href="@{/}">Home</a></span></p>
+            <h1 class="mb-0 bread">주문/결제하기</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ftco-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-7 ftco-animate">
+				<form action="#" class="billing-form" name="addr_form" id="addr_form" method="POST">
+					<h3 class="mb-4 billing-heading">주문/결제하기</h3>
+	          	<div class="row align-items-end">
+	          		<input th:if="${def!=null}" type="hidden" id="addr_key" name="addr_key" th:value="${def.addr_key}">
+	          		<input type="hidden" id="payment" name="payment" th:value="${finalprice}">
+	          		<div class="col-md-6">
+	                <div class="form-group">
+	                	<label for="name">받는 분 성함</label>
+	                  <input th:if="${def==null}" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" th:value="${def.name}" type="text" readonly="readonly" class="form-control" placeholder="">
+	                </div>
+	              </div>
+	              <div class="col-md-6">
+	                <div class="form-group">
+	                	<label for="tel">전화번호</label>
+	                  <input th:if="${def==null}" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" th:value="${def.tel}" type="text" class="form-control" readonly="readonly"  placeholder="">
+	                </div>
+                </div>
+                <div class="w-100"></div>
+		           	<div class="col-md-8">
+	                <div class="form-group">
+	                	<label for="addr">주소</label>
+	                  <input th:if="${def==null}" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" th:value="${def.addr}+', '+${def.addr_detail}" type="text" class="form-control" readonly="readonly" placeholder="">
+	                </div>
+	              </div>
+	              <div class="col-md-4">
+	                <div class="form-group">
+	                	<label for="zipcode">우편번호</label>
+	                  <input th:if="${def==null}" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" th:value="${def.zipcode}"type="text" class="form-control" readonly="readonly" placeholder="">
+	                </div>
+                </div>
+                 <div class="col-md-12">
+	                <div class="form-group">
+	                	<label for="req">배송 시 요청사항</label>
+	                  <input th:if="${def==null}" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" th:value="${def.req}"type="text" class="form-control" readonly="readonly" placeholder="">
+	                </div>
+                </div>
+                
+                <div class="col-md-12">
+	          		<p><a href="#"class="btn btn-primary py-3 px-4" style="float:right" id="select_addr">배송지 선택</a></p>
+	          	</div>
+		            <div class="w-100"></div>
+		           
+		            <div class="w-100"></div>
+		            <div class="col-md-12">
+		            	<div class="form-group">
+	                	<label for="towncity">주문할 상품</label>
+	                 <div class="w-100"></div>
+	                </div>
+		            </div>
+		     <section class="ftco-section ftco-cart">
+			<div class="container">
+				<div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div class="cart-list">
+	    				<table class="table">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+						        <th>&nbsp;</th>
+						        <th>상품명</th>
+						        <th>가격</th>
+						        <th>개수</th>
+						        <th>총합</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr th:each="c:${cart_to_order}" class="text-center">	        
+						        <td class="image-prod"><a th:href="@{/}"><img th:src="@{/img/}+${c.item_img}"></a></td>       
+						        <td class="product-name">
+						        	<a th:href="@{/}" th:text="${c.item_name}"></a>
+						        </td>
+						        <td class="sale" th:text="${c.item_sale}+'원'"></td>
+						        <td class="quantity">
+						        	<div class="input-group mb-3">
+					             	<input type="text" name="quantity" class="quantity form-control input-number" th:value="${c.item_cnt}">
+					          	</div>
+					          </td>
+						        
+						        <td class="total" th:text="${c.total}+'원'"></td>
+						      </tr><!-- END TR-->
+
+						    </tbody>
+						  </table>
+					  </div>
+    			</div>
+    		</div>
+			</div>
+		</section>
+		            <div class="w-100"></div>
+	            </div>
+	         	 </form><!-- END -->
+					</div>
+					<div class="col-xl-5">
+	          <div class="row mt-5 pt-3">
+	          	<div class="col-md-12 d-flex mb-5">
+	          		<div class="cart-detail cart-total p-3 p-md-4">
+	          			<h3 class="billing-heading mb-4">결제 내용</h3>
+	          			<p class="d-flex">
+		    						<span>정가</span>
+		    						<span th:text="${orprice}+'원'"></span>
+		    					</p>
+		    					<p class="d-flex">
+		    						<span>배송비</span>
+		    						<span th:text="${deliveryfee}+'원'"></span>
+		    					</p>
+		    					<p class="d-flex">
+		    						<span>할인 금액</span>
+		    						<span th:text="${sale}+'원'"></span>
+		    					</p>
+		    					<hr>
+		    					<p class="d-flex total-price">
+		    						<span>결제 금액</span>
+		    						<span th:text="${finalprice}+'원'" ></span>
+		    					</p>
+								</div>
+	          	</div>
+
+	          	<div class="col-md-12">
+	          		<div class="cart-detail p-3 p-md-4"><p><button class="btn btn-primary py-3 px-4" id="payment" onclick="payment()">결제하기</button></p>
+	          	</div>
+	          </div>
+          </div> <!-- .col-md-8 -->
+        </div>
+      </div>
+      </div>
+    </section> <!-- .section -->

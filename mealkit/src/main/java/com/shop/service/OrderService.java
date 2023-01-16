@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shop.dto.OrderDTO;
+import com.shop.dto.OrderDetailDTO;
 import com.shop.frame.MyService;
 import com.shop.mapper.OrderMapper;
 
@@ -17,32 +18,49 @@ public class OrderService implements MyService<Integer, OrderDTO>{
 
 	@Override
 	public void register(OrderDTO v) throws Exception {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void remove(Integer k) throws Exception {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void modify(OrderDTO v) throws Exception {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public OrderDTO get(Integer k) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.select(k);
 	}
 
 	@Override
 	public List<OrderDTO> get() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.selectall();
 	}
-
+	
+	public List<OrderDTO> cart_to_order(int key) throws Exception{
+		return mapper.cart_to_order(key);
+	}
+	
+	public List<OrderDTO> cntcheck(int key) throws Exception{
+		return mapper.cntcheck(key);
+	}
+	
+	public void create_blank(int key) throws Exception{
+		mapper.create_blank(key);
+	}
+	
+	public int get_orderkey(int cust_key) throws Exception{
+		return mapper.get_orderkey(cust_key);
+	}
+	
+	public void order_update(int addr_key, int order_key, int payment) throws Exception{
+		mapper.order_update(addr_key, order_key, payment);
+	}
+	
+	public OrderDTO getOrderByOrderKey(int order_key) throws Exception{
+		return mapper.getOrderByOrderKey(order_key);
+	}
 }

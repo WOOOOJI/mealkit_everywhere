@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.shop.dto.OrderDTO;
 import com.shop.dto.OrderDetailDTO;
 import com.shop.frame.MyService;
 import com.shop.mapper.OrderDetailMapper;
@@ -17,32 +18,34 @@ public class OrderDetailService implements MyService<Integer, OrderDetailDTO>{
 
 	@Override
 	public void register(OrderDetailDTO v) throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void remove(Integer k) throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void modify(OrderDetailDTO v) throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public OrderDetailDTO get(Integer k) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.select(k);
 	}
 
 	@Override
 	public List<OrderDetailDTO> get() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.selectall();
 	}
-
+	
+	public void cart_to_detail(int cust_key,OrderDTO o) throws Exception{
+		mapper.cart_to_detail(cust_key,o);
+	}
+	
+	public List<OrderDetailDTO> get_orderdetail_by_orderkey(int order_key) throws Exception{
+		return mapper.get_orderdetail_by_orderkey(order_key);
+	}
 }
