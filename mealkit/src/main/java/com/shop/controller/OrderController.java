@@ -119,7 +119,7 @@ public class OrderController {
 			
 			
 			
-			//finalprice: 결제금액, orprice: 원래 금액(정가)
+			//finalprice: 구매금액, orprice: 원래 금액(정가)
 			for(OrderDTO o:cart_to_order) {
 				finalprice+=o.getTotal();
 				orprice+=o.getItem_price();
@@ -166,6 +166,28 @@ public class OrderController {
 			e.printStackTrace();
 		}
 		return "order/selectaddr";
+	}
+	
+	@RequestMapping("/addaddr")
+	public String addaddr(HttpSession session, Model model) {
+		//배송지 선택창에서의 흐름
+		//1. 회원이 등록해둔 배송지를 리스트로 보여준다 (오른쪽에 선택/삭제 버튼)
+		//2. 배송지를 선택/삭제하거나 밑에 추가/취소 버튼으로 기능구현
+		//3. 추가 누르면 다시 팝업창에서 배송지 추가 폼 생성
+		List<AddressDTO> addrlist=null;
+		
+		
+		
+		//세션에 저장된 유저의 key를 갖고온다.
+		int cust_key=(int)session.getAttribute("cust_key");
+		
+		try {
+			addrlist=addrservice.user_addr(cust_key);
+			model.addAttribute("addrlist", addrlist);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "order/addaddr";
 	}
 	
 	@RequestMapping("/payment")

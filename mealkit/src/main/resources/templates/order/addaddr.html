@@ -1,41 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>7조의 밀키트</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
+
+    
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    
 <style>
-#cart_to_order{
-float:left;
-}
 
-#cart_to_order>li{
-	list-style:none;
-	float:left;
-}
-
-#cart_to_order>li>a>img{
-	width:100px;
-	height:100px;
-}
 </style>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 
-	function payment() {
+	function add() {
 		if('[[${def}]]'==""){
 			alert('배송지를 선택해주세요');
 			return false;
 		}
-		
-		
+		confirm('주문하시겠습니까?');
 	    document.addr_form.action = "[[@{/order/payment}]]";
 	    document.addr_form.submit();
 	}
 	
 	
-	if('[[${res}]]'<0){
-		alert('[[${item}]]'+'의 재고가 부족합니다. 메인페이지로 돌아갑니다.');
-		location.href='[[@{/}]]';
-	}
-	
-	
 	$(document).ready(function(){
-		
 		$('#select_addr').click(function(){
 			window.open('[[@{/order/selectaddr}]]','popup','width=700px,height=800px,resizable=no')
 		}); 
@@ -182,7 +192,7 @@ float:left;
 	          	</div>
 
 	          	<div class="col-md-12">
-	          		<div class="cart-detail p-3 p-md-4"><p><button class="btn btn-primary py-3 px-4" id="payment" onclick="payment()">결제하기</button></p>
+	          		<div class="cart-detail p-3 p-md-4"><p><button class="btn btn-primary py-3 px-4" id="payment" onclick="add()">추가하기</button></p>
 	          	</div>
 	          </div>
           </div> <!-- .col-md-8 -->

@@ -9,5 +9,6 @@ import com.shop.frame.MyMapper;
 @Repository
 @Mapper
 public interface BoardMapper extends MyMapper<Integer, BoardDTO>{
-
+	
+	
 }

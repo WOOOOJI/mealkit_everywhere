@@ -82,6 +82,7 @@ public class CartController {
 			}
 			
 			// System.out.println(salePrice);
+
 			
 			
 			
@@ -104,6 +105,7 @@ public class CartController {
 			model.addAttribute("fee", fee);
 			model.addAttribute("salePrice", salePrice);
 			model.addAttribute("finalPrice", finalPrice);
+
 			
 			
 		

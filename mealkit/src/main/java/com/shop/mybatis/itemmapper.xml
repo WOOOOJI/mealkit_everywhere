@@ -13,6 +13,133 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT * FROM item ORDER BY RAND() Limit 8;
 	</select>
 	
+	<!-- item_key에 해당하는 데이터 조회 -->
+	<select id="select" parameterType="Integer" resultType="ItemDTO">
+		SELECT * FROM item WHERE item_key=#{item_key}
+	</select>
+	
+	<!-- 모든 상품 조회 -->
+	<select id="selectall" resultType="ItemDTO">
+		SELECT * FROM item
+	</select>
+	
+	<!-- item_key 오름차순으로 데이터 모두 조회 (LIMIT-데이터 시작위치[0이 처음]와 시작위치를 기준으로 가져올 데이터의 개수) -->
+	<select id="getItemList" resultType="ItemDTO" parameterType="Criteria">
+		SELECT * FROM item 
+		
+		<if test="keyword != null">
+			where (name like concat ('%', #{keyword}, '%')) 
+		</if>
+		
+		ORDER BY item_key DESC 
+		LIMIT #{skip}, #{amount}
+	</select>
+	
+	<!-- 한국 상품 데이터 모두 조회 -->
+	<select id="getKoreanItemList" resultType="ItemDTO" parameterType="Criteria">
+		SELECT * FROM item where category_key = 1
+		
+		<if test="keyword != null">
+			where (name like concat ('%', #{keyword}, '%')), category_key = 1 
+		</if>
+		
+		ORDER BY item_key DESC 
+		LIMIT #{skip}, #{amount}
+	</select>
+
+	<!-- 일본 상품 데이터 모두 조회 -->
+	<select id="getJapaneseItemList" resultType="ItemDTO" parameterType="Criteria">
+		SELECT * FROM item where category_key = 2
+		
+		<if test="keyword != null">
+			where (name like concat ('%', #{keyword}, '%')), category_key = 2 
+		</if>
+		
+		ORDER BY item_key DESC 
+		LIMIT #{skip}, #{amount}
+	</select>
+	
+	<!-- 중국 상품 데이터 모두 조회 -->
+	<select id="getChineseItemList" resultType="ItemDTO" parameterType="Criteria">
+		SELECT * FROM item where category_key = 3
+		
+		<if test="keyword != null">
+			where (name like concat ('%', #{keyword}, '%')), category_key = 3 
+		</if>
+		
+		ORDER BY item_key DESC 
+		LIMIT #{skip}, #{amount}
+	</select>
+
+	<!-- 동남아 상품 데이터 모두 조회 -->
+	<select id="getSouthAsiaItemList" resultType="ItemDTO" parameterType="Criteria">
+		SELECT * FROM item where category_key = 4
+		
+		<if test="keyword != null">
+			where (name like concat ('%', #{keyword}, '%')), category_key = 4 
+		</if>
+		
+		ORDER BY item_key DESC 
+		LIMIT #{skip}, #{amount}
+	</select>
+	
+	<!-- not null칼럼 값들만 입력하여 데이터 삽입 -->
+	<insert id="insert" parameterType="ItemDTO">
+		INSERT INTO item(category_key,name,img1,content,price,sale,cnt) VALUES(#{category_key},#{name},#{img1},#{content},#{price},#{sale},#{cnt})
+	</insert>
+	
+	<!-- item_key를 사용하여 not null칼럼 값들 데이터 업데이트 -->
+	<update id="update" parameterType="ItemDTO">
+		UPDATE item SET category_key=#{category_key},name=#{name},img1=#{img1},content=#{content},price=#{price},sale=#{sale},cnt=#{cnt} WHERE item_key=#{item_key}
+	</update>
+	
+	<!-- item_key를 사용하여 데이터 삭제 -->
+	<delete id="delete" parameterType="ItemDTO">
+		DELETE FROM item WHERE item_key=#{item_key}
+	</delete>
+	
+	<!-- 모든 상품 데이터 갯수 세기 -->
+	<select id="countItem" resultType="int">
+		SELECT count(*) FROM item
+		
+		<if test="keyword != null">
+			where name like concat('%' , #{keyword}, '%')
+		</if>
+	</select>
+
+	<!-- 카테고리가 한국(category_key=1)인 데이터 갯수 세기 -->
+	<select id="countKoreanItem" resultType="int">
+		SELECT count(*) FROM item where category_key = 1
+		<if test="keyword != null">
+			where name like concat('%' , #{keyword}, '%'), category_key = 1
+		</if>
+	</select>
+
+	<!-- 카테고리가 일본(category_key=1)인 데이터 갯수 세기 -->
+	<select id="countJapaneseItem" resultType="int">
+		SELECT count(*) FROM item where category_key = 2
+		<if test="keyword != null">
+			where name like concat('%' , #{keyword}, '%'), category_key = 2
+		</if>
+	</select>
+
+	<!-- 카테고리가 중국(category_key=3)인 데이터 갯수 세기 -->
+	<select id="countChineseItem" resultType="int">
+		SELECT count(*) FROM item where category_key = 3
+		<if test="keyword != null">
+			where name like concat('%' , #{keyword}, '%'), category_key = 3
+		</if>
+	</select>
+
+	<!-- 카테고리가 동남아(category_key=4)인 데이터 갯수 세기 -->
+	<select id="countSouthAsiaItem" resultType="int">
+		SELECT count(*) FROM item where category_key = 4
+		<if test="keyword != null">
+			where name like concat('%' , #{keyword}, '%'), category_key = 4
+		</if>
+	</select>
+	
+	
 	<select id="newItem" resultType="ItemDTO">
 		SELECT * FROM item ORDER BY item_key desc limit 8;
 	</select>
