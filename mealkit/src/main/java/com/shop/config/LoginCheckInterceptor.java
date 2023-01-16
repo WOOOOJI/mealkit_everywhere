@@ -26,7 +26,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             return true;
         } else {
             try {
-                response.sendRedirect("/customer/login");
+                response.sendRedirect("/customer/loginForm");
                 
             } catch (IOException e) {
                 e.printStackTrace();

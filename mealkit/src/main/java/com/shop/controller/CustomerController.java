@@ -51,7 +51,7 @@ public class CustomerController {
 	}
 
 	// 로그인 폼
-	@GetMapping("/loginForm")
+	@RequestMapping("/loginForm")
 	public String loginForm(Model model) {
 		return "customer/login";
 	}
