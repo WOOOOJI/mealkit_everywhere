@@ -144,12 +144,12 @@
     				<div class="cart-total mb-3">
     					<h3>장바구니 전체</h3>
     					<p class="d-flex">
-    						<span>총액</span>
+    						<span>정가</span>
     						<span th:text="${totalPrice}+원"></span>
     					</p>
     					<p class="d-flex">
     						<span>배송비</span>
-    						<span th:text="${fee}"></span>
+    						<span th:text="${fee}+원"></span>
     					</p>
     					<p class="d-flex">
     						<span>할인금액</span>
@@ -158,10 +158,10 @@
     					<hr>
     					<p class="d-flex total-price" >
     						<span>결제 금액</span>
-    						<span th:text="${finalPrice}"></span>
+    						<span th:text="${finalPrice}+원"></span>
     					</p>
     				</div>
-    				<p><a href="checkout.html" class="btn btn-primary py-3 px-4">지금바로 주문하기 !</a></p>
+    				<p><a th:href="@{/order}" class="btn btn-primary py-3 px-4">지금바로 주문하기 !</a></p>
     			</div>
     		</div>
 			</div>

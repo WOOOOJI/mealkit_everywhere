@@ -132,7 +132,7 @@ public class OrderController {
 			
 			//할인된 가격 구하기
 			sale=orprice-finalprice;
-			
+			finalprice+=deliveryfee;
 			
 			model.addAttribute("finalprice", finalprice);
 			model.addAttribute("sale", sale);

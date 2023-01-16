@@ -83,21 +83,21 @@ public class CartController {
 			
 			// System.out.println(salePrice);
 			
-			// 총합계 금액에 배달비를 더해준다.                    							// add delivery fee at totalPrice
-			totalPrice += fee;
+			
+			
+			// 총합계 금액
+			finalPrice = totalPrice - salePrice;
+			
 			
 			// 총합계 금액이 3만원 이상은 배달비 무료											// if totalPrice bigger than 30$, fee is free.
-			if(totalPrice >= 30000) {
-							
-				// 최종 할인가에서 배달비를 더해준다.										// +fee on salePrice
-				salePrice += fee;
-				
+			if(finalPrice >= 30000) {
 				fee = 0;															
 			}
 			
 			
-			// 최종 결제 금액 구하기														// Calculate final Price
-			finalPrice = totalPrice - salePrice;
+			// 최종 결제 금액 구하기	(총합계 + 배송비)									 	// Calculate final Price
+			finalPrice += fee;
+			
 			
 			// 각각 금액들을 객체에 담아서 뷰로 보낸다.										// addAttriubte all of PRICE.
 			model.addAttribute("totalPrice", totalPrice);

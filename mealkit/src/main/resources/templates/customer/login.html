@@ -1,3 +1,4 @@
+
 <style>
 .login {
 	min-height: 100vh;
@@ -15,28 +16,50 @@
 }
 
 .btn-login {
+	position:absolute;
 	font-size: 0.9rem;
 	letter-spacing: 0.05rem;
 	padding: 0.75rem 1rem;
 }
 
+
 #kakao {
+
 	width: 298px;
 	height: 44px;
-	margin-left: 76px;
 	margin-bottom: 46px;
+
 }
 
 #forgotpwd{
+	color:black;
+	position:relative;
+	width: 100%; 
+	overflow-x:auto; 
 	float:right;
-	margin-left:16px;
+	 left: 30%; 
+
 }
 
 #forgotid{
+	color:black;
+	position:relative;
+	width: 100%; 
+	overflow-x:auto; 
 	float:right;
-  	margin-left:230px;
+   left: 55%; 
 }
 
+
+#sign{
+	color:black;
+	position:absolute;
+
+}
+
+.login_sns{
+    text-align: center;
+}
 
 </style>
 
@@ -50,7 +73,7 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{css/style.css}">
+<link rel="stylesheet" href="css/style.css">
 
 
 <meta charset="UTF-8">
@@ -67,10 +90,10 @@
 				            </div>
 
 									<!-- 카카오 로그인 -->
-									<div class="login_sns"> 
+									<div class="login_sns" > 
 										<a
 											href="https://kauth.kakao.com/oauth/authorize?client_id=2da5604aafb77a1238399f8f21ba80e8&redirect_uri=http://127.0.0.1/oauth/kakao&response_type=code">
-											<img id="kakao" th:src="@{/img/kakao.png}">
+											<img id="kakao" th:src="@{/img/kakao.png}"  >
 										</a>
 									</div>
 									
@@ -87,17 +110,26 @@
 										id="userpwd" placeholder="Password"> <label
 										for="userpwd">Password</label>
 								</div>
-					                <div class="d-sm-flex mb-5 align-items-center">
+								
+					               <div  class="d-sm-flex mb-5 align-items-center" >
+					                	
 					                  <a href="#" id="sign"class="forgot-pass" onclick="location.href='memberForm'">회원가입</a>
+					               
+					             
 					                  <a href="#" id="forgotid"class="forgot-pass" onclick="location.href='findid'">아이디 찾기</a>
-					                  <span class="ml-auto"><a href="#" id="forgotpwd" class="forgot-pass" onclick="location.href='findpwd'">비밀번호 찾기</a></span> 
-					                </div>
-
+					         		 	  
+					                  <a href="#" id="forgotpwd" class="forgot-pass" onclick="location.href='findpwd'">비밀번호 찾기</a> 
+					          		   
+					               </div>
+								
 								<div class="d-grid">
+								
+								
+								
+							
 									<button
 										class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2"
-										type="submit">로그인</button>
-						
+										type="submit">로그인</button>										
 									
 								</div>
 							</form>
