@@ -21,6 +21,8 @@ float:left;
 			alert('배송지를 선택해주세요');
 			return false;
 		}
+		
+		
 	    document.addr_form.action = "[[@{/order/payment}]]";
 	    document.addr_form.submit();
 	}
