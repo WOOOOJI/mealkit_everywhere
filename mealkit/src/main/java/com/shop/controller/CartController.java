@@ -193,7 +193,7 @@ public class CartController {
 				for(CartDTO c : dto) {
 					if(c.getItem_key()==item_key) {
 						service.increaseCart(c.getCart_key(), item_key, cnt);
-						break;
+						return "redirect:/";
 					}
 				}
 				

@@ -5,9 +5,9 @@
 history.scrollRestoration = "auto";
 // 장바구니 제품 추가
 
-function insertCart(item, cnt){
+function insertCart(item){
 	var item_key = item;
-	var cnt = cnt;
+	var cnt = 1;
 	location.href="/cart/cartInsert?item_key="+item_key+"&cnt="+cnt;
 };
 </script>
@@ -225,7 +225,7 @@ function insertCart(item, cnt){
 	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 	    								<span><i class="ion-ios-menu"></i></span>
 	    							</a>
-	    							<a href="#" th:onclick="insertCart([[${i.item_key}]], 1)" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="#" th:onclick="insertCart([[${i.item_key}]])" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
 	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
