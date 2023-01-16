@@ -46,6 +46,16 @@ public class AddressService implements MyService<Integer, AddressDTO>{
 		return null;
 	}
 
-
+	public AddressDTO check_default(int key) throws Exception {
+		return mapper.check_default(key);
+	};
+	
+	public List<AddressDTO> user_addr(int cust_key) throws Exception{
+		return mapper.user_addr(cust_key);
+	}
+	
+	public AddressDTO addr_key(int addr_key) throws Exception{
+		return mapper.addr_key(addr_key);
+	}
 
 }

@@ -25,9 +25,12 @@ public class ItemDTO {
 	private String img5;
 	
 	private String content;
-	private int price;			//not null
-	private int sale;			//not null
-	private int cnt;			//not null
+	private int price;
+	private int sale;
+	private int cnt;
+	
+	
+	
 	private SimpleDateFormat rdate;
 	
 	
@@ -37,7 +40,8 @@ public class ItemDTO {
 	private MultipartFile imgfile4;
 	private MultipartFile imgfile5;
 	
-	
     private List<ItemDTO> itemlist = new ArrayList<>();
 
+	// 퍼센티지 변수 추가
+	private int per;
 }

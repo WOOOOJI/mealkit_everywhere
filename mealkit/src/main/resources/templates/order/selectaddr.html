@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>배송지 선택</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+
+    <link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
+
+    
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    
+  </head>
+  
+<style>
+
+
+#ad>li{
+	list-style:none;
+	float:left;
+
+}
+#ad{
+	width:100%;
+	height:100px;
+}
+
+</style>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+
+function goSubmit() {
+    window.opener.name = "parentPage"; // 부모창의 이름 설정
+    document.addr_form.target = "parentPage"; // 타켓을 부모창으로 설정
+    document.addr_form.action = "[[@{/order}]]";
+    document.addr_form.submit();
+    self.close();
+}
+</script>
+	<h3 class="mb-4 billing-heading">배송지 선택</h3>
+	<form class="billing-form" name="addr_form" id="addr_form" method="POST">
+		<ul th:each="ad:${addrlist}" id="ad">
+			<li><input type="radio" name="addr_key" th:value="${ad.addr_key}"></li>
+			<li><input type="text" class="form-control" th:value="${ad.name}" readonly="readonly"></li>
+			<li><input type="text" class="form-control" th:value="${ad.tel}" readonly="readonly"></li>
+			<li><input type="text" class="form-control" th:value="${ad.addr}+${ad.addr_detail}" readonly="readonly"></li>
+			<li><input type="text" class="form-control" th:value="${ad.zipcode}" readonly="readonly"></li>
+			<li><input type="text" class="form-control" th:value="${ad.req}" readonly="readonly"></li>
+		</ul>
+		
+	</form>
+
+	<p><a href="#"class="btn btn-primary py-3 px-4" style="float:right" id="close_addr" onclick="javascript:window.close()">닫기</a></p>
+	<p><a href="#"class="btn btn-primary py-3 px-4" style="float:right" id="delete_addr">삭제</a></p>
+	<p><a th:href="@{/order/addaddr}"class="btn btn-primary py-3 px-4" style="float:right" id="add_addr">추가</a></p>
+	<button class="btn btn-primary py-3 px-4" id="select_addr" onclick="goSubmit()">선택</button>

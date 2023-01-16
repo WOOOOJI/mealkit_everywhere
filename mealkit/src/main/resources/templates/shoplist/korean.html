@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" >
  	
-    <div class="hero-wrap hero-bread" style="background-image: url('/images/bg_2.jpg');">
+    <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
@@ -39,7 +39,7 @@
 		    	<th:block th:if="${itemList != 'empty'}" th:each="item : ${itemList}">
 		    		<div class="col-md-6 col-lg-3 ftco-animate">
 		    			<div class="product">
-		    				<a href="#" class="img-prod"><img class="img-fluid" th:src="@{/images/}+${item.img1}" alt="No image">
+		    				<a href="#" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${item.img1}" alt="No image">
 		    					<!-- 썸네일 위에 표시 되는 할인율 -->
 		    					<!-- span class="status">30%</span> -->
 		    					<div class="overlay"></div>

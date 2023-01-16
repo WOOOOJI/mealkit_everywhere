@@ -10,7 +10,7 @@ public class OrderDTO {
 	private int cust_key;
 	private int price;
 	
-	private SimpleDateFormat rdate;
+	private String rdate;
 	
 	private String status;
 	private String name;
@@ -19,4 +19,16 @@ public class OrderDTO {
 	private String addr_detail;
 	private String tel;
 	private String req;
+	
+	//장바구니에서 가져올 변수들
+	private String item_img;
+	private String item_name;
+	private int item_cnt;
+	private int total;
+	private int item_price;
+	private int item_key;
+	private int item_sale;
+	
+	//item의 재고와 cart의 수를 비교할 변수
+	private int cntcheck;
 }

@@ -1,3 +1,30 @@
 <div id="header" th:include="header"></div>
 <div id="content" th:include="${content} ? ${content} : content"></div>
 <div id="footer" th:include="footer"></div>
+
+
+
+
+<!-- 회원가입 성공시 -->
+<script th:inline="javascript">
+function loginSuccess(){
+	/*<![CDATA[*/
+	var result = /*[[${result}]]*/ '';
+	if(result == 1) alert("회원가입을 축하합니다.");
+	/*]]>*/
+}
+
+loginSuccess();
+
+
+</script>
+
+
+<!-- 로그인 성공시 -->
+<script th:inline="javascript">
+/*<![CDATA[*/
+    var username = /*[[${username}]]*/ '';
+    if( username != '' && username != null ) alert(username + '님 환영합니다!')
+/*]]>*/
+</script>
+

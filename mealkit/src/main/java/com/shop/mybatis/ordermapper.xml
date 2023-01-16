@@ -3,5 +3,38 @@
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.OrderMapper">
-	
+	<!-- 장바구니에 담긴 제품들을 주문페이지로 가져오기 -->
+	<select id="cart_to_order" parameterType="Integer" resultType="OrderDTO">
+		SELECT i.item_key AS item_key, i.img1 AS item_img, i.name AS item_name, c.cnt AS item_cnt, i.sale*c.cnt  AS total, i.price*c.cnt AS item_price, i.sale AS item_sale FROM item i
+		INNER JOIN cart c where c.item_key = i.item_key AND c.cust_key=${key}
+	</select>
+	<!-- 재고 확인(item의 cnt와 cart의 cnt 비교) -->
+	<select id="cntcheck" parameterType="Integer" resultType="OrderDTO">
+		SELECT i.name AS item_name, i.cnt-c.cnt AS cntcheck FROM item i
+		INNER JOIN cart c WHERE c.item_key = i.item_key AND c.cust_key=${key}
+	</select>
+	<!-- 빈 total_order 생성하여 주문상세 받을 준비 -->
+	<insert id="create_blank" parameterType="Integer" >
+		INSERT INTO total_order(cust_key,price,name,zipcode,addr,addr_detail,tel) VALUES(${key},-1,(SELECT username FROM customer WHERE cust_key=${key}),
+		'blank','blank','blank','blank')
+	</insert>
+	<!-- order_key의 정보 갖고오기 -->
+	<select id="get_orderkey" parameterType="Integer" resultType="Integer">
+		SELECT order_key FROM total_order where cust_key=${cust_key} order by order_key desc limit 1
+	</select>
+	<!-- total_order를 주문 내용으로 UPDATE하기 -->
+	<update id="order_update">
+	    UPDATE total_order SET price=(select sum(price*cnt) from order_detail where order_key=${order_key}),
+	    name=(select name from address where addr_key=${addr_key}),
+    	zipcode=(select zipcode from address where addr_key=${addr_key}),
+	    addr=(select addr from address where addr_key=${addr_key}),
+	    addr_detail=(select addr_detail from address where addr_key=${addr_key}),
+	    tel=(select tel from address where addr_key=${addr_key}),
+	    req=(select req from address where addr_key=${addr_key})
+	    WHERE order_key=${order_key}
+	</update>
+	<!-- order_key 이용해서 order 갖고오기 -->
+	<select id="getOrderByOrderKey" parameterType="Integer" resultType="OrderDTO">
+		SELECT * FROM total_order WHERE order_key=${order_key}
+	</select>
 </mapper>

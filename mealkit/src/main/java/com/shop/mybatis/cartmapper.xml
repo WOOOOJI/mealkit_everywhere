@@ -3,7 +3,45 @@
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.CartMapper">
+	<!-- 주문 완료시 장바구니를 제거 -->
+	<delete id="cart_delete" parameterType="Integer">
+		DELETE FROM cart WHERE cust_key=${cust_key}
+	</delete>
 
-
+	<!-- 사용자 장바구니 리스트 가져오기  SELECT FROM customer's cart info-->
+	<select id="CartList" parameterType="Integer" resultType="CartDTO">
+		SELECT c.cust_key AS
+		"cust_key", c.item_key AS "item_key", c.cart_key AS "cart_key", c.cnt
+		AS "cnt", c.rdate AS "rdate", i.price AS "price", i.sale AS "sale",
+		i.img1 AS "img1", i.name AS "name" FROM cart c
+		JOIN customer cust ON cust.cust_key = c.cust_key
+		JOIN item i ON i.item_key = c.item_key
+		WHERE c.cust_key = ${cust_key}
+	</select>
 	
+	<!-- 사용자의 장바구니 제품 삭제하기 -->
+	<delete id="delete" parameterType="Integer">
+		DELETE FROM cart WHERE cart_key = ${cart_key}
+	</delete>
+	
+	<!-- 사용자의 장바구니 제품 수량 변경하기 -->
+	<update id="update">
+		UPDATE cart SET cnt=${cnt} WHERE cart_key = ${cart_key}
+	</update>
+	
+	<!-- 사용자의 장바구니에 담긴 상품 개수 가져오기 -->
+	<select id="cntCart" resultType="int" parameterType="Integer">
+		SELECT count(cart_key) AS "cartcnt" FROM cart WHERE cust_key = ${cust_key};
+	</select>
+	
+	
+	<!-- 장바구니에 제품 담기. -->
+	<insert id="insertCart">
+		INSERT INTO cart(cust_key, item_key, cnt) VALUES(${cust_key}, ${item_key}, ${cnt});
+	</insert>
+	
+	<!-- 장바구니에 존재하는 제품 추가시 수량 증가 -->
+	<update id="increaseCart">
+		UPDATE cart SET cnt=cnt+${cnt} WHERE cart_key=${cart_key}
+	</update>
 </mapper>

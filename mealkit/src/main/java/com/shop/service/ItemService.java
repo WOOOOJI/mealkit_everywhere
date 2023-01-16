@@ -10,6 +10,7 @@ import com.shop.dto.Criteria;
 import com.shop.dto.ItemDTO;
 import com.shop.dto.PageDTO;
 import com.shop.dto.response.ItemPageResponseDTO;
+import com.shop.dto.OrderDetailDTO;
 import com.shop.frame.MyService;
 import com.shop.mapper.ItemMapper;
 
@@ -182,6 +183,18 @@ public class ItemService implements MyService<Integer, ItemDTO>{
 				.active(active)
 				.pageNumList(pageNumList)
 				.build();
+	}
+	
+	//주문완료 후 item에서 수량 줄이기
+	public void cntdown(OrderDetailDTO od) throws Exception{
+		itemMapper.cntdown(od);
+	}
+	public List<ItemDTO> bestItem() throws Exception{
+		return itemMapper.bestItem();
+	}
+	
+	public List<ItemDTO> newItem() throws Exception{
+		return itemMapper.newItem();
 	}
 
 	

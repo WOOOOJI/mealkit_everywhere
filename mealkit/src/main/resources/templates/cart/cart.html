@@ -1,0 +1,168 @@
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+<style> @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap'); </style>
+
+<style>
+	input[type=number]{
+		margin-left:50px;
+		margin-top:25px;
+	}
+
+	.itemhover{
+		cursor: pointer;
+	}
+	
+	.texthover{
+		transition: background-color .5s;
+		
+	}
+	
+	.texthover:hover{
+		background-color:#fefbd8;
+		font-size:130%;
+	}
+</style>
+
+<script>
+
+	
+	// 장바구니 제품 삭제 AJAX
+
+	function del(cust_key){
+			$.ajax({
+				method:'post',
+				url:'[[@{/cart/delete}]]',
+				data: {'cust_key':cust_key},
+				success:function(data){
+					if(data == 1){
+						location.href='[[@{/cart/list}]]';
+					}else{
+						alert("장바구니 삭제를 실패하였습니다. 잠시 후 다시 시도해주세요.");
+						location.href='[[@{/cart/list}]]';
+					}
+					
+
+				}
+			});
+	};
+	
+	
+	// 장바구니 상품 수량 변경 AJAX
+	
+	function changeCnt(cart){
+		var cnt = cart.value;
+		var cart_key = cart.id;
+		
+		$.ajax({
+			method:'post',
+			url:'[[@{/cart/cntchange}]]',
+			data:{'cnt': cnt, 'cart_key':cart_key},
+			success:function(data){
+				if(data == 1){
+					location.href='[[@{/cart/list}]]'
+				}else{
+					alert("수량 변경에 실패하였습니다. 잠시 후 다시 시도해주세요.");
+					location.href='[[@{/cart/list}]]'
+				}
+			}
+		});
+	};
+	
+</script>
+	
+
+
+    <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Cart</span></p>
+            <h1 class="mb-0 bread">My Cart</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ftco-section ftco-cart">
+			<div class="container">
+				<div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div class="cart-list">
+	    				<table class="table">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+						        <th>&nbsp;</th>
+						        <th>&nbsp;</th>
+						        <th>상품명</th>
+						        <th>할인가</th>
+						        <th>수량</th>
+						        <th>총 가격</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						    
+						    <!-- 장바구니 리스트 for문 -->
+						      <tr class="text-center" th:each="c:${list}">
+						      	
+						      	<!-- 삭제 버튼 -->
+						        <td class="product-remove"><a href="#" th:onclick="del([[${c.cart_key}]])"><span class="ion-ios-close"></span></a></td>
+						        <!-- 상품이미지 -->
+						        <td class="image-prod"><a class="itemhover" th:href="@{/item(item_key=${c.item_key})}"><img th:src="@{/img/images.jpeg}"></a></td>
+						        
+						        <td class="product-name">
+						        	<!-- 상품명 -->
+						        	<a class="itemhover" th:href="@{/item(item_key=${c.item_key})}"><h3 class="texthover" th:text="${c.name}"></h3></a>
+						        	<!-- 정가 -->
+						        	<p th:text="${c.price}+원"></p>
+						        </td>
+						        <!-- 세일금액 -->
+						        <td class="price" th:text="${c.sale}+원"></td>
+						        
+						        <!-- 장바구니 수량 -->
+						        <td class="quantity">
+						        	<div class="input-group mb-3">
+						        	<form>
+					             		<input type="number" name="quantity" class="quantity form-control input-number" th:value=${c.cnt} th:onchange="changeCnt(this)" th:id="${c.cart_key}" min="1" max="100">
+					             	</form>
+					          	</div>
+					          </td>
+						        
+						        <!-- 각각의 제품 개수 * 세일가 합계 -->
+						        <td class="total" th:text="${c.sale * c.cnt}+원"></td>
+						      </tr>
+						      <!-- END TR-->
+
+						
+						    </tbody>
+						  </table>
+					  </div>
+    			</div>
+    		</div>
+    		<div class="row justify-content-end">
+
+    			<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+    				<div class="cart-total mb-3">
+    					<h3>장바구니 전체</h3>
+    					<p class="d-flex">
+    						<span>정가</span>
+    						<span th:text="${totalPrice}+원"></span>
+    					</p>
+    					<p class="d-flex">
+    						<span>배송비</span>
+    						<span th:text="${fee}+원"></span>
+    					</p>
+    					<p class="d-flex">
+    						<span>할인금액</span>
+    						<span th:text="${salePrice}+원"></span>
+    					</p>
+    					<hr>
+    					<p class="d-flex total-price" >
+    						<span>결제 금액</span>
+    						<span th:text="${finalPrice}+원"></span>
+    					</p>
+    				</div>
+    				<p><a th:href="@{/order}" class="btn btn-primary py-3 px-4">지금바로 주문하기 !</a></p>
+    			</div>
+    		</div>
+			</div>
+		</section>

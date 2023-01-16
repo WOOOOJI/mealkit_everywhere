@@ -28,6 +28,12 @@
     <link rel="stylesheet" th:href="@{/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     
+    <style>
+    	#cart{
+    		margin-top:3px;
+    	}
+    </style>
+    
   </head>
   <body class="goto-here">
 		<div class="py-1 bg-primary">
@@ -53,28 +59,38 @@
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Vegefoods</a>
+	      <a class="navbar-brand" th:href="@{/}">MealKit</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
+	          <li class="nav-item active"><a th:href="@{/}" class="nav-link">Home</a></li>
 	          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">카테고리</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" th:href="@{/shoplist}">Shop</a>
-              	<a class="dropdown-item" href="wishlist.html">Wishlist</a>
-                <a class="dropdown-item" th:href="@{/product_single}">Single Product</a>
-                <a class="dropdown-item" href="cart.html">Cart</a>
-                <a class="dropdown-item" href="checkout.html">Checkout</a>
+              	<a class="dropdown-item" href="shop.html">한식</a>
+              	<a class="dropdown-item" href="wishlist.html">양식</a>
+                <a class="dropdown-item" href="product-single.html">중식</a>
+                <a class="dropdown-item" href="cart.html">일식</a>
+                <a class="dropdown-item" href="checkout.html">인도식</a>
               </div>
             </li>
-	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-	          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+ 
+	        
+	          <li class="nav-item"><a th:href="@{/shoplist}" class="nav-link">전체 상품보기</a></li>
+	          <li class="nav-item"><a href="blog.html" class="nav-link">이벤트</a></li>
+	          <li class="nav-item"><a href="contact.html" class="nav-link">공지사항</a></li>
+	          
+	          <li class="nav-item" th:if="${session.cust_key == null}" ><a th:href="@{/customer/memberForm}" class="nav-link">회원가입</a></li>
+	          <li class="nav-item" th:if="${session.cust_key == null}" ><a th:href="@{/customer/loginForm}" class="nav-link">로그인</a></li>
+	          
+	          <li class="nav-item" th:if="${session.cust_key != null}" ><a th:href="@{/customer/mypage}" class="nav-link">My Page</a></li>
+	          <li class="nav-item" th:if="${session.cust_key != null}" ><a th:href="@{/customer/logout}" class="nav-link" >로그아웃</a></li>
+	          
+
+	          <li class="nav-item cta cta-colored" id="cart"><a th:href="@{/cart/list}" class="nav-link"><span class="icon-shopping_cart" th:text="${cartCnt}">[]</span></a></li>
 
 	        </ul>
 	      </div>
