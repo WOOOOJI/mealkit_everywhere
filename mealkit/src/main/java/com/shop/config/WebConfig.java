@@ -37,6 +37,7 @@ public class WebConfig implements WebMvcConfigurer {
       registry.addInterceptor(loginInterceptor)
               .addPathPatterns("/cart/list")
               .addPathPatterns("/cart/cartInsert")
+              .addPathPatterns("/order")
               .excludePathPatterns("/", "/fonts/**", "/css/**", "/images/**", "/js/**", "/customer/login", "/logincheck.do*");
   }
 }

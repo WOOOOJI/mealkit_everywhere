@@ -21,9 +21,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession();
         String email = (String)session.getAttribute("email");
-        
-        
-      
 
         if(email != null) {
             return true;

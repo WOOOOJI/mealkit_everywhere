@@ -3,5 +3,16 @@
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.AddressMapper">
-	
+	<!-- 기본 배송지 확인 -->
+	<select id="check_default" parameterType="Integer" resultType="AddressDTO">
+		SELECT * FROM address WHERE cust_key=${cust_key} AND def LIKE 'Y';
+	</select>
+	<!-- 회원의 배송지 확인 -->
+	<select id="user_addr" parameterType="Integer" resultType="AddressDTO">
+		SELECT * FROM address WHERE cust_key=${cust_key};
+	</select>
+	<!-- addr_key를 이용하여 주소지 가져오기 -->
+	<select id="addr_key" resultType="AddressDTO">
+		SELECT * FROM address WHERE addr_key=${select};
+	</select>
 </mapper>

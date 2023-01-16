@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shop.dto.ItemDTO;
+import com.shop.dto.OrderDetailDTO;
 import com.shop.frame.MyService;
 import com.shop.mapper.ItemMapper;
 
@@ -46,6 +47,10 @@ public class ItemService implements MyService<Integer, ItemDTO>{
 		return null;
 	}
 	
+	//주문완료 후 item에서 수량 줄이기
+	public void cntdown(OrderDetailDTO od) throws Exception{
+		mapper.cntdown(od);
+	}
 	public List<ItemDTO> bestItem() throws Exception{
 		return mapper.bestItem();
 	}

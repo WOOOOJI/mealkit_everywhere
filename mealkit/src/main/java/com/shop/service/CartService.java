@@ -40,7 +40,10 @@ public class CartService implements MyService<Integer, CartDTO>{
 		return mapper.selectall();
 	}
 	
-	
+	//주문완료 후 해당 장바구니 제거
+	public void cart_delete(int cust_key) throws Exception{
+		mapper.cart_delete(cust_key);
+	}
 	// 특정 사용자의 장바구니 리스트 내용물 가져오기
 	public List<CartDTO> CartList(Integer k) throws Exception {
 		return mapper.CartList(k);
