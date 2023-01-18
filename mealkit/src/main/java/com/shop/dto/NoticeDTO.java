@@ -11,7 +11,8 @@ public class NoticeDTO {
 	private String ntype;
 	private String title;
 	private String write;
-	private String img;
+	private String img1;
+	private String img2;
 	private String rdate;
 	private int hit;
 	

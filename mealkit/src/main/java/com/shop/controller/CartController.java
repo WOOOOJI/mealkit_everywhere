@@ -36,7 +36,7 @@ public class CartController {
 		
 		// 여러개의 장바구니의 가격 총합.
 		int totalPrice = 0;
-		// 총 할인된 가
+		// 총 할인된 가격
 		int salePrice = 0;
 		// 최종 결제 금엑
 		int finalPrice = 0;
@@ -71,7 +71,7 @@ public class CartController {
 			// Test용 출력문 -> ArrayList가 비어있지 않은지 확인해준다.               // TEST Print
 			// System.out.println(cartList.toString());
 			
-			
+
 			
 			
 			for(CartDTO dto : cartList) {
@@ -163,6 +163,7 @@ public class CartController {
 		@ResponseBody
 		@PostMapping("/cart/cntchange")
 		public int cartCnt(CartDTO dto) {
+			if(1 > dto.getCnt()) dto.setCnt(1);
 			int result = 0;
 			
 			try {
@@ -183,22 +184,29 @@ public class CartController {
 		@GetMapping("/cart/cartInsert")
 		public String cartInsert(int item_key, int cnt, HttpServletRequest req) {
 			
+			// 세션값을 먼저 구해서 해당 사용자의 고유 번호를 가져와서 담아준다.                                      get session (cust_key) from user's Session
 			HttpSession session = req.getSession();
 			int cust_key = (int)session.getAttribute("cust_key");
 			
-			
+			// 만약에 개수가 0개이면 개수를 선택하지 않고 장바구니에 담았다는 의미이다. 고로 기본개수인 1로 변경.             if user put item without select cnt, +1
 			if(cnt == 0) cnt = 1;
 			
+			// 사용자가 만약에 이미 장바구니에 담은 상품을 또 담고자 한다면, 기존에 장바구니를 조회하고 있으면 cnt증가로, 없으면 새로 추가해준다.
 			List<CartDTO> dto = new ArrayList<CartDTO>();
 			try {
 				dto = service.CartList(cust_key);
+				
+				// 반복문을 돌려 사용자의 기존 장바구니에 존재하는 아이템인지 확인
 				for(CartDTO c : dto) {
 					if(c.getItem_key()==item_key) {
+						
+						// 존재한다면 해당 장바구니 아이템의 개수를 1증가시킨다.
 						service.increaseCart(c.getCart_key(), item_key, cnt);
 						return "redirect:/";
 					}
 				}
 				
+				// 없다면 장바구니에 새로 추가해준다.
 				service.insertCart(cust_key, item_key, cnt);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -206,10 +214,6 @@ public class CartController {
 			
 			return "redirect:/";
 		}
-		
-		
-		
-		
-	// 장바구니 수량 수정.      Delete cnt of user's CART        ------------------------------------------------------------------------------------------------
 
+	
 }

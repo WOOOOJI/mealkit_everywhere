@@ -27,7 +27,7 @@
     <link rel="stylesheet" th:href="@{/css/flaticon.css}">
     <link rel="stylesheet" th:href="@{/css/icomoon.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <style>
     	#cart{
     		margin-top:3px;
@@ -80,8 +80,9 @@
  
 	        
 	          <li class="nav-item"><a th:href="@{/shoplist}" class="nav-link">전체 상품보기</a></li>
-	          <li class="nav-item"><a href="blog.html" class="nav-link">이벤트</a></li>
-	          <li class="nav-item"><a href="contact.html" class="nav-link">공지사항</a></li>
+	          <li class="nav-item"><a th:href="@{/event}" class="nav-link">이벤트</a></li>
+	          <li class="nav-item"><a th:href="@{/notice}" class="nav-link">공지사항</a></li>
+	          <li class="nav-item"><a th:href="@{/about}" class="nav-link">회사소개</a></li>
 	          
 	          <li class="nav-item" th:if="${session.cust_key == null}" ><a th:href="@{/customer/memberForm}" class="nav-link">회원가입</a></li>
 	          <li class="nav-item" th:if="${session.cust_key == null}" ><a th:href="@{/customer/loginForm}" class="nav-link">로그인</a></li>

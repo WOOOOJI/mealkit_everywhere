@@ -1,0 +1,98 @@
+<script>
+	$(document).ready(function(){
+		var pageNum='[[${pageNum}]]';
+        document.getElementById(pageNum).className='active';		
+	});
+</script>
+
+
+
+
+<style>
+	#pageList > .active{
+		background: #82ae46;
+    	color: #fff;
+      	border: 1px solid transparent;
+	}
+	
+	#pageSection{
+		margin-left:400px;
+	}
+</style>
+
+
+      <section class="jumbotron text-center" style="background-image: url(/img/notice/notice.jpg);">
+        <div class="container">
+        
+          <!-- 공지사항 페이지 배너 -->
+          <h1 class="jumbotron-heading" style="color:rgb(238, 252, 255); font-size:62px;">N O T I C E</h1>
+          <p class="lead text-muted"></p>
+          <p>
+            
+          </p>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+        <div class="container">
+
+          <div class="row">
+          
+          	<!-- 공지사항 리스트 for문 -->
+            <div class="col-md-4" th:each="n : ${noticeList}">
+              <div class="card mb-4 box-shadow">
+               
+                <div class="card-body">
+                
+                <!-- 게시글 번호 -->
+                <small class="text-muted" th:text="'글 번호 : '+${n.notice_key}"></small>
+                
+                  <!-- 공지사항 제목 -->
+                  <p class="card-text" th:text="${n.title}"></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                    
+                      <!-- 공지사항 상세페이지 링크 -->
+                      <a th:href="@{/notice/detail?notice_key=}+${n.notice_key}"><button type="button" class="btn btn-sm btn-outline-secondary">글 보기</button></a>
+                    </div>
+                    
+                    <!-- 작성자 : 관리자 고정 -->
+                    <small class="text-muted">작성자 : 관리자</small>
+                    
+                    <!-- 업로드날짜 -->
+                    <small class="text-muted" th:text="'게시일 : '+${n.rdate}"></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+           
+            	
+						<!-- 페이징 바 -->
+					    	 <div class="row mt-9" id="pageSection">
+					          <div class="col text-center">
+					            <div class="block-27">
+					              <ul>
+					              	<!-- <a>태그의 href는 get방식만 가능하다? -->
+					              	
+					              	
+					              	<!-- th:if="${pageMaker.prev == true에서 ture를 ''로 묶으면 문자열로 인식한다. 따라서 true로 써야 한다 -->
+					                <!-- 클래스는 공백으로도 설정이 된다 -->
+				                	<!-- 타임리프로 클래스 설정시 문자열이 아닌 값으로 넘긴다 -->
+			
+					                <!-- 이전 버튼 -->
+					                <li class="prevbtn"><a th:if="${pageMaker.prev == true}" th:href="@{/notice(pageNum = ${pageMaker.pageStart - 1})}">&lt;</a></li>
+										<!-- 페이지 번호 출력 -->
+					                	<li th:each="pageNum : ${pageNumList}" id="pageList">  <!-- class="active" -->
+					                		<a th:id="${pageNum}"  th:href="@{/notice(pageNum = ${pageNum})}" th:text="${pageNum}"></a>
+					                	</li>
+					                <!-- 다음 버튼 -->
+					                <li class="nextbtn"><a th:if="${pageMaker.next == true}" th:href="@{/notice(pageNum = ${pageMaker.pageEnd + 1})}">&gt;</a></li>
+					              </ul>
+					            </div>
+					          </div>
+					        </div>
+           
+          </div>
+        </div>
+      </div>

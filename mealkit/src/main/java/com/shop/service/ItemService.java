@@ -200,6 +200,8 @@ public class ItemService implements MyService<Integer, ItemDTO>{
 	
 	//중국 카테고리 페이지 메이커
 	public ItemPageResponseDTO getChineseItemPageMaker(Criteria cri) {
+		
+		
 		PageDTO pageMaker = null;
 		int active = 0;
 		List<Integer> pageNumList = new ArrayList<>();

@@ -31,7 +31,7 @@ function insertCart(item){
 
 	              <h1 class="mb-2">여러분의 입맛을 사로잡은 "밀키트"는 ??</h1>
 	              <h2 class="subheading mb-4">저희가 매주 선정하는 최고의 밀키트를 만나보세요!</h2>
-	              <p><a href="#" class="btn btn-primary">인기상품 보러가기</a></p>
+	              <p><a th:href="@{shoplist}" class="btn btn-primary">인기상품 보러가기</a></p>
 
 	            </div>
 
@@ -50,7 +50,7 @@ function insertCart(item){
 	            <div class="col-sm-12 ftco-animate text-center">
 	              <h1 class="mb-2">최고의 재료, 최고의 레시피</h1>
 	              <h2 class="subheading mb-4">항상 신선하고 맛있는 음식을 위해 저희가 준비한 신상품!</h2>
-	              <p><a href="#" class="btn btn-primary">신상품 보러가기</a></p>
+	              <p><a th:href="@{shoplist}" class="btn btn-primary">신상품 보러가기</a></p>
 	            </div>
 
 	          </div>
@@ -65,7 +65,7 @@ function insertCart(item){
 	            <div class="col-sm-12 ftco-animate text-center">
 	              <h1 class="mb-2">이번주만 최대 70% 할인 !</h1>
 	              <h2 class="subheading mb-4">"MealKit" 회원만을 위한 이벤트</h2>
-	              <p><a href="#" class="btn btn-primary">할인상품 보러가기</a></p>
+	              <p><a th:href="@{shoplist}" class="btn btn-primary">할인상품 보러가기</a></p>
 	            </div>
 
 	          </div>
@@ -81,7 +81,7 @@ function insertCart(item){
 	            <div class="col-sm-12 ftco-animate text-center">
 	              <h1 class="mb-2">백종원 선생님과의 콜라보 !</h1>
 	              <h2 class="subheading mb-4">"MealKit" 회원만을 위한 백종원 선생님의 레시피 맛!</h2>
-	              <p><a href="#" class="btn btn-primary">상품 보러가기</a></p>
+	              <p><a th:href="@{shoplist}" class="btn btn-primary">상품 보러가기</a></p>
 	            </div>
 
 	          </div>
@@ -152,19 +152,19 @@ function insertCart(item){
 									<div class="text text-center">
 										<h2>신선함을 지금 만나보세요!</h2>
 										<p>여러분이 원하는 모든 음식을 집앞에서 만나보세요</p>
-										<p><a href="#" class="btn btn-primary">지금 바로 구매하기</a></p>
+										<p><a th:href="@{shoplist}" class="btn btn-primary">지금 바로 구매하기</a></p>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(img/ko.jpg);">
 									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a href="#">한식</a></h2>
+										<h2 class="mb-0"><a th:href="@{shoplist/korean}">한식</a></h2>
 									</div>
 								</div>
 								<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(img/ch.jpg);">
 									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a href="#">중식</a></h2>
+										<h2 class="mb-0"><a th:href="@{shoplist/chinese}">중식</a></h2>
 									</div>
 								</div>
 							</div>
@@ -174,12 +174,12 @@ function insertCart(item){
 					<div class="col-md-4">
 						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(img/jp.jpg);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">일식</a></h2>
+								<h2 class="mb-0"><a th:href="@{shoplist/japanese}">일식</a></h2>
 							</div>		
 						</div>
 						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(img/en.jpg);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">양식</a></h2>
+								<h2 class="mb-0"><a th:href="@{shoplist}">양식</a></h2>
 							</div>
 						</div>
 					</div>

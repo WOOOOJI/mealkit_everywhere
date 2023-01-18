@@ -1,0 +1,23 @@
+	 <div class="hero-wrap hero-bread" style="background-image: url('/img/event/event_banner.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          		<!-- 제목 -->
+          		<h1 class="jumbotron-heading" th:text="[+${notice.title}+]" style="color:white; font-size:56px;"></h1>
+          		<!-- 업로드날짜 -->
+          		<p class="lead" th:text="${notice.rdate}" style="color:white;"></p>
+          		<!-- 조회수 -->
+          		<p class="lead" th:text="'조회수 : ' +${notice.hit}" style="color:white;"></p>
+          		<!-- 작성자: 관리자 고정 -->
+          		<p class="lead" style="color:white;">작성자 : 관리자</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ftco-section">
+			<div class="container">
+				<!-- 상세페이지 이미지 -->
+				<img th:src="@{/img/event/eventdetail/}+${notice.img2}">
+			</div>
+	</section>

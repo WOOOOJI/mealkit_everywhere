@@ -1,0 +1,103 @@
+<script>
+	$(document).ready(function(){
+		var pageNum='[[${pageNum}]]';
+        document.getElementById(pageNum).className='active';		
+	});
+</script>
+
+
+
+
+<style>
+	#pageList > .active{
+		background: #82ae46;
+    	color: #fff;
+      	border: 1px solid transparent;
+	}
+	
+	#pageSection{
+		margin-left:400px;
+	}
+	
+</style>
+
+
+      <section class="jumbotron text-center" style="background-image: url(/img/event/notice.jpg);">
+        <div class="container">
+        
+          <!-- 이벤트 배너 -->
+          <h1 class="jumbotron-heading" style="color:white; font-size:62px;">E V E N T</h1>
+          <p class="lead text-muted"></p>
+          <p>
+            
+          </p>
+        </div>
+      </section>
+          
+          
+            <!-- Blog preview section-->
+            <section class="py-5">
+                <div class="container px-5 my-5">
+                    <div class="row gx-5">
+                    
+                    	<!-- 이벤트 게시글이 담긴 객체 for문 -->
+                        <div class="col-sm-4 mb-5" th:each="e : ${eventList}">
+                            <div class="card h-100 shadow border-0">
+                            
+                            	<!-- 썸네일 이미지 img1 -->
+                                <img class="card-img-top" th:src="@{/img/event/}+${e.img1}" alt="..." />
+                                <div class="card-body p-4">
+                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2" style="color:white;">Events</div>
+                                    
+                                    <!-- 상세 페이지로 이동하기 위한 a태그 -->
+                                    <a class="text-decoration-none link-dark stretched-link" th:href="@{/event/detail?notice_key=}+${e.notice_key}"><h5 class="card-title mb-3" th:text="${e.title}"></h5></a>
+                                    
+                                </div>
+                                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                                    <div class="d-flex align-items-end justify-content-between">
+                                        <div class="d-flex align-items-center">
+                                        
+                                        	<!-- 관리자로고 고정 -->
+                                            <img class="rounded-circle me-3" th:src="@{/img/logo/mealkit_logo.jpg}" style="width:50px;" alt="..." />
+                                            <div class="small">
+                                                <div class="fw-bold">관리자</div>
+                                                <!-- 업로드날짜 -->
+                                                <div class="text-muted" th:text="${e.rdate}"></div>
+                                                <!-- 조회수 -->
+                                                <div class="fw-bold" th:text="조회수 + ${e.hit}"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                       
+                        
+                      	  <!-- 페이징 바 -->
+					    	 <div class="row mt-9" id="pageSection">
+					          <div class="col text-center">
+					            <div class="block-27">
+					              <ul>
+					              	<!-- <a>태그의 href는 get방식만 가능하다? -->
+					              	
+					              	
+					              	<!-- th:if="${pageMaker.prev == true에서 ture를 ''로 묶으면 문자열로 인식한다. 따라서 true로 써야 한다 -->
+					                <!-- 클래스는 공백으로도 설정이 된다 -->
+				                	<!-- 타임리프로 클래스 설정시 문자열이 아닌 값으로 넘긴다 -->
+			
+					                <!-- 이전 버튼 -->
+					                <li class="prevbtn"><a th:if="${pageMaker.prev == true}" th:href="@{/event(pageNum = ${pageMaker.pageStart - 1})}">&lt;</a></li>
+										<!-- 페이지 번호 출력 -->
+					                	<li th:each="pageNum : ${pageNumList}" id="pageList"> 
+					                		<a th:id="${pageNum}" th:href="@{/event(pageNum = ${pageNum})}" th:text="${pageNum}"></a>
+					                	</li>
+					                <!-- 다음 버튼 -->
+					                <li class="nextbtn"><a th:if="${pageMaker.next == true}" th:href="@{/event(pageNum = ${pageMaker.pageEnd + 1})}">&gt;</a></li>
+					              </ul>
+					            </div>
+					          </div>
+					        </div>
+                        </div>
+                         
+                    </div>

@@ -3,5 +3,68 @@
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.NoticeMapper">
+
+
+	<!-- 이벤트 페이지 개수 -->
+	<select id="countEvent" resultType="int">
+		SELECT count(notice_key) FROM notice WHERE ntype='E';
+	</select>
+
+	<!-- 이벤트 페이지 정보 가져오기 -->
+	<select id="eventDetail" resultType="NoticeDTO">
+		SELECT * FROM notice
+		WHERE notice_key=${notice_key}
+	</select>
+
+
+	<!-- notice_key 오름차순으로 데이터 모두 조회 (LIMIT-데이터 시작위치[0이 처음]와 시작위치를 기준으로 가져올 
+		데이터의 개수) -->
+	<select id="getEventList" resultType="NoticeDTO"
+		parameterType="Criteria">
+		SELECT * FROM notice
+		WHERE ntype LIKE 'E'
+		ORDER BY notice_key DESC
+		LIMIT #{skip}, #{amount}
+	</select>
 	
+
+	
+	
+	<!-- 공지사항 페이지 개수 -->
+	<select id="countNotice" resultType="int">
+		SELECT count(notice_key) FROM notice WHERE ntype='N';
+	</select>
+
+	<!-- 공지사항 페이지 정보 가져오기 -->
+	<select id="noticeDetail" resultType="NoticeDTO">
+		SELECT * FROM notice
+		WHERE notice_key=${notice_key}
+	</select>
+
+
+	<!-- notice_key 오름차순으로 데이터 모두 조회 (LIMIT-데이터 시작위치[0이 처음]와 시작위치를 기준으로 가져올 
+		데이터의 개수) -->
+	<select id="getNoticeList" resultType="NoticeDTO"
+		parameterType="Criteria">
+		SELECT * FROM notice
+		WHERE ntype LIKE 'N'
+		ORDER BY notice_key DESC
+		LIMIT #{skip}, #{amount}
+	</select>
+
+	
+	
+	
+	
+
+	<!-- 해당 페이지 클릭시 조회수 증가 -->
+	<update id="noticeHit">
+		UPDATE notice SET hit=hit+1 WHERE notice_key = ${notice_key}
+	</update>
+	
+	
+	
+	
+	
+
 </mapper>
