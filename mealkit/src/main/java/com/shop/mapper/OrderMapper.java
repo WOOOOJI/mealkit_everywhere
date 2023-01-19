@@ -23,4 +23,6 @@ public interface OrderMapper extends MyMapper<Integer, OrderDTO>{
 	public void order_update(int addr_key, int order_key, int payment) throws Exception;
 	//order_key 이용해서 order 갖고오기
 	public OrderDTO getOrderByOrderKey(int order_key) throws Exception;
+	//order_key이용해서 상품 이미지,이름, 주문상품개수를 포함한 정보 가져오기
+	public List<OrderDTO> getOrderWithItemInfo(int order_key) throws Exception;
 }

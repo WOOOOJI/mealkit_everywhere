@@ -31,8 +31,15 @@ public class OrderService implements MyService<Integer, OrderDTO>{
 	}
 
 	@Override
-	public OrderDTO get(Integer k) throws Exception {
-		return mapper.select(k);
+	public OrderDTO get(Integer k){
+		OrderDTO result=null;
+		try {
+			result=mapper.select(k);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override
@@ -60,7 +67,26 @@ public class OrderService implements MyService<Integer, OrderDTO>{
 		mapper.order_update(addr_key, order_key, payment);
 	}
 	
-	public OrderDTO getOrderByOrderKey(int order_key) throws Exception{
-		return mapper.getOrderByOrderKey(order_key);
+	public OrderDTO getOrderByOrderKey(int order_key){
+		OrderDTO result=null;
+		
+		try {
+			result= mapper.getOrderByOrderKey(order_key);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public List<OrderDTO> getOrderWithItemInfo(int order_key) {
+		List<OrderDTO> result=null;
+		
+		try {
+			result=mapper.getOrderWithItemInfo(order_key);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

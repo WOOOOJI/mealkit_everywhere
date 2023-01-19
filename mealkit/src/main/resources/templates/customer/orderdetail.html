@@ -1,0 +1,79 @@
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"><a th:href="@{/}">Home</a></span></p>
+            <h1 class="mb-0 bread">주문상세</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ <section class="ftco-section ftco-cart">
+			<div class="container">
+				<div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div class="cart-list">
+	    				<table class="table">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+						        <th style="width:10%">받으시는 분</th>
+						        <th style="width:13%">전화번호</th>
+						        <th style="width:10%">결제금액</th>
+						        <th>배송지</th>
+						        <th>주문상태</th>
+						        <th>구매날짜</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr class="text-center">
+						      	<td class="name" th:text="${order.name}"></td>
+						        <td class="tel" th:text="${order.tel}"></td>
+						      	<td class="price" th:text="${order.price}+'원'"></td>
+						        <td class="address" th:text="${order.addr}+', '+${order.addr_detail}"></td>   
+						        <td class="rdate" th:text="${order.status}"></td>   
+						        <td class="rdate" th:text="${order.rdate}"></td>        
+						      	
+						      </tr><!-- END TR-->
+
+						    </tbody>
+						  </table>
+					  </div>
+    			</div>
+    		</div>
+			</div>
+			 <div class="w-100"></div>
+			  <div class="w-100"></div>
+ 
+			  <div class="container">
+				<div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div class="cart-list">
+	    				<table class="table">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+						      	<th style="width:10%">&nbsp;</th>
+						      	<th style="width:20%">&nbsp;</th>
+						        <th style="width:10%">가격</th>
+						        <th style="width:13%">수량</th>
+						        <th style="width:10%">결제금액</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr th:each="l:${list}" class="text-center">
+						      	<td class="name"><a th:href="@{/}"><img th:src="@{/img/}+${l.item_img}"></a></td>
+						        <td class="name"><a th:href="@{/}"><span th:text="${l.item_name}"></span></a></td>
+						      	<td class="price" th:text="${l.price}">가격</td>
+						        <td class="cnt" th:text="${l.cnt}">개수</td>
+						        <td class="total" th:text="${l.price}*${l.cnt}">총 가격</td>
+						      </tr><!-- END TR-->
+
+						    </tbody>
+						  </table>
+					  </div>
+    			</div>
+    		</div>
+			</div>
+		</section>

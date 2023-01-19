@@ -17,4 +17,7 @@ public interface AddressMapper extends MyMapper<Integer, AddressDTO>{
 	public List<AddressDTO> user_addr(int cust_key) throws Exception;
 	//addr_key를 이용하여 주소지 가져오기
 	public AddressDTO addr_key(int addr_key) throws Exception;
+	//배송지 추가하기
+	public void insertAddress(int cust_key,AddressDTO address) throws Exception;
+	//배송지 삭제하기
 }

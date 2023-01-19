@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.dto.AddressDTO;
 import com.shop.dto.CustomerDTO;
@@ -173,7 +174,7 @@ public class OrderController {
 		//배송지 선택창에서의 흐름
 		//1. 회원이 등록해둔 배송지를 리스트로 보여준다 (오른쪽에 선택/삭제 버튼)
 		//2. 배송지를 선택/삭제하거나 밑에 추가/취소 버튼으로 기능구현
-		//3. 추가 누르면 다시 팝업창에서 배송지 추가 폼 생성
+		//3. 추가 누르면 배송지 추가 폼 페이지로 이동 
 		List<AddressDTO> addrlist=null;
 		
 		
@@ -188,6 +189,34 @@ public class OrderController {
 			e.printStackTrace();
 		}
 		return "order/addaddr";
+	}
+	
+	
+	@RequestMapping("/submitAddr")
+	public String submitAddr(AddressDTO address,HttpSession session, Model model) {
+		//배송지 추가창에서의 흐름
+		//1. 회원이 폼에 입력한 정보를 AddressDTO로 받아온다
+		//2. 그 정보와 session의 cust_key를 가지고 배송지를 추가해준다
+		//3. 완료되면 배송지 선택 창으로 돌려준다
+		
+		
+		//세션에 저장된 유저의 key를 갖고온다.
+		int cust_key=(int)session.getAttribute("cust_key");
+		addrservice.insertAddress(cust_key, address);
+		return "redirect:/order/selectaddr";
+	}
+	
+	@RequestMapping("/deleteAddr")
+	public String deleteAddr(@RequestParam(value="addr_key",defaultValue="0") int addr_key, HttpSession session, Model model) {
+		//배송지 제거에서의 흐름
+		//1. 폼에서 addr_key를 받아온다
+		//2. addr_key로 주소를 삭제한다
+		try {
+			addrservice.remove(addr_key);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/order/selectaddr";
 	}
 	
 	@RequestMapping("/payment")
@@ -250,6 +279,13 @@ public class OrderController {
 		model.addAttribute("order", order);
 		model.addAttribute("content", dir+"payment");
 		return "main";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/requestPay")
+	public int requestPay(String imp_uid, String merchant_uid) {
+		System.out.println("imp_uid: "+imp_uid+"/merchantid: "+merchant_uid);
+		return 1;
 	}
 
 }

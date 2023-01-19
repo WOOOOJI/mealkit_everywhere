@@ -1,44 +1,8 @@
-    <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a th:href="@{/}">Home</a></span></p>
-            <h1 class="mb-0 bread">주문내역</h1>
-          </div>
-        </div>
-      </div>
-    </div>
+ <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
- <section class="ftco-section ftco-cart">
-			<div class="container">
-				<div class="row">
-    			<div class="col-md-12 ftco-animate">
-    				<div class="cart-list">
-	    				<table class="table">
-						    <thead class="thead-primary">
-						      <tr class="text-center">
-						      	<th>주문날짜</th>
-						        <th>받으시는 분</th>
-						        <th>전화번호</th>
-						        <th>결제금액</th>
-						        <th>배송지</th>
-						        <th>배송 시 요청사항</th>
-						      </tr>
-						    </thead>
-						    <tbody>
-						      <tr class="text-center">
-						      	<td class="rdate" th:text="${order.rdate}"></td>
-						      	<td class="name" th:text="${order.name}"></td>
-						        <td class="tel" th:text="${order.tel}+'원'"></td>
-						      	<td class="total" th:text="${order.price}+'원'"></td>
-						        <td class="address" th:text="${order.addr}+${order.addr_detail}"></td>
-						      	<td class="req" th:text="${order.req}"></td>            
-						      </tr><!-- END TR-->
 
-						    </tbody>
-						  </table>
-					  </div>
-    			</div>
-    		</div>
-			</div>
-		</section>
+<script>
+	$(document).ready(function(){
+		location.href="/customer/orderlist";
+	});
+</script>

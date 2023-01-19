@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</insert>
 	<!-- order_key의 정보 갖고오기 -->
 	<select id="get_orderkey" parameterType="Integer" resultType="Integer">
-		SELECT order_key FROM total_order where cust_key=${cust_key} order by order_key desc limit 1
+		SELECT order_key FROM total_order WHERE cust_key=${cust_key} ORDER BY order_key DESC LIMIT 1
 	</select>
 	<!-- total_order를 주문 내용으로 UPDATE하기 -->
 	<update id="order_update">
@@ -36,5 +36,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- order_key 이용해서 order 갖고오기 -->
 	<select id="getOrderByOrderKey" parameterType="Integer" resultType="OrderDTO">
 		SELECT * FROM total_order WHERE order_key=${order_key}
+	</select>
+	<select id="getOrderWithItemInfo" resultType="OrderDTO">
+		SELECT o.order_key, o.cust_key, o.price, o.rdate, o.status, o.name, o.zipcode, o.addr, o.addr_detail, o.tel, o.req, 
+		(SELECT COUNT(cnt) FROM order_detail WHERE order_key=o.order_key) AS item_cnt, i.name AS item_name, i.img1 AS item_img FROM order_detail od
+		INNER JOIN item i ON i.item_key=od.item_key
+		INNER JOIN total_order o ON o.order_key=od.order_key
+		WHERE cust_key=${cust_key} ORDER BY rdate DESC;
 	</select>
 </mapper>

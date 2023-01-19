@@ -45,7 +45,13 @@ public class OrderDetailService implements MyService<Integer, OrderDetailDTO>{
 		mapper.cart_to_detail(cust_key,o);
 	}
 	
-	public List<OrderDetailDTO> get_orderdetail_by_orderkey(int order_key) throws Exception{
-		return mapper.get_orderdetail_by_orderkey(order_key);
+	public List<OrderDetailDTO> get_orderdetail_by_orderkey(int order_key){
+		List<OrderDetailDTO> result=null;
+		try {
+			result=mapper.get_orderdetail_by_orderkey(order_key);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
