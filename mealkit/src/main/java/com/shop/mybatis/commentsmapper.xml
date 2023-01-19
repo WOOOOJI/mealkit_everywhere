@@ -2,6 +2,13 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shop.mapper.CommentMapper">
-	
+<mapper namespace="com.shop.mapper.CommentsMapper">
+		<!-- 나의 문의 답변 보기 -->
+	<select id="qnaReply" parameterType="Integer" resultType="CommentsDTO">
+		SELECT c.board_key AS "board_key", c.admin_key AS "admin_key", c.content AS "content", c.rdate AS "rdate" 
+		FROM comments c
+		JOIN board b ON b.board_key = c.board_key
+		JOIN admin a ON a.admin_key = c.admin_key
+		WHERE c.board_key = ${board_key} 
+	</select> 
 </mapper>

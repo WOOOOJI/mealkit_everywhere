@@ -12,14 +12,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 	 <!-- 회원 가입 -->
     <insert id="addMember" parameterType="CustomerDTO">
-        INSERT INTO customer(email, username, userpwd, tel)
-        VALUES (#{email}, #{username}, #{userpwd}, #{tel})
+        INSERT INTO customer(email, username, userpwd, tel, jumin, gender)
+        VALUES (#{email}, #{username}, #{userpwd}, #{tel}, #{jumin}, #{gender})
     </insert>
     
    <!--  로그인 -->
     <select id="loginCheck" parameterType="CustomerDto" resultType="CustomerDto">
         SELECT email, username, userpwd, tel, cust_key FROM customer
-        WHERE email = #{email} AND userpwd = #{userpwd}
+        WHERE email = #{email} AND userpwd = #{userpwd} AND signout='N'
     </select>
     
     <!-- 아이디찾기 -->
@@ -45,10 +45,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT cust_key FROM customer WHERE email = #{email}
 	</select>    
 	
+	<!-- 비밀번호 변경 -->
 	<update id="resetPwd">
 		UPDATE customer SET userpwd = #{pwd1} WHERE cust_key = ${cust_key}
 	</update>
 	
+	<!-- 회원탈퇴 : signout을 Y로 -->
+	<update id="signOut">
+		UPDATE customer SET signout = 'Y' WHERE cust_key = ${cust_key} AND email LIKE #{email} AND userpwd LIKE #{userpwd}
+	</update>
 </mapper>
 
 

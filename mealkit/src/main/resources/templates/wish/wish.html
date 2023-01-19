@@ -1,0 +1,108 @@
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+<style> @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap'); </style>
+
+<style>
+	input[type=number]{
+		margin-left:50px;
+		margin-top:25px;
+	}
+
+	.itemhover{
+		cursor: pointer;
+	}
+	
+	.texthover{
+		transition: background-color .5s;
+		
+	}
+	
+	.texthover:hover{
+		background-color:#fefbd8;
+		font-size:130%;
+	}
+</style>
+
+<script>
+
+	
+	// 찜 제품 삭제 AJAX
+
+	function del(cust_key){
+			$.ajax({
+				method:'post',
+				url:'[[@{/wish/delete}]]',
+				data: {'cust_key':cust_key},
+				success:function(data){
+					if(data == 1){
+						location.href='[[@{/wish/list}]]';
+					}else{
+						alert("찜 삭제를 실패하였습니다. 잠시 후 다시 시도해주세요.");
+						location.href='[[@{/wish/list}]]';
+					}
+					
+
+				}
+			});
+	};
+	
+</script>
+    <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2" style="font-size:20px;"><a th:href="@{/}">Home</a></span> <span>Wishlist</span></p>
+            <h1 class="mb-0 bread" style="font-size:48px;">My Wishlist</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ftco-section ftco-cart">
+			<div class="container">
+				<div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div class="cart-list">
+	    				<table class="table">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+						        <th>삭제</th>
+						        <th>&nbsp;</th>
+						        <th>상품명</th>
+						        <th>할인가</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						    
+						    <!-- 장바구니 리스트 for문 -->
+						      <tr class="text-center" th:each="w:${list}">
+						      	
+						      	<!-- 삭제 버튼 -->
+						        <td class="product-remove"><a href="#" th:onclick="del([[${w.wish_key}]])"><span class="ion-ios-close"></span></a></td>
+						        <!-- 상품이미지 -->
+						        <td class="image-prod"><a class="itemhover" th:href="@{/item(item_key=${w.item_key})}"><img th:src="@{/img/images.jpeg}"></a></td>
+						        
+						        <td class="product-name">
+						        	<!-- 상품명 -->
+						        	<a class="itemhover" th:href="@{/item(item_key=${w.item_key})}"><h3 class="texthover" th:text="${w.name}"></h3></a>
+						        	<!-- 정가 -->
+						        	<p th:text="${w.price}+원"></p>
+						        </td>
+						        <!-- 세일금액 -->
+						        <td class="price" th:text="${w.sale}+원"></td>
+						        
+						      </tr>
+						      <!-- END TR-->
+
+						
+						    </tbody>
+						  </table>
+					  </div>
+    			</div>
+    		</div>
+    		<div class="row justify-content-end">
+
+    			
+    		</div>
+			</div>
+		</section>

@@ -1,0 +1,95 @@
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+<style> @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap'); </style>
+
+<style>
+	input[type=number]{
+		margin-left:50px;
+		margin-top:25px;
+	}
+
+	.itemhover{
+		cursor: pointer;
+	}
+	
+	.texthover{
+		transition: background-color .5s;
+		
+	}
+	
+	.texthover:hover{
+		background-color:#fefbd8;
+		font-size:130%;
+	}
+</style>
+
+<script>
+
+
+	
+</script>
+    <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs" style="font-size:20px;"><span class="mr-2"><a th:href="@{/}">Home</a></span> <span>My QnA</span></p>
+            <h1 class="mb-0 bread" style="font-size:48px;"> MY QnA</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ftco-section ftco-cart">
+			<div class="container">
+				<div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div class="cart-list">
+	    				<table class="table">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+						        <th>글번호</th>
+						        <th>제목</th>
+						        <th>작성자</th>
+						        <th>상품명</th>
+						        <th>작성일</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						    
+						    <!-- 장바구니 리스트 for문 -->
+						      <tr class="text-center" th:each="b:${list}">
+						      	
+						      	<!-- 글번호 -->
+						      	<td class="board_key" th:text="${b.board_key}"></td>
+						      	
+						        
+						        <td class="product-name">
+						        	<!-- 글제목 -->
+						        	<a class="itemhover" th:href="@{/board/qnadetail(board_key=${b.board_key})}"><h3 class="texthover" th:text="${b.title}"></h3></a>
+						        	
+						        </td>
+						        <!-- 글쓴이 -->
+						        <td class="username" th:text="${b.username}"></td>
+						        
+						        <!-- 상품명 -->
+						        <a href="#"> <td class="title"  th:text="${b.name}" ></td></a>
+						        
+						        <!-- 글작성일 -->
+						        <td class="content"  th:text="${b.rdate}"></td>
+						       
+						      </tr>
+						      
+						     
+						      <!-- END TR-->
+
+						
+						    </tbody>
+						  </table>
+					  </div>
+    			</div>
+    		</div>
+    		<div class="row justify-content-end">
+
+    		</div>
+			</div>
+		</section>

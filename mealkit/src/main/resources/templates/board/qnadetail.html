@@ -1,0 +1,106 @@
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+<style> @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap'); </style>
+
+
+
+</script>
+    <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p style="font-size:20px;" class="breadcrumbs"><span class="mr-2"><a th:href="@{/}" >Home</a></span> <span>My QnA</span></p>
+            <h1 class="mb-0 bread" style="font-size:48px;">나의 문의 내역</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+						      	
+
+    <section class="ftco-section ftco-degree-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 ftco-animate">
+          	<tr> 
+			 <div> 글제목<td><h2 class="mb-3" th:text="${board.title}" ></h2></td></div>
+			<div  th:text="${board.username}"> </div>	
+			<div  th:text="${board.rdate}"> </div>
+			 </tr>	
+			<hr>
+           
+            <p>
+              <img src="images/image_1.jpg" alt="" class="img-fluid">
+            </p>
+            <p th:text="${board.content}"></p>
+          
+
+
+
+						<div style="margin-top : 20px">
+
+				
+
+				
+				<br><br><br>
+				
+				
+			</div>
+			
+            
+             
+              
+              
+              <hr>
+              <button type="button" class="btn btn-sm btn-primary" id="btnList" th:onclick="'location.href=\''+ @{/board/qnalist} + '\''">글 리스트 보기</button>
+                 <div  th:if="${replyboard != null}" class="container px-5 my-5">
+                
+              <h3 class="mb-5">관리자 답변</h3>
+              <ul  class="comment-list">
+                <li >
+                <hr>
+                  <div class="vcard bio">
+                    <img th:src="@{/img/cook.jpg}" alt="Image placeholder">
+                  </div>
+                  <div class="comment-body">
+                    <h3>관리자</h3>
+                    <div class="meta" th:text="${replyboard.rdate}"></div>
+                    <p  th:text="${replyboard.content}"></p>
+                    
+                
+                  </div>
+                </li>
+
+              
+              </ul>
+              <!-- END comment-list -->
+            </div>
+               
+                  
+                                </div>
+                              </li>
+                            </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+
+           
+              </ul>
+         
+              
+    
+
+                </form>
+              </div>
+            </div>
+          </div> <!-- .col-md-8 -->
+          <div class="col-lg-4 sidebar ftco-animate">
+            <div class="sidebar-box">
+           
+            </div>
+        
+        </div>
+      </div>
+    </section> <!-- .section -->

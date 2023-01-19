@@ -87,7 +87,17 @@
 	          <li class="nav-item" th:if="${session.cust_key == null}" ><a th:href="@{/customer/memberForm}" class="nav-link">회원가입</a></li>
 	          <li class="nav-item" th:if="${session.cust_key == null}" ><a th:href="@{/customer/loginForm}" class="nav-link">로그인</a></li>
 	          
-	          <li class="nav-item" th:if="${session.cust_key != null}" ><a th:href="@{/customer/mypage}" class="nav-link">My Page</a></li>
+  			<li class="nav-item dropdown" th:if="${session.cust_key != null}">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Page</a>
+              <div class="dropdown-menu" aria-labelledby="dropdown04">
+              	<a th:href="@{/customer/myresetPwdForm}" class="dropdown-item" href="shop.html">비밀번호 변경</a>
+              	<a th:href="@{/}"class="dropdown-item" href="wishlist.html">나의 주문</a>
+                <a th:href="@{/wish/list}"class="dropdown-item" href="product-single.html">찜 내역보기</a>
+                <a th:href="@{/board/reviewlist}"class="dropdown-item" href="cart.html">나의 후기</a>
+                <a th:href="@{/board/qnalist}"class="dropdown-item" href="checkout.html">나의 문의</a>
+                <a th:href="@{/customer/signoutForm}"class="dropdown-item" href="checkout.html">회원 탈퇴</a>
+              </div>
+            </li>
 	          <li class="nav-item" th:if="${session.cust_key != null}" ><a th:href="@{/customer/logout}" class="nav-link" >로그아웃</a></li>
 	          
 

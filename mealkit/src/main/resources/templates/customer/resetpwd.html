@@ -129,36 +129,3 @@
 		 return true;
 	};	
 </script> 
-<!-- 
-<script>
-$('#checkPwd').click(function() {
-    const email = $('#inputId').val();
-    if(!email || email.trim() === ""){
-        alert("이메일을 입력하세요.");
-    } else{
-        $.ajax({
-            type: 'post',
-            url: '/customer/login',
-            data: {'email': email},
-            datatype: "text"
-        }).done(function(result){
-            console.log(result);
-            if(result == "true"){
-                console.log("이메일 전송 완료");
-                alert("임시 비밀번호를 전송하였습니다.");
-                window.location.href="/customer/login";
-            } else if(result == "false"){
-                console.log("이메일 전송 실패");
-                // 이메일이 존재하지 않으면
-                alert("이메일이 존재하지 않습니다.");
-                window.location.reload();
-            }
-        }).fail(function(error){
-            alert(JSON.stringify(error));
-        })
-    }
-});
-
-
-
-</script> -->

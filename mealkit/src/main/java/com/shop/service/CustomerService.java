@@ -85,6 +85,11 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 		return mapper.resetPwd(pwd1, pwd2, cust_key);
 	}
 	
+	//회원탈퇴
+	public int signOut(CustomerDTO dto) {
+		return mapper.signOut(dto);
+	}
+	
 }
 
 

@@ -1,5 +1,6 @@
 package com.shop.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,35 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.dto.CustomerDTO;
-import com.shop.dto.OrderDTO;
-import com.shop.dto.OrderDetailDTO;
 import com.shop.mapper.CustomerMapper;
 import com.shop.service.CustomerService;
-import com.shop.service.OrderDetailService;
-import com.shop.service.OrderService;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
 
-	String dir="customer/";
-	
 	@Autowired
 	CustomerService service;
 
-	@Autowired
-	CustomerMapper mapper;
-	
-	@Autowired
-	OrderDetailService orderdetailservice;
-	
-	@Autowired
-	OrderService orderservice;
 
 	// 회원가입 폼
 	@GetMapping("/memberForm")
 	public String addMember(Model model) {
-		model.addAttribute("title", "회원가입");
 		return "customer/memberForm";
 	}
 
@@ -109,18 +95,18 @@ public class CustomerController {
 	public String findId(CustomerDTO dto, Model model) throws Exception {
 		String result = service.findId(dto);
 		model.addAttribute("result", result);
-		
-		if(result==null || result.equals("")) {
+
+		if (result == null || result.equals("")) {
 			return "customer/findid";
 		}
-		
+
 		return "redirect:/customer/loginForm";
 	}
 
 	// 비밀번호 찾기 폼
 	@GetMapping("/findpwd")
 	public String findpwd(Model model) {
-		
+
 		return "customer/findpwd";
 	}
 
@@ -128,10 +114,10 @@ public class CustomerController {
 	@PostMapping("/findPwd")
 	@ResponseBody
 	public String findPwd(CustomerDTO dto) throws Exception {
-		String result = service.findId(dto);				
+		String result = service.findId(dto);
 		return result;
 	}
-	
+
 	// 비밀번호 리셋폼
 	@PostMapping("/resetPwdForm")
 	public String resetPwdForm(CustomerDTO dto, Model model) {
@@ -139,78 +125,97 @@ public class CustomerController {
 		try {
 			d = service.resetPwdForm(dto);
 		} catch (Exception e) {
-		
+
 			e.printStackTrace();
 		}
-		
-		if(d != null) {
+
+		if (d != null) {
 			model.addAttribute("cust_key", d.getCust_key());
 			return "customer/resetpwd";
 		}
 		model.addAttribute("num", 0);
-		return "customer/findpwd";
+		return "customer/findpwd"; //
 	}
-	
+
 	// 비밀번호 재설정
 	@PostMapping("/resetPwd")
 	public String resetPwd(String pwd1, String pwd2, int cust_key, Model model) {
 		int result = 0;
-		
+
 		try {
 			result = service.resetPwd(pwd1, pwd2, cust_key);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		if(result == 0) {
+
+		if (result == 0) {
 			model.addAttribute("result", result);
 			return "customer/resetPwd";
 		}
-		result=2;
+		result = 2;
 		model.addAttribute("result", result);
-		
+
 		return "customer/login";
 	}
-	
-	
-	@RequestMapping("/orderlist")
-	public String orderlist(Model model, HttpSession session) {
-		//회원의 주문 리스트를 불러오기
-		//1. cust_key를 세션에서 받아오기
-		//2. cust_key를 통해 모든 total_list 불러오기
-		List<OrderDTO> list=null;
-		
-		//cust_key를 세션에서 받아오기
-		int cust_key=(int)session.getAttribute("cust_key");
-		// 해당 회원의 모든 total_list를 받아오기
-		list=orderservice.getOrderWithItemInfo(cust_key);
 
-		model.addAttribute("list", list);
-		model.addAttribute("content", dir+"orderlist");
+	// 마이페이지 처음
+	@RequestMapping("/mypage")
+	public String mypageForm(Model model) {
+		model.addAttribute("content","customer/mypage" );
 		return "main";
 	}
 
-	@RequestMapping("/orderdetail")
-	public String orderdetail(int order_key,Model model, HttpSession session) {
-		//주문 상세 정보를 보여주는 페이지
-		//1. cust_key를 세션에서 받아오기
-		//2. order_key를 이용해서 주문 상세내역/주문내역 가져오기
-		List<OrderDetailDTO> odlist=null;
-		OrderDTO order=null;
+	// 마이페이지 비밀번호 변경폼
+	@RequestMapping("/myresetPwdForm") 
+	 public String myresetpwd(Model model, CustomerDTO dto) { 
+		CustomerDTO d = null;
+		try {
+			d = service.resetPwdForm(dto);
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		if (d != null) {
+			model.addAttribute("cust_key", d.getCust_key());
+			return "customer/resetpwd";
+		}
+		model.addAttribute("num", 0);
+		return "customer/findpwd"; 
 		
-		int cust_key=(int)session.getAttribute("cust_key");
-		
-		
-		odlist=orderdetailservice.get_orderdetail_by_orderkey(order_key);
-		order=orderservice.getOrderByOrderKey(order_key);
-		
-		model.addAttribute("order", order);
-		model.addAttribute("list", odlist);
-		model.addAttribute("content", dir+"orderdetail");
-		return "main";
 	}
 	
+	
+	
+	
+	
+	
+	// 주문내역 조회
+
+
+	
+	
+	
+	//회원탈퇴 폼으로 이동
+	@RequestMapping("/signoutForm")
+	public String signOutForm() {
+		return "customer/signout";
+	}
+	
+	// 회원탈퇴
+	@PostMapping("/signout")
+	public String signOut(Model model, HttpSession session, CustomerDTO dto) {
+		int cust_key = (int)session.getAttribute("cust_key");
+		dto.setCust_key(cust_key);
+		int result = service.signOut(dto);
+		if(result==1) {
+			session.invalidate();
+		}else{
+			result=2;
+		}
+		model.addAttribute("result", result);
+		return "customer/signout";
+	}
+
 }

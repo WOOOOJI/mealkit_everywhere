@@ -13,10 +13,17 @@ public class BoardDTO {
 	private int item_key;
 	private String ntype;
 	private String title;
-	private SimpleDateFormat rdate;
+	private String rdate;
 	private String content;
 	private String img;
 	private int rate;
 	
 	private MultipartFile imgfile;
+	
+	
+	//문의 내역 보기 
+	private String username;
+	private String name;
+	private int price;
+	
 }
