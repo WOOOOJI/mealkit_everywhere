@@ -42,8 +42,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 
 
-	<!-- notice_key 오름차순으로 데이터 모두 조회 (LIMIT-데이터 시작위치[0이 처음]와 시작위치를 기준으로 가져올 
-		데이터의 개수) -->
+	<!-- notice_key 오름차순으로 데이터 모두 조회 (LIMIT-데이터 시작위치[0이 처음]와 시작위치를 기준으로 가져올 데이터의 개수) -->
 	<select id="getNoticeList" resultType="NoticeDTO"
 		parameterType="Criteria">
 		SELECT * FROM notice

@@ -68,6 +68,16 @@
 		});
 	};
 	
+	function check(price){
+		if(price==0){
+			alert('장바구니에 상품을 담아주세요.');
+			return false;
+		}else{
+			location.href='[[@{/order}]]'
+		}
+	}	
+	
+	
 </script>
 	
 
@@ -161,7 +171,7 @@
     						<span th:text="${finalPrice}+원"></span>
     					</p>
     				</div>
-    				<p><a th:href="@{/order}" class="btn btn-primary py-3 px-4">지금바로 주문하기 !</a></p>
+    				<p><a th:onclick="check('[[${totalPrice}]]')" class="btn btn-primary py-3 px-4">지금바로 주문하기 !</a></p>
     			</div>
     		</div>
 			</div>
