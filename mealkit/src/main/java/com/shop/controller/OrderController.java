@@ -284,7 +284,6 @@ public class OrderController {
 	@ResponseBody
 	@RequestMapping("/requestPay")
 	public int requestPay(String imp_uid, String merchant_uid) {
-		System.out.println("imp_uid: "+imp_uid+"/merchantid: "+merchant_uid);
 		return 1;
 	}
 

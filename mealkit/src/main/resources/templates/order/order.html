@@ -24,46 +24,7 @@ float:left;
 
 	function requestPay() {
 		
-		if('[[${def}]]'==""){
-			alert('배송지를 선택해주세요');
-			return false;
-		}
-		
-		if('[[${orprice}]]'<1){
-			alert('상품을 담아주세요'+'[[${orpice}]]');
-			return false;
-		}
-		
-		    IMP.request_pay({
-		      pg: "html5_inicis",
-		      pay_method: "card",
-		      merchant_uid: 'merchant_'+new Date().getTime(),   // 주문번호
-		      name: document.getElementById('item_name').text,
-		      amount: '[[${finalprice}]]',                         // 숫자 타입
-		      buyer_name: '[[${def.name}]]',
-		      buyer_tel: '[[${def.tel}]]',
-		      buyer_addr: '[[${def.addr}]]',
-		      buyer_postcode: '[[${def.zipcode}]]'
-		    }, function (rsp) { // callback
-		      if (rsp.success) {// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-		          // jQuery로 HTTP 요청
-		    	  jQuery.ajax({
-		              url: '[[@{/order/requestPay}]]', // 예: https://www.myservice.com/payments/complete
-		              method: "POST",
-		             
-		              data: {
-		                  "imp_uid": rsp.imp_uid,
-		                  "merchant_uid": rsp.merchant_uid
-		              }
-		          }).done(function (data) {
-		            alert('결제 완료되었습니다. 주문리스트로 이동합니다.');
-		    	    document.addr_form.action = "[[@{/order/payment}]]";
-		    	    document.addr_form.submit();
-		          })
-		        } else {
-		        	alert("결제에 실패하였습니다." +  rsp.error_msg);
-		        }
-		    });
+
 		  }
 	
 
@@ -81,6 +42,48 @@ float:left;
 			window.open('[[@{/order/selectaddr}]]','popup','width=700px,height=800px,resizable=no')
 		}); 
 		
+		$('#requestPay').click(function(){
+			if('[[${def}]]'==""){
+				alert('배송지를 선택해주세요');
+				return false;
+			}
+			
+			if('[[${orprice}]]'<1){
+				alert('상품을 담아주세요'+'[[${orpice}]]');
+				return false;
+			}
+			
+		    IMP.request_pay({
+		     pg: "html5_inicis",
+		     pay_method: "card",
+			 merchant_uid: 'merchant_'+new Date().getTime(),   // 주문번호
+			 name: document.getElementById('item_name').text,
+			 amount:  document.getElementById('order_name').text,                         // 숫자 타입
+			 buyer_name: document.getElementById('order_name').value,
+			 buyer_tel: document.getElementById('order_tel').value,
+			 buyer_addr: document.getElementById('order_addr').value,
+			 buyer_postcode: document.getElementById('order_zipcode').value
+			    }, function (rsp) { // callback
+			      if (rsp.success) {// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+			          // jQuery로 HTTP 요청
+			    	  jQuery.ajax({
+			              url: '[[@{/order/requestPay}]]', // 예: https://www.myservice.com/payments/complete
+			              method: "POST",
+			             
+			              data: {
+			                  "imp_uid": rsp.imp_uid,
+			                  "merchant_uid": rsp.merchant_uid
+			              }
+			          }).done(function (data) {
+			            alert('결제 완료되었습니다. 주문리스트로 이동합니다.');
+			    	    document.addr_form.action = "[[@{/order/payment}]]";
+			    	    document.addr_form.submit();
+			          })
+			        } else {
+			        	alert("결제에 실패하였습니다." +  rsp.error_msg);
+			        }
+			    });
+		});
 		
 	});
 	
@@ -110,30 +113,30 @@ float:left;
 	          		<div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="name">받는 분 성함</label>
-	                  <input th:if="${def==null}" type="text" class="form-control" readonly="readonly" placeholder="">
-	                  <input th:if="${def!=null}" th:value="${def.name}" type="text" readonly="readonly" class="form-control" placeholder="">
+	                  <input th:if="${def==null}" id="order_name" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" id="order_name" th:value="${def.name}" type="text" readonly="readonly" class="form-control" placeholder="">
 	                </div>
 	              </div>
 	              <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="tel">전화번호</label>
-	                  <input th:if="${def==null}" type="text" class="form-control" readonly="readonly" placeholder="">
-	                  <input th:if="${def!=null}" th:value="${def.tel}" type="text" class="form-control" readonly="readonly"  placeholder="">
+	                  <input th:if="${def==null}" id="order_tel" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" id="order_tel" th:value="${def.tel}" type="text" class="form-control" readonly="readonly"  placeholder="">
 	                </div>
                 </div>
                 <div class="w-100"></div>
 		           	<div class="col-md-8">
 	                <div class="form-group">
 	                	<label for="addr">주소</label>
-	                  <input th:if="${def==null}" type="text" class="form-control" readonly="readonly" placeholder="">
-	                  <input th:if="${def!=null}" th:value="${def.addr}+', '+${def.addr_detail}" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def==null}" id="order_addr" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" id="order_addr" th:value="${def.addr}+', '+${def.addr_detail}" type="text" class="form-control" readonly="readonly" placeholder="">
 	                </div>
 	              </div>
 	              <div class="col-md-4">
 	                <div class="form-group">
 	                	<label for="zipcode">우편번호</label>
-	                  <input th:if="${def==null}" type="text" class="form-control" readonly="readonly" placeholder="">
-	                  <input th:if="${def!=null}" th:value="${def.zipcode}"type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def==null}" id="order_zipcode" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" id="order_zipcode" th:value="${def.zipcode}"type="text" class="form-control" readonly="readonly" placeholder="">
 	                </div>
                 </div>
                  <div class="col-md-12">
@@ -218,13 +221,13 @@ float:left;
 		    					<hr>
 		    					<p class="d-flex total-price">
 		    						<span>결제 금액</span>
-		    						<span th:text="${finalprice}+'원'"></span>
+		    						<span th:text="${finalprice}+'원'" id="finalprice"></span>
 		    					</p>
 								</div>
 	          	</div>
 
 	          	<div class="col-md-12">
-	          		<div class="cart-detail p-3 p-md-4"><p><button class="btn btn-primary py-3 px-4" id="payment" onclick="requestPay()">결제하기</button></p>
+	          		<div class="cart-detail p-3 p-md-4"><p><button class="btn btn-primary py-3 px-4" id="requestPay">결제하기</button></p>
 	          	</div>
 	          </div>
           </div> <!-- .col-md-8 -->
