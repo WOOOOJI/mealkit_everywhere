@@ -19,4 +19,6 @@ public class CustomerDTO {
 	private String tel;
 	private String banned;
 	private String signout;
+	private int jumin;
+	private int gender;
 }
