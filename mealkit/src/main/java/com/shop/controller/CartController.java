@@ -214,6 +214,36 @@ public class CartController {
 			
 			return "redirect:/";
 		}
-
 	
+	// 상품리스트에서 장바구니에 상품담고 다시 상품리스트로 가기
+		@GetMapping("/cart/cartInsertToItemList")
+		public String cartInsertToItemList(int item_key, int cnt, HttpServletRequest req) {
+			
+			HttpSession session = req.getSession();
+			int cust_key = (int)session.getAttribute("cust_key");
+			
+			
+			if(cnt == 0) cnt = 1;
+			
+			List<CartDTO> dto = new ArrayList<CartDTO>();
+			try {
+				dto = service.CartList(cust_key);
+				for(CartDTO c : dto) {
+					if(c.getItem_key()==item_key) {
+						service.increaseCart(c.getCart_key(), item_key, cnt);
+						return "redirect:/shoplist";
+					}
+				}
+				
+				service.insertCart(cust_key, item_key, cnt);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return "redirect:/shoplist";
+		}
+	
+	
+	
+
 }

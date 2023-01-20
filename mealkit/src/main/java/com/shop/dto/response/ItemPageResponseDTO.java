@@ -3,6 +3,7 @@ package com.shop.dto.response;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.shop.dto.CategoryDTO;
 import com.shop.dto.PageDTO;
 
 import lombok.Builder;

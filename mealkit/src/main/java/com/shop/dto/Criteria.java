@@ -23,10 +23,19 @@ import lombok.ToString;
 	  
 	  //검색 키워드 
 	  private String keyword;
-  
+	  
 	  //검색 타입 
 	  private String type;
-  
+	  
+	  //정렬 기준
+	  private String order_cri;
+	  
+	  //차순
+	  private String asc_desc;
+	  
+	  //카테고리 번호
+	  private int category_key;
+	  
 	  //디폴트값을 설정하는 기본 생성자 
 	  public Criteria() { 
 		 this.pageNum = 1;

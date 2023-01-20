@@ -1,12 +1,63 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" >
+ 	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+ 	<script>
+ 		
+
+		$(document).ready(function(){
+
+
+			var pageNum='[[${pageNum}]]';
+			document.getElementById('pageNum'+pageNum).className='active';
+			
+			var category='[[${category_key}]]';
+			document.getElementById('categoryNum'+category).className='active';
+
+			var order_cri='[[${order_cri}]]';
+			document.getElementById(order_cri).className='active';
+			
+		});
+
+		
+		function insertCart(item){
+			var item_key = item;
+			var cnt = 1;
+			location.href="/cart/cartInsertToItemList?item_key="+item_key+"&cnt="+cnt;
+		};
+		
+		
+		
+ 	</script>
+ 	
+
+
+ 	
+ 	<style>
+ 	  
+ 	  .pageList > .active{
+      background: #82ae46;
+      color: #fff;
+      border: 1px solid transparent; }
+      
+	  .categories > .active{
+      background: #82ae46;
+      color: #fff;
+      border: 1px solid transparent; }
+
+	  .alignList > .active{
+      background: #82ae46;
+      color: #fff;
+      border: 1px solid transparent; }
+      
+ 	</style>
+ 	
  	
     <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
           	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Products</span></p>
-            <h1 class="mb-0 bread">모든 상품</h1>
+            <h1 class="mb-0 bread">상품</h1>
           </div>
         </div>
       </div>
@@ -21,12 +72,20 @@
     		<div class="row justify-content-center">
     			<div class="col-md-10 mb-5 text-center">
     				<ul class="product-category">
-    					<!-- 상품 카테고리 -->
-    					<li><a href="/shoplist" class="active">모든 상품</a></li>
-    					<li><a href="/shoplist/korean">한식</a></li>
-    					<li><a href="/shoplist/japanese">일식</a></li>
-    					<li><a href="/shoplist/chinese">중식</a></li>
-    					<li><a href="/shoplist/southasia">동남아</a></li>
+    					<!-- 카테고리 리스트 -->
+    						<li><a th:href="@{/shoplist}" id="categoryNum0">전체 상품</a></li>
+    					<li class="categories" th:each="category : ${categoryList}">
+    						<a th:href="@{/shoplist(category_key = ${category.category_key})}" th:id="'categoryNum'+${category.category_key}" th:text="${category.name}"></a>
+    					</li>
+    				</ul>
+    				<ul class="product-category">
+    					<!-- 정렬 순서 선택 -->
+    					<!-- 최신 등록순 -->
+    					<li class="alignList"><a th:href="@{/shoplist(category_key = ${category_key}, asc_desc = 'desc', order_cri='item_key')}" id="item_key">최신 등록순</a></li>
+    					<!-- 이름순 -->
+    					<li class="alignList"><a th:href="@{/shoplist(category_key = ${category_key}, asc_desc = 'asc', order_cri='name')}" id="name">이름순</a></li>
+    					<!-- 낮은 가격순 -->
+    					<li class="alignList"><a th:href="@{/shoplist(category_key = ${category_key}, asc_desc = 'asc', order_cri='price')}" id="price">낮은 가격순</a></li>
     				</ul>
     			</div>
     		</div>
@@ -38,25 +97,29 @@
 	    		<!-- 상품 리스트 구간 -->
 		    	<th:block th:if="${itemList != 'empty'}" th:each="item : ${itemList}">
 		    		<div class="col-md-6 col-lg-3 ftco-animate">
+		    			<!-- 각 상품의 한 칸 구역 -->
 		    			<div class="product">
-		    				<a href="#" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${item.img1}" alt="No image">
+		    				<!-- 상품 썸네일 -->
+		    				<a th:href="@{/shoplist/productSingle(item_key = ${item.item_key})}" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${item.img1}" alt="No image">
 		    					<!-- 썸네일 위에 표시 되는 할인율 -->
 		    					<!-- span class="status">30%</span> -->
 		    					<div class="overlay"></div>
 		    				</a>
 		    				<div class="text py-3 pb-4 px-3 text-center">
-		    					<h3><a href="#"><span th:text="${item.name}"></span></a></h3>
+		    					<!-- 상품 이름 텍스트 -->
+		    					<h3><a th:href="@{/shoplist/productSingle(item_key = ${item.item_key})}"><span th:text="${item.name}"></span></a></h3>
 		    					<div class="d-flex">
 		    						<div class="pricing">
 				    					<p class="price"><span class="mr-2 price-dc" th:text="${item.price}"></span><span class="price-sale" th:text="${item.sale}"></span></p>
 				    				</div>
 			    				</div>
+			    				<!-- 상품상세, 장바구니, 찜하기 버튼 -->
 			    				<div class="bottom-area d-flex px-3">
 			    					<div class="m-auto d-flex">
-			    						<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+			    						<!-- <a th:href="@{/shoplist/productSingle(item_key = ${item.item_key})}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 			    							<span><i class="ion-ios-menu"></i></span>
-			    						</a>
-			    						<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+			    						</a> -->
+			    						<a href="#" th:onclick="insertCart([[${item.item_key}]])" class="buy-now d-flex justify-content-center align-items-center mx-1">
 			    							<span><i class="ion-ios-cart"></i></span>
 			    						</a>
 			    						<a href="#" class="heart d-flex justify-content-center align-items-center ">
@@ -90,14 +153,14 @@
 		                <!-- 클래스는 공백으로도 설정이 된다 -->
 	                	<!-- 타임리프로 클래스 설정시 문자열이 아닌 값으로 넘긴다 -->
 
-		                <!-- 이전 버튼 -->
-		                <li class="prevbtn"><a th:if="${pageMaker.prev == true}" th:href="@{/shoplist(pageNum = ${pageMaker.pageStart - 1})}">&lt;</a></li>
+		                <!-- 이전 버튼; category_key를 안줘도 페이지가 작동된다? -->
+		                <li class="prevbtn"><a th:if="${pageMaker.prev == true}" th:href="@{/shoplist(category_key = ${category_key}, pageNum = ${pageMaker.pageStart - 1}, asc_desc = ${asc_desc}, order_cri=${order_cri})}">&lt;</a></li>
 							<!-- 페이지 번호 출력 -->
-		                	<li th:each="pageNum : ${pageNumList}">  <!-- class="active" -->
-		                		<a th:href="@{/shoplist(pageNum = ${pageNum})}" th:text="${pageNum}"></a>
+		                	<li class="pageList" th:each="pageNum : ${pageNumList}">
+		                		<a th:href="@{/shoplist(category_key = ${category_key}, pageNum = ${pageNum}, asc_desc = ${asc_desc}, order_cri=${order_cri})}" th:id="'pageNum'+${pageNum}" th:text="${pageNum}"></a>
 		                	</li>
-		                <!-- 다음 버튼 -->
-		                <li class="nextbtn"><a th:if="${pageMaker.next == true}" th:href="@{/shoplist(pageNum = ${pageMaker.pageEnd + 1})}">&gt;</a></li>
+		                <!-- 다음 버튼; category_key를 안줘도 페이지가 작동된다? -->
+		                <li class="nextbtn"><a th:if="${pageMaker.next == true}" th:href="@{/shoplist(category_key = ${category_key}, pageNum = ${pageMaker.pageEnd + 1}, asc_desc = ${asc_desc}, order_cri=${order_cri})}">&gt;</a></li>
 		              </ul>
 		            </div>
 		          </div>

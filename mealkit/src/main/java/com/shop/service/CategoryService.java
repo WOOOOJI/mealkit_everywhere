@@ -41,11 +41,16 @@ public class CategoryService implements MyService<Integer, CategoryDTO>{
 	}
 
 	@Override
-	public List<CategoryDTO> get() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CategoryDTO> get() {
+		try {
+			return mapper.selectall();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
+}
+	
 	
 
-}

@@ -60,8 +60,6 @@ public class NoticeController {
 		}
 		
 		// 페이징 관련 변수들 모두 담아주기.
-		log.info("itemController 34th line, active "+itemPageResponseDTO.getActive());
-		model.addAttribute("active", itemPageResponseDTO.getActive());
 		model.addAttribute("pageNumList", itemPageResponseDTO.getPageNumList());
 		model.addAttribute("pageMaker", itemPageResponseDTO.getPageMaker());		
 		model.addAttribute("content", dir+"event");

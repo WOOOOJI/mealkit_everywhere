@@ -1,248 +1,1022 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+	$(document).ready(function() {
 
-    <div class="hero-wrap hero-bread" style="background-image: url('static/images/bg_1.jpg');">
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a href="index.html">Product</a></span> <span>Product Single</span></p>
-            <h1 class="mb-0 bread">Product Single</h1>
-          </div>
-        </div>
-      </div>
-    </div>
+		var quantitiy = 0;
+		$('.quantity-right-plus').click(function(e) {
 
-    <section class="ftco-section">
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-lg-6 mb-5 ftco-animate">
-    				<a href="images/product-1.jpg" class="image-popup"><img src="images/product-1.jpg" class="img-fluid" alt="Colorlib Template"></a>
-    			</div>
-    			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-    				<h3>Bell Pepper</h3>
-    				<div class="rating d-flex">
-							<p class="text-left mr-4">
-								<a href="#" class="mr-2">5.0</a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-								<a href="#"><span class="ion-ios-star-outline"></span></a>
-							</p>
-							<p class="text-left mr-4">
-								<a href="#" class="mr-2" style="color: #000;">100 <span style="color: #bbb;">Rating</span></a>
-							</p>
-							<p class="text-left">
-								<a href="#" class="mr-2" style="color: #000;">500 <span style="color: #bbb;">Sold</span></a>
-							</p>
-						</div>
-    				<p class="price"><span>$120.00</span></p>
-    				<p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until.
-						</p>
-						<div class="row mt-4">
-							<div class="col-md-6">
-								<div class="form-group d-flex">
-		              <div class="select-wrap">
-	                  <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-	                  <select name="" id="" class="form-control">
-	                  	<option value="">Small</option>
-	                    <option value="">Medium</option>
-	                    <option value="">Large</option>
-	                    <option value="">Extra Large</option>
-	                  </select>
-	                </div>
-		            </div>
-							</div>
-							<div class="w-100"></div>
-							<div class="input-group col-md-6 d-flex mb-3">
-	             	<span class="input-group-btn mr-2">
-	                	<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
-	                   <i class="ion-ios-remove"></i>
-	                	</button>
-	            		</span>
-	             	<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
-	             	<span class="input-group-btn ml-2">
-	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-	                     <i class="ion-ios-add"></i>
-	                 </button>
-	             	</span>
-	          	</div>
-	          	<div class="w-100"></div>
-	          	<div class="col-md-12">
-	          		<p style="color: #000;">600 kg available</p>
-	          	</div>
-          	</div>
-          	<p><a href="cart.html" class="btn btn-black py-3 px-5">Add to Cart</a></p>
-    			</div>
-    		</div>
-    	</div>
-    </section>
+			// Stop acting like a button
+			e.preventDefault();
+			// Get the field name
+			var quantity = parseInt($('#quantity').val());
 
-    <section class="ftco-section">
-    	<div class="container">
-				<div class="row justify-content-center mb-3 pb-3">
-          <div class="col-md-12 heading-section text-center ftco-animate">
-          	<span class="subheading">Products</span>
-            <h2 class="mb-4">Related Products</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-          </div>
-        </div>   		
-    	</div>
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-1.jpg" alt="Colorlib Template">
-    						<span class="status">30%</span>
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Bell Pepper</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span class="mr-2 price-dc">$120.00</span><span class="price-sale">$80.00</span></p>
-		    					</div>
-	    					</div>
-	    					<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-2.jpg" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Strawberry</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$120.00</span></p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-3.jpg" alt="Colorlib Template">
-	    					<div class="overlay"></div>
-	    				</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Green Beans</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$120.00</span></p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div class="col-md-6 col-lg-3 ftco-animate">
-    				<div class="product">
-    					<a href="#" class="img-prod"><img class="img-fluid" src="images/product-4.jpg" alt="Colorlib Template">
-    						<div class="overlay"></div>
-    					</a>
-    					<div class="text py-3 pb-4 px-3 text-center">
-    						<h3><a href="#">Purple Cabbage</a></h3>
-    						<div class="d-flex">
-    							<div class="pricing">
-		    						<p class="price"><span>$120.00</span></p>
-		    					</div>
-	    					</div>
-    						<div class="bottom-area d-flex px-3">
-	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-	    								<span><i class="ion-ios-cart"></i></span>
-	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
-	    								<span><i class="ion-ios-heart"></i></span>
-	    							</a>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    		</div>
-    	</div>
-    </section>
+			// If is not undefined
 
-  <script>
-		$(document).ready(function(){
+			$('#quantity').val(quantity + 1);
 
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
+			// Increment
 
-		          
-		            // Increment
-		        
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
 		});
-	</script>
+
+		$('.quantity-left-minus').click(function(e) {
+			// Stop acting like a button
+			e.preventDefault();
+			// Get the field name
+			var quantity = parseInt($('#quantity').val());
+
+			// If is not undefined
+
+			// Increment
+			if (quantity > 1) {
+				$('#quantity').val(quantity - 1);
+			}
+		});
+
+		$(".board_tit").click(function() {
+			// 현재 클릭한 태그가 a 이기 때문에
+			// a 옆의 태그중 ul 태그에 hide 클래스 태그를 넣던지 빼던지 한다.
+			$(".reviews_new_box").toggleClass("hide");
+			/* $(".reviews_cont").css({
+				
+			}); */
+		});
+
+	});
+
+	function insertCart(item) {
+		var item_key = item;
+		var cnt = parseInt($('#quantity').val());
+
+		location.href = "/cart/cartInsertToItemList?item_key=" + item_key
+				+ "&cnt=" + cnt;
+	};
+</script>
+<style>
+.board_tit {
+	cursor: pointer;
+}
+
+.hide {
+	display: none;
+}
+
+.js_detail {
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+	display: table-row;
+	
+    width: 100%;
+    border-top: 1px solid #999999;
     
-  </body>
+        font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    margin: 0;
+    
+    padding-top: 45px;
+    position: relative;
+    min-height: 200px;
+  	border-bottom: 1px solid #dbdbdb;
+}
+
+.reviews_new_box{
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    font-family: /*Arial,*/nanumgothic,"나눔고딕",Malgun Gothic,"맑은 고딕",AppleGothic,Dotum,"돋움",sans-serif;
+    text-align: left;
+    background: #f8f8f8;
+    padding: 13px 10px 15px 18px;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.js_detail > .board_cont > .board_view {
+    padding: 0;
+    line-height: 1.8;
+}
+
+
+
+.board_cont {
+    border-spacing: 0;
+    border-collapse: collapse;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    font-family: /*Arial,*/nanumgothic,"나눔고딕",Malgun Gothic,"맑은 고딕",AppleGothic,Dotum,"돋움",sans-serif;
+    text-align: left;
+    margin: 0;
+    float: right;
+    width: 84%;
+    padding: 0 30px 0 0;
+}
+
+
+.viewcomment{
+    border-spacing: 0;
+    border-collapse: collapse;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    font-family: /*Arial,*/nanumgothic,"나눔고딕",Malgun Gothic,"맑은 고딕",AppleGothic,Dotum,"돋움",sans-serif;
+    text-align: left;
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+
+
+.view_comment_list{
+    border-spacing: 0;
+    border-collapse: collapse;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    font-family: /*Arial,*/nanumgothic,"나눔고딕",Malgun Gothic,"맑은 고딕",AppleGothic,Dotum,"돋움",sans-serif;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.view_comment{
+    border-spacing: 0;
+    border-collapse: collapse;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    font-family: /*Arial,*/nanumgothic,"나눔고딕",Malgun Gothic,"맑은 고딕",AppleGothic,Dotum,"돋움",sans-serif;
+    text-align: left;
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+
+
+.view_comment ul{
+    border-spacing: 0;
+    border-collapse: collapse;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    font-family: /*Arial,*/nanumgothic,"나눔고딕",Malgun Gothic,"맑은 고딕",AppleGothic,Dotum,"돋움",sans-serif;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.js_data_comment_row{
+    border-spacing: 0;
+    border-collapse: collapse;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    font-family: /*Arial,*/nanumgothic,"나눔고딕",Malgun Gothic,"맑은 고딕",AppleGothic,Dotum,"돋움",sans-serif;
+    margin: 0;
+    list-style: none;
+    padding: 15px 0 15px 0;
+    border-top: 1px solid #dbdbdb;
+
+}
+
+.comment-item{
+    border-spacing: 0;
+    border-collapse: collapse;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    font-family: /*Arial,*/nanumgothic,"나눔고딕",Malgun Gothic,"맑은 고딕",AppleGothic,Dotum,"돋움",sans-serif;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.comment-item em{
+    border-spacing: 0;
+    border-collapse: collapse;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    font-family: /*Arial,*/nanumgothic,"나눔고딕",Malgun Gothic,"맑은 고딕",AppleGothic,Dotum,"돋움",sans-serif;
+    list-style: none;
+    font-style: normal;
+    font-weight: normal;
+    display: block;
+    padding: 10px 10px 10px 5px;
+}
+
+.image-wrapper {
+	width: 100%;
+}
+
+.productImages {
+	max-width: 100%;
+	height: auto;
+}
+
+.boardModule {
+	width: 100%;
+	padding: 0 15%;
+}
+
+.reviews_cont {
+	max-width: 100%;
+	height: 65%;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	margin: 0;
+	padding-top: 40px;
+	padding-bottom: 80px;
+	position: relative;
+	min-height: 200px;
+}
+
+
+
+.qna_cont {
+	max-width: 100%;
+	height: 440px;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	margin: 0;
+	padding-top: 55px;
+	padding-bottom: 55px;
+	position: relative;
+	min-height: 200px;
+}
+
+.reviews_cont>h3 {
+	width: 1200px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	margin: 0;
+	font-size: 18px;
+	padding: 0 0 10px 0;
+	font-weight: 600;
+}
+
+.reviews_cont>#ajax-goods-goodsreview-list {
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.qna_cont>#ajax-goods-goodsqa-list {
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+#ajax-goods-goodsreview-list>.reviews_table {
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+#ajax-goods-goodsqa-list>.qna_table {
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.reviews_table_type {
+	width: 1152.89px;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.qna_table_type {
+	width: 1152.89px;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.reviews_table_type>colgroup {
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.qna_table_type>colgroup {
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.reviews_table_type>colgroup>thead {
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+	display: none;
+}
+
+.qna_table_type>colgroup>thead {
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+	display: none;
+}
+
+.reviews_table_type>thead>tr {
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+	border-bottom: 1px solid #dbdbdb;
+	border-top: 1px solid #dbdbdb;
+}
+
+.qna_table_type>thead>tr {
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+	border-bottom: 1px solid #dbdbdb;
+	border-top: 1px solid #dbdbdb;
+}
+
+.reviews_table_type>thead>tr>th {
+	border-spacing: 0;
+	border-collapse: collapse;
+	margin: 0;
+	font-size: 14px;
+	line-height: 1;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	padding: 10px 10px 10px 14px;
+	color: #555555;
+}
+
+.qna_table_type>thead>tr>th {
+	border-spacing: 0;
+	border-collapse: collapse;
+	margin: 0;
+	font-size: 14px;
+	line-height: 1;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	padding: 10px 10px 10px 14px;
+	color: #555555;
+}
+
+.reviews_table_type>tbody {
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.qna_table_type>tbody {
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.reviews_table_type>tbody>.js_data_row {
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.js_data_row>td {
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+	margin: 0;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	padding: 13px 10px 15px 18px;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+.rating_star {
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	display: inline-block;
+	width: 88px;
+	height: 15px;
+	background: url("../../img/icon/board/icon_star_bg.png") no-repeat left
+		top;
+	vertical-align: middle;
+	text-indent: -9999px;
+}
+
+.rating_star>* {
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	text-indent: -9999px;
+	display: block;
+	background: url("../../img/icon/board/icon_star_fill.png") no-repeat
+		left top;
+	width: 100%;
+}
+
+.board_tit {
+	border-spacing: 0;
+	border-collapse: collapse;
+	margin: 0;
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	text-align: left;
+	vertical-align: middle;
+	padding: 13px 10px 15px 18px;
+	border-bottom: 1px solid #dbdbdb;
+}
+
+.board_tit>.js_btn_view {
+	border-spacing: 0;
+	border-collapse: collapse;
+	font-size: 12px;
+	line-height: 1.5;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	text-align: left;
+	color: #333;
+	text-decoration: none;
+}
+
+.writer {
+	text-align: left;
+}
+
+.js_btn_view>img {
+	border-spacing: 0;
+	border-collapse: collapse;
+	font-size: 12px;
+	line-height: 1.5;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	text-align: left;
+	color: #333;
+	border: 0 none;
+	margin: 0 8px 0 2px;
+	vertical-align: middle;
+}
+
+.js_btn_view>* {
+	border-spacing: 0;
+	border-collapse: collapse;
+	font-size: 12px;
+	line-height: 1.5;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	text-align: left;
+	color: #333;
+	font-weight: normal;
+	float: left;
+}
+
+.js_comment_count {
+	border-spacing: 0;
+	border-collapse: collapse;
+	font-size: 12px;
+	line-height: 1.5;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	text-align: left;
+	color: #000;
+	font-weight: bold;
+}
+
+.reviews_table_type>tbody>.js_detail {
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	border-spacing: 0;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.reviews_cont>.btn_reviews_box {
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	top: 32px;
+	right: 0px;
+}
+
+.reviews_cont>.btn_reviews_box>.btn_reviews_write {
+	font-size: 12px;
+	line-height: 1.5;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	text-decoration: none;
+	display: inline-block;
+	min-width: 120px;
+	padding: 10px 10px 10px 10px;
+	color: #ffffff;
+	font-weight: bold;
+	border: 1px solid #000;
+	background: #000;
+	text-align: center;
+}
+
+.qna_cont>h3 {
+	width: 1200px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	margin: 0;
+	font-size: 18px;
+	padding: 0 0 10px 0;
+	font-weight: 600;
+}
+
+.qna_cont>.btn_qna_box {
+	font-size: 12px;
+	line-height: 1.5;
+	color: #333;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	top: 32px;
+	right: 0px;
+}
+
+.qna_cont>.btn_qna_box>.btn_qna_write {
+	font-size: 12px;
+	line-height: 1.5;
+	font-family: /*Arial,*/ nanumgothic, "나눔고딕", Malgun Gothic, "맑은 고딕",
+		AppleGothic, Dotum, "돋움", sans-serif;
+	text-decoration: none;
+	display: inline-block;
+	min-width: 120px;
+	padding: 10px 10px 10px 10px;
+	color: #ffffff;
+	font-weight: bold;
+	border: 1px solid #000;
+	background: #000;
+	text-align: center;
+}
+</style>
+
+<div class="hero-wrap hero-bread"
+	style="background-image: url('/img/bg_1.jpg');">
+	<div class="container">
+		<div
+			class="row no-gutters slider-text align-items-center justify-content-center">
+			<div class="col-md-9 ftco-animate text-center">
+				<p class="breadcrumbs">
+					<span class="mr-2"><a href="#"></a></span><span class="mr-2"><a
+						href="#"></a></span> <span></span>
+				</p>
+				<h1 class="mb-0 bread">상품 상세보기</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+<section class="ftco-section">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 mb-5 ftco-animate">
+				<!-- 이미지 클릭 시 팝업창 띄우는 클래스 -->
+				<!--  a href="#" class="image-popup"-->
+				<!-- 상품 이미지 -->
+				<img src="/img/productdetail/1000002416_detail_090.jpg"
+					class="img-fluid" alt="Colorlib Template" style="width: 500px">
+				<!-- </a> -->
+			</div>
+			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
+				<h3 th:text="${item.name}"></h3>
+				<div class="rating d-flex">
+					<p class="text-left mr-4">
+						<a href="#" class="mr-2">5.0</a> <a href="#"><span
+							class="ion-ios-star-outline"></span></a> <a href="#"><span
+							class="ion-ios-star-outline"></span></a> <a href="#"><span
+							class="ion-ios-star-outline"></span></a> <a href="#"><span
+							class="ion-ios-star-outline"></span></a> <a href="#"><span
+							class="ion-ios-star-outline"></span></a>
+					</p>
+					<p class="text-left mr-4">
+						<a href="#" class="mr-2" style="color: #000;">100 <span
+							style="color: #bbb;">Rating</span></a>
+					</p>
+					<p class="text-left">
+						<a href="#" class="mr-2" style="color: #000;">500 <span
+							style="color: #bbb;">Sold</span></a>
+					</p>
+				</div>
+				<p class="price">
+					<span th:text="${item.price}+원"></span>
+				</p>
+				<p>A small river named Duden flows by their place and supplies
+					it with the necessary regelialia. It is a paradisematic country, in
+					which roasted parts of sentences fly into your mouth. Text should
+					turn around and return to its own, safe country. But nothing the
+					copy said could convince her and so it didn’t take long until.</p>
+				<div class="row mt-4">
+					<div class="col-md-6">
+						<div class="form-group d-flex">
+							<div class="select-wrap">
+								<!-- 아래화살표 아이콘
+	                  	  <div class="icon"><span class="ion-ios-arrow-down"></span></div> -->
+								<!-- 사이즈 선택박스
+		                  <select name="" id="" class="form-control">
+		                  	<option value="">Small</option>
+		                    <option value="">Medium</option>
+		                    <option value="">Large</option>
+		                    <option value="">Extra Large</option>
+		                  </select> -->
+							</div>
+						</div>
+					</div>
+					<div class="w-100"></div>
+
+					<div class="input-group col-md-6 d-flex mb-3">
+						<!-- 상품 수량 내리기 버튼 -->
+						<span class="input-group-btn mr-2">
+							<button id="mBtn" type="button" class="quantity-left-minus btn"
+								data-type="minus" data-field="">
+								<i class="ion-ios-remove"></i>
+							</button>
+						</span>
+
+						<!-- 상품 수량 박스-->
+						<input type="number" id="quantity"
+							class="form-control input-number" value="1" min="1" max="100"
+							readonly="readonly">
+
+
+						<!-- 상품 수량 올리기 버튼 -->
+						<span class="input-group-btn ml-2">
+							<button id="pBtn" type="button" class="quantity-right-plus btn"
+								data-type="plus" data-field="">
+								<i class="ion-ios-add"></i>
+							</button>
+						</span>
+					</div>
+
+					<div class="w-100"></div>
+					<div class="col-md-12">
+						<p style="color: #000;">600 kg available</p>
+					</div>
+				</div>
+				<p>
+					<a href="#" th:onclick="insertCart([[${item.item_key}]])"
+						class="btn btn-black py-3 px-5">장바구니</a> <a href="cart.html"
+						class="btn btn-black py-3 px-5">찜</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="ftco-section">
+	<div class="image-wrapper">
+		<center class="productImages">
+			<img src="/img/product/sariwon_beef_bulgogi.jpg"> <img
+				src="/img/product/sariwon_beef_bulgogi_.jpg"> <img
+				src="/img/deliveryrefund/cookingbox.jpg"> <img
+				src="/img/deliveryrefund/Cap 2023-01-19 01-40-10-907.png"> <img
+				src="/img/deliveryrefund/about_mychef_01_120136.jpg"> <img
+				src="/img/deliveryrefund/about_mychef_02_120033.jpg"> <img
+				src="/img/deliveryrefund/about_mychef_03_120048.jpg">
+		</center>
+	</div>
+</section>
+
+<hr>
+<div class="boardModule">
+	<div class="reviews_cont">
+		<h3>상품후기</h3>
+		<div id="ajax-goods-goodsreview-list"></div>
+		<div class="reviews_table_type">
+			<table class="reviews_table_type">
+				<colgroup>
+					<col width="13%">
+					<col>
+					<col width="13%">
+					<col width="13%">
+				</colgroup>
+				<thead>
+					<tr>
+						<th>평점</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--  후기 리스트 줄 -->
+					<tr class="js_data_row" data-bdid="goodsreview" data-sno="22714"
+						data-auth="y" data-notice="n">
+						<td>
+							<!-- 평점 --> <span class="rating_star"> <span
+								style="width: 100%;">별</span></span>
+						</td>
+
+						<!-- 후기 제목 -->
+						<td class="board_tit"><a href="javascript:void(0)"
+							class="js_btn_view"> <strong>맛있네요</strong> <span
+								class="js_comment_count">(1)</span>
+						</a></td>
+
+						<!-- 후기 작성자 -->
+						<td class="writer">lh******</td>
+
+						<!-- 작성일 -->
+						<td class="writedate">2022.10.26</td>
+					</tr>
+
+					<!-- 후기 내역 -->
+					<tr class="js_detail" data-bdid="goodsreview" data-sno="22931"
+						data-auth="y" data-notice="n" style="display: table-row;">
+						<td colspan="4" class="reviews_new_box">
+							<div class="board_cont">
+								<!-- 후기 내용 출력 -->
+								<div class="board_view">
+									<p></p>
+									<p>생각날때마다 종종 사먹는데 마이셰프만한 곳이 없네요</p>
+									<p>이번에 온게 배추가 너무 달고 맛있었어요</p>
+									<p>야채가 얼까봐 걱정했는데 깻잎도 깔끔하게 잘 왔네요</p>
+									<p></p>
+								</div>
+								<!-- //board_view -->
+
+								<div class="view_comment">
+									<!-- //view_comment_top -->
+									<div class="view_comment_list">
+										<ul>
+											<!-- 관리자 답글 출력 -->
+											<li class="js_data_comment_row " data-memosno="16502"
+												data-memoauth="n">
+												<div class="comment-item">
+													<!-- 관리자 이름 -->
+													<strong class="comment_name">관리자</strong>
+
+													<p>
+														<em>안녕하세요 마이셰프 입니다. <br>소중한 후기 감사합니다. <br>좋은
+															제품으로 고객님의 만족을 위해 최선을 다하겠습니다. <br>앞으로도 많은 이용 부탁드립니다.
+														</em> <span class="board_day_time">2022-12-26 15:07:11</span>
+													</p>
+
+
+												</div>
+											</li>
+										</ul>
+									</div>
+									<!-- //view_comment_list -->
+								</div>
+								<!-- //view_comment -->
+							</div> <!-- //board_cont -->
+						</td>
+					</tr>
+
+
+
+					<tr class="js_data_row" data-bdid="goodsreview" data-sno="22356"
+						data-auth="y" data-notice="n">
+						<td><span class="rating_star"> <span
+								style="width: 40%;">별</span>
+						</span></td>
+						<td class="board_tit"><a href="javascript:void(0)"
+							class="js_btn_view "> <strong>닭가슴살 20프로 맞나요???</strong> <span
+								class="js_comment_count">(1)</span>
+						</a></td>
+						<td>sh***************</td>
+						<td>2022.04.17</td>
+					</tr>
+					<tr class="js_detail" data-bdid="goodsreview" data-sno="22356"
+						data-auth="y" data-notice="n"></tr>
+
+					<tr class="js_data_row" data-bdid="goodsreview" data-sno="22302"
+						data-auth="y" data-notice="n">
+						<td><span class="rating_star"> <span
+								style="width: 100%;">별</span>
+						</span></td>
+						<td class="board_tit"><a href="javascript:void(0)"
+							class="js_btn_view "> <strong>매콤하게</strong> <span
+								class="js_comment_count">(1)</span>
+						</a></td>
+						<td>ey******</td>
+						<td>2022.03.18</td>
+					</tr>
+					<tr class="js_detail" data-bdid="goodsreview" data-sno="22302"
+						data-auth="y" data-notice="n"></tr>
+
+					<tr class="js_data_row" data-bdid="goodsreview" data-sno="21282"
+						data-auth="y" data-notice="n">
+						<td><span class="rating_star"><span
+								style="width: 20%;">별</span></span></td>
+						<td class="board_tit"><a href="javascript:void(0)"
+							class="js_btn_view "> <strong>깻잎이 얼었다가 해동된 것 같았습니다.</strong>
+								<span class="js_comment_count">(1)</span>
+						</a></td>
+						<td>in****</td>
+						<td>2021.07.11</td>
+					</tr>
+					<tr class="js_detail" data-bdid="goodsreview" data-sno="21282"
+						data-auth="y" data-notice="n"></tr>
+
+					<tr class="js_data_row" data-bdid="goodsreview" data-sno="21076"
+						data-auth="y" data-notice="n">
+						<td><span class="rating_star"><span
+								style="width: 100%;">별</span></span></td>
+						<td class="board_tit"><a href="javascript:void(0)"
+							class="js_btn_view "> <strong>괜찮아요</strong> <span
+								class="js_comment_count">(1)</span>
+						</a></td>
+						<td>cy*****</td>
+						<td>2021.06.23</td>
+					</tr>
+					<tr class="js_detail" data-bdid="goodsreview" data-sno="21076"
+						data-auth="y" data-notice="n"></tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="pagination"></div>
+		<div class="btn_reviews_box">
+			<a href="#" class="btn_reviews_write">상품후기 글쓰기</a>
+		</div>
+		<!-- //btn_reviews_box -->
+	</div>
+	<!-- //reviews_cont -->
+
+
+
+
+	<div class="qna_cont">
+		<h3>상품Q&amp;A</h3>
+		<div id="ajax-goods-goodsqa-list">
+			<div class="qna_table">
+				<table class="qna_table_type">
+					<colgroup>
+						<col width="5%">
+						<col>
+						<col width="13%">
+						<col width="13%">
+						<col width="13%">
+					</colgroup>
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>진행상황</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="js_data_row" data-bdid="goodsqa" data-sno="6083"
+							data-auth="n">
+							<td>1782</td>
+							<td class="board_tit"><a href="javascript:void(0)"
+								class="js_btn_view "> <img
+									src="https://cdn-pro-web-134-253.cdn-nhncommerce.com/mychef1_godomall_com/data/skin/front/udweb_pc_20200903/board/skin/qa/img/icon/icon_board_secret.png">
+									<strong>닭갈비에서 신냄새 및 신맛이 나는게 정상인가요?</strong>
+							</a></td>
+							<td>송운*</td>
+							<td>2020.12.14</td>
+							<td>답변완료</td>
+						</tr>
+						<tr class="js_detail" data-bdid="goodsqa" data-sno="6083"
+							data-auth="n"></tr>
+						<tr class="js_data_row" data-bdid="goodsqa" data-sno="5752"
+							data-auth="n">
+							<td>1781</td>
+							<td class="board_tit"><a href="javascript:void(0)"
+								class="js_btn_view "> <img
+									src="https://cdn-pro-web-134-253.cdn-nhncommerce.com/mychef1_godomall_com/data/skin/front/udweb_pc_20200903/board/skin/qa/img/icon/icon_board_secret.png">
+									<strong>진지하게</strong>
+							</a></td>
+							<td>송인*</td>
+							<td>2020.08.18</td>
+							<td>답변완료</td>
+						</tr>
+						<tr class="js_detail" data-bdid="goodsqa" data-sno="5752"
+							data-auth="n"></tr>
+						<tr class="js_data_row" data-bdid="goodsqa" data-sno="5741"
+							data-auth="y">
+							<td>1780</td>
+							<td class="board_tit"><a href="javascript:void(0)"
+								class="js_btn_view "> <strong>떡요</strong>
+							</a></td>
+							<td>송인*</td>
+							<td>2020.08.15</td>
+							<td>답변완료</td>
+						</tr>
+						<tr class="js_detail" data-bdid="goodsqa" data-sno="5741"
+							data-auth="y"></tr>
+						<tr class="js_data_row" data-bdid="goodsqa" data-sno="5656"
+							data-auth="n">
+							<td>1779</td>
+							<td class="board_tit"><a href="javascript:void(0)"
+								class="js_btn_view "> <img
+									src="https://cdn-pro-web-134-253.cdn-nhncommerce.com/mychef1_godomall_com/data/skin/front/udweb_pc_20200903/board/skin/qa/img/icon/icon_board_secret.png">
+									<strong>문의</strong>
+							</a></td>
+							<td>이은*</td>
+							<td>2020.07.29</td>
+							<td>답변완료</td>
+						</tr>
+						<tr class="js_detail" data-bdid="goodsqa" data-sno="5656"
+							data-auth="n"></tr>
+						<tr class="js_data_row" data-bdid="goodsqa" data-sno="5556"
+							data-auth="n">
+							<td>1778</td>
+							<td class="board_tit"><a href="javascript:void(0)"
+								class="js_btn_view "> <img
+									src="https://cdn-pro-web-134-253.cdn-nhncommerce.com/mychef1_godomall_com/data/skin/front/udweb_pc_20200903/board/skin/qa/img/icon/icon_board_secret.png">
+									<strong>배송</strong>
+							</a></td>
+							<td>이근*</td>
+							<td>2020.06.25</td>
+							<td>답변완료</td>
+						</tr>
+						<tr class="js_detail" data-bdid="goodsqa" data-sno="5556"
+							data-auth="n"></tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="pagination"></div>
+		</div>
+		<div class="btn_qna_box">
+			<a href="#" class="btn_qna_write">상품문의 글쓰기</a>
+		</div>
+		<!-- //btn_qna_box -->
+	</div>
+	<!-- //qna_cont -->
+</div>
+</body>
 </html>

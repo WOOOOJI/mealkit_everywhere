@@ -7,10 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.shop.dto.CategoryDTO;
 import com.shop.dto.Criteria;
 import com.shop.dto.ItemDTO;
+import com.shop.dto.response.CategoryResponseDTO;
 import com.shop.dto.response.ItemPageResponseDTO;
+import com.shop.service.CategoryService;
 import com.shop.service.ItemService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,18 +28,31 @@ public class ItemController {
 	@Autowired
 	ItemService itemService;
 	
+	@Autowired
+	CategoryService categoryService;
 	
 	String dir = "shoplist/";
 	
-	//모든 상품 리스트
+	//카테고리 상품 리스트
 	@RequestMapping("")
-	public String main(Model model, Criteria cri) {
+	public String main(@RequestParam(defaultValue="0", value="category_key") int category_key,
+					   @RequestParam(defaultValue="1", value="pageNum") int pageNum,
+					   @RequestParam(required = false, defaultValue = "item_key", value = "order_cri") String order_cri,
+					   @RequestParam(required = false, defaultValue = "desc", value = "asc_desc") String asc_desc,
+					   Model model, Criteria cri) {
 
-		log.info("itemController 33th line, Criteria "+cri);
 		
 		List<ItemDTO> itemList = new ArrayList<>();
 		//ItemPageResponseDTO(active, pageNumList, content를 묶어주기 위한 DTO) 선언 및 초기화
+		List<CategoryDTO> categoryList = new ArrayList<>();
+		
+		cri.setOrder_cri(order_cri);
+		cri.setCategory_key(category_key);
+		cri.setAsc_desc(asc_desc);
+		
 		ItemPageResponseDTO itemPageResponseDTO = itemService.getItemPageMaker(cri);
+		
+		List<CategoryDTO> categoryDTOList = categoryService.get();
 		
 		itemList = itemService.getItemList(cri);
 		
@@ -47,128 +64,34 @@ public class ItemController {
 		}
 		
 		//model에 변수들 담기
-		log.info("itemController 34th line, active "+itemPageResponseDTO.getActive());
-		model.addAttribute("active", itemPageResponseDTO.getActive());
 		model.addAttribute("pageNumList", itemPageResponseDTO.getPageNumList());
-		model.addAttribute("pageMaker", itemPageResponseDTO.getPageMaker());		
+		model.addAttribute("pageMaker", itemPageResponseDTO.getPageMaker());
+		
+		model.addAttribute("categoryList", categoryDTOList);
+		
 		model.addAttribute("content", dir+"itemlist");
 		
-		
-		//model에 html 파일경로를 value로 담으면 브라우저 url창에선 감춰져 보인다
-		return "main";
-	}
-	
-	
-	//한국 상품(cartegory_key = 1) 리스트
-	@RequestMapping("/korean")
-	public String korean(Model model, Criteria cri) {
-		
-		List<ItemDTO> itemList = new ArrayList<>();
-		//ItemPageResponseDTO(active, pageNumList, content를 묶어주기 위한 DTO) 선언 및 초기화
-		ItemPageResponseDTO itemPageResponseDTO = itemService.getKoreanItemPageMaker(cri);
-		
-		itemList = itemService.getKoreanItemList(cri);
-		
-		//itemList 유효성 검사(controller에선 DB에서 접근하지 않는 로직정도만 처리하는게 낫다)
-		if(!itemList.isEmpty()) {
-			model.addAttribute("itemList", itemList);
-		} else {
-			model.addAttribute("itemList", "empty");
-		}
-		
-		//model에 변수들 담기
-		model.addAttribute("active", itemPageResponseDTO.getActive());
-		model.addAttribute("pageNumList", itemPageResponseDTO.getPageNumList());
-		model.addAttribute("pageMaker", itemPageResponseDTO.getPageMaker());		
-		model.addAttribute("content", dir+"korean");
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("category_key", category_key);
+		model.addAttribute("asc_desc", asc_desc);
+		model.addAttribute("order_cri", order_cri);
 		
 		
 		//model에 html 파일경로를 value로 담으면 브라우저 url창에선 감춰져 보인다
 		return "main";
 	}
 	
-	//일본 상품(category_key = 2) 리스트
-	@RequestMapping("/japanese")
-	public String japanese(Model model, Criteria cri) {
+	@RequestMapping("/productSingle")
+	public String productSingle(@RequestParam(required = true, value="item_key") int item_key, 
+								Model model) {
+		String dir = "shoplist/";
 		
-		List<ItemDTO> itemList = new ArrayList<>();
-		//ItemPageResponseDTO(active, pageNumList, content를 묶어주기 위한 DTO) 선언 및 초기화
-		ItemPageResponseDTO itemPageResponseDTO = itemService.getJapaneseItemPageMaker(cri);
+		ItemDTO itemDTO = itemService.get(item_key);
 		
-		itemList = itemService.getJapaneseItemList(cri);
-		
-		//itemList 유효성 검사(controller에선 DB에서 접근하지 않는 로직정도만 처리하는게 낫다)
-		if(!itemList.isEmpty()) {
-			model.addAttribute("itemList", itemList);
-		} else {
-			model.addAttribute("itemList", "empty");
-		}
-		
-		//model에 변수들 담기
-		model.addAttribute("active", itemPageResponseDTO.getActive());
-		model.addAttribute("pageNumList", itemPageResponseDTO.getPageNumList());
-		model.addAttribute("pageMaker", itemPageResponseDTO.getPageMaker());		
-		model.addAttribute("content", dir+"japanese");
-		
-		
-		//model에 html 파일경로를 value로 담으면 브라우저 url창에선 감춰져 보인다
-		return "main";
-	}
-	
-	//중국 상품(category_key = 3) 리스트
-	@RequestMapping("/chinese")
-	public String chinese(Model model, Criteria cri) {
-		
-		List<ItemDTO> itemList = new ArrayList<>();
-		//ItemPageResponseDTO(active, pageNumList, content를 묶어주기 위한 DTO) 선언 및 초기화
-		ItemPageResponseDTO itemPageResponseDTO = itemService.getChineseItemPageMaker(cri);
-		
-		itemList = itemService.getChineseItemList(cri);
-		
-		//itemList 유효성 검사(controller에선 DB에서 접근하지 않는 로직정도만 처리하는게 낫다)
-		if(!itemList.isEmpty()) {
-			model.addAttribute("itemList", itemList);
-		} else {
-			model.addAttribute("itemList", "empty");
-		}
-		
-		//model에 변수들 담기
-		model.addAttribute("active", itemPageResponseDTO.getActive());
-		model.addAttribute("pageNumList", itemPageResponseDTO.getPageNumList());
-		model.addAttribute("pageMaker", itemPageResponseDTO.getPageMaker());		
-		model.addAttribute("content", dir+"chinese");
-		
-		
-		//model에 html 파일경로를 value로 담으면 브라우저 url창에선 감춰져 보인다
+		model.addAttribute("content", dir+"product_single");
+		model.addAttribute("item", itemDTO);
 		return "main";
 	}
 
-	//동남아 상품(category_key = 4) 리스트
-	@RequestMapping("/southasia")
-	public String southAsia(Model model, Criteria cri) {
-		
-		List<ItemDTO> itemList = new ArrayList<>();
-		//ItemPageResponseDTO(active, pageNumList, content를 묶어주기 위한 DTO) 선언 및 초기화
-		ItemPageResponseDTO itemPageResponseDTO = itemService.getSouthAsiaItemPageMaker(cri);
-		
-		itemList = itemService.getSouthAsiaItemList(cri);
-		
-		//itemList 유효성 검사(controller에선 DB에서 접근하지 않는 로직정도만 처리하는게 낫다)
-		if(!itemList.isEmpty()) {
-			model.addAttribute("itemList", itemList);
-		} else {
-			model.addAttribute("itemList", "empty");
-		}
-		
-		//model에 변수들 담기
-		model.addAttribute("active", itemPageResponseDTO.getActive());
-		model.addAttribute("pageNumList", itemPageResponseDTO.getPageNumList());
-		model.addAttribute("pageMaker", itemPageResponseDTO.getPageMaker());		
-		model.addAttribute("content", dir+"southasia");
-		
-		
-		//model에 html 파일경로를 value로 담으면 브라우저 url창에선 감춰져 보인다
-		return "main";
-	}
 	
 }
