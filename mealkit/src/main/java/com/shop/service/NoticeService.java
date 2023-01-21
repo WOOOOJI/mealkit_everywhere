@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.shop.dto.Criteria;
 import com.shop.dto.NoticeDTO;
+import com.shop.dto.OrderDetailDTO;
 import com.shop.dto.PageDTO;
 import com.shop.dto.response.ItemPageResponseDTO;
 import com.shop.frame.MyService;
@@ -42,13 +43,12 @@ public class NoticeService implements MyService<Integer, NoticeDTO>{
 
 	@Override
 	public NoticeDTO get(Integer k) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
+		
 	}
 
 	@Override
 	public List<NoticeDTO> get() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -106,10 +106,10 @@ public class NoticeService implements MyService<Integer, NoticeDTO>{
 	}
 	
 	// 이벤트 상세 페이지 접속시 필요한 데이터 가져오기
-	public NoticeDTO eventDetail(int notice_key) {
+	public NoticeDTO eventDetail(int noticeKey) {
 		NoticeDTO dto = new NoticeDTO();
 		try {
-			dto = noticeMapper.eventDetail(notice_key);
+			dto = noticeMapper.eventDetail(noticeKey);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -177,10 +177,10 @@ public class NoticeService implements MyService<Integer, NoticeDTO>{
 		}
 		
 		// 공지사항 상세 페이지 접속시 필요한 데이터 가져오기
-		public NoticeDTO noticeDetail(int notice_key) {
+		public NoticeDTO noticeDetail(int noticeKey) {
 			NoticeDTO dto = new NoticeDTO();
 			try {
-				dto = noticeMapper.noticeDetail(notice_key);
+				dto = noticeMapper.noticeDetail(noticeKey);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -198,15 +198,29 @@ public class NoticeService implements MyService<Integer, NoticeDTO>{
 		
 		
 		// 상세 페이지 접속시 조회수 1 증가
-		public void noticeHit(int notice_key) {
+		public void noticeHit(int noticeKey) {
 			try {
-				noticeMapper.noticeHit(notice_key);
+				noticeMapper.noticeHit(noticeKey);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-	
+		
+		
+	// 지금까지 팔린 상품 총갯수 구하기
+	public List<OrderDetailDTO> sumCnt(){
+		List<OrderDetailDTO> sum = null;		
+
+		try {
+			sum = noticeMapper.sumCnt();
+		}catch(Exception e) {
+			System.out.println("Error Caused by at NoticeService.java where row 219");
+			e.getMessage();
+		}
+
+		return sum;
+	}
 	
 	
 }

@@ -35,11 +35,25 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 		return mapper.select(k);
 	}
 
+	
+	
+	// 전체 회원수 가져오기
 	@Override
-	public List<CustomerDTO> get() throws Exception {
-		return mapper.selectall();
+	public List<CustomerDTO> get(){
+		List<CustomerDTO> list = null;
+		
+		try {
+			list = mapper.selectall();
+		} catch (Exception e) {
+			System.out.println("Error Caused By at CustomerService Row 45 line");
+			e.getMessage();
+		}
+		
+		return list;
 	}
 
+	
+	
 	// 회원 가입
 	public int addMember(CustomerDTO dto) {
 		int result = mapper.addMember(dto);
@@ -81,8 +95,8 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 		return mapper.resetPwdForm(dto);
 	}
 	
-	public int resetPwd(String pwd1, String pwd2, int cust_key) throws Exception{
-		return mapper.resetPwd(pwd1, pwd2, cust_key);
+	public int resetPwd(String pwd1, String pwd2, int custKey) throws Exception{
+		return mapper.resetPwd(pwd1, pwd2, custKey);
 	}
 	
 	//회원탈퇴

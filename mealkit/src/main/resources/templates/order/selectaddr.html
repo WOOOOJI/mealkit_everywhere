@@ -78,17 +78,17 @@ function deleteAddr() {
 	<h3 class="mb-4 billing-heading">배송지 선택</h3>
 	<form class="billing-form" name="addr_form" id="addr_form" method="POST">
 		<ul th:each="ad:${addrlist}" id="ad">
-			<li><input type="radio" name="addr_key" th:value="${ad.addr_key}"></li>
+			<li><input type="radio" name="addrKey" th:value="${ad.addrKey}"></li>
 			<li><input type="text" class="form-control" th:value="${ad.name}" readonly="readonly"></li>
 			<li><input type="text" class="form-control" th:value="${ad.tel}" readonly="readonly"></li>
-			<li><input type="text" class="form-control" th:value="${ad.addr}+${ad.addr_detail}" readonly="readonly"></li>
+			<li><input type="text" class="form-control" th:value="${ad.addr}+${ad.addrDetail}" readonly="readonly"></li>
 			<li><input type="text" class="form-control" th:value="${ad.zipcode}" readonly="readonly"></li>
 			<li><input type="text" class="form-control" th:value="${ad.req}" readonly="readonly"></li>
 		</ul>
-		
 	</form>
+	
 
-	<a href="#"class="btn btn-primary py-3 px-4" style="float:right" id="close_addr" onclick="javascript:window.close()">닫기</a>
-	<a href="#"class="btn btn-primary py-3 px-4" style="float:right" id="delete_addr" onclick="deleteAddr()">삭제</a>
+	<a href="#"class="btn btn-primary py-3 px-4" style="float:right" id="closeAddr" onclick="javascript:window.close()">닫기</a>
+	<a href="#"class="btn btn-primary py-3 px-4" style="float:right" id="deleteAddr" onclick="deleteAddr()">삭제</a>
 	<a th:href="@{/order/addaddr}"class="btn btn-primary py-3 px-4" style="float:right" id="add_addr">추가</a>
 	<button class="btn btn-primary py-3 px-4" id="select_addr" onclick="goSubmit()">선택</button>

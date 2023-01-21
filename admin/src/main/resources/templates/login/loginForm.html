@@ -42,20 +42,20 @@
 									<div class="text-center">
 										<img src="img/avatars/avatar.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
 									</div>
-									<form>
+									<form th:action="@{/login}" id="frm" method="post">
 										<div class="mb-3">
 											<label class="form-label">이메일</label>
-											<input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" />
+											<input class="form-control form-control-lg" type="email" name="adminId" id="adminId" placeholder="Enter your ID" />
 										</div>
 										<div class="mb-3">
 											<label class="form-label">비밀번호</label>
-											<input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password" />   
+											<input class="form-control form-control-lg" type="password" name="adminPwd" id="adminPwd" placeholder="Enter your password" />   
 										</div>
 										<div>
 			
 										</div>
 										<div class="text-center mt-3">
-											<a th:href="@{/admin/}" class="btn btn-lg btn-primary">로그인 하기</a>
+											<a href="#" onclick="login()" class="btn btn-lg btn-primary">로그인 하기</a>
 											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
 										</div>
 									</form>
@@ -70,7 +70,44 @@
 	</main>
 
 	<script src="js/app.js"></script>
-
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 </body>
+
+
+
+<script>
+
+function login(){
+	var id = document.getElementById('adminId').value;
+	var pwd = document.getElementById('adminPwd').value;
+	
+	if(id == '' || id == null){
+		alert("아이디를 입력해주세요.");
+		return false;
+	}
+	
+	if(pwd == '' || pwd == null){
+		alert("비밀번호를 입력해주세요.");
+		return false;
+	}
+	
+	document.getElementById('frm').submit();
+}
+
+
+
+
+$(document).ready(function(){
+	if('[[${result}]]' == 1){
+		alert("아이디와 비밀번호를 확인해주세요.");
+	}
+	
+	if('[[${result}]]' == 2){
+		location.href='/';
+	}
+});
+
+</script>
+
 
 </html>

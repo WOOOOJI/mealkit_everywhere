@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.shop.dto.Criteria;
 import com.shop.dto.NoticeDTO;
+import com.shop.dto.OrderDetailDTO;
 import com.shop.frame.MyMapper;
 
 @Repository
@@ -24,7 +25,7 @@ public interface NoticeMapper extends MyMapper<Integer, NoticeDTO>{
 	public int countEvent(Criteria cri) throws Exception;
 	
 	// 해당 이벤트 페이지 정보 가져오기
-	public NoticeDTO eventDetail(int notice_key) throws Exception;
+	public NoticeDTO eventDetail(int noticeKey) throws Exception;
 	
 	
 	
@@ -38,13 +39,17 @@ public interface NoticeMapper extends MyMapper<Integer, NoticeDTO>{
 	public int countNotice(Criteria cri) throws Exception;
 	
 	// 해당 이벤트 페이지 정보 가져오기
-	public NoticeDTO noticeDetail(int notice_key) throws Exception;
+	public NoticeDTO noticeDetail(int noticeKey) throws Exception;
 	
 	
 	
 	
 	
 	// 해당 페이지 접속시 조회수 증가
-	public void noticeHit(int notice_key) throws Exception;
+	public void noticeHit(int noticeKey) throws Exception;
+	
+	
+	// 지금까지 팔린 상품 총갯수 구하기
+	public List<OrderDetailDTO> sumCnt() throws Exception;
 	
 }

@@ -27,113 +27,9 @@
 
 
 <body>
-	<div class="wrapper">
-		<nav id="sidebar" class="sidebar js-sidebar">
-			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" th:href="@{/}">
-          <span class="align-middle">MealKit 관리자모드</span>
-        </a>
 
-				<ul class="sidebar-nav">
-					<li class="sidebar-header">
-						판매 데이터 통계
-					</li>
 
-					<li class="sidebar-item active">
-						<a class="sidebar-link" href="index.html">
-              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">전체 통계 보기</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
-              <i class="align-middle" data-feather="user"></i> <span class="align-middle">시간별 통걔</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-sign-in.html">
-              <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">나이별 통계</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-sign-up.html">
-              <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">상품별 통계</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-blank.html">
-              <i class="align-middle" data-feather="book"></i> <span class="align-middle">성별 통계</span>
-            </a>
-					</li>
-
-					<li class="sidebar-header">
-						쇼핑몰 관리
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-buttons.html">
-              <i class="align-middle" data-feather="square"></i> <span class="align-middle">상품 등록하기</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-forms.html">
-              <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">상품 수정하기</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-cards.html">
-              <i class="align-middle" data-feather="grid"></i> <span class="align-middle">상품 삭제하기</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-typography.html">
-              <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">Typography</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="icons-feather.html">
-              <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">Icons</span>
-            </a>
-					</li>
-
-					<li class="sidebar-header">
-						Plugins & Addons
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="charts-chartjs.html">
-              <i class="align-middle" data-feather="bar-chart-2"></i> <span class="align-middle">Charts</span>
-            </a>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="maps-google.html">
-              <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
-            </a>
-					</li>
-				</ul>
-
-				<div class="sidebar-cta">
-					<div class="sidebar-cta-content">
-						<strong class="d-inline-block mb-2">문제가 발생했나요?</strong>
-						<div class="mb-3 text-sm">
-							혹시 해결할 수 없는 문제가 생기셨나요? 담당장에게 도움을 요청해보세요 :)
-						</div>
-						<div class="d-grid">
-							<a href="#" class="btn btn-primary">도움 요청하기</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</nav>
-		
+<div class="wrapper">
 
 
 
@@ -141,12 +37,24 @@
 
 
 
+	<!-- 왼쪽 navbar 내용 -->
+	<nav id="sidebar" class="sidebar js-sidebar">
+			<div th:include="${navbar} ? ${navbar} : navbar"></div>
+	</nav>
 
 
 
 
-<!-- 중앙 화면 내용 -->
-<div id="content" th:include="${content} ? ${content} : content"></div>
+	<div class="main">
+	
+	
+	<div id="header" th:include="header"></div>
+
+
+
+
+	<!-- 중앙 화면 내용 -->
+	<div id="content" th:include="${content} ? ${content} : content"></div>
 
 
 

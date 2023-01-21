@@ -6,48 +6,48 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- 나의 문의 내역 리스트  -->
 	<select id="qnaList" parameterType="Integer" resultType="BoardDTO">
-		SELECT b.board_key AS "board_key", b.cust_key AS "cust_key", b.item_key AS "item_key", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
+		SELECT b.boardKey AS "boardKey", b.custKey AS "custKey", b.itemKey AS "itemKey", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
 		, c.username AS "username"
 	       FROM board b
-		JOIN customer c ON c.cust_key = b.cust_key
-		JOIN item i ON i.item_key = b.item_key
-		WHERE b.cust_key = ${cust_key} AND b.ntype = 'q'
+		JOIN customer c ON c.custKey = b.custKey
+		JOIN item i ON i.itemKey = b.itemKey
+		WHERE b.custKey = ${custKey} AND b.ntype = 'q'
 	</select>
 	
 	<!-- 나의 문의 글 상세보기 -->
 	<select id="qnaDetail" parameterType="Integer" resultType="BoardDTO">
-		SELECT b.board_key AS "board_key", b.cust_key AS "cust_key", b.item_key AS "item_key", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
+		SELECT b.boardKey AS "boardKey", b.custKey AS "custKey", b.itemKey AS "itemKey", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
 		, c.username AS "username", b.rdate AS "rdate"
 	       FROM board b
-		JOIN customer c ON c.cust_key = b.cust_key
-		JOIN item i ON i.item_key = b.item_key
-		WHERE  b.board_key = ${board_key} AND b.ntype='q'
+		JOIN customer c ON c.custKey = b.custKey
+		JOIN item i ON i.itemKey = b.itemKey
+		WHERE  b.boardKey = ${boardKey} AND b.ntype='q'
 	</select>
 		
 	<!-- 나의 후기 내역 리스트  -->
 	<select id="reviewList" parameterType="Integer" resultType="BoardDTO">
-		SELECT b.board_key AS "board_key", b.cust_key AS "cust_key", b.item_key AS "item_key", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
+		SELECT b.boardKey AS "boardKey", b.custKey AS "custKey", b.itemKey AS "itemKey", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
 		, c.username AS "username"
 	       FROM board b
-		JOIN customer c ON c.cust_key = b.cust_key
-		JOIN item i ON i.item_key = b.item_key
-		WHERE b.cust_key = ${cust_key} AND b.ntype = 'r'
+		JOIN customer c ON c.custKey = b.custKey
+		JOIN item i ON i.itemKey = b.itemKey
+		WHERE b.custKey = ${custKey} AND b.ntype = 'r'
 	</select>
 	
 		<!-- 나의 후기 글 상세보기 -->
 	<select id="reviewDetail" parameterType="Integer" resultType="BoardDTO">
-		SELECT b.board_key AS "board_key", b.cust_key AS "cust_key", b.item_key AS "item_key", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
+		SELECT b.boardKey AS "boardKey", b.custKey AS "custKey", b.itemKey AS "itemKey", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
 		, c.username AS "username", b.rdate AS "rdate"
 	       FROM board b
-		JOIN customer c ON c.cust_key = b.cust_key
-		JOIN item i ON i.item_key = b.item_key
-		WHERE  b.board_key = ${board_key} AND b.ntype='r'
+		JOIN customer c ON c.custKey = b.custKey
+		JOIN item i ON i.itemKey = b.itemKey
+		WHERE  b.boardKey = ${boardKey} AND b.ntype='r'
 	</select>
 	
 	<!-- 후기 삭제 -->
 	<delete id="reviewDel">
 		DELETE FROM board
-		WHERE board_key= ${board_key}
+		WHERE boardKey= ${boardKey}
 	</delete>
 
 </mapper>

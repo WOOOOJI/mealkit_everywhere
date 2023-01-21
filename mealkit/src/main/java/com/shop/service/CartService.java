@@ -41,8 +41,8 @@ public class CartService implements MyService<Integer, CartDTO>{
 	}
 	
 	//주문완료 후 해당 장바구니 제거
-	public void cart_delete(int cust_key) throws Exception{
-		mapper.cart_delete(cust_key);
+	public void cart_delete(int custKey) throws Exception{
+		mapper.cart_delete(custKey);
 	}
 	// 특정 사용자의 장바구니 리스트 내용물 가져오기
 	public List<CartDTO> CartList(Integer k) throws Exception {
@@ -55,13 +55,13 @@ public class CartService implements MyService<Integer, CartDTO>{
 	}
 	
 	// 장바구니에 물건 담기
-	public void insertCart(int cust_key, int item_key, int cnt) throws Exception{
-		mapper.insertCart(cust_key, item_key, cnt);
+	public void insertCart(int custKey, int itemKey, int cnt) throws Exception{
+		mapper.insertCart(custKey, itemKey, cnt);
 	}
 	
 	// 장바구니에 이미 존재하는 물건을 추가를 하면 수량을 증가시키기
-	public void increaseCart(int cart_key, int item_key, int cnt) throws Exception{
-		mapper.increaseCart(cart_key, item_key, cnt);
+	public void increaseCart(int cartKey, int itemKey, int cnt) throws Exception{
+		mapper.increaseCart(cartKey, itemKey, cnt);
 	}
 }
 

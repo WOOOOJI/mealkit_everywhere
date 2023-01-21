@@ -20,9 +20,9 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         System.out.println("----------------------------------------------------------------------");
 
         HttpSession session = request.getSession();
-        String adminid = (String)session.getAttribute("adminid");
-        System.out.println(adminid);
-        if(adminid != null) {
+        String adminId = (String)session.getAttribute("adminId");
+        System.out.println(adminId);
+        if(adminId != null) {
             return true;
         } else {
             try {

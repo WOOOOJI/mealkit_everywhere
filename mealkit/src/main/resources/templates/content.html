@@ -6,10 +6,16 @@ history.scrollRestoration = "auto";
 // 장바구니 제품 추가
 
 function insertCart(item){
-	var item_key = item;
+	var itemKey = item;
 	var cnt = 1;
-	location.href="/cart/cartInsert?item_key="+item_key+"&cnt="+cnt;
+	location.href="/cart/cartInsert?itemKey="+itemKey+"&cnt="+cnt;
 };
+
+function insertWish(item){
+	var itemKey = item;
+	location.href="/wish/wishInsertToMain?itemKey="+itemKey;
+};
+
 </script>
 
 
@@ -65,7 +71,7 @@ function insertCart(item){
 	            <div class="col-sm-12 ftco-animate text-center">
 	              <h1 class="mb-2">이번주만 최대 70% 할인 !</h1>
 	              <h2 class="subheading mb-4">"MealKit" 회원만을 위한 이벤트</h2>
-	              <p><a th:href="@{shoplist}" class="btn btn-primary">할인상품 보러가기</a></p>
+	              <p><a th:href="@{shoplist?categoryKey=0&asc_desc=asc&order_cri=price}" class="btn btn-primary">할인상품 보러가기</a></p>
 	            </div>
 
 	          </div>
@@ -159,12 +165,12 @@ function insertCart(item){
 							<div class="col-md-6">
 								<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(img/ko.jpg);">
 									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a th:href="@{shoplist(category_key = 1)}">한식</a></h2>
+										<h2 class="mb-0"><a th:href="@{shoplist(categoryKey = 1)}">한식</a></h2>
 									</div>
 								</div>
 								<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(img/ch.jpg);">
 									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a th:href="@{shoplist(category_key = 2)}">중식</a></h2>
+										<h2 class="mb-0"><a th:href="@{shoplist(categoryKey = 2)}">중식</a></h2>
 									</div>
 								</div>
 							</div>
@@ -174,12 +180,12 @@ function insertCart(item){
 					<div class="col-md-4">
 						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(img/jp.jpg);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a th:href="@{shoplist/japanese}">일식</a></h2>
+								<h2 class="mb-0"><a th:href="@{shoplist?categoryKey=3}">일식</a></h2>
 							</div>		
 						</div>
 						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(img/en.jpg);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a th:href="@{shoplist}">양식</a></h2>
+								<h2 class="mb-0"><a th:href="@{shoplist?categoryKey=4}">양식</a></h2>
 							</div>
 						</div>
 					</div>
@@ -202,7 +208,7 @@ function insertCart(item){
     		
     		<!-- 상품 8개 반복문 -->
     			<div class="col-md-6 col-lg-3 ftco-animate" th:each="i:${bestList}">
-    			<input type="hidden" th:value="${i.item_key}">
+    			<input type="hidden" th:value="${i.itemKey}">
     				<div class="product">
     				<!-- 이미지 -->
     					<a href="#" class="img-prod"><img class="img-fluid" th:src="@{/img/cook.jpg}" alt="Colorlib Template">
@@ -222,13 +228,10 @@ function insertCart(item){
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" th:onclick="insertCart([[${i.item_key}]])" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="#" th:onclick="insertCart([[${i.itemKey}]])" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
+	    							<a href="#"  th:onclick="insertWish([[${i.itemKey}]])" class="heart d-flex justify-content-center align-items-center ">
 	    								<span><i class="ion-ios-heart"></i></span>
 	    							</a>
     							</div>
@@ -256,7 +259,7 @@ function insertCart(item){
     		
     		<!-- 상품 8개 반복문 -->
     			<div class="col-md-6 col-lg-3 ftco-animate" th:each="i:${newList}">
-    			<input type="hidden" th:value="${i.item_key}">
+    			<input type="hidden" th:value="${i.itemKey}">
     				<div class="product">
     				<!-- 이미지 -->
     					<a href="#" class="img-prod"><img class="img-fluid" th:src="@{/img/cook.jpg}" alt="Colorlib Template">
@@ -276,13 +279,10 @@ function insertCart(item){
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">
 	    						<div class="m-auto d-flex">
-	    							<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-	    								<span><i class="ion-ios-menu"></i></span>
-	    							</a>
-	    							<a href="#" th:onclick="insertCart([[${i.item_key}]])" class="buy-now d-flex justify-content-center align-items-center mx-1">
+	    							<a href="#" th:onclick="insertCart([[${i.itemKey}]])" class="buy-now d-flex justify-content-center align-items-center mx-1">
 	    								<span><i class="ion-ios-cart"></i></span>
 	    							</a>
-	    							<a href="#" class="heart d-flex justify-content-center align-items-center ">
+	    							<a href="#"  th:onclick="insertWish([[${i.itemKey}]])" class="heart d-flex justify-content-center align-items-center ">
 	    								<span><i class="ion-ios-heart"></i></span>
 	    							</a>
     							</div>

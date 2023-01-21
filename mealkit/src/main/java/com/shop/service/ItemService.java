@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shop.dto.CategoryDTO;
 import com.shop.dto.Criteria;
 import com.shop.dto.ItemDTO;
 import com.shop.dto.OrderDetailDTO;
@@ -16,9 +15,7 @@ import com.shop.frame.MyService;
 import com.shop.mapper.CategoryMapper;
 import com.shop.mapper.ItemMapper;
 
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class ItemService implements MyService<Integer, ItemDTO>{
 

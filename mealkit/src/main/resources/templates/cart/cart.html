@@ -28,11 +28,11 @@
 	
 	// 장바구니 제품 삭제 AJAX
 
-	function del(cust_key){
+	function del(custKey){
 			$.ajax({
 				method:'post',
 				url:'[[@{/cart/delete}]]',
-				data: {'cust_key':cust_key},
+				data: {'custKey':custKey},
 				success:function(data){
 					if(data == 1){
 						location.href='[[@{/cart/list}]]';
@@ -51,12 +51,12 @@
 	
 	function changeCnt(cart){
 		var cnt = cart.value;
-		var cart_key = cart.id;
+		var cartKey = cart.id;
 		
 		$.ajax({
 			method:'post',
 			url:'[[@{/cart/cntchange}]]',
-			data:{'cnt': cnt, 'cart_key':cart_key},
+			data:{'cnt': cnt, 'cartKey':cartKey},
 			success:function(data){
 				if(data == 1){
 					location.href='[[@{/cart/list}]]'
@@ -115,13 +115,13 @@
 						      <tr class="text-center" th:each="c:${list}">
 						      	
 						      	<!-- 삭제 버튼 -->
-						        <td class="product-remove"><a href="#" th:onclick="del([[${c.cart_key}]])"><span class="ion-ios-close"></span></a></td>
+						        <td class="product-remove"><a href="#" th:onclick="del([[${c.cartKey}]])"><span class="ion-ios-close"></span></a></td>
 						        <!-- 상품이미지 -->
-						        <td class="image-prod"><a class="itemhover" th:href="@{/item(item_key=${c.item_key})}"><img th:src="@{/img/images.jpeg}"></a></td>
+						        <td class="image-prod"><a class="itemhover" th:href="@{/item(itemKey=${c.itemKey})}"><img th:src="@{/img/images.jpeg}"></a></td>
 						        
 						        <td class="product-name">
 						        	<!-- 상품명 -->
-						        	<a class="itemhover" th:href="@{/item(item_key=${c.item_key})}"><h3 class="texthover" th:text="${c.name}"></h3></a>
+						        	<a class="itemhover" th:href="@{/item(itemKey=${c.itemKey})}"><h3 class="texthover" th:text="${c.name}"></h3></a>
 						        	<!-- 정가 -->
 						        	<p th:text="${c.price}+원"></p>
 						        </td>
@@ -132,7 +132,7 @@
 						        <td class="quantity">
 						        	<div class="input-group mb-3">
 						        	<form>
-					             		<input type="number" name="quantity" class="quantity form-control input-number" th:value=${c.cnt} th:onchange="changeCnt(this)" th:id="${c.cart_key}" min="1" max="100">
+					             		<input type="number" name="quantity" class="quantity form-control input-number" th:value=${c.cnt} th:onchange="changeCnt(this)" th:id="${c.cartKey}" min="1" max="100">
 					             	</form>
 					          	</div>
 					          </td>

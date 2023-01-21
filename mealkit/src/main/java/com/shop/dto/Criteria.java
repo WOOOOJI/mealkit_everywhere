@@ -34,7 +34,7 @@ import lombok.ToString;
 	  private String asc_desc;
 	  
 	  //카테고리 번호
-	  private int category_key;
+	  private int categoryKey;
 	  
 	  //디폴트값을 설정하는 기본 생성자 
 	  public Criteria() { 

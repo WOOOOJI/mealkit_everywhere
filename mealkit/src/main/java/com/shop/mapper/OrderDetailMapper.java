@@ -13,7 +13,7 @@ import com.shop.frame.MyMapper;
 @Mapper
 public interface OrderDetailMapper extends MyMapper<Integer, OrderDetailDTO>{
 	//cart의 내용을 주문상세에 입력
-	public void cart_to_detail(int cust_key,OrderDTO o) throws Exception;
+	public void cart_to_detail(int custKey,OrderDTO o) throws Exception;
 	//order_key 이용해서 주문상세 갖고오기
-	public List<OrderDetailDTO> get_orderdetail_by_orderkey(int order_key) throws Exception;
+	public List<OrderDetailDTO> get_orderdetail_by_orderkey(int orderKey) throws Exception;
 }

@@ -34,6 +34,7 @@
     	}
     </style>
     
+
   </head>
   <body class="goto-here">
 		<div class="py-1 bg-primary">
@@ -70,11 +71,10 @@
 	          <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">카테고리</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="shop.html">한식</a>
-              	<a class="dropdown-item" href="wishlist.html">양식</a>
-                <a class="dropdown-item" href="product-single.html">중식</a>
-                <a class="dropdown-item" href="cart.html">일식</a>
-                <a class="dropdown-item" href="checkout.html">인도식</a>
+              	<a class="dropdown-item" th:href="@{shoplist?categoryKey=1}">한식</a>
+                <a class="dropdown-item" th:href="@{shoplist?categoryKey=2}">중식</a>
+                <a class="dropdown-item" th:href="@{shoplist?categoryKey=3}">일식</a>
+              	<a class="dropdown-item" th:href="@{shoplist?categoryKey=4}">양식</a>
               </div>
             </li>
  
@@ -84,10 +84,10 @@
 	          <li class="nav-item"><a th:href="@{/notice}" class="nav-link">공지사항</a></li>
 	          <li class="nav-item"><a th:href="@{/about}" class="nav-link">회사소개</a></li>
 	          
-	          <li class="nav-item" th:if="${session.cust_key == null}" ><a th:href="@{/customer/memberForm}" class="nav-link">회원가입</a></li>
-	          <li class="nav-item" th:if="${session.cust_key == null}" ><a th:href="@{/customer/loginForm}" class="nav-link">로그인</a></li>
+	          <li class="nav-item" th:if="${session.custKey == null}" ><a th:href="@{/customer/memberForm}" class="nav-link">회원가입</a></li>
+	          <li class="nav-item" th:if="${session.custKey == null}" ><a th:href="@{/customer/loginForm}" class="nav-link">로그인</a></li>
 	          
-  			<li class="nav-item dropdown" th:if="${session.cust_key != null}">
+  			<li class="nav-item dropdown" th:if="${session.custKey != null}">
               <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Page</a>
               <div class="dropdown-menu" aria-labelledby="dropdown04">
               	<a th:href="@{/customer/myresetPwdForm}" class="dropdown-item" href="shop.html">비밀번호 변경</a>
@@ -98,7 +98,7 @@
                 <a th:href="@{/customer/signoutForm}"class="dropdown-item" href="checkout.html">회원 탈퇴</a>
               </div>
             </li>
-	          <li class="nav-item" th:if="${session.cust_key != null}" ><a th:href="@{/customer/logout}" class="nav-link" >로그아웃</a></li>
+	          <li class="nav-item" th:if="${session.custKey != null}" ><a th:href="@{/customer/logout}" class="nav-link" >로그아웃</a></li>
 	          
 
 	          <li class="nav-item cta cta-colored" id="cart"><a th:href="@{/cart/list}" class="nav-link"><span class="icon-shopping_cart" th:text="${cartCnt}">[]</span></a></li>

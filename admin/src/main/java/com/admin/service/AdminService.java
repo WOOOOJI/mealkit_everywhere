@@ -44,6 +44,22 @@ public class AdminService implements MyService<Integer, AdminDTO>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	public AdminDTO login(String adminId, String adminPwd) {
+		AdminDTO dto = null;
+		
+		try {			
+			dto = mapper.login(adminId, adminPwd);
+			System.out.println("mapper"+ dto);
+		}catch(Exception e) {
+			System.out.println("Error Caused by at AdminService row 57 Line");
+			e.printStackTrace();
+		}
+		
+		
+		return dto;
+	}
 
 
 }

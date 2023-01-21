@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shop.dto.OrderDTO;
-import com.shop.dto.OrderDetailDTO;
 import com.shop.frame.MyService;
 import com.shop.mapper.OrderMapper;
 
@@ -59,19 +58,19 @@ public class OrderService implements MyService<Integer, OrderDTO>{
 		mapper.create_blank(key);
 	}
 	
-	public int get_orderkey(int cust_key) throws Exception{
-		return mapper.get_orderkey(cust_key);
+	public int get_orderkey(int custKey) throws Exception{
+		return mapper.get_orderkey(custKey);
 	}
 	
-	public void order_update(int addr_key, int order_key, int payment) throws Exception{
-		mapper.order_update(addr_key, order_key, payment);
+	public void order_update(int addrKey, int orderKey, int payment) throws Exception{
+		mapper.order_update(addrKey, orderKey, payment);
 	}
 	
-	public OrderDTO getOrderByOrderKey(int order_key){
+	public OrderDTO getOrderByOrderKey(int orderKey){
 		OrderDTO result=null;
 		
 		try {
-			result= mapper.getOrderByOrderKey(order_key);
+			result= mapper.getOrderByOrderKey(orderKey);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,11 +78,11 @@ public class OrderService implements MyService<Integer, OrderDTO>{
 		return result;
 	}
 	
-	public List<OrderDTO> getOrderWithItemInfo(int order_key) {
+	public List<OrderDTO> getOrderWithItemInfo(int orderKey) {
 		List<OrderDTO> result=null;
 		
 		try {
-			result=mapper.getOrderWithItemInfo(order_key);
+			result=mapper.getOrderWithItemInfo(orderKey);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

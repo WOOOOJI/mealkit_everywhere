@@ -11,8 +11,8 @@
       </div>
     </div>
  <script>
-function go(order_key){
-	location.href="/customer/orderdetail?order_key="+order_key;
+function go(orderKey){
+	location.href="/customer/orderdetail?orderKey="+orderKey;
 }
  </script>
 
@@ -35,14 +35,14 @@ function go(order_key){
 						    </thead>
 						    <tbody>
 						      <tr th:each="l:${list}" class="text-center">
-						      	<td class="img1"><img th:src="@{/img/}+${l.item_img}" style="width:80px"></td>
-						      	<td class="text" th:if="${l.item_cnt>1}"th:text="${l.item_name}+' 외 '+${l.item_cnt-1}+'개 제품'"></td>
-						      	<td class="text" th:if="${l.item_cnt==1}"th:text="${l.item_name}"></td>
+						      	<td class="img1"><img th:src="@{/img/}+${l.itemImg}" style="width:80px"></td>
+						      	<td class="text" th:if="${l.itemCnt>1}"th:text="${l.itemName}+' 외 '+${l.itemCnt-1}+'개 제품'"></td>
+						      	<td class="text" th:if="${l.itemCnt==1}"th:text="${l.itemName}"></td>
 						      	<td class="name" th:text="${l.name}"></td>
 						        <td class="tel" th:text="${l.tel}"></td>
 						      	<td class="price" th:text="${l.price}+'원'"></td>
-						        <td class="address" th:text="${l.addr}+', '+${l.addr_detail}"></td>           
-						      	<td><button th:onclick="go([[${l.order_key}]])" class="btn btn-primary py-3 px-4" style="color:white !important;" id="detail">상세보기</button></td>
+						        <td class="address" th:text="${l.addr}+', '+${l.addrDeatil}"></td>           
+						      	<td><button th:onclick="go([[${l.orderKey}]])" class="btn btn-primary py-3 px-4" style="color:white !important;" id="detail">상세보기</button></td>
 						      </tr><!-- END TR-->
 
 						    </tbody>

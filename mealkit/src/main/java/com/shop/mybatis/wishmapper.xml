@@ -5,27 +5,27 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.shop.mapper.WishMapper">
 	<!-- 장바구니에 담았을 때 찜리스트 제거 -->
 	<delete id="wish_delete" parameterType="Integer">
-		DELETE FROM wish WHERE cust_key=${cust_key}
+		DELETE FROM wish WHERE custKey=${custKey}
 	</delete>
 	
 	<!-- 사용자 찜리스트 가져오기-->
 	<select id="WishList" parameterType="Integer" resultType="WishDTO">
-		SELECT w.wish_key AS "wish_key", w.item_key AS "item_key", w.cust_key AS "cust_key", 
+		SELECT w.wishKey AS "wishKey", w.itemKey AS "itemKey", w.custKey AS "custKey", 
 		i.rdate AS "rdate", i.price AS "price", i.sale AS "sale",
 		i.img1 AS "img1", i.name AS "name" FROM wish w
-		JOIN customer cust ON cust.cust_key = w.cust_key
-		JOIN item i ON i.item_key = w.item_key
-		WHERE w.cust_key = ${cust_key}
+		JOIN customer cust ON cust.custKey = w.custKey
+		JOIN item i ON i.itemKey = w.itemKey
+		WHERE w.custKey = ${custKey}
 	</select>
 	
 		<!-- 사용자의 찜리스트 제품 삭제하기 -->
 	<delete id="delete" parameterType="Integer">
-		DELETE FROM wish WHERE wish_key = ${wish_key}
+		DELETE FROM wish WHERE wishKey = ${wishKey}
 	</delete>
 	
 	<!-- 찜리스트에 제품 담기. -->
 	<insert id="insertWish">
-		INSERT INTO wish(cust_key, item_key) VALUES(${cust_key}, ${item_key});
+		INSERT INTO wish(custKey, itemKey) VALUES(${custKey}, ${itemKey});
 	</insert>
 	
 </mapper>

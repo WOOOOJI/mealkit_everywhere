@@ -32,7 +32,7 @@
 						      	<td class="name" th:text="${order.name}"></td>
 						        <td class="tel" th:text="${order.tel}"></td>
 						      	<td class="price" th:text="${order.price}+'원'"></td>
-						        <td class="address" th:text="${order.addr}+', '+${order.addr_detail}"></td>   
+						        <td class="address" th:text="${order.addr}+', '+${order.addrDetail}"></td>   
 						        <td class="rdate" th:text="${order.status}"></td>   
 						        <td class="rdate" th:text="${order.rdate}"></td>        
 						      	
@@ -63,8 +63,8 @@
 						    </thead>
 						    <tbody>
 						      <tr th:each="l:${list}" class="text-center">
-						      	<td class="name"><a th:href="@{/}"><img th:src="@{/img/}+${l.item_img}"></a></td>
-						        <td class="name"><a th:href="@{/}"><span th:text="${l.item_name}"></span></a></td>
+						      	<td class="name"><a th:href="@{/}"><img th:src="@{/img/}+${l.itemImg}"></a></td>
+						        <td class="name"><a th:href="@{/}"><span th:text="${l.itemName}"></span></a></td>
 						      	<td class="price" th:text="${l.price}">가격</td>
 						        <td class="cnt" th:text="${l.cnt}">개수</td>
 						        <td class="total" th:text="${l.price}*${l.cnt}">총 가격</td>

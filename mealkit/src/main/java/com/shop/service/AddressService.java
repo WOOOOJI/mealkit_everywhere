@@ -78,17 +78,17 @@ public class AddressService implements MyService<Integer, AddressDTO>{
 		return mapper.check_default(key);
 	};
 	
-	public List<AddressDTO> user_addr(int cust_key) throws Exception{
-		return mapper.user_addr(cust_key);
+	public List<AddressDTO> user_addr(int custKey) throws Exception{
+		return mapper.user_addr(custKey);
 	}
 	
-	public AddressDTO addr_key(int addr_key) throws Exception{
-		return mapper.addr_key(addr_key);
+	public AddressDTO addrKey(int addrKey) throws Exception{
+		return mapper.addrKey(addrKey);
 	}
 	
-	public void insertAddress(int cust_key,AddressDTO address) {
+	public void insertAddress(int custKey,AddressDTO address) {
 		try {
-			mapper.insertAddress(cust_key, address);
+			mapper.insertAddress(custKey, address);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

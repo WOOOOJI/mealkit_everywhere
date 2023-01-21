@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.dto.AddressDTO;
-import com.shop.dto.CustomerDTO;
 import com.shop.dto.OrderDTO;
 import com.shop.dto.OrderDetailDTO;
 import com.shop.service.AddressService;
@@ -43,7 +42,7 @@ public class OrderController {
 	CartService cartservice;
 	
 	@RequestMapping("")
-	public String main(@RequestParam(value="addr_key",defaultValue="0") int addr_key,HttpSession session, Model model) {
+	public String main(@RequestParam(value="addrKey",defaultValue="0") int addrKey,HttpSession session, Model model) {
 		//주문페이지에 들어왔을 때의 흐름
 		//1. 로그인이 되어 있는지 세션 확인
 		//2. 세션에 저장된 값이 없으면 로그인 페이지로 이동
@@ -55,7 +54,7 @@ public class OrderController {
 		//8. 배송지를 선택하면 다시 갖고오기
 		
 		
-		CustomerDTO cust=null;
+		
 		AddressDTO def=null;
 		List<OrderDTO> cart_to_order=null;
 		List<OrderDTO> cntcheck=null;
@@ -68,20 +67,20 @@ public class OrderController {
 		
 		
 		//세션에 저장된 유저의 key를 갖고온다.
-		int cust_key=(int)session.getAttribute("cust_key");
+		int custKey=(int)session.getAttribute("custKey");
 
 		//0이면 로그인 페이지로 아니면 주문하기 페이지로 이동
-		if(cust_key==0) {
+		if(custKey==0) {
 			model.addAttribute("content", null);
 		}else {
 			//재고 확인해주는 로직 - 재고가 부족하면 res=-1
 			try {
-				cntcheck=orderservice.cntcheck(cust_key);
+				cntcheck=orderservice.cntcheck(custKey);
 				//가져온 값 중 0보다 작은 것이 있으면 res=-1
 				for(OrderDTO c:cntcheck) {
 					if(c.getCntcheck()<0) {
 						res=-1;
-						item+=c.getItem_name()+" ";
+						item+=c.getItemName()+" ";
 					}
 				}
 				model.addAttribute("item", item);
@@ -92,9 +91,9 @@ public class OrderController {
 			
 
 			//배송지를 선택했으면 선택한 배송지 정보 보내기
-			if(addr_key!=0) {
+			if(addrKey!=0) {
 				try {
-					def=addrservice.addr_key(addr_key);
+					def=addrservice.addrKey(addrKey);
 					model.addAttribute("def", def);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -102,7 +101,7 @@ public class OrderController {
 			}else {
 				//기본 배송지가 있으면 그 값 가져오기
 				try {
-					def=addrservice.check_default(cust_key);
+					def=addrservice.check_default(custKey);
 					model.addAttribute("def", def);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -111,7 +110,7 @@ public class OrderController {
 			
 			//장바구니에 담긴 상품 정보 가져오기
 			try {
-				cart_to_order=orderservice.cart_to_order(cust_key);
+				cart_to_order=orderservice.cart_to_order(custKey);
 				model.addAttribute("cart_to_order", cart_to_order);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -123,7 +122,7 @@ public class OrderController {
 			//finalprice: 구매금액, orprice: 원래 금액(정가)
 			for(OrderDTO o:cart_to_order) {
 				finalprice+=o.getTotal();
-				orprice+=o.getItem_price();
+				orprice+=o.getItemPrice();
 			}	
 			
 			//배송비 구하기
@@ -158,10 +157,10 @@ public class OrderController {
 		
 		
 		//세션에 저장된 유저의 key를 갖고온다.
-		int cust_key=(int)session.getAttribute("cust_key");
+		int custKey=(int)session.getAttribute("custKey");
 		
 		try {
-			addrlist=addrservice.user_addr(cust_key);
+			addrlist=addrservice.user_addr(custKey);
 			model.addAttribute("addrlist", addrlist);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -180,10 +179,10 @@ public class OrderController {
 		
 		
 		//세션에 저장된 유저의 key를 갖고온다.
-		int cust_key=(int)session.getAttribute("cust_key");
+		int custKey=(int)session.getAttribute("custKey");
 		
 		try {
-			addrlist=addrservice.user_addr(cust_key);
+			addrlist=addrservice.user_addr(custKey);
 			model.addAttribute("addrlist", addrlist);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -196,23 +195,23 @@ public class OrderController {
 	public String submitAddr(AddressDTO address,HttpSession session, Model model) {
 		//배송지 추가창에서의 흐름
 		//1. 회원이 폼에 입력한 정보를 AddressDTO로 받아온다
-		//2. 그 정보와 session의 cust_key를 가지고 배송지를 추가해준다
+		//2. 그 정보와 session의 custKey를 가지고 배송지를 추가해준다
 		//3. 완료되면 배송지 선택 창으로 돌려준다
 		
 		
 		//세션에 저장된 유저의 key를 갖고온다.
-		int cust_key=(int)session.getAttribute("cust_key");
-		addrservice.insertAddress(cust_key, address);
+		int custKey=(int)session.getAttribute("custKey");
+		addrservice.insertAddress(custKey, address);
 		return "redirect:/order/selectaddr";
 	}
 	
 	@RequestMapping("/deleteAddr")
-	public String deleteAddr(@RequestParam(value="addr_key",defaultValue="0") int addr_key, HttpSession session, Model model) {
+	public String deleteAddr(@RequestParam(value="addrKey",defaultValue="0") int addrKey, HttpSession session, Model model) {
 		//배송지 제거에서의 흐름
-		//1. 폼에서 addr_key를 받아온다
-		//2. addr_key로 주소를 삭제한다
+		//1. 폼에서 addrKey를 받아온다
+		//2. addrKey로 주소를 삭제한다
 		try {
-			addrservice.remove(addr_key);
+			addrservice.remove(addrKey);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -220,7 +219,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/payment")
-	public String payment(@RequestParam(value="addr_key",defaultValue="0") int addr_key,
+	public String payment(@RequestParam(value="addrKey",defaultValue="0") int addrKey,
 			@RequestParam(value="payment",defaultValue="0") int payment,
 			HttpSession session,Model model) {
 		//결제하기 페이지
@@ -232,44 +231,44 @@ public class OrderController {
 		//6. 주문내역 페이지 보여주기
 
 		List<OrderDTO> cart_to_order=null;
-		int order_key;
+		int orderKey;
 		List<OrderDetailDTO> det=null;
 		OrderDTO order=null;
 		
 		//세션에 저장된 유저의 key를 갖고온다.
-		int cust_key=(int)session.getAttribute("cust_key");
+		int custKey=(int)session.getAttribute("custKey");
 		
 		//0이면 로그인 페이지로 아니면 주문하기 페이지로 이동
-		if(cust_key==0) {
+		if(custKey==0) {
 			model.addAttribute("content", null);
 		}else {
 			
 			
 			try {
 				//빈 주문 테이블 만들어주기
-				orderservice.create_blank(cust_key);
+				orderservice.create_blank(custKey);
 				//장바구니에 있는 정보 가져오기
-				cart_to_order=orderservice.cart_to_order(cust_key);
+				cart_to_order=orderservice.cart_to_order(custKey);
 				//가져온 정보를 이용해 주문상세 생성하기
 				for(OrderDTO o:cart_to_order) {
-					orderdetailservice.cart_to_detail(cust_key,o);
+					orderdetailservice.cart_to_detail(custKey,o);
 				}
 				//방금 추가한 주문 번호를 가져와서 UPDATE 준비
-				order_key=orderservice.get_orderkey(cust_key);
+				orderKey=orderservice.get_orderkey(custKey);
 				// 주문상세를 이용하여 주문 테이블 UPDATE하기
-				orderservice.order_update(addr_key, order_key,payment);
+				orderservice.order_update(addrKey, orderKey,payment);
 				//item 테이블의 cnt를 주문한 양 만큼 낮추기
-				//1) order_key의 주문상세에서 item key와 cnt를 불러와서 저장
-				det=orderdetailservice.get_orderdetail_by_orderkey(order_key);
+				//1) orderKey의 주문상세에서 item key와 cnt를 불러와서 저장
+				det=orderdetailservice.get_orderdetail_by_orderkey(orderKey);
 				//2) for문으로 그것의 수량, item_key 이용
 				for(OrderDetailDTO od:det) {
 					itemservice.cntdown(od);
 				}
 				
 				//장바구니 내역 삭제
-				cartservice.cart_delete(cust_key);
+				cartservice.cart_delete(custKey);
 				//orderkey로 order 내용 불러오기
-				order=orderservice.getOrderByOrderKey(order_key);
+				order=orderservice.getOrderByOrderKey(orderKey);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

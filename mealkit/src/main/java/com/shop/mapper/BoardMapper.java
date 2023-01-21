@@ -18,13 +18,13 @@ public interface BoardMapper extends MyMapper<Integer, BoardDTO>{
 	public List<BoardDTO> reviewList(int sessionKey) throws Exception;
 	
 	//문의글 상세보기
-	public BoardDTO qnaDetail(int board_key) throws Exception;
+	public BoardDTO qnaDetail(int boardKey) throws Exception;
 	
 	//후기글 상세보기
-	public BoardDTO reviewDetail(int board_key) throws Exception;
+	public BoardDTO reviewDetail(int boardKey) throws Exception;
 	
 	//후기글 삭제하기
-	public int reviewDel(int board_key) throws Exception;
+	public int reviewDel(int boardKey) throws Exception;
 	
 	
 }

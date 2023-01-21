@@ -23,7 +23,7 @@ public class KakaoController {
 	KakaoService service;
 	
 	@Autowired
-	CustomerService cust_service;
+	CustomerService cService;
 	
 	
     @GetMapping("/kakao")
@@ -51,17 +51,17 @@ public class KakaoController {
 		dto.setEmail(kemail2);
 		dto.setUsername(cname);
 		
-		System.out.println(cust_service.isEmailExist(dto));
+		System.out.println(cService.isEmailExist(dto));
 		
 		// db 중복 저장 막기. 1보다 작으면 중복 없음(신규 회원 가입)
-		 if(cust_service.isEmailExist(dto)<1) {
-			 cust_service.addMember(dto); //신규 유저 생성
+		 if(cService.isEmailExist(dto)<1) {
+			 cService.addMember(dto); //신규 유저 생성
 		 }
 		 
-		int cust_key = service.findCustKey(kemail2);
+		int custKey = service.findCustKey(kemail2);
 		 
 		session.setAttribute("email", dto.getEmail());
-		session.setAttribute("cust_key", cust_key);
+		session.setAttribute("custKey", custKey);
 				model.addAttribute("loginResult", "success");
 				model.addAttribute("username", dto.getUsername());
 		

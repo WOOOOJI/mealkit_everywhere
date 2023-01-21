@@ -12,15 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.shop.dto.CategoryDTO;
 import com.shop.dto.Criteria;
 import com.shop.dto.ItemDTO;
-import com.shop.dto.response.CategoryResponseDTO;
 import com.shop.dto.response.ItemPageResponseDTO;
 import com.shop.service.CategoryService;
 import com.shop.service.ItemService;
 
-import lombok.extern.slf4j.Slf4j;
-
 //log를 찍어보기위한 Annotation
-@Slf4j
+
 @Controller
 @RequestMapping("/shoplist")
 public class ItemController {
@@ -35,19 +32,19 @@ public class ItemController {
 	
 	//카테고리 상품 리스트
 	@RequestMapping("")
-	public String main(@RequestParam(defaultValue="0", value="category_key") int category_key,
+	public String main(@RequestParam(defaultValue="0", value="categoryKey") int categoryKey,
 					   @RequestParam(defaultValue="1", value="pageNum") int pageNum,
-					   @RequestParam(required = false, defaultValue = "item_key", value = "order_cri") String order_cri,
+					   @RequestParam(required = false, defaultValue = "itemKey", value = "order_cri") String order_cri,
 					   @RequestParam(required = false, defaultValue = "desc", value = "asc_desc") String asc_desc,
 					   Model model, Criteria cri) {
 
 		
 		List<ItemDTO> itemList = new ArrayList<>();
 		//ItemPageResponseDTO(active, pageNumList, content를 묶어주기 위한 DTO) 선언 및 초기화
-		List<CategoryDTO> categoryList = new ArrayList<>();
+		
 		
 		cri.setOrder_cri(order_cri);
-		cri.setCategory_key(category_key);
+		cri.setCategoryKey(categoryKey);
 		cri.setAsc_desc(asc_desc);
 		
 		ItemPageResponseDTO itemPageResponseDTO = itemService.getItemPageMaker(cri);
@@ -72,7 +69,7 @@ public class ItemController {
 		model.addAttribute("content", dir+"itemlist");
 		
 		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("category_key", category_key);
+		model.addAttribute("categoryKey", categoryKey);
 		model.addAttribute("asc_desc", asc_desc);
 		model.addAttribute("order_cri", order_cri);
 		
@@ -82,11 +79,11 @@ public class ItemController {
 	}
 	
 	@RequestMapping("/productSingle")
-	public String productSingle(@RequestParam(required = true, value="item_key") int item_key, 
+	public String productSingle(@RequestParam(required = true, value="itemKey") int itemKey, 
 								Model model) {
 		String dir = "shoplist/";
 		
-		ItemDTO itemDTO = itemService.get(item_key);
+		ItemDTO itemDTO = itemService.get(itemKey);
 		
 		model.addAttribute("content", dir+"product_single");
 		model.addAttribute("item", itemDTO);

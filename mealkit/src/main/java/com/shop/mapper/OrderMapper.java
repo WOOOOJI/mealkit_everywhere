@@ -17,12 +17,12 @@ public interface OrderMapper extends MyMapper<Integer, OrderDTO>{
 	public List<OrderDTO> cntcheck(int key) throws Exception;
 	//빈 total_order 생성하여 주문상세 받을 준비
 	public void create_blank(int key) throws Exception;
-	//order_key의 정보 갖고오기
-	public int get_orderkey(int cust_key) throws Exception;
+	//orderKey의 정보 갖고오기
+	public int get_orderkey(int custKey) throws Exception;
 	//total_order를 주문 내용으로 UPDATE하기
-	public void order_update(int addr_key, int order_key, int payment) throws Exception;
-	//order_key 이용해서 order 갖고오기
-	public OrderDTO getOrderByOrderKey(int order_key) throws Exception;
-	//order_key이용해서 상품 이미지,이름, 주문상품개수를 포함한 정보 가져오기
-	public List<OrderDTO> getOrderWithItemInfo(int order_key) throws Exception;
+	public void order_update(int addrKey, int orderKey, int payment) throws Exception;
+	//orderKey 이용해서 order 갖고오기
+	public OrderDTO getOrderByOrderKey(int orderKey) throws Exception;
+	//orderKey이용해서 상품 이미지,이름, 주문상품개수를 포함한 정보 가져오기
+	public List<OrderDTO> getOrderWithItemInfo(int orderKey) throws Exception;
 }

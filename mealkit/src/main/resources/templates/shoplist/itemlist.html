@@ -10,7 +10,7 @@
 			var pageNum='[[${pageNum}]]';
 			document.getElementById('pageNum'+pageNum).className='active';
 			
-			var category='[[${category_key}]]';
+			var category='[[${categoryKey}]]';
 			document.getElementById('categoryNum'+category).className='active';
 
 			var order_cri='[[${order_cri}]]';
@@ -20,11 +20,16 @@
 
 		
 		function insertCart(item){
-			var item_key = item;
+			var itemKey = item;
 			var cnt = 1;
-			location.href="/cart/cartInsertToItemList?item_key="+item_key+"&cnt="+cnt;
+			location.href="/cart/cartInsertToItemList?itemKey="+itemKey+"&cnt="+cnt;
 		};
 		
+		
+		function insertWish(item){
+			var itemKey = item;
+			location.href="/wish/wishInsertToList?itemKey="+itemKey;
+		};
 		
 		
  	</script>
@@ -75,17 +80,17 @@
     					<!-- 카테고리 리스트 -->
     						<li><a th:href="@{/shoplist}" id="categoryNum0">전체 상품</a></li>
     					<li class="categories" th:each="category : ${categoryList}">
-    						<a th:href="@{/shoplist(category_key = ${category.category_key})}" th:id="'categoryNum'+${category.category_key}" th:text="${category.name}"></a>
+    						<a th:href="@{/shoplist(categoryKey = ${category.categoryKey})}" th:id="'categoryNum'+${category.categoryKey}" th:text="${category.name}"></a>
     					</li>
     				</ul>
     				<ul class="product-category">
     					<!-- 정렬 순서 선택 -->
     					<!-- 최신 등록순 -->
-    					<li class="alignList"><a th:href="@{/shoplist(category_key = ${category_key}, asc_desc = 'desc', order_cri='item_key')}" id="item_key">최신 등록순</a></li>
+    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, asc_desc = 'desc', order_cri='itemKey')}" id="itemKey">최신 등록순</a></li>
     					<!-- 이름순 -->
-    					<li class="alignList"><a th:href="@{/shoplist(category_key = ${category_key}, asc_desc = 'asc', order_cri='name')}" id="name">이름순</a></li>
+    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, asc_desc = 'asc', order_cri='name')}" id="name">이름순</a></li>
     					<!-- 낮은 가격순 -->
-    					<li class="alignList"><a th:href="@{/shoplist(category_key = ${category_key}, asc_desc = 'asc', order_cri='price')}" id="price">낮은 가격순</a></li>
+    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, asc_desc = 'asc', order_cri='price')}" id="price">낮은 가격순</a></li>
     				</ul>
     			</div>
     		</div>
@@ -100,14 +105,14 @@
 		    			<!-- 각 상품의 한 칸 구역 -->
 		    			<div class="product">
 		    				<!-- 상품 썸네일 -->
-		    				<a th:href="@{/shoplist/productSingle(item_key = ${item.item_key})}" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${item.img1}" alt="No image">
+		    				<a th:href="@{/shoplist/productSingle(itemKey = ${item.itemKey})}" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${item.img1}" alt="No image">
 		    					<!-- 썸네일 위에 표시 되는 할인율 -->
 		    					<!-- span class="status">30%</span> -->
 		    					<div class="overlay"></div>
 		    				</a>
 		    				<div class="text py-3 pb-4 px-3 text-center">
 		    					<!-- 상품 이름 텍스트 -->
-		    					<h3><a th:href="@{/shoplist/productSingle(item_key = ${item.item_key})}"><span th:text="${item.name}"></span></a></h3>
+		    					<h3><a th:href="@{/shoplist/productSingle(itemKey = ${item.itemKey})}"><span th:text="${item.name}"></span></a></h3>
 		    					<div class="d-flex">
 		    						<div class="pricing">
 				    					<p class="price"><span class="mr-2 price-dc" th:text="${item.price}"></span><span class="price-sale" th:text="${item.sale}"></span></p>
@@ -116,13 +121,13 @@
 			    				<!-- 상품상세, 장바구니, 찜하기 버튼 -->
 			    				<div class="bottom-area d-flex px-3">
 			    					<div class="m-auto d-flex">
-			    						<!-- <a th:href="@{/shoplist/productSingle(item_key = ${item.item_key})}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+			    						<!-- <a th:href="@{/shoplist/productSingle(itemKey = ${item.itemKey})}" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 			    							<span><i class="ion-ios-menu"></i></span>
 			    						</a> -->
-			    						<a href="#" th:onclick="insertCart([[${item.item_key}]])" class="buy-now d-flex justify-content-center align-items-center mx-1">
+			    						<a href="#" th:onclick="insertCart([[${item.itemKey}]])" class="buy-now d-flex justify-content-center align-items-center mx-1">
 			    							<span><i class="ion-ios-cart"></i></span>
 			    						</a>
-			    						<a href="#" class="heart d-flex justify-content-center align-items-center ">
+			    						<a href="#" th:onclick="insertWish([[${item.itemKey}]])" class="heart d-flex justify-content-center align-items-center ">
 			    							<span><i class="ion-ios-heart"></i></span>
 			   							</a>
 		    						</div>
@@ -153,14 +158,14 @@
 		                <!-- 클래스는 공백으로도 설정이 된다 -->
 	                	<!-- 타임리프로 클래스 설정시 문자열이 아닌 값으로 넘긴다 -->
 
-		                <!-- 이전 버튼; category_key를 안줘도 페이지가 작동된다? -->
-		                <li class="prevbtn"><a th:if="${pageMaker.prev == true}" th:href="@{/shoplist(category_key = ${category_key}, pageNum = ${pageMaker.pageStart - 1}, asc_desc = ${asc_desc}, order_cri=${order_cri})}">&lt;</a></li>
+		                <!-- 이전 버튼; categoryKey를 안줘도 페이지가 작동된다? -->
+		                <li class="prevbtn"><a th:if="${pageMaker.prev == true}" th:href="@{/shoplist(categoryKey = ${categoryKey}, pageNum = ${pageMaker.pageStart - 1}, asc_desc = ${asc_desc}, order_cri=${order_cri})}">&lt;</a></li>
 							<!-- 페이지 번호 출력 -->
 		                	<li class="pageList" th:each="pageNum : ${pageNumList}">
-		                		<a th:href="@{/shoplist(category_key = ${category_key}, pageNum = ${pageNum}, asc_desc = ${asc_desc}, order_cri=${order_cri})}" th:id="'pageNum'+${pageNum}" th:text="${pageNum}"></a>
+		                		<a th:href="@{/shoplist(categoryKey = ${categoryKey}, pageNum = ${pageNum}, asc_desc = ${asc_desc}, order_cri=${order_cri})}" th:id="'pageNum'+${pageNum}" th:text="${pageNum}"></a>
 		                	</li>
-		                <!-- 다음 버튼; category_key를 안줘도 페이지가 작동된다? -->
-		                <li class="nextbtn"><a th:if="${pageMaker.next == true}" th:href="@{/shoplist(category_key = ${category_key}, pageNum = ${pageMaker.pageEnd + 1}, asc_desc = ${asc_desc}, order_cri=${order_cri})}">&gt;</a></li>
+		                <!-- 다음 버튼; categoryKey를 안줘도 페이지가 작동된다? -->
+		                <li class="nextbtn"><a th:if="${pageMaker.next == true}" th:href="@{/shoplist(categoryKey = ${categoryKey}, pageNum = ${pageMaker.pageEnd + 1}, asc_desc = ${asc_desc}, order_cri=${order_cri})}">&gt;</a></li>
 		              </ul>
 		            </div>
 		          </div>

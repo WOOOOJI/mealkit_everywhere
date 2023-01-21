@@ -38,7 +38,7 @@ float:left;
 	
 	$(document).ready(function(){
 		
-		$('#select_addr').click(function(){
+		$('#selectAddr').click(function(){
 			window.open('[[@{/order/selectaddr}]]','popup','width=700px,height=800px,resizable=no')
 		}); 
 		
@@ -57,12 +57,12 @@ float:left;
 		     pg: "html5_inicis",
 		     pay_method: "card",
 			 merchant_uid: 'merchant_'+new Date().getTime(),   // 주문번호
-			 name: document.getElementById('item_name').text,
-			 amount:  document.getElementById('order_name').text,                         // 숫자 타입
-			 buyer_name: document.getElementById('order_name').value,
-			 buyer_tel: document.getElementById('order_tel').value,
-			 buyer_addr: document.getElementById('order_addr').value,
-			 buyer_postcode: document.getElementById('order_zipcode').value
+			 name: document.getElementById('itemName').text,
+			 amount: '[[${finalprice}]]',                         // 숫자 타입
+			 buyer_name: document.getElementById('orderName').value,
+			 buyer_tel: document.getElementById('orderTel').value,
+			 buyer_addr: document.getElementById('orderAddr').value,
+			 buyer_postcode: document.getElementById('orderZipcode').value
 			    }, function (rsp) { // callback
 			      if (rsp.success) {// 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
 			          // jQuery로 HTTP 요청
@@ -108,35 +108,35 @@ float:left;
 				<form action="#" class="billing-form" name="addr_form" id="addr_form" method="POST">
 					<h3 class="mb-4 billing-heading">주문/결제하기</h3>
 	          	<div class="row align-items-end">
-	          		<input th:if="${def!=null}" type="hidden" id="addr_key" name="addr_key" th:value="${def.addr_key}">
+	          		<input th:if="${def!=null}" type="hidden" id="addrKey" name="addrKey" th:value="${def.addrKey}">
 	          		<input type="hidden" id="payment" name="payment" th:value="${finalprice}">
 	          		<div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="name">받는 분 성함</label>
-	                  <input th:if="${def==null}" id="order_name" type="text" class="form-control" readonly="readonly" placeholder="">
-	                  <input th:if="${def!=null}" id="order_name" th:value="${def.name}" type="text" readonly="readonly" class="form-control" placeholder="">
+	                  <input th:if="${def==null}" id="orderName" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" id="orderName" th:value="${def.name}" type="text" readonly="readonly" class="form-control" placeholder="">
 	                </div>
 	              </div>
 	              <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="tel">전화번호</label>
-	                  <input th:if="${def==null}" id="order_tel" type="text" class="form-control" readonly="readonly" placeholder="">
-	                  <input th:if="${def!=null}" id="order_tel" th:value="${def.tel}" type="text" class="form-control" readonly="readonly"  placeholder="">
+	                  <input th:if="${def==null}" id="orderTel" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" id="orderTel" th:value="${def.tel}" type="text" class="form-control" readonly="readonly"  placeholder="">
 	                </div>
                 </div>
                 <div class="w-100"></div>
 		           	<div class="col-md-8">
 	                <div class="form-group">
 	                	<label for="addr">주소</label>
-	                  <input th:if="${def==null}" id="order_addr" type="text" class="form-control" readonly="readonly" placeholder="">
-	                  <input th:if="${def!=null}" id="order_addr" th:value="${def.addr}+', '+${def.addr_detail}" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def==null}" id="orderAddr" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" id="orderAddr" th:value="${def.addr}+', '+${def.addrDetail}" type="text" class="form-control" readonly="readonly" placeholder="">
 	                </div>
 	              </div>
 	              <div class="col-md-4">
 	                <div class="form-group">
 	                	<label for="zipcode">우편번호</label>
-	                  <input th:if="${def==null}" id="order_zipcode" type="text" class="form-control" readonly="readonly" placeholder="">
-	                  <input th:if="${def!=null}" id="order_zipcode" th:value="${def.zipcode}"type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def==null}" id="orderZipcode" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" id="orderZipcode" th:value="${def.zipcode}"type="text" class="form-control" readonly="readonly" placeholder="">
 	                </div>
                 </div>
                  <div class="col-md-12">
@@ -148,7 +148,7 @@ float:left;
                 </div>
                 
                 <div class="col-md-12">
-	          		<p><a href="#"class="btn btn-primary py-3 px-4" style="float:right" id="select_addr">배송지 선택</a></p>
+	          		<p><a href="#"class="btn btn-primary py-3 px-4" style="float:right" id="selectAddr">배송지 선택</a></p>
 	          	</div>
 		            <div class="w-100"></div>
 		           
@@ -176,14 +176,14 @@ float:left;
 						    </thead>
 						    <tbody>
 						      <tr th:each="c:${cart_to_order}" class="text-center">	        
-						        <td class="image-prod"><a th:href="@{/}"><img th:src="@{/img/}+${c.item_img}"></a></td>       
+						        <td class="image-prod"><a th:href="@{/}"><img th:src="@{/img/}+${c.itemImg}"></a></td>       
 						        <td class="product-name">
-						        	<a th:href="@{/}" th:text="${c.item_name}" id="item_name"></a>
+						        	<a th:href="@{/}" th:text="${c.itemName}" id="itemName"></a>
 						        </td>
-						        <td class="sale" th:text="${c.item_sale}+'원'"></td>
+						        <td class="sale" th:text="${c.itemSale}+'원'"></td>
 						        <td class="quantity">
 						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" th:value="${c.item_cnt}">
+					             	<input type="text" name="quantity" class="quantity form-control input-number" th:value="${c.itemCnt}">
 					          	</div>
 					          </td>
 						        

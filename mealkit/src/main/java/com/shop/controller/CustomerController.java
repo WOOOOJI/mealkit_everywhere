@@ -1,8 +1,5 @@
 package com.shop.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.dto.CustomerDTO;
-import com.shop.mapper.CustomerMapper;
 import com.shop.service.CustomerService;
 
 @Controller
@@ -63,7 +59,7 @@ public class CustomerController {
 		CustomerDTO customerDTO = service.loginCheck(dto);
 		System.out.println(customerDTO);
 		if (customerDTO != null) {
-			session.setAttribute("cust_key", customerDTO.getCust_key());
+			session.setAttribute("custKey", customerDTO.getCustKey());
 			session.setAttribute("email", customerDTO.getEmail());
 			session.setAttribute("username", customerDTO.getUsername());
 			model.addAttribute("loginResult", "success");
@@ -130,7 +126,7 @@ public class CustomerController {
 		}
 
 		if (d != null) {
-			model.addAttribute("cust_key", d.getCust_key());
+			model.addAttribute("custKey", d.getCustKey());
 			return "customer/resetpwd";
 		}
 		model.addAttribute("num", 0);
@@ -139,11 +135,11 @@ public class CustomerController {
 
 	// 비밀번호 재설정
 	@PostMapping("/resetPwd")
-	public String resetPwd(String pwd1, String pwd2, int cust_key, Model model) {
+	public String resetPwd(String pwd1, String pwd2, int custKey, Model model) {
 		int result = 0;
 
 		try {
-			result = service.resetPwd(pwd1, pwd2, cust_key);
+			result = service.resetPwd(pwd1, pwd2, custKey);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -178,7 +174,7 @@ public class CustomerController {
 		}
 
 		if (d != null) {
-			model.addAttribute("cust_key", d.getCust_key());
+			model.addAttribute("custKey", d.getCustKey());
 			return "customer/resetpwd";
 		}
 		model.addAttribute("num", 0);
@@ -206,8 +202,8 @@ public class CustomerController {
 	// 회원탈퇴
 	@PostMapping("/signout")
 	public String signOut(Model model, HttpSession session, CustomerDTO dto) {
-		int cust_key = (int)session.getAttribute("cust_key");
-		dto.setCust_key(cust_key);
+		int custKey = (int)session.getAttribute("custKey");
+		dto.setCustKey(custKey);
 		int result = service.signOut(dto);
 		if(result==1) {
 			session.invalidate();

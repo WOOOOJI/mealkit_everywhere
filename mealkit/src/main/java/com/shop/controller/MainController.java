@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +31,7 @@ public class MainController {
 		// 신상품을 담을 리스트                                 				  ArrayList for newItems
 		List<ItemDTO> newList = new ArrayList<ItemDTO>();
 		
-		HttpSession session = req.getSession();
+		
 		
 		// 인기상품 ----------------------------------------------------------------------------------------------------------------------
 		try {
@@ -93,16 +92,16 @@ public class MainController {
 		
 		// 장바구니 수량 보여주기 ------------------------------------------------------------------------------------------------------------
 		
-		// 세션값 가져오기. (int)req.getAttribute("cust_key");
+		// 세션값 가져오기. (int)req.getAttribute("custKey");
 		
 		
 		
-//		if((int)session.getAttribute("cust_key")==0) {
+//		if((int)session.getAttribute("custKey")==0) {
 //			
 //		}else {
-//			int cust_key = (int)session.getAttribute("cust_key");
+//			int custKey = (int)session.getAttribute("custKey");
 //			try {
-//				model.addAttribute("cartCnt", cService.cntCart(cust_key));
+//				model.addAttribute("cartCnt", cService.cntCart(custKey));
 //			} catch (Exception e) {
 //				e.getMessage();
 //			}

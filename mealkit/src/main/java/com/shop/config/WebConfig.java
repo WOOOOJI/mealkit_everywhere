@@ -35,8 +35,8 @@ public class WebConfig implements WebMvcConfigurer {
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
       registry.addInterceptor(loginInterceptor)
-              .addPathPatterns("/cart/list")
-              .addPathPatterns("/cart/cartInsert")
+              .addPathPatterns("/cart/**")
+              .addPathPatterns("/wish/**")
               .addPathPatterns("/order")
               .excludePathPatterns("/", "/fonts/**", "/css/**", "/images/**", "/js/**", "/customer/login", "/logincheck.do*");
   }

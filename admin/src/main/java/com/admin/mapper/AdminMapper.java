@@ -9,5 +9,5 @@ import com.admin.frame.MyMapper;
 @Repository
 @Mapper
 public interface AdminMapper extends MyMapper<Integer, AdminDTO>{
-
+	public AdminDTO login(String adminId, String adminPwd) throws Exception;
 }

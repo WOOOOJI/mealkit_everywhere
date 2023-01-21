@@ -1,5 +1,7 @@
 package com.admin.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 	
 	@RequestMapping("")
-	public String main(Model model) {
+	public String main(Model model, HttpSession session) {
 		model.addAttribute("content","content");
+		session.setAttribute("adminid", "zathy1225");
 		return "main";
 	}
 	

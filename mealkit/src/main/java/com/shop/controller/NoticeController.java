@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shop.dto.Criteria;
+import com.shop.dto.CustomerDTO;
 import com.shop.dto.NoticeDTO;
+import com.shop.dto.OrderDetailDTO;
 import com.shop.dto.response.ItemPageResponseDTO;
+import com.shop.service.CustomerService;
 import com.shop.service.NoticeService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,11 +30,48 @@ public class NoticeController {
 	@Autowired
 	NoticeService noticeService;
 	
+	@Autowired
+	CustomerService customerService;
+	
 	
 	// 회사소개 페이지로 이동
 	@RequestMapping("/about")
 	public String aboutPage(Model model) {
+		
+		// 지금까지 팔린 총 상품수를 구하기 위한 List 객체
+		List<OrderDetailDTO> sumCnt = null;
+		// 지금까지 총 회원수를 구하기 위한 List 객체		
+		List<CustomerDTO> sumCust = null;
+		
+		// 전체 SELECT 한 orderDetailDTO List객체 받아오기
+		sumCnt = noticeService.sumCnt();
+		// 전체 SELECT 한 CustomerDTO List객체 받아오기
+		sumCust = customerService.get();
+		
+		
+		
+		// 총 팔린 상품수
+		int sum = 0;
+		
+		// 총 회원수
+		int custSum = 0;
+		
+		
+		for(OrderDetailDTO d : sumCnt) {
+			sum += d.getCnt();
+		}
+		// 위 아래 for문은 각 list에 담긴 객체를 하나씩 꺼내 총합을 구하기 위함임.
+		for(int i=0; i<sumCust.size(); i++) {
+			custSum += 1;
+		}
+		
+		
+		
+		
+		// 	뷰단에 뿌리기 위한 attribute.
 		model.addAttribute("content", "board/about");
+		model.addAttribute("sum", sum);
+		model.addAttribute("custSum", custSum);
 		return "main";
 	}	
 
@@ -77,13 +117,13 @@ public class NoticeController {
 	
 	// 선택한 이벤트 상세 페이지로 접속
 	@RequestMapping("/event/detail")
-	public String eventDeatilPage(Model model, int notice_key) {
+	public String eventDeatilPage(Model model, int noticeKey) {
 		
 		// 하나의 상세 페이지에 대한 정보를 담을 dto 생성과 초기화
-		NoticeDTO dto = noticeService.eventDetail(notice_key);
+		NoticeDTO dto = noticeService.eventDetail(noticeKey);
 		
 		// 또한 접속을 요청할때마다 조회수가 1씩 증가를 한다.
-		noticeService.noticeHit(notice_key);
+		noticeService.noticeHit(noticeKey);
 		
 		// 받은 dto의 정보를 뷰에 뿌려준다.
 		model.addAttribute("notice", dto);
@@ -133,10 +173,10 @@ public class NoticeController {
 	// 이벤트 상세 페이지와 작동원리 동일
 	// 선택한 공지사항 상세 페이지로 이동
 	@RequestMapping("/notice/detail")
-	public String noticeDeatilPage(Model model, int notice_key) {
-		NoticeDTO dto = noticeService.eventDetail(notice_key);
+	public String noticeDeatilPage(Model model, int noticeKey) {
+		NoticeDTO dto = noticeService.eventDetail(noticeKey);
 		
-		noticeService.noticeHit(notice_key);
+		noticeService.noticeHit(noticeKey);
 		model.addAttribute("notice", dto);
 		model.addAttribute("content", "board/noticedetail");
 		return "main";

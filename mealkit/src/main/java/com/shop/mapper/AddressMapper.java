@@ -12,12 +12,12 @@ import com.shop.frame.MyMapper;
 @Mapper
 public interface AddressMapper extends MyMapper<Integer, AddressDTO>{
 	//기본 배송지 확인
-	public AddressDTO check_default(int cust_key) throws Exception;
+	public AddressDTO check_default(int custKey) throws Exception;
 	//회원의 배송지 확인
-	public List<AddressDTO> user_addr(int cust_key) throws Exception;
-	//addr_key를 이용하여 주소지 가져오기
-	public AddressDTO addr_key(int addr_key) throws Exception;
+	public List<AddressDTO> user_addr(int custKey) throws Exception;
+	//addrKey를 이용하여 주소지 가져오기
+	public AddressDTO addrKey(int addrKey) throws Exception;
 	//배송지 추가하기
-	public void insertAddress(int cust_key,AddressDTO address) throws Exception;
+	public void insertAddress(int custKey,AddressDTO address) throws Exception;
 	//배송지 삭제하기
 }

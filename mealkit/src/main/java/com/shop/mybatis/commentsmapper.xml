@@ -5,10 +5,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.shop.mapper.CommentsMapper">
 		<!-- 나의 문의 답변 보기 -->
 	<select id="qnaReply" parameterType="Integer" resultType="CommentsDTO">
-		SELECT c.board_key AS "board_key", c.admin_key AS "admin_key", c.content AS "content", c.rdate AS "rdate" 
+		SELECT c.boardKey AS "boardKey", c.adminKey AS "adminKey", c.content AS "content", c.rdate AS "rdate" 
 		FROM comments c
-		JOIN board b ON b.board_key = c.board_key
-		JOIN admin a ON a.admin_key = c.admin_key
-		WHERE c.board_key = ${board_key} 
+		JOIN board b ON b.boardKey = c.boardKey
+		JOIN admin a ON a.adminKey = c.adminKey
+		WHERE c.boardKey = ${boardKey} 
 	</select> 
 </mapper>

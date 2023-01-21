@@ -61,13 +61,13 @@
 						      <tr class="text-center" th:each="b:${list}">
 						      	
 						      	<!-- 글번호 -->
-						      	<td class="board_key" th:text="${b.board_key}"></td>
+						      	<td class="boardKey" th:text="${b.boardKey}"></td>
 						      	
 
 						        
 						        <td class="product-name">
 						        	<!-- 글제목 -->
-						        	<a class="itemhover" th:href="@{/board/reviewdetail(board_key=${b.board_key})}"><h3 class="texthover" th:text="${b.title}"></h3></a>
+						        	<a class="itemhover" th:href="@{/board/reviewdetail(boardKey=${b.boardKey})}"><h3 class="texthover" th:text="${b.title}"></h3></a>
 						        	
 						        </td>
 						        <!-- 작성자 -->

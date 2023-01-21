@@ -44,8 +44,8 @@ public class WishService implements MyService<Integer, WishDTO>{
 	}
 
 	//장바구니에 담은후 해당 찜리스트 제거
-	public void wish_delete(int cust_key) throws Exception{
-		mapper.wish_delete(cust_key);
+	public void wish_delete(int custKey) throws Exception{
+		mapper.wish_delete(custKey);
 	}
 	// 특정 사용자의 찜 리스트 내용물 가져오기
 	public List<WishDTO> WishList(Integer k) throws Exception {
@@ -53,8 +53,8 @@ public class WishService implements MyService<Integer, WishDTO>{
 	}
 	
 	// 찜리스트에 물건 담기
-	public void insertWish(int cust_key, int item_key) throws Exception{
-		mapper.insertWish(cust_key, item_key);
+	public void insertWish(int custKey, int itemKey) throws Exception{
+		mapper.insertWish(custKey, itemKey);
 	}
 	
 	

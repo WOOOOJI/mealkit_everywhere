@@ -10,5 +10,5 @@ import com.shop.frame.MyMapper;
 public interface CommentsMapper extends MyMapper<Integer, CommentsDTO>{
 
 	//관리자 답변
-	public CommentsDTO qnaReply(int board_key) throws Exception; 
+	public CommentsDTO qnaReply(int boardKey) throws Exception; 
 }

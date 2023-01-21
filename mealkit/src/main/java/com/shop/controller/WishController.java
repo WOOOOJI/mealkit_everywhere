@@ -33,8 +33,8 @@ public class WishController {
 			HttpSession session = req.getSession();
 			
 
-			int cust_key = (int)session.getAttribute("cust_key");
-			System.out.println(cust_key);
+			int custKey = (int)session.getAttribute("custKey");
+			System.out.println(custKey);
 
 			
 			// 세션값이 없으면 로그인이 안되있는 상태 이므로 애초에 찜리스트 페이지로 못온다.     
@@ -46,7 +46,7 @@ public class WishController {
 				// 이때 담겨있는 제품이 한개일수도 여러개 일수도 있다 -> ArrayList로 받아온다.   
 				List<WishDTO> wishList = new ArrayList<WishDTO>();
 				try {
-					wishList = service.WishList(cust_key);
+					wishList = service.WishList(custKey);
 				} catch (Exception e) {
 					e.printStackTrace();
 					System.out.println("----------------------------");
@@ -78,9 +78,9 @@ public class WishController {
 		// 찜 아이템 삭제.      Delete item of user's CART        ------------------------------------------------------------------------------------------------
 			@ResponseBody
 			@PostMapping("/wish/delete")
-			public int wishList(int cust_key) {
+			public int wishList(int custKey) {
 				int result=0;
-				System.out.println(cust_key);
+				System.out.println(custKey);
 				
 				
 				
@@ -89,7 +89,7 @@ public class WishController {
 				
 				
 				try {
-					service.remove(cust_key);
+					service.remove(custKey);
 					result=1;
 				} catch (Exception e) {
 					System.out.println("찜리스트 삭제 실패--------------------------");
@@ -105,30 +105,57 @@ public class WishController {
 			
 
 		// 찜에 상품 담기.     Insert Item on user's CART        ------------------------------------------------------------------------------------------------
-			@GetMapping("/wish/wishInsert")
-			public String wishInsert(int item_key,  HttpServletRequest req) {
+			@GetMapping("/wish/wishInsertToMain")
+			public String wishInsert(int itemKey,  HttpServletRequest req) {
 				
 				HttpSession session = req.getSession();
-				int cust_key = (int)session.getAttribute("cust_key");
+				int custKey = (int)session.getAttribute("custKey");
 				
 				
 				List<WishDTO> dto = new ArrayList<WishDTO>();
 				try {
-					dto = service.WishList(cust_key);
+					dto = service.WishList(custKey);
 					for(WishDTO c : dto) {
-						if(c.getItem_key()==item_key) {
-						//	service.increaseWish(c.getWish_key(), item_key);
+						if(c.getItemKey()==itemKey) {
+						//	service.increaseWish(c.getwisthKey(), itemKey);
 							return "redirect:/";
 						}
 					}
 					
-					service.insertWish(cust_key, item_key);
+					service.insertWish(custKey, itemKey);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				
 				return "redirect:/";
 			}
+			
+			// 찜에 상품 담기.  상품 리스트화면 리턴   Insert Item on user's CART        ------------------------------------------------------------------------------------------------
+			@GetMapping("/wish/wishInsertToList")
+			public String wishInsertToList(int itemKey,  HttpServletRequest req) {
+				
+				HttpSession session = req.getSession();
+				int custKey = (int)session.getAttribute("custKey");
+				
+				
+				List<WishDTO> dto = new ArrayList<WishDTO>();
+				try {
+					dto = service.WishList(custKey);
+					for(WishDTO c : dto) {
+						if(c.getItemKey()==itemKey) {
+						//	service.increaseWish(c.getwisthKey(), itemKey);
+							return "redirect:/";
+						}
+					}
+					
+					
+					service.insertWish(custKey, itemKey);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				return "redirect:/shoplist";
+			}			
 			
 			
 	

@@ -45,7 +45,7 @@
                 <div class="card-body">
                 
                 <!-- 게시글 번호 -->
-                <small class="text-muted" th:text="'글 번호 : '+${n.notice_key}"></small>
+                <small class="text-muted" th:text="'글 번호 : '+${n.noticeKey}"></small>
                 
                   <!-- 공지사항 제목 -->
                   <p class="card-text" th:text="${n.title}"></p>
@@ -53,7 +53,7 @@
                     <div class="btn-group">
                     
                       <!-- 공지사항 상세페이지 링크 -->
-                      <a th:href="@{/notice/detail?notice_key=}+${n.notice_key}"><button type="button" class="btn btn-sm btn-outline-secondary">글 보기</button></a>
+                      <a th:href="@{/notice/detail?noticeKey=}+${n.noticeKey}"><button type="button" class="btn btn-sm btn-outline-secondary">글 보기</button></a>
                     </div>
                     
                     <!-- 작성자 : 관리자 고정 -->

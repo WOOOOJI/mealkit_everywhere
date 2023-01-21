@@ -28,11 +28,11 @@
 	
 	// 찜 제품 삭제 AJAX
 
-	function del(cust_key){
+	function del(custKey){
 			$.ajax({
 				method:'post',
 				url:'[[@{/wish/delete}]]',
-				data: {'cust_key':cust_key},
+				data: {'custKey':custKey},
 				success:function(data){
 					if(data == 1){
 						location.href='[[@{/wish/list}]]';
@@ -78,13 +78,13 @@
 						      <tr class="text-center" th:each="w:${list}">
 						      	
 						      	<!-- 삭제 버튼 -->
-						        <td class="product-remove"><a href="#" th:onclick="del([[${w.wish_key}]])"><span class="ion-ios-close"></span></a></td>
+						        <td class="product-remove"><a href="#" th:onclick="del([[${w.wishKey}]])"><span class="ion-ios-close"></span></a></td>
 						        <!-- 상품이미지 -->
-						        <td class="image-prod"><a class="itemhover" th:href="@{/item(item_key=${w.item_key})}"><img th:src="@{/img/images.jpeg}"></a></td>
+						        <td class="image-prod"><a class="itemhover" th:href="@{/item(itemKey=${w.itemKey})}"><img th:src="@{/img/images.jpeg}"></a></td>
 						        
 						        <td class="product-name">
 						        	<!-- 상품명 -->
-						        	<a class="itemhover" th:href="@{/item(item_key=${w.item_key})}"><h3 class="texthover" th:text="${w.name}"></h3></a>
+						        	<a class="itemhover" th:href="@{/item(itemKey=${w.itemKey})}"><h3 class="texthover" th:text="${w.name}"></h3></a>
 						        	<!-- 정가 -->
 						        	<p th:text="${w.price}+원"></p>
 						        </td>

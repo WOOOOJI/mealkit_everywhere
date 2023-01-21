@@ -41,14 +41,14 @@ public class OrderDetailService implements MyService<Integer, OrderDetailDTO>{
 		return mapper.selectall();
 	}
 	
-	public void cart_to_detail(int cust_key,OrderDTO o) throws Exception{
-		mapper.cart_to_detail(cust_key,o);
+	public void cart_to_detail(int custKey,OrderDTO o) throws Exception{
+		mapper.cart_to_detail(custKey,o);
 	}
 	
-	public List<OrderDetailDTO> get_orderdetail_by_orderkey(int order_key){
+	public List<OrderDetailDTO> get_orderdetail_by_orderkey(int orderKey){
 		List<OrderDetailDTO> result=null;
 		try {
-			result=mapper.get_orderdetail_by_orderkey(order_key);
+			result=mapper.get_orderdetail_by_orderkey(orderKey);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

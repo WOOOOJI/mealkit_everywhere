@@ -46,10 +46,10 @@
 	});
 
 	function insertCart(item) {
-		var item_key = item;
+		var itemKey = item;
 		var cnt = parseInt($('#quantity').val());
 
-		location.href = "/cart/cartInsertToItemList?item_key=" + item_key
+		location.href = "/cart/cartInsertToItemList?itemKey=" + itemKey
 				+ "&cnt=" + cnt;
 	};
 </script>
@@ -733,7 +733,7 @@
 					</div>
 				</div>
 				<p>
-					<a href="#" th:onclick="insertCart([[${item.item_key}]])"
+					<a href="#" th:onclick="insertCart([[${item.itemKey}]])"
 						class="btn btn-black py-3 px-5">장바구니</a> <a href="cart.html"
 						class="btn btn-black py-3 px-5">찜</a>
 				</p>
