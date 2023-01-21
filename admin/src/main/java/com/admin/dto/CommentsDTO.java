@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 public class CommentsDTO {
-	private int comments_key;
-	private int admin_key;
-	private int board_key;
+	private int commentsKey;
+	private int adminKey;
+	private int boardKey;
 	private String content;
 	private SimpleDateFormat rdate;
 }

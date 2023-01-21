@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class ItemDTO {
-	private int item_key;		//not null
-	private int category_key;	//not null
+	private int itemKey;		//not null
+	private int categoryKey;	//not null
 	private String name;		//not null
 	
 	private String img1;		//not null
@@ -32,10 +32,11 @@ public class ItemDTO {
 	private SimpleDateFormat rdate;
 	
 	
-	private MultipartFile imgfile1;
-	private MultipartFile imgfile2;
-	private MultipartFile imgfile3;
-	private MultipartFile imgfile4;
-	private MultipartFile imgfile5;
+	private MultipartFile imgFile1;
+	private MultipartFile imgFile2;
+	private MultipartFile imgFile3;
+	private MultipartFile imgFile4;
+	private MultipartFile imgFile5;
 
 }
+

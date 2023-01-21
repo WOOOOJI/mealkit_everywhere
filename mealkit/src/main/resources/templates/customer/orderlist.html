@@ -41,7 +41,7 @@ function go(orderKey){
 						      	<td class="name" th:text="${l.name}"></td>
 						        <td class="tel" th:text="${l.tel}"></td>
 						      	<td class="price" th:text="${l.price}+'원'"></td>
-						        <td class="address" th:text="${l.addr}+', '+${l.addrDeatil}"></td>           
+						        <td class="address" th:text="${l.addr}+', '+${l.addrDetail}"></td>           
 						      	<td><button th:onclick="go([[${l.orderKey}]])" class="btn btn-primary py-3 px-4" style="color:white !important;" id="detail">상세보기</button></td>
 						      </tr><!-- END TR-->
 

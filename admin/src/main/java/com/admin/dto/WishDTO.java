@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class WishDTO {
-	private int wish_key;
-	private int cust_key;
-	private int item_key;
+	private int wishKey;
+	private int custKey;
+	private int itemKey;
 }
