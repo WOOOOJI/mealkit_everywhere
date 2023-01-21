@@ -1,5 +1,7 @@
 package com.shop.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.dto.CustomerDTO;
+import com.shop.dto.OrderDTO;
+import com.shop.mapper.CustomerMapper;
 import com.shop.service.CustomerService;
+import com.shop.service.OrderDetailService;
+import com.shop.service.OrderService;
 
 @Controller
 @RequestMapping("/customer")
@@ -20,7 +26,12 @@ public class CustomerController {
 
 	@Autowired
 	CustomerService service;
+	
+	@Autowired
+	OrderDetailService orderdetailservice;
 
+	@Autowired
+	OrderService orderservice;
 
 	// 회원가입 폼
 	@GetMapping("/memberForm")
@@ -188,7 +199,22 @@ public class CustomerController {
 	
 	
 	// 주문내역 조회
+	@RequestMapping("/orderlist")
+	public String orderlist(Model model, HttpSession session) {
+		//회원의 주문 리스트를 불러오기
+		//1. cust_key를 세션에서 받아오기
+		//2. cust_key를 통해 모든 total_list 불러오기
+		List<OrderDTO> list=null;
 
+		//cust_key를 세션에서 받아오기
+		int cust_key=(int)session.getAttribute("cust_key");
+		// 해당 회원의 모든 total_list를 받아오기
+		list=orderservice.getOrderWithItemInfo(cust_key);
+
+		model.addAttribute("list", list);
+		model.addAttribute("content", "customer/orderlist");
+		return "main";
+	}
 
 	
 	

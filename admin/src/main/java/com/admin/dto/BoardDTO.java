@@ -8,9 +8,9 @@ import lombok.Data;
 
 @Data
 public class BoardDTO {
-	private int board_key;
-	private int cust_key;
-	private int item_key;
+	private int boardKey;
+	private int custKey;
+	private int itemKey;
 	private String ntype;
 	private String title;
 	private SimpleDateFormat rdate;

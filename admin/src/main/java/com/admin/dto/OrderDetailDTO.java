@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class OrderDetailDTO {
-	private int orderdet_key;
-	private int order_key;
-	private int item_key;
+	private int orderDetKey;
+	private int orderKey;
+	private int itemKey;
 	private int price;
 	private int cnt;
 	

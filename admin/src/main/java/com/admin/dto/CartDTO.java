@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class CartDTO {
 	// DB와 일치 하는 변수
-	private int cart_key;
-	private int cust_key;
-	private int item_key;
+	private int cartKey;
+	private int custKey;
+	private int itemKey;
 	private int cnt;
 	private SimpleDateFormat rdate;
 

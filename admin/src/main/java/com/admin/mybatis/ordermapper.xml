@@ -2,6 +2,32 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shop.mapper.OrderMapper">
+<mapper namespace="com.admin.mapper.OrderMapper">
+
+
+	<!-- 주문리스트 페이지 개수 -->
+	<select id="countOrder" resultType="int">
+		SELECT count(orderKey) FROM totalOrder;
+	</select>
+
+	<!-- 주문 페이지 정보 가져오기 -->
+	<select id="orderDetail" resultType="orderDTO">
+		SELECT * FROM totalOrder
+		WHERE orderKey=${orderKey}
+	</select>
+
+
+	<!-- orderKey 오름차순으로 데이터 모두 조회 (LIMIT-데이터 시작위치[0이 처음]와 시작위치를 기준으로 가져올 데이터의 개수) -->
+	<select id="getOrderList" resultType="orderDTO">
+		SELECT * FROM totalOrder 
+		<if test='keyword != null'>
+		WHERE ${type} LIKE #{keyword}
+		</if>
+		<if test='orderBy != null'>
+		ORDER BY orderKey ${orderBy}
+		</if>
+		LIMIT #{cri.skip}, #{cri.amount}
+	</select>
+
 
 </mapper>

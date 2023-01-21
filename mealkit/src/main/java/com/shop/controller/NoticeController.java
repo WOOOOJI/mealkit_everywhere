@@ -135,6 +135,11 @@ public class NoticeController {
 	
 	
 	
+	
+	
+	
+	
+	
 	// 이벤트 리스트 페이지와 작동원리 동일
 	// 공지사항 리스트 페이지로 이동
 	@RequestMapping("/notice")
@@ -166,6 +171,14 @@ public class NoticeController {
 		//
 		return "main";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

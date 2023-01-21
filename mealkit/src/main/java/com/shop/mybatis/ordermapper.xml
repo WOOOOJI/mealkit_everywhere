@@ -13,18 +13,18 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT i.name AS itemName, i.cnt-c.cnt AS cntcheck FROM item i
 		INNER JOIN cart c WHERE c.itemKey = i.itemKey AND c.custKey=${key}
 	</select>
-	<!-- 빈 total_order 생성하여 주문상세 받을 준비 -->
+	<!-- 빈 totalOrder 생성하여 주문상세 받을 준비 -->
 	<insert id="create_blank" parameterType="Integer" >
-		INSERT INTO total_order(custKey,price,name,zipcode,addr,addrDetail,tel) VALUES(${key},-1,(SELECT username FROM customer WHERE custKey=${key}),
+		INSERT INTO totalOrder(custKey,price,name,zipcode,addr,addrDetail,tel) VALUES(${key},-1,(SELECT username FROM customer WHERE custKey=${key}),
 		'blank','blank','blank','blank')
 	</insert>
 	<!-- orderKey의 정보 갖고오기 -->
 	<select id="get_orderkey" parameterType="Integer" resultType="Integer">
-		SELECT orderKey FROM total_order WHERE custKey=${custKey} ORDER BY orderKey DESC LIMIT 1
+		SELECT orderKey FROM totalOrder WHERE custKey=${custKey} ORDER BY orderKey DESC LIMIT 1
 	</select>
-	<!-- total_order를 주문 내용으로 UPDATE하기 -->
+	<!-- totalOrder를 주문 내용으로 UPDATE하기 -->
 	<update id="order_update">
-	    UPDATE total_order SET price=(select sum(price*cnt) from orderDetail where orderKey=${orderKey}),
+	    UPDATE totalOrder SET price=(select sum(price*cnt) from orderDetail where orderKey=${orderKey}),
 	    name=(select name from address where addrKey=${addrKey}),
     	zipcode=(select zipcode from address where addrKey=${addrKey}),
 	    addr=(select addr from address where addrKey=${addrKey}),
@@ -35,13 +35,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</update>
 	<!-- orderKey 이용해서 order 갖고오기 -->
 	<select id="getOrderByOrderKey" parameterType="Integer" resultType="OrderDTO">
-		SELECT * FROM total_order WHERE orderKey=${orderKey}
+		SELECT * FROM totalOrder WHERE orderKey=${orderKey}
 	</select>
+	
+	
 	<select id="getOrderWithItemInfo" resultType="OrderDTO">
 		SELECT o.orderKey, o.custKey, o.price, o.rdate, o.status, o.name, o.zipcode, o.addr, o.addrDetail, o.tel, o.req, 
 		(SELECT COUNT(cnt) FROM orderDetail WHERE orderKey=o.orderKey) AS itemCnt, i.name AS itemName, i.img1 AS itemImg FROM orderDetail od
 		INNER JOIN item i ON i.itemKey=od.itemKey
-		INNER JOIN total_order o ON o.orderKey=od.orderKey
+		INNER JOIN totalOrder o ON o.orderKey=od.orderKey
 		WHERE custKey=${custKey} ORDER BY rdate DESC;
 	</select>
 </mapper>
