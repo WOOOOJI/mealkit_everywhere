@@ -103,8 +103,13 @@ public class ItemService implements MyService<Integer, ItemDTO>{
 	
 	
 	//주문완료 후 item에서 수량 줄이기
-	public void cntdown(OrderDetailDTO od) throws Exception{
-		itemMapper.cntdown(od);
+	public void cntDown(OrderDetailDTO od){
+		try {
+			itemMapper.cntDown(od);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public List<ItemDTO> bestItem() throws Exception{
 		return itemMapper.bestItem();

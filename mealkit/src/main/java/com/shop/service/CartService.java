@@ -41,8 +41,13 @@ public class CartService implements MyService<Integer, CartDTO>{
 	}
 	
 	//주문완료 후 해당 장바구니 제거
-	public void cart_delete(int custKey) throws Exception{
-		mapper.cart_delete(custKey);
+	public void cartDelete(int custKey){
+		try {
+			mapper.cartDelete(custKey);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	// 특정 사용자의 장바구니 리스트 내용물 가져오기
 	public List<CartDTO> CartList(Integer k) throws Exception {

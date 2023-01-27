@@ -29,41 +29,90 @@ public class OrderService implements MyService<Integer, OrderDTO>{
 	public void modify(OrderDTO v) throws Exception {
 	}
 
+	
+	
+	
+	// 주석좀 달아주세요.
+
+	
+	
+	
 	@Override
 	public OrderDTO get(Integer k){
 		OrderDTO result=null;
 		try {
 			result=mapper.select(k);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
 	}
 
 	@Override
-	public List<OrderDTO> get() throws Exception {
-		return mapper.selectall();
+	public List<OrderDTO> get(){
+		List<OrderDTO> result=null;
+		
+		try {
+			return mapper.selectall();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
-	public List<OrderDTO> cart_to_order(int key) throws Exception{
-		return mapper.cart_to_order(key);
+	public List<OrderDTO> cartToOrder(int key) {
+		List<OrderDTO> result=null;
+		
+		try {
+			result=mapper.cartToOrder(key);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
-	public List<OrderDTO> cntcheck(int key) throws Exception{
-		return mapper.cntcheck(key);
+	public List<OrderDTO> cntCheck(int key) {
+		List<OrderDTO> result=null;
+		
+		try {
+			result= mapper.cntCheck(key);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
-	public void create_blank(int key) throws Exception{
-		mapper.create_blank(key);
+	public void createBlank(int key) {
+		try {
+			mapper.createBlank(key);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public int get_orderkey(int custKey) throws Exception{
-		return mapper.get_orderkey(custKey);
+	public int getOrderkey(int custKey){
+		int result=0;
+		try {
+			result=mapper.getOrderkey(custKey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+
 	}
 	
-	public void order_update(int addrKey, int orderKey, int payment) throws Exception{
-		mapper.order_update(addrKey, orderKey, payment);
+	public void orderUpdate(int addrKey, int orderKey, int payment) {
+		try {
+			mapper.orderUpdate(addrKey, orderKey, payment);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public OrderDTO getOrderByOrderKey(int orderKey){
@@ -88,4 +137,21 @@ public class OrderService implements MyService<Integer, OrderDTO>{
 		}
 		return result;
 	}
+	
+	//환불요청
+	public int refund(String reason, int orderKey) {
+		int result=0;
+		
+		try {
+			result = mapper.refund(reason, orderKey);			
+		}catch(Exception e) {
+			System.out.println("ERROR Caused by at OrderService row 147 line");
+			e.getMessage();
+		}
+		
+		return result;
+	}
+	
+	
+	
 }

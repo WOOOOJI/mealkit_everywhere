@@ -31,10 +31,13 @@ import lombok.ToString;
 	  private String order_cri;
 	  
 	  //차순
-	  private String asc_desc;
+	  private String orderBy;
 	  
 	  //카테고리 번호
 	  private int categoryKey;
+	  
+	  
+	  
 	  
 	  //디폴트값을 설정하는 기본 생성자 
 	  public Criteria() { 

@@ -21,7 +21,7 @@ public interface ItemMapper extends MyMapper<Integer, ItemDTO>{
 	public int countItem(Criteria cri) throws Exception;
 	
 	//주문 완료 후 수량을 줄여주는 기능
-	public void cntdown(OrderDetailDTO od) throws Exception;
+	public void cntDown(OrderDetailDTO od) throws Exception;
 	
 	public List<ItemDTO> bestItem();
 	

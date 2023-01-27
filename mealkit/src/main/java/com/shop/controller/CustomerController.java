@@ -15,23 +15,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.dto.CustomerDTO;
 import com.shop.dto.OrderDTO;
-import com.shop.mapper.CustomerMapper;
+import com.shop.dto.OrderDetailDTO;
 import com.shop.service.CustomerService;
 import com.shop.service.OrderDetailService;
 import com.shop.service.OrderService;
 
 @Controller
 @RequestMapping("/customer")
-public class CustomerController {
-
-	@Autowired
-	CustomerService service;
+public class CustomerController {		
+	
+	
+	
+	String dir="customer/";
+	
+	
 	
 	@Autowired
-	OrderDetailService orderdetailservice;
+	CustomerService service;
 
 	@Autowired
-	OrderService orderservice;
+	OrderService orderService;
+	
+	@Autowired
+	OrderDetailService orderDetailService;
+
 
 	// 회원가입 폼
 	@GetMapping("/memberForm")
@@ -198,25 +205,43 @@ public class CustomerController {
 	
 	
 	
-	// 주문내역 조회
+
 	@RequestMapping("/orderlist")
 	public String orderlist(Model model, HttpSession session) {
 		//회원의 주문 리스트를 불러오기
 		//1. cust_key를 세션에서 받아오기
 		//2. cust_key를 통해 모든 total_list 불러오기
 		List<OrderDTO> list=null;
-
+		
 		//cust_key를 세션에서 받아오기
-		int cust_key=(int)session.getAttribute("cust_key");
+		int custKey=(int)session.getAttribute("custKey");
 		// 해당 회원의 모든 total_list를 받아오기
-		list=orderservice.getOrderWithItemInfo(cust_key);
+		list=orderService.getOrderWithItemInfo(custKey);
 
 		model.addAttribute("list", list);
-		model.addAttribute("content", "customer/orderlist");
+		model.addAttribute("content", dir+"orderlist");
 		return "main";
 	}
 
-	
+	@RequestMapping("/orderdetail")
+	public String orderdetail(int orderKey,Model model, HttpSession session) {
+		//주문 상세 정보를 보여주는 페이지
+		//1. cust_key를 세션에서 받아오기
+		//2. order_key를 이용해서 주문 상세내역/주문내역 가져오기
+		List<OrderDetailDTO> odlist=null;
+		OrderDTO order=null;
+		
+		int custKey=(int)session.getAttribute("custKey");
+		
+		
+		odlist=orderDetailService.getOrderDetailByOrderkey(orderKey);
+		order=orderService.getOrderByOrderKey(orderKey);
+		
+		model.addAttribute("order", order);
+		model.addAttribute("list", odlist);
+		model.addAttribute("content", dir+"orderdetail");
+		return "main";
+	}	
 	
 	
 	//회원탈퇴 폼으로 이동

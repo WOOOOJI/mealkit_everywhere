@@ -39,3 +39,4 @@ public class ItemDTO {
 	private MultipartFile imgFile5;
 
 }
+

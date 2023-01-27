@@ -1,52 +1,25 @@
 
-<style>
-th {
-  	overflow: hidden;  		
-  	text-overflow: ellipsis;   
-  	white-space: nowrap; 		
-  	word-break:break-all
-  }
-  
-</style>
 
-<script>
-	$(document).ready(function(){
-		$('#searchBtn').click(function(){
-			var keyword = $('#keyword').val();
-			var type = $('#inputGroupSelect04').val();
-			var orderBy = $('#inputGroupSelect02').val();
-			
-			if(keyword == ""){
-				alert("검색할 단어를 입력해주세요.");
-				return false;
-			}
-			
-			location.href='/admin/order?keyword='+keyword+'&type='+type+'&orderBy='+orderBy;
-			
-			alert(keyword+" "+type+" "+orderBy);
-		});
-	});
-</script>
-
-
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous">
 <div class="row">
 	<div class="col-12 col-lg-12 col-xxl-12 d-flex" name="chk">
 		<div class="card flex-fill">
 			<div class="card-header">
-
-				<h5 class="card-title mb-0" style="font-size: 30px;">전체 주문건</h5>
 				
+				
+				<!-- 현재 들어온 페이지의 단락 -->
+				<h5 class="card-title mb-0" style="font-size: 30px;">전체 주문건</h5>
 
 
+
+				<!-- 검색버튼 -->
 				<button id="searchBtn" class="btn btn-primary"
 					style="display: inline-block; float: right; margin-left: 10px;">검색하기
 				</button>
 
+
+
+
+				<!-- 검색 키워드 select 태그 -->
 				<input id="keyword" type="search" class="form-control rounded"
 					placeholder="Search" aria-label="Search"
 					aria-describedby="search-addon"
@@ -55,90 +28,190 @@ th {
 				<div class="input-group float-right" style="display: inline;">
 					<select class="custom-select" id="inputGroupSelect04"
 						style="display: inline; float: right; margin-right: 10px; height: 32.59px">
-						<option selected value="tel">전화번호</option>
-						<option value="name">성함</option>
-						<option value="addr">주소</option>
-						<option value="rdate">주문날짜</option>
+						<option selected value="t.orderKey">주문번호</option>
+						<option value="t.name">받는 분 성함</option>
+						<option value="c.username">주문자 성함</option>
+						<option value="t.custKey">주문자 번호</option>
+						<option value="t.tel">연락처</option>
+						<option value="t.addr">주소</option>
+						<option value="t.rdate">구매날짜</option>
 					</select>
 				</div>
 
+
+
+
+
+				<!-- 최신순, 오래된순 select태그 -->
 				<div class="input-group float-right" style="display: inline;">
-					<select  class="custom-select" id="inputGroupSelect02"
+					<select class="custom-select" id="inputGroupSelect02"
 						style="display: inline; float: right; margin-right: 10px; height: 32.59px">
-						<option selected value="DESC" >최신순</option>
+						<option selected value="DESC">최신순</option>
 						<option value="ASC">오래된순</option>
 					</select>
 				</div>
 
 
+
+
+
+
+				<!-- 상태변경 관련 select 태그 -->
 				<div style="margin-top: 30px;">
 					<div class="input-group float-right" style="display: inline;">
-						<select class="custom-select" id="inputGroupSelect04"
+						<select class="custom-select" id="inputGroupSelect03"
 							style="display: inline; float: left; margin-right: 10px; height: 32.59px">
-							<option selected>배송준비중</option>
-							<option value="1">배송중</option>
-							<option value="1">배송완료</option>
-							<option value="1">환불완료</option>
+							<option selected value="R">배송준비중</option>
+							<option value="D">배송중</option>
+							<option value="S">배송완료</option>
 						</select>
 					</div>
 					<button class="btn btn-primary"
-						style="display: inline-block; margin-left: 10px;">변경하기</button>
+						style="display: inline-block; margin-left: 10px;"
+						onclick="changeStatus()">변경하기</button>
+
 				</div>
 			</div>
 
+
+
+
+			<!-- 테이블 시작 -->
 			<table class="table table-hover my-0">
+				<!-- 테이블 헤드 -->
 				<thead>
 					<tr>
 						<th class="d-none d-xl-table-cell" style="width: 90px;"><input
 							type="checkbox" id="cbxChkAll"> 전체선택</th>
 						<th class="d-none d-xl-table-cell" style="width: 130px;">주문고유
 							번호</th>
+						<th class="d-none d-xl-table-cell" style="width: 100px;">주문자 성함</th>
 						<th class="d-none d-xl-table-cell" style="width: 100px;">받는 분 성함</th>
 						<th class="d-none d-xl-table-cell" style="width: 230px;">연락처</th>
-						<th class="d-none d-xl-table-cell" style="width: 530px;">받는 분
-							주소</th>
+						<th class="d-none d-xl-table-cell" style="width: 530px;">받는 분 주소</th>
 						<th class="d-none d-xl-table-cell" style="width: 330px;">배송 요청사항</th>
 						<th class="d-none d-xl-table-cell" style="width: 230px;">결제금액</th>
 						<th>주문상태</th>
-						<th class="d-none d-md-table-cell">주문 날짜</th>
+						<th class="d-none d-md-table-cell">구매 날짜</th>
 					</tr>
 				</thead>
+				
+				<!-- 테이블 본문 -->
 				<tbody>
+					
+					<!-- 테이블 내용물 -->
 					<tr th:if="${orderList} != null" th:each="o : ${orderList}">
-						<td><input type="checkbox" name="chk"></td>
-						<td th:text="${o.orderKey}"></td>
-						<td class="d-none d-xl-table-cell" th:text="${o.name}"></td>
-						<td class="d-none d-xl-table-cell" th:text="${o.tel}"></td>
-						<td class="d-none d-xl-table-cell" th:text="${o.addr}+${o.addrDetail}"></td>
+						<div style="display:none" th:text="${o.custKey}"></div>
+						<td><input type="checkbox" name="chk"
+							th:value="${o.orderKey}"></td>
+						<td th:text="${o.orderKey}"
+							th:onclick="|location.href='@{/order/orderDetail(orderKey=${o.orderKey})}'|"
+							style="cursor: pointer;"></td>
+						<td class="d-none d-xl-table-cell" th:text="${o.custName}">
+						<td class="d-none d-xl-table-cell" th:text="${o.name}"
+							th:onclick="|location.href='@{/order/orderDetail(orderKey=${o.orderKey})}'|"
+							style="cursor: pointer;"></td>
+						<td class="d-none d-xl-table-cell" th:text="${o.tel}"
+							th:onclick="|location.href='@{/order/orderDetail(orderKey=${o.orderKey})}'|"
+							style="cursor: pointer;"></td>
+						<td class="d-none d-xl-table-cell"
+							th:text="${o.addr}+${o.addrDetail}"
+							th:onclick="|location.href='@{/order/orderDetail(orderKey=${o.orderKey})}'|"
+							style="cursor: pointer;"></td>
 						<th class="d-none d-md-table-cell" th:text="${o.req}"></th>
 						<th class="d-none d-md-table-cell" th:text="${o.price}"></th>
-						<td><span class="badge bg-success" th:text="${o.status}"></span></td>
+
+
+						<!-- 주문상태에 따른 버튼 색, 글자 -->
+						<div th:if="${o.status == 'Q'}">
+							<td><span class="badge bg-danger">환불요청</span></td>
+						</div>
+
+						<div th:if="${o.status == 'D'}">
+							<td><span class="badge bg-warning">배송중</span></td>
+						</div>
+
+						<div th:if="${o.status == 'S'}">
+							<td><span class="badge bg-success">배송완료</span></td>
+						</div>
+
+						<div th:if="${o.status == 'F'}">
+							<td><span class="badge bg-info">환불완료</span></td>
+						</div>
+
+						<div th:if="${o.status == 'R'}">
+							<td><span class="badge bg-primary">배송준비중</span></td>
+						</div>
+
+						<div th:if="${o.status == 'O'}">
+							<td><span class="badge bg-secondary">주문완료</span></td>
+						</div>
+
 						<th class="d-none d-md-table-cell" th:text="${o.rdate}"></th>
 					</tr>
 				</tbody>
+
+
 			</table>
-			
-			
+			<!-- 테이블 끝 -->
+
+
+
+			<!--  찾는 검색결과가 없을시 -->
+ 			<div class="container-fluid" th:if="${orderList == null}">
+				<div class="text-center">
+					<div class="error mx-auto" style="font-size:50px; width:50%; margin-top:3%;">검색결과가 존재하지 않습니다.</div>
+					<p class="lead text-gray-800 mb-5">찾으시는 검색관련 주문이 존재하지 않습니다!</p>
+				</div>
+
+			</div>			
+
 			<!-- 페이징 -->
-			<nav aria-label="Page navigation example">
+			<nav aria-label="Page navigation example"
+				class="nav justify-content-center">
 				<ul class="pagination">
 					<li class="page-item">
-						<a th:if="${pageMaker.prev == true}" th:href="@{/order(pageNum = ${pageMaker.pageStart - 1})}" class="page-link" href="#"aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+						<div th:if="${keyword != null}">
+							<a th:if="${pageMaker.prev == true}"
+								th:href="@{/order(pageNum = ${pageMaker.pageStart - 1},  keyword = ${keyword}, type = ${type}, orderBy = ${orderBy})}"
+								class="page-link" href="#" aria-label="Previous"> <span
+								aria-hidden="true">&laquo;</span></a>
+						</div>
+						<div th:if="${keyword == null}">
+							<a th:if="${pageMaker.prev == true}"
+								th:href="@{/order(pageNum = ${pageMaker.pageStart - 1})}"
+								class="page-link" href="#" aria-label="Previous"> <span
+								aria-hidden="true">&laquo;</span></a>
+						</div>
 					</li>
-					<li th:each="pageNum : ${pageNumList}" class="page-item">  <!-- class="active" -->
-						<a class="page-link" th:id="${pageNum}"  th:href="@{/order(pageNum = ${pageNum})}" th:text="${pageNum}"></a>
+					<li th:each="pageNum : ${pageNumList}" class="page-item" th:id="${pageNum}">
+						<!-- class="active" --> <a th:if="${keyword == null}"
+						class="page-link" th:id="${pageNum}"
+						th:href="@{/order(pageNum = ${pageNum})}" th:text="${pageNum}"></a>
+						<a th:if="${keyword != null}" class="page-link"
+						th:href="@{/order(pageNum = ${pageNum}, keyword = ${keyword}, type = ${type}, orderBy = ${orderBy})}"
+						th:text="${pageNum}"></a>
 					</li>
-					<li class="page-item"><a th:if="${pageMaker.next == true}" th:href="@{/order(pageNum = ${pageMaker.pageEnd + 1})}" class="page-link"
-						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-					</a></li>
+					<li class="page-item">
+						<div th:if="${keyword != null}">
+							<a th:if="${pageMaker.next == true}"
+								th:href="@{/order(pageNum = ${pageMaker.pageEnd + 1}, keyword = ${keyword}, type = ${type}, orderBy = ${orderBy})}"
+								class="page-link" aria-label="Next"> <span
+								aria-hidden="true">&raquo;</span></a>
+						</div>
+						<div th:if="${keyword == null}">
+							<a th:if="${pageMaker.next == true}"
+								th:href="@{/order(pageNum = ${pageMaker.pageEnd + 1})}"
+								class="page-link" aria-label="Next"> <span
+								aria-hidden="true">&raquo;</span></a>
+						</div>
+					</li>
 				</ul>
 			</nav>
 		</div>
 	</div>
 </div>
 
-
-					<div th:if="${nothing != null}" th:include="${nothing}"></div>
 
 
 
@@ -160,5 +233,74 @@ th {
 			else
 				$("#cbxChkAll").prop("checked", true);
 		});
+	});
+</script>
+
+
+
+
+
+<script>
+	function changeStatus() {
+
+		if (confirm("선택하신 주문명세서의 상태를 바꾸시겠습니까?")) {
+			var status = $('#inputGroupSelect03').val();
+
+			var list = $('input[name="chk"]');
+			var statusArr = new Array();
+
+			for (var i = 0; i < list.length; i++) {
+				if (list[i].checked) {
+					statusArr.push(list[i].value);
+				}
+			}
+
+			if (statusArr.length == 0) {
+				alert("최소 한개 이상의 주문명세서를 선택해주세요.");
+				return false;
+			} else {
+				$.ajax({
+					url : "/admin/order/changeStatus",
+					type : "post",
+					data : {
+						arr : statusArr,
+						status : status
+					},
+					success : function(data) {
+						if (data == 1)
+							location.reload();
+						if (data == 0)
+							alert("주문상태 변경을 실패하였습니다. 잠시 후 다시 시도해주세요.");
+					}
+				});
+			}
+
+		}
+
+	}
+</script>
+
+
+<script>
+	$(document).ready(function() {
+				$('#searchBtn').click(
+						function() {
+							var keyword = $('#keyword').val();
+							var type = $('#inputGroupSelect04').val();
+							var orderBy = $('#inputGroupSelect02').val();
+							
+							location.href = '/admin/order?keyword=' + keyword
+									+ '&type=' + type + '&orderBy=' + orderBy;
+
+							alert(keyword + " " + type + " " + orderBy);
+						});
+			});
+</script>
+
+
+
+<script>
+	$(document).ready(function(){
+		$('#[[${pageNum}]]').addClass('active');
 	});
 </script>

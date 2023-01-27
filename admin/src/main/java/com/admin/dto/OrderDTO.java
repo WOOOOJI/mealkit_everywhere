@@ -19,5 +19,9 @@ public class OrderDTO {
 	private String req;
 	private String refund;
 	private String reason;
+	private String trackingNum;
 
+	
+	//추가 변수
+	private String custName;
 }
