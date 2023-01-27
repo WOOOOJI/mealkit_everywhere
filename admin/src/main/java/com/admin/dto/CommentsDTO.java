@@ -10,5 +10,5 @@ public class CommentsDTO {
 	private int adminKey;
 	private int boardKey;
 	private String content;
-	private SimpleDateFormat rdate;
+	private String rdate;
 }

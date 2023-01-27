@@ -26,5 +26,6 @@ public interface BoardMapper extends MyMapper<Integer, BoardDTO>{
 	//후기글 삭제하기
 	public int reviewDel(int boardKey) throws Exception;
 	
-	
+	//문의글 삭제하기
+	public int qnaDel(int boardKey) throws Exception;
 }

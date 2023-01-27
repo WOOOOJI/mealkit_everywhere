@@ -33,7 +33,8 @@ public class BoardService implements MyService<Integer, BoardDTO>{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	// 문의글 상세보기
 	@Override
 	public BoardDTO get(Integer k) throws Exception {
 		// TODO Auto-generated method stub
@@ -69,6 +70,9 @@ public class BoardService implements MyService<Integer, BoardDTO>{
 		return mapper.reviewDel(k);
 	}
 
-
+	//문의글 삭제하기
+	public int qnaDel(Integer k) throws Exception{
+		return mapper.qnaDel(k);
+	}
 	
 }

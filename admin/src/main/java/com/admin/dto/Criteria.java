@@ -32,17 +32,15 @@ import lombok.ToString;
 	  
 	  //차순
 	  private String orderBy;
+	  private String asc_desc;
 	  
 	  //카테고리 번호
 	  private int categoryKey;
 	  
-	  
-	  
-	  
 	  //디폴트값을 설정하는 기본 생성자 
 	  public Criteria() { 
 		 this.pageNum = 1;
-		 this.amount = 20; 
+		 this.amount = 12; 
 	  }
 	  
 	  
