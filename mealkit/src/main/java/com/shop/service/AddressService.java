@@ -74,16 +74,37 @@ public class AddressService implements MyService<Integer, AddressDTO>{
 		return res;
 	}
 
-	public AddressDTO check_default(int key) throws Exception {
-		return mapper.check_default(key);
+	public AddressDTO checkDefault(int key){
+		AddressDTO result=null;
+		
+		try {
+			result=mapper.checkDefault(key);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	};
 	
-	public List<AddressDTO> user_addr(int custKey) throws Exception{
-		return mapper.user_addr(custKey);
+	public List<AddressDTO> userAddr(int custKey){
+		List<AddressDTO> result=null;
+		try {
+			result=mapper.userAddr(custKey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
-	public AddressDTO addrKey(int addrKey) throws Exception{
-		return mapper.addrKey(addrKey);
+	public AddressDTO addrKey(int addrKey){
+		AddressDTO result=null;
+		try {
+			result= mapper.addrKey(addrKey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	public void insertAddress(int custKey,AddressDTO address) {

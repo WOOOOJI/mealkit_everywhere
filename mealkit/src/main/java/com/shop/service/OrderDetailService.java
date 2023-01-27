@@ -37,18 +37,31 @@ public class OrderDetailService implements MyService<Integer, OrderDetailDTO>{
 	}
 
 	@Override
-	public List<OrderDetailDTO> get() throws Exception {
-		return mapper.selectall();
-	}
-	
-	public void cart_to_detail(int custKey,OrderDTO o) throws Exception{
-		mapper.cart_to_detail(custKey,o);
-	}
-	
-	public List<OrderDetailDTO> get_orderdetail_by_orderkey(int orderKey){
+	public List<OrderDetailDTO> get() {
 		List<OrderDetailDTO> result=null;
 		try {
-			result=mapper.get_orderdetail_by_orderkey(orderKey);
+			result=mapper.selectall();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	public void cartToDetail(int custKey,OrderDTO o){
+		try {
+			mapper.cartToDetail(custKey,o);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public List<OrderDetailDTO> getOrderDetailByOrderkey(int orderKey){
+		List<OrderDetailDTO> result=null;
+		try {
+			result=mapper.getOrderdetailByOrderkey(orderKey);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
