@@ -12,10 +12,7 @@
 							class="row no-gutters slider-text align-items-center justify-content-center">
 							<div class="col-md-9 ftco-animate text-center">
 								</br>
-								<p style="font-size: 20px;" class="breadcrumbs">
-									<span class="mr-2"><a th:href="@{/}">문의 및 후기</a></span>
-								</p>
-								<h1 class="mb-0 bread" style="font-size: 48px;">문의 내역</h1>
+								
 							</div>
 						</div>
 					</div>
@@ -25,16 +22,16 @@
 						<div class="row">
 							<div class="col-lg-12 ftco-animate">
 								<tr>
-									<div th:text="${board.boardKey}" name="boardKey"></div>
 									<div>
 										글제목
 										<td><h2 class="mb-3" th:text="${board.title}"></h2></td>
 									</div>
-									<div th:text="${board.username}"></div>
+									<div th:text="'작성자: '+${board.username}"></div>
+									<div th:text="'글번호: '+${board.boardKey}" name="boardKey"></div>
 									<button type="button" class="btn btn-sm btn-primary"
 										id="btnList" style="float: right;"
 										th:onclick="reviewDelete([[${board.boardKey}]])">글 삭제</button>
-									<div th:text="${board.rdate}"></div>
+									<div th:text="'작성일: '+${board.rdate}"></div>
 								</tr>
 								<hr>
 
@@ -74,25 +71,6 @@
 						</div>
 					</div>
 			</div>
-			<!-- .col-md-8 -->
-			<div class="col-lg-4 sidebar ftco-animate">
-				<div class="sidebar-box"></div>
-			</div>
-
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-			<br />
-
 		</div>
 		</section>
 
