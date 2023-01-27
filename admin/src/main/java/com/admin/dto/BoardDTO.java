@@ -8,15 +8,20 @@ import lombok.Data;
 
 @Data
 public class BoardDTO {
-	private int board_key;
-	private int cust_key;
-	private int item_key;
+	private int boardKey;
+	private int custKey;
+	private int itemKey;
 	private String ntype;
 	private String title;
-	private SimpleDateFormat rdate;
+	private String rdate;
 	private String content;
 	private String img;
 	private int rate;
 	
 	private MultipartFile imgfile;
+	
+	//문의 내역 보기 
+	private String username;
+	private String name;
+	private int price;
 }

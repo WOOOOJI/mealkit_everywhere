@@ -12,11 +12,13 @@ import lombok.ToString;
 @Getter
 @ToString
 public class CustomerDTO {
-	private int cust_key;
+	private int custKey;
 	private String email;
 	private String username;
 	private String userpwd;
 	private String tel;
 	private String banned;
 	private String signout;
+	private String jumin;
+	private String gender;
 }
