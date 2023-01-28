@@ -10,7 +10,7 @@ import com.shop.dto.Criteria;
 import com.shop.dto.ItemDTO;
 import com.shop.dto.OrderDetailDTO;
 import com.shop.dto.PageDTO;
-import com.shop.dto.response.ItemPageResponseDTO;
+import com.shop.dto.response.PageResponseDTO;
 import com.shop.frame.MyService;
 import com.shop.mapper.CategoryMapper;
 import com.shop.mapper.ItemMapper;
@@ -50,6 +50,7 @@ public class ItemService implements MyService<Integer, ItemDTO>{
 		}
 	}
 
+	
 	public List<ItemDTO> getall() {
 		try {
 			return itemMapper.selectall();
@@ -77,7 +78,7 @@ public class ItemService implements MyService<Integer, ItemDTO>{
 	
 	
 	//모든 상품 페이지 메이커
-	public ItemPageResponseDTO getItemPageMaker(Criteria cri) {
+	public PageResponseDTO getItemPageMaker(Criteria cri) {
 		PageDTO pageMaker = null;
 		List<Integer> pageNumList = new ArrayList<>();
 		
@@ -92,7 +93,7 @@ public class ItemService implements MyService<Integer, ItemDTO>{
 		}
 		
 		
-		ItemPageResponseDTO itemPageResponseDTO = ItemPageResponseDTO.builder()
+		PageResponseDTO itemPageResponseDTO = PageResponseDTO.builder()
 				.pageMaker(pageMaker)
 				.pageNumList(pageNumList)
 				.build();

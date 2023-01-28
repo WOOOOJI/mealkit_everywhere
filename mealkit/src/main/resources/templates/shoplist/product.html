@@ -33,18 +33,175 @@
 				$('#quantity').val(quantity - 1);
 			}
 		});
+		
+		
+		
+		//후기 쓰기
+		$('#writeReview').click(function(){
+			var itemKey = '[[${item.itemKey}]]';
+			
+			
+			window.open('[[@{/board/writeReview?itemKey=}]]'+itemKey,'popup','width=640px,height=475px,resizable=no')
+		}); 
 
-		$(".board_tit").click(function() {
-			// 현재 클릭한 태그가 a 이기 때문에
-			// a 옆의 태그중 ul 태그에 hide 클래스 태그를 넣던지 빼던지 한다.
-			$(".reviews_new_box").toggleClass("hide");
-			/* $(".reviews_cont").css({
+		
+		//문의 쓰기
+		$('#writeQuestion').click(function(){
+			var itemKey = '[[${item.itemKey}]]';
+			
+			
+			window.open('[[@{/board/writeQuestion?itemKey=}]]'+itemKey,'popup','width=640px,height=475px,resizable=no')
+		}); 
+
+		
+		
+		
+		
+		//-----------------------------------------------------------------------------------------------------------------
+		//처음 후기 게시판 출력
+		var submitObj = new Object();
+		
+		submitObj.itemKey = '[[${item.itemKey}]]';
+		submitObj.pageNum = 1;
+		
+		
+		$.ajax({
+			url: "/shoplist/review",
+			type: "POST",
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify(submitObj),
+			dataType: "json",
+			success: function(data){},
+			error: function(){alert("실패");},
+		})
+		.done(function(data){
+			var result = new Array;
+			result = data.reviewsList;
+			var pageMaker = data.pageMaker;
+			var pageNumList = data.pageNumList;
+			var prevPage = pageMaker.pageStart - 1;
+			var nextPage = pageMaker.pageEnd +1;
+			
+			var review = '';
+			
+			$.each(result, function(key, value) {
+				review += '<div class="one_review">';
+				review += '<div class="boardNum" id="reviewNum'+value.boardKey+'">'+ value.boardKey +'</div>';
+				review += '<div class="custKey" style="display:none">'+ value.custKey +'</div>';
+				review += '<div class="rate">'+ value.rate +'</div>';
+				review += '<div class="title" onclick="showReview('+value.boardKey+')">'+ value.title +'</div>';
+				review += '<div class="rdate">'+ value.rdate +'</div>';
+				review += '</div>';
+				review += '<div class="contents1 hide" id="'+value.boardKey+'">';
+				review += '<div class="user_comments1">';
+				review += '<p>'+value.content+'</p>';
+				review += '<a href="javascript:void(0);" onclick="modReview('+ value.boardKey +')">수정</a>';
+				review += '</div>';
+				review += '</div>';
+			});
+			
+			$('.reviews1').html(review);
+			
+			var reviewBtn = '<div class="board_page1">';
+			
+			if(pageMaker.prev){
+				reviewBtn += '<a class="bt prev1" onclick="cngReviewPage('+ prevPage +')"><</a>';
+			}
+			
+			$.each(pageNumList, function(key, value) {
+				reviewBtn += '<a href="javascript:void(0);" class="num" id="'+value+'" onclick="cngReviewPage('+value+')">'+value+'</a>';
+			});
+		
+			if(pageMaker.next){
+				reviewBtn += '<a class="bt next1" onclick="cngReviewPage('+ nextPage +')">></a>';
+			}
 				
-			}); */
-		});
+			reviewBtn += '</div>';
+				
+			$('.board_page1').html(reviewBtn);
+				
+			$('.board_page1').children().eq(1).addClass('on');
+		})
+		
+		
+		
+		
+		
+		
+		//===================================================================================================================
+		//처음 문의 게시판 출력
+		var submitObj2 = new Object();
+		
+		submitObj2.itemKey = '[[${item.itemKey}]]';
+		submitObj2.pageNum = 1;
+		
+		
+		$.ajax({
+			url: "/shoplist/question",
+			type: "POST",
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify(submitObj2),
+			dataType: "json",
+			success: function(data){},
+			error: function(){alert("실패");},
+		})
+		.done(function(data){
+			var result = new Array;
+			result = data.questionsList;
+			var pageMaker = data.pageMaker;
+			var pageNumList = data.pageNumList;
+			var prevPage = pageMaker.pageStart - 1;
+			var nextPage = pageMaker.pageEnd + 1;
+			
+			var question = '';
+			
+			$.each(result, function(key, value) {
+				question += '<div class="one_question">';
+				question += '<div class="boardNum" id="questionNum'+value.boardKey+'">'+ value.boardKey +'</div>';
+				question += '<div class="custKey">'+ value.custKey +'</div>';
+				question += '<div class="title" onclick="showQuestion('+value.boardKey+')">'+ value.title +'</div>';
+				question += '<div class="rdate">'+ value.rdate +'</div>';
+				question += '</div>';
+				question += '<div class="contents2 hide" id="'+value.boardKey+'">';
+				question += '<div class="user_comments2">';
+				question += '<p>'+value.content+'</p>';
+				question += '<a href="javascript:void(0);" onclick="modQuestion('+ value.boardKey +')">수정</a>';
+				question += '</div>';
+				question += '<div class="admin_comments2" id="adminCmt'+value.boardKey+'">';
+				question += '</div>';
+				question += '</div>';
+			});
+			
+			$('.questions').html(question);
+			
+			var questionBtn = '<div class="board_page2">';
+			
+			if(pageMaker.prev){
+				questionBtn += '<a class="bt prev2" onclick="cngQuestionPage('+ prevPage +')"><</a>';
+			}
+			
+			$.each(pageNumList, function(key, value) {
+				questionBtn += '<a href="javascript:void(0);" class="num" id="qst'+value+'" onclick="cngQuestionPage('+value+')">'+value+'</a>';
+			});
+		
+			if(pageMaker.next){
+				questionBtn += '<a class="bt next2" onclick="cngQuestionPage('+ nextPage +')">></a>';
+			}
+				
+			questionBtn += '</div>';
+				
+			$('.board_page2').html(questionBtn);
+				
+			$('.board_page2').children().eq(1).addClass('on');
+		})
+			
+			
+		
 
-	});
+	});//End of ready(function())
+	
 
+	
 	function insertCart(item) {
 		var itemKey = item;
 		var cnt = parseInt($('#quantity').val());
@@ -52,8 +209,269 @@
 		location.href = "/cart/cartInsertToItemList?itemKey=" + itemKey
 				+ "&cnt=" + cnt;
 	};
+	
+
+	
+	
+	//-----------------------------------------------------------------------------------------------------------------
+	//페이지 번호 클릭 시 후기 게시판 출력
+	function cngReviewPage(pageNo){
+		
+		var submitObj = new Object();
+		
+		submitObj.itemKey = '[[${item.itemKey}]]';
+		submitObj.pageNum = pageNo;
+		
+		
+		$.ajax({
+			url: "/shoplist/review",
+			type: "POST",
+			contentType: "application/json;charset=UTF-8",
+			data: JSON.stringify(submitObj),
+			dataType: "json",
+			success: function(data){},
+			error: function(){alert("실패");},
+		})
+		.done(function(data){
+			var result = new Array;
+			result = data.reviewsList;
+			var pageMaker = data.pageMaker;
+			var pageNumList = data.pageNumList;
+			var prevPage = pageMaker.pageStart - 1;
+			var nextPage = pageMaker.pageEnd +1;
+			
+			var review = '';
+			
+			$.each(result, function(key, value) {
+				review += '<div class="one_review">';
+				review += '<div class="boardNum" id="reviewNum'+value.boardKey+'">'+ value.boardKey +'</div>';
+				review += '<div class="custKey" style="display:none">'+ value.custKey +'</div>';
+				review += '<div class="rate">'+ value.rate +'</div>';
+				review += '<div class="title" onclick="showReview('+value.boardKey+')">'+ value.title +'</div>';
+				review += '<div class="rdate">'+ value.rdate +'</div>';
+				review += '</div>';
+				review += '<div class="contents1 hide" id="'+value.boardKey+'">';
+				review += '<div class="user_comments1">';
+				review += '<p>'+value.content+'</p>';
+				review += '<a href="javascript:void(0);" onclick="modReview('+value.boardKey+')">수정</a>';
+				review += '</div>';
+				review += '</div>';
+				
+			});
+			
+			$('.reviews1').html(review);
+			
+			var reviewBtn = '<div class="board_page1">';
+			
+			if(pageMaker.prev){
+				reviewBtn += '<a class="bt prev1" onclick="cngReviewPage('+ prevPage +')"><</a>';
+			}
+			
+			$.each(pageNumList, function(key, value) {
+				reviewBtn += '<a href="javascript:void(0);" class="num" id="rev'+value+'" onclick="cngReviewPage('+value+')">'+value+'</a>';
+			});
+	
+			if(pageMaker.next){
+				reviewBtn += '<a class="bt next1" onclick="cngReviewPage('+ nextPage +')">></a>';
+			}
+			
+			reviewBtn += '</div>';
+			
+			$('.board_page1').html(reviewBtn);
+			
+			
+			$('#rev'+pageNo).addClass('on');
+		})
+	}
+	
+	
+	//클릭시 리뷰 보이기
+	function showReview(boardKey){
+		$('#'+boardKey).toggleClass("hide");
+		
+	//TODO custKey를 ajax로 한 번 더 연동해서 고객이름 두글자만 보이기
+	}
+	
+	
+	
+	//=================================================================================================================================
+	//페이지 번호 클릭시 문의 게시판 출력
+	function cngQuestionPage(pageNo){
+		
+		var submitObj2 = new Object();
+		
+		submitObj2.itemKey = '[[${item.itemKey}]]';
+		submitObj2.pageNum = pageNo;
+	
+		$.ajax({
+			url: "/shoplist/question",
+			type: "POST",
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify(submitObj2),
+			dataType: "json",
+			success: function(data){},
+			error: function(){alert("실패");},
+		})
+		.done(function(data){
+			var result = new Array;
+			result = data.questionsList;
+			var pageMaker = data.pageMaker;
+			var pageNumList = data.pageNumList;
+			var prevPage = pageMaker.pageStart - 1;
+			var nextPage = pageMaker.pageEnd +1;
+			
+			var question = '';
+			
+			$.each(result, function(key, value) {
+				question += '<div class="one_question">';
+				question += '<div class="boardNum" id="questionNum'+value.boardKey+'">'+ value.boardKey +'</div>';
+				question += '<div class="custKey">'+ value.custKey +'</div>';
+				question += '<div class="title" onclick="showQuestion('+value.boardKey+')">'+ value.title +'</div>';
+				question += '<div class="rdate">'+ value.rdate +'</div>';
+				question += '</div>';
+				question += '<div class="contents2 hide" id="'+value.boardKey+'">';
+				question += '<div class="user_comments2">';
+				question += '<p>'+value.content+'</p>';
+				question += '<a href="javascript:void(0);" onclick="modQuestion('+ value.boardKey +')">수정</a>';
+				question += '</div>';
+				question += '<div class="admin_comments2" id="adminCmt'+value.boardKey+'">';
+				question += '</div>';
+				question += '</div>';
+			});
+			
+			$('.questions').html(question);
+			
+			var questionBtn = '<div class="board_page2">';
+			
+			if(pageMaker.prev){
+				questionBtn += '<a class="bt prev2" onclick="cngQuestionPage('+ prevPage +')"><</a>';
+			}
+			
+			$.each(pageNumList, function(key, value) {
+				questionBtn += '<a href="javascript:void(0);" class="num" id="qst'+value+'" onclick="cngQuestionPage('+value+')">'+value+'</a>';
+			});
+			
+			if(pageMaker.next){
+				questionBtn += '<a class="bt next2" onclick="cngQuestionPage('+ nextPage +')">></a>';
+			}
+			
+			questionBtn += '</div>';
+				
+			$('.board_page2').html(questionBtn);
+			
+			
+			
+			$('#qst'+pageNo).addClass('on');
+		})
+	}
+	
+	
+	//클릭시 문의 보이기
+	//관리자 답글 보이기
+	function showQuestion(boardKey){
+		$('#'+boardKey).toggleClass("hide");
+		
+		var cmtObj = new Object();
+		
+		cmtObj.boardKey = boardKey;
+	
+		$.ajax({
+			url: "/comments/adminCmt",
+			type: "POST",
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify(cmtObj),
+			dataType: "json",
+			success: function(data){},
+			error: function(){alert("실패");},
+		})
+		.done(function(data){
+			
+			var cmtDTO = data.cmtDTO
+			
+			var cmt = '';
+			cmt += '<ul><li>관리자</li>'
+			if(cmtDTO != null){
+				cmt += '<li>'+cmtDTO.content+'</li>';
+				cmt += '<li>'+cmtDTO.rdate+'</li>';
+			}
+			if(cmtDTO == null){
+				cmt += '<li>관리자가 답변 예정입니다</li>';
+			}
+			cmt += '</ul>';
+			
+			
+			$('#adminCmt'+boardKey).html(cmt);
+		})
+	}
+	
+	//후기 수정 팝업창
+	//document.ready안에서는 실행이 안됨, DOM구조와 Jquery간 문제
+	var modReview = function(boardKey) {
+		var itemKey = '[[${item.itemKey}]]';
+		
+		if('[[${custKey}]]'!=null){
+			//jquery에서 div태그 값은 text()로 가져오고(val()이 아님!!)
+			//javaScript에서 div태그 값은 innerText로 가져온다(value가 아님!!)
+			if($('#reviewNum'+boardKey).text() == boardKey){
+				//TODO boardKey에 해당하는 후기 내용을 ajax로 가져올것
+				//TODO boardKey에 해당하는 후기 내용을 ajax로 가져올것
+				//TODO boardKey에 해당하는 후기 내용을 ajax로 가져올것
+				if($('#reviewNum'+boardKey).next().text() == '[[${custKey}]]'){
+					window.open('[[@{/board/modReview?itemKey=}]]'+itemKey+'&boardKey='+boardKey,'popup','width=640px,height=475px,resizable=no')
+				}else{
+					alert("이 글의 작성자만 수정이 가능합니다");
+				}
+			}else{
+				alert("boardKey 대조 실패, "+'reviewNum id의 value = '+$('#reviewNum'+boardKey).text());
+			}
+		}else{
+			alert("실패");
+		}
+	}; 
+
+	//문의 수정 팝업창
+	//document.ready안에서는 실행이 안됨, DOM구조와 Jquery간 문제
+	var modQuestion = function(boardKey) {
+		var itemKey = '[[${item.itemKey}]]';
+		
+		if('[[${custKey}]]'!=null){
+			//jquery에서 div태그 값은 text()로 가져오고(val()이 아님!!)
+			//javaScript에서 div태그 값은 innerText로 가져온다(value가 아님!!)
+			if($('#questionNum'+boardKey).text() == boardKey){
+				//TODO boardKey에 해당하는 문의 내용을 ajax로 가져올것
+				//TODO boardKey에 해당하는 문의 내용을 ajax로 가져올것
+				//TODO boardKey에 해당하는 문의 내용을 ajax로 가져올것
+				if($('#questionNum'+boardKey).next().text() == '[[${custKey}]]'){
+					window.open('[[@{/board/modQuestion?itemKey=}]]'+itemKey+'&boardKey='+boardKey,'popup','width=640px,height=475px,resizable=no')
+				}else{
+					alert("이 글의 작성자만 수정이 가능합니다");
+				}
+			}else{
+				alert("boardKey 대조 실패, "+'reviewNum id의 value = '+$('#reviewNum'+boardKey).text());
+			}
+		}else{
+			alert("실패");
+		}
+	}; 
+	
 </script>
+
+
+
+
 <style>
+.image-wrapper img{
+	margin: auto;
+	display: block;
+	width: 60%;
+}
+
+.boardModule{
+	margin: auto;
+	display: block;
+	width: 60%;
+}
+
 .board_tit {
 	cursor: pointer;
 }
@@ -628,6 +1046,7 @@
 	background: #000;
 	text-align: center;
 }
+
 </style>
 
 <div class="hero-wrap hero-bread"
@@ -742,9 +1161,9 @@
 	</div>
 </section>
 
+<!-- 상품 상세 이미지 -->
 <section class="ftco-section">
 	<div class="image-wrapper">
-		<center class="productImages">
 			<img src="/img/product/sariwon_beef_bulgogi.jpg"> <img
 				src="/img/product/sariwon_beef_bulgogi_.jpg"> <img
 				src="/img/deliveryrefund/cookingbox.jpg"> <img
@@ -752,271 +1171,87 @@
 				src="/img/deliveryrefund/about_mychef_01_120136.jpg"> <img
 				src="/img/deliveryrefund/about_mychef_02_120033.jpg"> <img
 				src="/img/deliveryrefund/about_mychef_03_120048.jpg">
-		</center>
 	</div>
 </section>
 
 <hr>
-<div class="boardModule">
-	<div class="reviews_cont">
-		<h3>상품후기</h3>
-		<div id="ajax-goods-goodsreview-list"></div>
-		<div class="reviews_table_type">
-			<table class="reviews_table_type">
-				<colgroup>
-					<col width="13%">
-					<col>
-					<col width="13%">
-					<col width="13%">
-				</colgroup>
-				<thead>
-					<tr>
-						<th>평점</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>작성일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<!--  후기 리스트 줄 -->
-					<tr class="js_data_row" data-bdid="goodsreview" data-sno="22714"
-						data-auth="y" data-notice="n">
-						<td>
-							<!-- 평점 --> <span class="rating_star"> <span
-								style="width: 100%;">별</span></span>
-						</td>
 
-						<!-- 후기 제목 -->
-						<td class="board_tit"><a href="javascript:void(0)"
-							class="js_btn_view"> <strong>맛있네요</strong> <span
-								class="js_comment_count">(1)</span>
-						</a></td>
-
-						<!-- 후기 작성자 -->
-						<td class="writer">lh******</td>
-
-						<!-- 작성일 -->
-						<td class="writedate">2022.10.26</td>
-					</tr>
-
-					<!-- 후기 내역 -->
-					<tr class="js_detail" data-bdid="goodsreview" data-sno="22931"
-						data-auth="y" data-notice="n" style="display: table-row;">
-						<td colspan="4" class="reviews_new_box">
-							<div class="board_cont">
-								<!-- 후기 내용 출력 -->
-								<div class="board_view">
-									<p></p>
-									<p>생각날때마다 종종 사먹는데 마이셰프만한 곳이 없네요</p>
-									<p>이번에 온게 배추가 너무 달고 맛있었어요</p>
-									<p>야채가 얼까봐 걱정했는데 깻잎도 깔끔하게 잘 왔네요</p>
-									<p></p>
-								</div>
-								<!-- //board_view -->
-
-								<div class="view_comment">
-									<!-- //view_comment_top -->
-									<div class="view_comment_list">
-										<ul>
-											<!-- 관리자 답글 출력 -->
-											<li class="js_data_comment_row " data-memosno="16502"
-												data-memoauth="n">
-												<div class="comment-item">
-													<!-- 관리자 이름 -->
-													<strong class="comment_name">관리자</strong>
-
-													<p>
-														<em>안녕하세요 마이셰프 입니다. <br>소중한 후기 감사합니다. <br>좋은
-															제품으로 고객님의 만족을 위해 최선을 다하겠습니다. <br>앞으로도 많은 이용 부탁드립니다.
-														</em> <span class="board_day_time">2022-12-26 15:07:11</span>
-													</p>
-
-
-												</div>
-											</li>
-										</ul>
-									</div>
-									<!-- //view_comment_list -->
-								</div>
-								<!-- //view_comment -->
-							</div> <!-- //board_cont -->
-						</td>
-					</tr>
-
-
-
-					<tr class="js_data_row" data-bdid="goodsreview" data-sno="22356"
-						data-auth="y" data-notice="n">
-						<td><span class="rating_star"> <span
-								style="width: 40%;">별</span>
-						</span></td>
-						<td class="board_tit"><a href="javascript:void(0)"
-							class="js_btn_view "> <strong>닭가슴살 20프로 맞나요???</strong> <span
-								class="js_comment_count">(1)</span>
-						</a></td>
-						<td>sh***************</td>
-						<td>2022.04.17</td>
-					</tr>
-					<tr class="js_detail" data-bdid="goodsreview" data-sno="22356"
-						data-auth="y" data-notice="n"></tr>
-
-					<tr class="js_data_row" data-bdid="goodsreview" data-sno="22302"
-						data-auth="y" data-notice="n">
-						<td><span class="rating_star"> <span
-								style="width: 100%;">별</span>
-						</span></td>
-						<td class="board_tit"><a href="javascript:void(0)"
-							class="js_btn_view "> <strong>매콤하게</strong> <span
-								class="js_comment_count">(1)</span>
-						</a></td>
-						<td>ey******</td>
-						<td>2022.03.18</td>
-					</tr>
-					<tr class="js_detail" data-bdid="goodsreview" data-sno="22302"
-						data-auth="y" data-notice="n"></tr>
-
-					<tr class="js_data_row" data-bdid="goodsreview" data-sno="21282"
-						data-auth="y" data-notice="n">
-						<td><span class="rating_star"><span
-								style="width: 20%;">별</span></span></td>
-						<td class="board_tit"><a href="javascript:void(0)"
-							class="js_btn_view "> <strong>깻잎이 얼었다가 해동된 것 같았습니다.</strong>
-								<span class="js_comment_count">(1)</span>
-						</a></td>
-						<td>in****</td>
-						<td>2021.07.11</td>
-					</tr>
-					<tr class="js_detail" data-bdid="goodsreview" data-sno="21282"
-						data-auth="y" data-notice="n"></tr>
-
-					<tr class="js_data_row" data-bdid="goodsreview" data-sno="21076"
-						data-auth="y" data-notice="n">
-						<td><span class="rating_star"><span
-								style="width: 100%;">별</span></span></td>
-						<td class="board_tit"><a href="javascript:void(0)"
-							class="js_btn_view "> <strong>괜찮아요</strong> <span
-								class="js_comment_count">(1)</span>
-						</a></td>
-						<td>cy*****</td>
-						<td>2021.06.23</td>
-					</tr>
-					<tr class="js_detail" data-bdid="goodsreview" data-sno="21076"
-						data-auth="y" data-notice="n"></tr>
-				</tbody>
-			</table>
+<!-- 상품 후기 게시판 -->
+<div class="board_all">
+	<div class="board_wrap">
+		<div class="board_title">
+			<strong>상품 후기</strong>
+			<p>상품후기를 나타냅니다</p>
 		</div>
-		<div class="pagination"></div>
-		<div class="btn_reviews_box">
-			<a href="#" class="btn_reviews_write">상품후기 글쓰기</a>
-		</div>
-		<!-- //btn_reviews_box -->
-	</div>
-	<!-- //reviews_cont -->
-
-
-
-
-	<div class="qna_cont">
-		<h3>상품Q&amp;A</h3>
-		<div id="ajax-goods-goodsqa-list">
-			<div class="qna_table">
-				<table class="qna_table_type">
-					<colgroup>
-						<col width="5%">
-						<col>
-						<col width="13%">
-						<col width="13%">
-						<col width="13%">
-					</colgroup>
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th>진행상황</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="js_data_row" data-bdid="goodsqa" data-sno="6083"
-							data-auth="n">
-							<td>1782</td>
-							<td class="board_tit"><a href="javascript:void(0)"
-								class="js_btn_view "> <img
-									src="https://cdn-pro-web-134-253.cdn-nhncommerce.com/mychef1_godomall_com/data/skin/front/udweb_pc_20200903/board/skin/qa/img/icon/icon_board_secret.png">
-									<strong>닭갈비에서 신냄새 및 신맛이 나는게 정상인가요?</strong>
-							</a></td>
-							<td>송운*</td>
-							<td>2020.12.14</td>
-							<td>답변완료</td>
-						</tr>
-						<tr class="js_detail" data-bdid="goodsqa" data-sno="6083"
-							data-auth="n"></tr>
-						<tr class="js_data_row" data-bdid="goodsqa" data-sno="5752"
-							data-auth="n">
-							<td>1781</td>
-							<td class="board_tit"><a href="javascript:void(0)"
-								class="js_btn_view "> <img
-									src="https://cdn-pro-web-134-253.cdn-nhncommerce.com/mychef1_godomall_com/data/skin/front/udweb_pc_20200903/board/skin/qa/img/icon/icon_board_secret.png">
-									<strong>진지하게</strong>
-							</a></td>
-							<td>송인*</td>
-							<td>2020.08.18</td>
-							<td>답변완료</td>
-						</tr>
-						<tr class="js_detail" data-bdid="goodsqa" data-sno="5752"
-							data-auth="n"></tr>
-						<tr class="js_data_row" data-bdid="goodsqa" data-sno="5741"
-							data-auth="y">
-							<td>1780</td>
-							<td class="board_tit"><a href="javascript:void(0)"
-								class="js_btn_view "> <strong>떡요</strong>
-							</a></td>
-							<td>송인*</td>
-							<td>2020.08.15</td>
-							<td>답변완료</td>
-						</tr>
-						<tr class="js_detail" data-bdid="goodsqa" data-sno="5741"
-							data-auth="y"></tr>
-						<tr class="js_data_row" data-bdid="goodsqa" data-sno="5656"
-							data-auth="n">
-							<td>1779</td>
-							<td class="board_tit"><a href="javascript:void(0)"
-								class="js_btn_view "> <img
-									src="https://cdn-pro-web-134-253.cdn-nhncommerce.com/mychef1_godomall_com/data/skin/front/udweb_pc_20200903/board/skin/qa/img/icon/icon_board_secret.png">
-									<strong>문의</strong>
-							</a></td>
-							<td>이은*</td>
-							<td>2020.07.29</td>
-							<td>답변완료</td>
-						</tr>
-						<tr class="js_detail" data-bdid="goodsqa" data-sno="5656"
-							data-auth="n"></tr>
-						<tr class="js_data_row" data-bdid="goodsqa" data-sno="5556"
-							data-auth="n">
-							<td>1778</td>
-							<td class="board_tit"><a href="javascript:void(0)"
-								class="js_btn_view "> <img
-									src="https://cdn-pro-web-134-253.cdn-nhncommerce.com/mychef1_godomall_com/data/skin/front/udweb_pc_20200903/board/skin/qa/img/icon/icon_board_secret.png">
-									<strong>배송</strong>
-							</a></td>
-							<td>이근*</td>
-							<td>2020.06.25</td>
-							<td>답변완료</td>
-						</tr>
-						<tr class="js_detail" data-bdid="goodsqa" data-sno="5556"
-							data-auth="n"></tr>
-					</tbody>
-				</table>
+		<div class="board_list_wrap1">
+			<div class="board_list1">
+				
+				<div>
+					<div class="top1">
+						<div class="boardNum">번호</div>
+						<div class="rate">평점</div>
+						<div class="title">제목</div>
+						<div class="rdate">작성일</div>
+					</div>
+				</div>
+				
+				<!-- 상품 후기 리스트 -->
+				<div class="reviews1">
+				
+				</div>
+				
 			</div>
-			<div class="pagination"></div>
+			
+			<!-- 상품 후기 게시판 페이징 -->
+			<div class="board_page1">
+			
+			</div>
+
 		</div>
-		<div class="btn_qna_box">
-			<a href="#" class="btn_qna_write">상품문의 글쓰기</a>
-		</div>
-		<!-- //btn_qna_box -->
+			<div class="bt_wrap">
+				<a href="#" class="on" id="writeReview">후기 쓰기</a>
+			</div>
 	</div>
-	<!-- //qna_cont -->
 </div>
+
+
+<!-- 상품 문의 게시판 -->
+<div class="board_all">
+	<div class="board_wrap">
+		<div class="board_title">
+			<strong>상품 문의</strong>
+			<p>상품 문의를 나타냅니다</p>
+		</div>
+		<div class="board_list_wrap1">
+			<div class="board_list2">
+				<div>
+					<div class="top2">
+						<div class="boardNum">번호</div>
+						<div class="custKey">고객번호</div>
+						<div class="title">제목</div>
+						<div class="rdate">작성일</div>
+					</div>
+				</div>
+				
+				<!-- 문의 게시판 리스트 -->
+				<div class="questions">
+				
+				</div>
+				
+			</div>
+
+			
+			<!-- 문의 게시판 페이징 -->
+			<div class="board_page2">
+
+			</div>
+			
+			<div class="bt_wrap">
+					<a href="#" class="on" id="writeQuestion">문의 하기</a>
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
 </html>

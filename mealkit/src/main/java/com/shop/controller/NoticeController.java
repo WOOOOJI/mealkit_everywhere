@@ -13,7 +13,7 @@ import com.shop.dto.Criteria;
 import com.shop.dto.CustomerDTO;
 import com.shop.dto.NoticeDTO;
 import com.shop.dto.OrderDetailDTO;
-import com.shop.dto.response.ItemPageResponseDTO;
+import com.shop.dto.response.PageResponseDTO;
 import com.shop.service.CustomerService;
 import com.shop.service.NoticeService;
 
@@ -87,7 +87,7 @@ public class NoticeController {
 		List<NoticeDTO> eventList = new ArrayList<>();
 		
 		//ItemPageResponseDTO(active, pageNumList, content를 묶어주기 위한 DTO) 선언 및 초기화
-		ItemPageResponseDTO itemPageResponseDTO = noticeService.getEventPageMaker(cri);
+		PageResponseDTO itemPageResponseDTO = noticeService.getEventPageMaker(cri);
 		
 		eventList = noticeService.getEventList(cri);
 		
@@ -144,7 +144,7 @@ public class NoticeController {
 		
 		List<NoticeDTO> noticeList = new ArrayList<>();
 		//ItemPageResponseDTO(active, pageNumList, content를 묶어주기 위한 DTO) 선언 및 초기화
-		ItemPageResponseDTO itemPageResponseDTO = noticeService.getNoticePageMaker(cri);
+		PageResponseDTO itemPageResponseDTO = noticeService.getNoticePageMaker(cri);
 		
 		noticeList = noticeService.getNoticeList(cri);
 		

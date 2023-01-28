@@ -1,4 +1,4 @@
-package com.shop.dto;
+package com.admin.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +21,7 @@ public class PageDTO {
     //행 전체 개수
     private int total;
     
-    //현재페이지 번호(pageNum), 행 표시 수(amount), 검색 키워드(keyword), 검색 종류(type) 세팅되어있음
+    //현재페이지 번호(pageNum), 행 표시 수(amount), 검색 키워드(keyword), 검색 종류(type)
     private Criteria cri;
     
     //생성자(클래스 호출 시 각 변수 값 초기화)

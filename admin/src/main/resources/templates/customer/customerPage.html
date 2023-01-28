@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+<meta name="author" content="AdminKit">
+<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+<link rel="canonical" href="https://demo-basic.adminkit.io/pages-blank.html" />
+
+<title>Blank Page | AdminKit Demo</title>
+
+<link href="css/app.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"	rel="stylesheet">
+</head>
+<style>
+
+* {
+    --bs-blue: #3b7ddd;
+    --bs-indigo: #0a0a0a;
+    --bs-purple: #6f42c1;
+    --bs-pink: #e83e8c;
+    --bs-red: #dc3545;
+    --bs-orange: #fd7e14;
+    --bs-yellow: #fcb92c;
+    --bs-green: #1cbb8c;
+    --bs-teal: #20c997;
+    --bs-cyan: #17a2b8;
+    --bs-black: #000;
+    --bs-white: #fff;
+    --bs-gray: #6c757d;
+    --bs-gray-dark: #343a40;
+    --bs-gray-100: #f8f9fa;
+    --bs-gray-200: #e9ecef;
+    --bs-gray-300: #dee2e6;
+    --bs-gray-400: #ced4da;
+    --bs-gray-500: #adb5bd;
+    --bs-gray-600: #6c757d;
+    --bs-gray-700: #495057;
+    --bs-gray-800: #343a40;
+    --bs-gray-900: #212529;
+    --bs-primary: #3b7ddd;
+    --bs-secondary: #6c757d;
+    --bs-success: #1cbb8c;
+    --bs-info: #17a2b8;
+    --bs-warning: #fcb92c;
+    --bs-danger: #dc3545;
+    --bs-light: #f5f7fb;
+    --bs-dark: #212529;
+    --bs-primary-rgb: 59,125,221;
+    --bs-secondary-rgb: 108,117,125;
+    --bs-success-rgb: 28,187,140;
+    --bs-info-rgb: 23,162,184;
+    --bs-warning-rgb: 252,185,44;
+    --bs-danger-rgb: 220,53,69;
+    --bs-light-rgb: 245,247,251;
+    --bs-dark-rgb: 33,37,41;
+    --bs-white-rgb: 255,255,255;
+    --bs-black-rgb: 0,0,0;
+    --bs-body-color-rgb: 73,80,87;
+    --bs-body-bg-rgb: 245,247,251;
+    --bs-font-sans-serif: "Inter","Helvetica Neue",Arial,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    --bs-font-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    --bs-gradient: linear-gradient(180deg,hsla(0,0%,100%,.15),hsla(0,0%,100%,0));
+    --bs-body-font-family: var(--bs-font-sans-serif);
+    --bs-body-font-size: 0.875rem;
+    --bs-body-font-weight: 400;
+    --bs-body-line-height: 1.5;
+    --bs-body-color: #495057;
+    --bs-body-bg: #f5f7fb;
+    --bs-border-width: 1px;
+    --bs-border-style: solid;
+    --bs-border-color: #dee2e6;
+    --bs-border-color-translucent: rgba(0,0,0,.175);
+    --bs-border-radius: 0.2rem;
+    --bs-border-radius-sm: 0.1rem;
+    --bs-border-radius-lg: 0.3rem;
+    --bs-border-radius-xl: 1rem;
+    --bs-border-radius-2xl: 2rem;
+    --bs-border-radius-pill: 50rem;
+    --bs-link-color: #3b7ddd;
+    --bs-link-hover-color: #2f64b1;
+    --bs-code-color: #e83e8c;
+    --bs-highlight-bg: #fef1d5;
+    --fa-font-brands: normal 400 1em/1 "Font Awesome 6 Brands";
+    --fa-font-regular: normal 400 1em/1 "Font Awesome 6 Free";
+    --fa-font-solid: normal 900 1em/1 "Font Awesome 6 Free";
+    --fc-daygrid-event-dot-width: 8px;
+    --fc-list-event-dot-width: 10px;
+    --fc-list-event-hover-bg-color: #f5f5f5;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    --bs-gutter-x: 24px;
+    --bs-gutter-y: 0;
+    --bs-card-spacer-y: 1.25rem;
+    --bs-card-spacer-x: 1.25rem;
+    --bs-card-title-spacer-y: 0.5rem;
+    --bs-card-border-width: 0;
+    --bs-card-border-color: transparent;
+    --bs-card-border-radius: 0.25rem;
+    --bs-card-box-shadow: ;
+    --bs-card-inner-border-radius: 0.25rem;
+    --bs-card-cap-padding-y: 1rem;
+    --bs-card-cap-padding-x: 1.25rem;
+    --bs-card-cap-bg: #fff;
+    --bs-card-cap-color: ;
+    --bs-card-height: ;
+    --bs-card-color: ;
+    --bs-card-bg: #fff;
+    --bs-card-img-overlay-padding: 1rem;
+    --bs-card-group-margin: 12px;
+    --bs-pagination-padding-x: 0.75rem;
+    --bs-pagination-padding-y: 0.3rem;
+    --bs-pagination-font-size: 0.875rem;
+    --bs-pagination-color: #6c757d;
+    --bs-pagination-bg: #fff;
+    --bs-pagination-border-width: 1px;
+    --bs-pagination-border-color: #dee2e6;
+    --bs-pagination-border-radius: 0.2rem;
+    --bs-pagination-hover-color: #343a40;
+    --bs-pagination-hover-bg: #e9ecef;
+    --bs-pagination-hover-border-color: #dee2e6;
+    --bs-pagination-focus-color: var(--bs-link-hover-color);
+    --bs-pagination-focus-bg: #e9ecef;
+    --bs-pagination-focus-box-shadow: 0 0 0 0.2rem rgba(59,125,221,.25);
+    --bs-pagination-active-color: #fff;
+    --bs-pagination-active-bg: #3b7ddd;
+    --bs-pagination-active-border-color: #3b7ddd;
+    --bs-pagination-disabled-color: #6c757d;
+    --bs-pagination-disabled-bg: #fff;
+    --bs-pagination-disabled-border-color: #dee2e6;
+}
+.card{
+
+    color: var(--bs-body-color);
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    text-align: var(--bs-body-text-align);
+    direction: ltr;
+
+    box-sizing: border-box;
+
+    word-wrap: break-word;
+    background-clip: border-box;
+    background-color: var(--bs-card-bg);
+    border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+    border-radius: var(--bs-card-border-radius);
+    display: flex;
+    flex-direction: column;
+    height: var(--bs-card-height);
+    min-width: 0;
+    position: relative;
+    box-shadow: 0 0 .875rem 0 rgba(33,37,41,.05);
+    margin-bottom: 24px;
+}
+
+.content {
+    color: var(--bs-body-color);
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    text-align: var(--bs-body-text-align);
+    box-sizing: border-box;
+}
+
+#datatables-reponsive_wrapper > row{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    text-align: var(--bs-body-text-align);
+    direction: ltr;
+    word-wrap: break-word;
+    color: var(--bs-card-color);
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(var(--bs-gutter-x)*-.5);
+    margin-right: calc(var(--bs-gutter-x)*-.5);
+    margin-top: calc(var(--bs-gutter-y)*-1);
+}
+
+
+#datatables-reponsive_length{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    text-align: var(--bs-body-text-align);
+    direction: ltr;
+
+    word-wrap: break-word;
+    color: var(--bs-card-color);
+    box-sizing: border-box;
+}
+
+#datatables-reponsive_length > label{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    line-height: var(--bs-body-line-height);
+    direction: ltr;
+    word-wrap: break-word;
+    color: var(--bs-card-color);
+    box-sizing: border-box;
+    display: inline-block;
+    font-weight: 400;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.col-sm-12 .col-md-6{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    text-align: var(--bs-body-text-align);
+    direction: ltr;
+    word-wrap: break-word;
+    color: var(--bs-card-color);
+    box-sizing: border-box;
+    margin-top: var(--bs-gutter-y);
+    max-width: 100%;
+    padding-left: calc(var(--bs-gutter-x)*.5);
+    padding-right: calc(var(--bs-gutter-x)*.5);
+    flex: 0 0 auto;
+    width: 50%;
+    text-align: left;
+}
+
+#datatables-reponsive_length{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    text-align: var(--bs-body-text-align);
+    direction: ltr;
+    word-wrap: break-word;
+    color: var(--bs-card-color);
+    box-sizing: border-box;
+}
+
+#datatables-reponsive_paginate{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    direction: ltr;
+    word-wrap: break-word;
+    color: var(--bs-card-color);
+    box-sizing: border-box;
+    margin: 0;
+    text-align: right;
+    white-space: nowrap;
+}
+.col-md-7{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    text-align: var(--bs-body-text-align);
+    direction: ltr;
+    word-wrap: break-word;
+    color: var(--bs-card-color);
+    box-sizing: border-box;
+    margin-top: var(--bs-gutter-y);
+    max-width: 100%;
+    padding-left: calc(var(--bs-gutter-x)*.5);
+    padding-right: calc(var(--bs-gutter-x)*.5);
+    flex: 0 0 auto;
+    width: 58.33333%;
+}
+.pagination{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    direction: ltr;
+    word-wrap: break-word;
+    color: var(--bs-card-color);
+    text-align: right;
+    box-sizing: border-box;
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    justify-content: flex-end;
+    margin: 2px 0;
+    white-space: nowrap;
+}
+
+
+#datatables-reponsive_next{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    direction: ltr;
+    word-wrap: break-word;
+    color: var(--bs-card-color);
+    list-style: none;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.page-item .page-link{    
+    font-family: var(--bs-body-font-family);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    direction: ltr;
+    
+    word-wrap: break-word;
+   
+    list-style: none;
+    white-space: nowrap;
+    box-sizing: border-box;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: var(--bs-pagination-bg);
+    border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
+    color: var(--bs-pagination-color);
+    display: block;
+    font-size: var(--bs-pagination-font-size);
+    padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+    position: relative;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-left: -1px;
+}
+
+.active .page-link{
+    font-family: var(--bs-body-font-family);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    direction: ltr;
+   
+    word-wrap: break-word;
+  
+    list-style: none;
+    white-space: nowrap;
+    box-sizing: border-box;
+    text-decoration: none;
+    cursor: pointer;
+    border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
+    display: block;
+    font-size: var(--bs-pagination-font-size);
+    padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+    position: relative;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-color: var(--bs-pagination-active-bg);
+    border-color: var(--bs-pagination-active-border-color);
+    z-index: 3;
+    margin-left: -1px;
+    color: #fff;
+}
+
+.container-fulid > row{
+    color: var(--bs-body-color);
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    text-align: var(--bs-body-text-align);
+    direction: ltr;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(var(--bs-gutter-x)*-.5);
+    margin-right: calc(var(--bs-gutter-x)*-.5);
+    margin-top: calc(var(--bs-gutter-y)*-1);
+}
+
+.card-body{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    text-align: var(--bs-body-text-align);
+    direction: ltr;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    color: var(--bs-card-color);
+    flex: 1 1 auto;
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+}
+
+
+#datatables-reponsive_filter{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    direction: ltr;
+    word-wrap: break-word;
+    color: var(--bs-card-color);
+    box-sizing: border-box;
+    text-align: right;
+}
+
+.col-md-6{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    text-align: var(--bs-body-text-align);
+    direction: ltr;
+    word-wrap: break-word;
+    color: var(--bs-card-color);
+    box-sizing: border-box;
+    margin-top: var(--bs-gutter-y);
+    max-width: 100%;
+    padding-left: calc(var(--bs-gutter-x)*.5);
+    padding-right: calc(var(--bs-gutter-x)*.5);
+    flex: 0 0 auto;
+    width: 50%;
+}
+
+.col-md-7{
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    text-align: var(--bs-body-text-align);
+    direction: ltr;
+    word-wrap: break-word;
+    color: var(--bs-card-color);
+    box-sizing: border-box;
+    margin-top: var(--bs-gutter-y);
+    max-width: 100%;
+    padding-left: calc(var(--bs-gutter-x)*.5);
+    padding-right: calc(var(--bs-gutter-x)*.5);
+    flex: 0 0 auto;
+    width: 58.33333%;
+
+}
+
+.form-select{
+    direction: ltr;
+    box-sizing: border-box;
+    font-family: inherit;
+    margin: 0;
+    text-transform: none;
+    word-wrap: normal;
+    appearance: none;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
+    background-position: right .85rem center;
+    background-repeat: no-repeat;
+    background-size: 16px 12px;
+    border: 1px solid #ced4da;
+    color: #495057;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: .3rem 2.55rem .3rem .85rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border-radius: .1rem;
+    font-size: .75rem;
+    padding-bottom: .2rem;
+    padding-left: .5rem;
+    padding-top: .2rem;
+    display: inline-block;
+    width: auto;
+}
+
+.form-control{
+    direction: ltr;
+    word-wrap: break-word;
+    white-space: nowrap;
+    box-sizing: border-box;
+    font-family: inherit;
+    margin: 0;
+    outline-offset: -2px;
+    appearance: none;
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    color: #495057;
+    font-weight: 400;
+    line-height: 1.5;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border-radius: .1rem;
+    font-size: .75rem;
+    min-height: calc(1.525rem + 2px);
+    padding: .2rem .5rem;
+    display: inline-block;
+    margin-left: .5em;
+    width: auto;
+}
+
+ .pageList > .active{
+      background: #82ae46;
+      color: #fff;
+      border: 1px solid transparent; }
+
+.hide {
+	display: none;
+}
+
+</style>
+<body>
+	<div class="wrapper">
+
+		<div class="main">
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<div class="mb-3">
+						<h1 class="h3 d-inline align-middle">회원 관리</h1>
+					</div>
+
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body">
+									<div id="datatables-reponsive_wrapper"
+										class="dataTables_wrapper dt-bootstrap5 no-footer">
+										<div class="row">
+											<div class="col-sm-12 col-md-6">
+												<div class="dataTables_length" id="datatables-reponsive_length">
+													<label><select id="amountCust" aria-controls="datatables-reponsive" class="form-select form-select-sm" th:onchange="changeCnt(this.value)">
+															<option value="">선택</option>
+															<option value="10">10</option>
+															<option value="25">25</option>
+															<option value="50">50</option>
+															<option value="100">100</option></select> 개씩 보기
+													</label>
+	
+													<label>
+															[  차단된 회원 정렬 
+															<svg onclick="alignBannedAsc()" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+															stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up align-middle me-2">
+															<polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
+															<svg onclick="alignBannedDesc()" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+															stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-down align-middle me-2">
+															<polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline></svg>]
+															[  생년월일 정렬 
+															<svg onclick="alignBthdateAsc()" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+															stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up align-middle me-2">
+															<polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
+															<svg onclick="alignBthdateDesc()" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+															stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-down align-middle me-2">
+															<polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline></svg>]
+													</label>
+												</div>
+											</div>
+											
+											<div class="col-sm-12 col-md-6">
+												<div id="datatables-reponsive_filter" class="dataTables_filter">
+													<form name="searchKeyword" action="/admin/customer" method="get">
+														<label>이메일 :<input type="search" name="emailKeyword" class="form-control form-control-sm" placeholder="ex)abc@gmail.com" aria-controls="datatables-reponsive" style="width:140px"></label>
+														<label>이름 :<input type="search" name="nameKeyword" class="form-control form-control-sm" placeholder="ex)홍길동" aria-controls="datatables-reponsive" style="width:85px"></label>
+														<label>전화번호 :<input type="search" name="phNumberKeyword" class="form-control form-control-sm" placeholder="ex)1234-4321" aria-controls="datatables-reponsive" style="width:130px"></label>
+														<input type="submit" style="background-color:#71aade" value="검색">
+													</form>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-12">
+												<table id="datatables-reponsive" class="table table-striped dataTable no-footer dtr-inline" style="width: 100%;" aria-describedby="datatables-reponsive_info">
+													<thead>
+													
+														<tr>
+															<th class="sorting sorting_asc" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" 
+																style="width: 100px;" aria-sort="ascending" 
+																aria-label="Name: activate to sort column descending">회원 이메일</th>
+															
+															<th class="sorting sorting_asc" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" 
+																style="width: 50px;" aria-sort="ascending"
+																aria-label="Name: activate to sort column descending">회원 번호</th>
+
+															<th class="sorting sorting_asc" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" 
+																style="width: 50px;" aria-sort="ascending"
+																aria-label="Name: activate to sort column descending">회원 이름</th>
+																
+															<th class="sorting" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" 
+																style="width: 50px;"
+																aria-label="Position: activate to sort column ascending">생년 월일</th>
+																
+															<th class="sorting" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" 
+																style="width: 50px;"
+																aria-label="Office: activate to sort column ascending">회원 성별</th>
+																
+															<th class="sorting" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" 
+																style="width: 100px;"
+																aria-label="Age: activate to sort column ascending">전화 번호</th>
+																
+															<th class="sorting" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" 
+																style="width: 50px;"
+																aria-label="Start date: activate to sort column ascending">차단 여부</th>
+																
+															<th class="sorting" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" 
+																style="width: 50px;"
+																aria-label="Salary: activate to sort column ascending">탈퇴 여부</th>
+															<th class="sorting" tabindex="0" aria-controls="datatables-reponsive" rowspan="1" colspan="1" 
+																style="width: 50px;"
+																aria-label="Salary: activate to sort column ascending">차단 설정</th>
+														</tr>
+														
+													</thead>
+													<tbody>
+														<tr class="odd" th:if="customerList != 'empty'" th:each="customer : ${customerList}">
+															<td class="dtr-control sorting_1" tabindex="0">
+																<span th:classappend="${customer.banned == 'Y'} ? 'badge bg-danger' : (${customer.signout == 'Y'} ? 'badge bg-warning' : '')"
+																th:text="${customer.email}"></span></td>
+															<td class="d-none d-xl-table-cell" th:text="${customer.custKey}"></td>
+															<td class="d-none d-xl-table-cell" th:text="${customer.username}"></td>
+															<td class="d-none d-xl-table-cell" th:text="${customer.jumin}"></td>
+															<td class="d-none d-xl-table-cell" th:if="${customer.gender} == '1'"><span>남자</span></td>
+															<td class="d-none d-xl-table-cell" th:if="${customer.gender} == '2'"><span>여자</span></td>
+															<th class="d-none d-md-table-cell" th:text="${customer.tel}"></th>
+															<td><span class="" 
+																th:classappend="${customer.banned == 'Y'} ? 'badge bg-danger' : 'badge bg-success'"
+																th:text="${customer.banned}" style="text-align : center"></span></td>
+															<td><span class=""
+																th:classappend="${customer.signout == 'Y'} ? 'badge bg-warning' : 'badge bg-success'"
+																th:text="${customer.signout}" style="text-align : center"></span></td>
+															<td>
+																<span th:classappend="${customer.banned == 'Y'} ? '' : 'hide'" th:onclick="changeLocked([[${customer.custKey}]])" style="cursor:pointer" th:id="${customer.custKey}" th:value="${customer.banned}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock align-middle me-2">
+																		<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+																</span>
+																<span th:classappend="${customer.banned == 'N'} ? '' : 'hide'" th:onclick="changeLocked([[${customer.custKey}]])" style="cursor:pointer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-unlock align-middle me-2">
+																		<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
+																</span>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-12 col-md-5">
+												<div class="dataTables_info" id="datatables-reponsive_info"
+													role="status" aria-live="polite" th:text="'전체 ' +${pageMaker.total}+ '개의 데이터 중 ' + ${criteria.getAmount} + '개씩'"></div>
+											</div>
+											<div class="col-sm-12 col-md-7">
+												<div class="dataTables_paginate paging_simple_numbers" id="datatables-reponsive_paginate">
+													<ul class="pagination">
+														<li class="paginate_button page-item previous" id="datatables-reponsive_previous">
+															<a th:if="${pageMaker.prev == true}" th:href="@{/customer(pageNum = ${pageMaker.pageStart - 1}, ascDesc = ${ascDesc}, orderCri=${orderCri}, amount=${amountCust})}" class="page-link">Prev</a>
+														</li>
+														
+														<li class="paginate_button page-item pageList" th:each="pageNum : ${pageNumList}" th:id="'pageNum'+${pageNum}">
+															<a class="page-link" th:href="@{/customer(pageNum = ${pageNum}, ascDesc = ${ascDesc}, orderCri=${orderCri}, amount=${amountCust})}" th:text="${pageNum}"></a>
+														</li>
+														
+														<li class="paginate_button page-item next" 	id="datatables-reponsive_next">
+															<a th:if="${pageMaker.next == true}" th:href="@{/customer(pageNum = ${pageMaker.pageEnd + 1}, ascDesc = ${ascDesc}, orderCri=${orderCri}, amount=${amountCust})}" class="page-link">Next</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</main>
+
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/datatables.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Datatables Responsive
+			$("#datatables-reponsive").DataTable({
+				responsive: true
+			});
+		});
+
+		
+		function changeCnt(amount){
+			var orderCri = '[[${orderCri}]]';
+			var ascDesc = '[[${ascDesc}]]';
+			var amountValue = amount+'&orderCri='+orderCri+'&ascDesc='+ascDesc;
+			location.href='[[@{/customer?amount=}]]'+amountValue;
+		};
+		  
+		  
+		function changeLocked(custKey){
+			var orderCri = '[[${orderCri}]]';
+			var ascDesc = '[[${ascDesc}]]';
+			var amountValue = '[[${amountCust}]]';
+			let bannedValue = document.getElementById(custKey).getAttribute('value');
+			
+			alert("회원번호가 "+custKey+"번인 회원이 맞습니까?");
+			if(bannedValue == 'N'){
+				if(confirm("정말 차단하시겠습니까?")){
+					location.href='[[@{/customer/locked?custKey=}]]'+custKey+'&banned=Y'+'&orderCri='+orderCri+'&ascDesc='+ascDesc+'&amount='+amountValue;
+				}
+			}else if(bannedValue == 'Y'){
+				if(confirm("정말 차단 해제하시겠습니까?")){
+					location.href='[[@{/customer/locked?custKey=}]]'+custKey+'&banned=N'+'&orderCri='+orderCri+'&ascDesc='+ascDesc+'&amount='+amountValue;
+				}
+			}
+		};
+
+		
+		function alignBannedAsc(){
+			var custAmount = '[[${amountCust}]]';
+			var banned = 'banned&ascDesc=Asc&amount='+custAmount;
+			location.href='[[@{/customer?orderCri=}]]'+banned;
+		}
+		
+		
+		function alignBthdateAsc(){
+			var custAmount = '[[${amountCust}]]';
+			var jumin = 'jumin&ascDesc=Asc&amount='+custAmount;
+			location.href='[[@{/customer?orderCri=}]]'+jumin;
+		}
+		
+		
+		function alignBannedDesc(){
+			var custAmount = '[[${amountCust}]]';
+			var banned = 'banned&ascDesc=desc&amount='+custAmount;
+			location.href='[[@{/customer?orderCri=}]]'+banned;
+		}
+		
+		
+		function alignBthdateDesc(){
+			var custAmount = '[[${amountCust}]]';
+			var jumin = 'jumin&ascDesc=desc&amount='+custAmount;
+			location.href='[[@{/customer?orderCri=}]]'+jumin;
+		}
+		
+		
+		$(document).ready(function(){
+			var pageNum='[[${pageNum}]]';
+			document.getElementById('pageNum'+pageNum).className='active';
+				
+			var orderCri='[[${orderCri}]]';
+			document.getElementById(orderCri).className='active';
+				
+		});
+
+	</script>
+
+</body>
+</html>

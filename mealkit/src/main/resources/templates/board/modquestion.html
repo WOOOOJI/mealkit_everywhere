@@ -1,0 +1,144 @@
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+<style> @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap'); </style>
+
+
+    <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p style="font-size:20px;" class="breadcrumbs"><span class="mr-2"></span></p>
+            <h1 class="mb-0 bread" style="font-size:48px;">문의 수정</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+						      	
+
+    <section class="ftco-section ftco-degree-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 ftco-animate">
+          	<tr> 
+			 <div>문의 제목
+			 	<td><h2 class="mb-3">
+			 	<textarea id="boardtitle" class="form-control" rows="1" cols="100" th:text="${boardDTO.title}" th:value="${boardDTO.title}"></textarea>
+			 	</h2></td>
+			 </div>
+				<div text=""> </div>
+				<button type="button" class="btn btn-sm btn-primary" id="btnList" style="float:right; margin-left:10px" th:onclick="questionDel([[${boardDTO.boardKey}]])">문의 삭제</button>
+				<div text=""> </div> 
+			
+			 </tr>	
+			<hr>
+
+			<div class="card">
+				
+				<div class="card-body">
+					<textarea id="boardContent" class="form-control" rows="15" cols="100" th:text="${boardDTO.content}" th:value="${boardDTO.content}"></textarea>
+				</div>
+			</div>
+			<div style="margin-top : 20px">
+
+				<br><br><br>
+			</div>	
+            <hr>
+    	      <!-- 근데 여기서 onclick할때 왜 []를 쓰고 썼었더라..? -->
+              <button type="button" class="btn btn-sm btn-primary" id="btnList" th:onclick="modQuestion([[${boardDTO.boardKey}]])">수정하기</button>
+              
+              <!-- END comment-list -->
+            </div>
+               
+                  
+            </div>
+                             
+          </div> <!-- .col-md-8 -->
+          <div class="col-lg-4 sidebar ftco-animate">
+            <div class="sidebar-box">
+           
+            </div>
+        
+        </div>
+      </div>
+    </section> <!-- .section -->
+    
+    <script>
+    	//문의 삭제
+	    function questionDel(boardKey){
+    		if(confirm("정말 삭제하시겠습니까?")){
+		    	location.href="/board/boardDel?boardKey="+boardKey;
+    		}
+	    }
+    
+    	function modQuestion(boardKey){
+    		
+	    	//후기 제목 유효성 검사
+	    	var title = $('#boardtitle').val();
+
+	    	if(title == ''){
+	    		alert("작성된 제목이 없습니다.");
+	    		return false;
+	    	}
+
+	    	
+    		//후기 내용 유효성 검사
+	    	var content = $('#boardContent').val();
+	    	
+	    	if(content == ''){
+	    		alert("작성된 내용이 없습니다.");
+	    		return false;
+	    	}
+	    	
+	    	//받은 boardDTO의 itemKey
+	    	var itemKey = '[[${boardDTO.itemKey}]]';
+
+	    	//받은 boardDTO의 custKey
+	    	var custKey = '[[${boardDTO.custKey}]]';
+	    	
+	    	
+    		if(confirm("후기를 수정 하시겠습니까?")){
+    			
+    			if(content != null && content != ''){    				
+    				
+    				var submitObj = new Object();
+    				submitObj.boardKey = boardKey;
+    				submitObj.title = title;
+    				submitObj.rate = -1;
+    				submitObj.content = content;
+    				submitObj.itemKey = itemKey;
+    				submitObj.custKey = custKey;
+    				
+    				
+    				$.ajax({
+    					url:"/board/updateQuestion",
+    					type: "POST",
+    					contentType: "application/json; charset=UTF-8",
+    					data: JSON.stringify(submitObj),
+    					dataType: "json",
+    					success: function(result){},
+    					error: function(){alert("실패");},
+    				})		
+    				.done(function(result){
+    					
+    					
+    					if(result == 1){
+    						window.close();
+    						opener.location.reload();
+    					}else{
+    						alert("후기 수정을 실패했습니다. 잠시 후 다시 시도해주세요.");
+    					}
+    					
+    				})
+    				
+    				
+    			}else{
+    				alert("수정할 후기를 작성해주세요.");
+    				return false;
+    			}
+    			
+    		}
+    		
+    		return false;
+    	}
+    </script>

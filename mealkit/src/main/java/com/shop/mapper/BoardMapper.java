@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.shop.dto.BoardDTO;
+import com.shop.dto.Criteria;
 import com.shop.frame.MyMapper;
 
 @Repository
@@ -26,5 +27,16 @@ public interface BoardMapper extends MyMapper<Integer, BoardDTO>{
 	//후기글 삭제하기
 	public int reviewDel(int boardKey) throws Exception;
 	
+	//후기 갯수 카운트
+	public int countReviews(Criteria cri) throws Exception;
 	
+	//문의 갯수 카운트
+	public int countQuestions(Criteria cri) throws Exception;
+	
+	//후기 전체 리스트
+	public List<BoardDTO> getReviewsList(Criteria cri) throws Exception;
+
+	//문의 전체 리스트
+	public List<BoardDTO> getQuestionsList(Criteria cri) throws Exception;
+
 }

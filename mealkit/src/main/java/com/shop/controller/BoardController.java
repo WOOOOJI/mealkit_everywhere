@@ -4,19 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.dto.BoardDTO;
 import com.shop.dto.CommentsDTO;
+import com.shop.dto.ItemDTO;
 import com.shop.service.BoardService;
 import com.shop.service.CommentsService;
+import com.shop.service.ItemService;
 
 @Controller
 @RequestMapping("/board")
@@ -30,6 +40,8 @@ public class BoardController {
 	@Autowired
 	CommentsService cservice;
 	
+	@Autowired
+	ItemService itemService;
 	
 	// 나의 문의 목록
 	@RequestMapping("/qnalist") 
@@ -150,6 +162,174 @@ public class BoardController {
         model.addAttribute("result", result);
         return "redirect:/board/reviewlist";
     }
+
+	
+	//후기 작성 폼으로 넘어가는 메소드
+	@RequestMapping("/writeReview")
+	public String writeReview(BoardDTO boardDTO, HttpSession session , Model model) {
+		
+		int custKey = (int) session.getAttribute("custKey");
+
+		boardDTO.setCustKey(custKey);
+		System.out.println(boardDTO.toString());
+		
+		model.addAttribute("boardDTO",boardDTO);
+		return "board/writereview";
+	}
+	
+	//후기 작성 폼에서 후기 등록하는 메소드 
+	@RequestMapping("/registerReview")
+	@ResponseBody
+	public int registerReview(@RequestBody String reviewJSON,
+								 HttpServletResponse response, Model model) {
+		int result = 0;
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		BoardDTO boardDTO = new BoardDTO();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			boardDTO = (BoardDTO)mapper.readValue(reviewJSON, new TypeReference<BoardDTO>() {});
+			
+			System.out.println(boardDTO.toString());
+			service.register(boardDTO);
+			
+			result = 1;
+		} catch (Exception e) {
+			System.out.println("후기 등록 실패");
+			System.out.println(e.toString());
+		}
+		
+		
+		return result;
+	}
 	
 	
+	
+	//후기 수정 폼으로 넘어가는 메소드
+	@RequestMapping("/modReview")
+	public String modReview(BoardDTO boardDTO, HttpSession session , Model model) {
+		
+		int custKey = (int) session.getAttribute("custKey");
+
+		boardDTO.setCustKey(custKey);
+		System.out.println(boardDTO.toString());
+			
+		model.addAttribute("boardDTO",boardDTO);
+		return "board/modreview";
+	}
+		
+	//후기 수정 폼에서 후기 업데이트하는 메소드 
+	@RequestMapping("/updateReview")
+	@ResponseBody
+	public int updateReview(@RequestBody String reviewJSON,
+							 HttpServletResponse response, Model model) {
+		int result = 0;
+		
+		response.setContentType("text/html; charset=UTF-8");
+			
+		BoardDTO boardDTO = new BoardDTO();
+			
+		ObjectMapper mapper = new ObjectMapper();
+			
+		try {
+			boardDTO = (BoardDTO)mapper.readValue(reviewJSON, new TypeReference<BoardDTO>() {});
+				
+			System.out.println(boardDTO.toString());
+			service.modify(boardDTO);
+				
+			result = 1;
+		} catch (Exception e) {
+			System.out.println("후기 등록 실패");
+			System.out.println(e.toString());
+		}
+			
+		return result;
+	}
+	
+	//문의 작성 폼으로 넘어가는 메소드
+	@RequestMapping("/writeQuestion")
+	public String writeQuestion(BoardDTO boardDTO, HttpSession session , Model model) {
+			
+		int custKey = (int) session.getAttribute("custKey");
+
+		boardDTO.setCustKey(custKey);
+		System.out.println(boardDTO.toString());
+			
+		model.addAttribute("boardDTO",boardDTO);
+		return "board/writequestion";
+	}
+		
+		
+	//문의 작성 폼에서 문의 등록하는 메소드 
+	@RequestMapping("/registerQuestion")
+	@ResponseBody
+	public int registerQuestion(@RequestBody String questionJSON,
+								 HttpServletResponse response, Model model) {
+		int result = 0;
+			
+		response.setContentType("text/html; charset=UTF-8");
+			
+		BoardDTO boardDTO = new BoardDTO();
+			
+		ObjectMapper mapper = new ObjectMapper();
+			
+		try {
+			boardDTO = (BoardDTO)mapper.readValue(questionJSON, new TypeReference<BoardDTO>() {});
+				
+			System.out.println(boardDTO.toString());
+			service.register(boardDTO);
+				
+			result = 1;
+		} catch (Exception e) {
+			System.out.println("문의 등록 실패");
+			System.out.println(e.toString());
+		}
+			
+			
+		return result;
+	}
+	
+	//문의 수정 폼으로 넘어가는 메소드
+	@RequestMapping("/modQuestion")
+	public String modQuestion(BoardDTO boardDTO, HttpSession session , Model model) {
+			
+		int custKey = (int) session.getAttribute("custKey");
+
+		boardDTO.setCustKey(custKey);
+		System.out.println("boardController, 302th line, At modQuestion " + boardDTO.toString());
+				
+		model.addAttribute("boardDTO",boardDTO);
+		return "board/modquestion";
+	}
+			
+	//후기 수정 폼에서 후기 업데이트하는 메소드 
+	@RequestMapping("/updateQuestion")
+	@ResponseBody
+	public int updateQuestion(@RequestBody String questionJSON,
+							 HttpServletResponse response, Model model) {
+		int result = 0;
+			
+		response.setContentType("text/html; charset=UTF-8");
+				
+		BoardDTO boardDTO = new BoardDTO();
+				
+		ObjectMapper mapper = new ObjectMapper();
+				
+		try {
+			boardDTO = (BoardDTO)mapper.readValue(questionJSON, new TypeReference<BoardDTO>() {});
+					
+			System.out.println("boardController, 324th line, At updateQuestion " + boardDTO.toString());
+			service.modify(boardDTO);
+					
+			result = 1;
+		} catch (Exception e) {
+			System.out.println("후기 등록 실패");
+			System.out.println(e.toString());
+		}
+				
+		return result;
+	}
 }
