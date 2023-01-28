@@ -1,0 +1,188 @@
+<style>
+.hide {
+	display: none;
+}
+</style>
+<div class="row">
+	<div class="col-12 col-lg-12 col-xxl-12 d-flex">
+		<div class="card flex-fill">
+			<div class="card-header">
+				<h5 class="card-title mb-0" style="font-size: 30px;">문의 내역</h5>
+
+
+				<div class="hero-wrap hero-bread"
+					style="background-image: url('/img/home3.jpg');">
+					<div class="container">
+						<div
+							class="row no-gutters slider-text align-items-center justify-content-center">
+							<div class="col-md-9 ftco-animate text-center">
+								</br>
+							</div>
+						</div>
+					</div>
+				</div>
+				<section class="ftco-section ftco-degree-bg">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-12 ftco-animate">
+								<tr>
+									<div>
+										글제목
+										<td><h2 class="mb-3" th:text="${board.title}"></h2></td>
+									</div>
+									<div th:text="'작성자: '+${board.username}"></div>
+									<div th:text="'글번호: '+${board.boardKey}" name="boardKey"></div>
+									<button type="button" class="btn btn-sm btn-primary"
+										id="btnList" style="float: right;"
+										th:onclick="qnaDelete([[${board.boardKey}]])">글 삭제</button>
+									<div th:text="'작성일: '+${board.rdate}"></div>
+								</tr>
+								<hr>
+
+								<p>
+									<img src="images/image_1.jpg" alt="" class="img-fluid">
+								</p>
+								<p th:text="${board.content}"></p>
+								<div style="margin-top: 20px">
+									<br> <br> <br>
+								</div>
+
+								<hr>
+								<button type="button" class="btn btn-sm btn-primary"
+									id="btnList"
+									th:onclick="'location.href=\''+ @{/board/qnalist} + '\''">글
+									리스트 보기</button>
+
+								<div th:if="${replyboard != null}" class="container px-5 my-5">
+
+									<h3 class="mb-5">관리자 답변</h3>
+									<ul class="comment-list">
+										<li>
+											<hr>
+											<div class="vcard bio"></div>
+											<div class="comment-body">
+												<h3>관리자</h3>
+												<div class="meta" th:text="${replyboard.rdate}"></div>
+												<p th:text="${replyboard.content}"></p>
+												<button type="button" class="btn btn-sm btn-primary"
+													id="btnList" style="float: right; margin-left:5px;"
+													th:onclick="replyDelete([[${replyboard.commentsKey}]], [[${board.boardKey}]])">삭제</button>
+												<button type="button" class="btn btn-sm btn-primary"
+													id="btnList" style="float: right;"
+													th:onclick="replyEditForm([[${replyboard.commentsKey}]], [[${board.boardKey}]])">수정</button>
+											</div>
+										</li>
+									</ul>
+									<!-- END comment-list -->
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			<!-- .col-md-8 -->
+			<div class="col-lg-4 sidebar ftco-animate">
+				<div class="sidebar-box"></div>
+			</div>
+
+			<!-- 답변 수정폼 -->
+			<div class="card my-4" style="margin: auto;"
+				th:classappend="${chk==1} ? '' : 'hide'" id="editform">
+				<h5 class="card-header">Leave a Comment:</h5>
+				<div class="card-body">
+					<form name="comment-form" action="/admin/comments/replyBoardEdit"
+						method="get" autocomplete="off">
+						<div class="form-group" th:if="${replyboard!=null}">
+							<input type="hidden" name="boardKey" th:value="${board.boardKey}" />
+							<input type="hidden" name="commentsKey"
+								th:value="${replyboard.commentsKey}" />
+							<textarea name="content" class="form-control"
+								style="width: 1160px;" rows="3" th:text="${replycontent}"></textarea>
+						</div>
+						<br>
+						<button type="submit" class="btn btn-primary">등록</button>
+					</form>
+				</div>
+			</div>
+			<!-- 답변 등록폼 -->
+			<div class="card my-4" style="margin: auto;"
+				th:if="${replyboard==null}">
+				<h5 class="card-header">Leave a Comment:</h5>
+				<div class="card-body">
+					<form name="comment-form" action="/admin/comments/replyBoardWrite"
+						method="get" autocomplete="off">
+						<div class="form-group">
+							<input type="hidden" name="boardKey" th:value="${board.boardKey}" />
+							<textarea name="content" class="form-control"
+								style="width: 1160px;" rows="3"></textarea>
+						</div>
+						<br>
+						<button type="submit" class="btn btn-primary">등록</button>
+					</form>
+				</div>
+			</div>
+
+
+		</div>
+		</section>
+
+
+
+		<script>
+   $(document).ready(function(){
+   	getCommentList();
+   })
+   
+   function getCommentList(){
+   	var boardKey = $('input[name=boardKey]').val();
+   	$.ajax({
+   		type:'GET',
+   		url: '/comments/getCommentList' ,
+   		data: {boardKey},
+   		success: function(result){
+   			console.log(result);
+   			for(var i=0; i<result.length; i++){
+   				var str = "<div class=\"comment\">"
+   				str += result[i].content+"</div></hr>"
+   				$("#comment").append(str);
+   			}
+   		},
+   		error: function(result){	
+   		},
+   		complete : function(){
+   		}
+   	})
+   	
+   }
+   
+   
+   </script>
+		<script>
+   function qnaDelete(boardKey){
+   	var chk = confirm("정말 삭제하시겠습니까?");
+	if(chk){
+   		location.href="/admin/board/qnaDelete?boardKey="+boardKey;
+	}
+   }
+   
+   </script>
+
+
+		<script>
+function replyDelete(commentsKey, boardKey){
+	
+	var chk = confirm("정말 삭제하시겠습니까?");
+	if(chk){
+		location.href="/admin/comments/replyBoardDelete?commentsKey="+commentsKey+"&boardKey="+boardKey;	
+	}
+   	
+}
+</script>
+
+		<script>
+function replyEditForm(commentsKey, boardKey){
+	document.getElementById('editform').className='dkdkdd';
+	location.href="/admin/comments/replyBoardEditForm?commentsKey="+commentsKey+"&boardKey="+boardKey;	
+	
+}
+
+</script>

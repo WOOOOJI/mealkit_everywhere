@@ -50,4 +50,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE boardKey= ${boardKey}
 	</delete>
 
+	<!-- 문의 삭제 -->
+	<delete id="qnaDel">
+		DELETE FROM board
+		WHERE boardKey = ${boardKey}
+	</delete>
+	
+
 </mapper>

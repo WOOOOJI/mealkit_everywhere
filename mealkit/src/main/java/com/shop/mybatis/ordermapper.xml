@@ -13,6 +13,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT i.name AS itemName, i.cnt-c.cnt AS cntcheck FROM item i
 		INNER JOIN cart c WHERE c.itemKey = i.itemKey AND c.custKey=${key}
 	</select>
+
 	<!-- 빈 total_order 생성하여 주문상세 받을 준비 -->
 	<insert id="createBlank" parameterType="Integer" >
 		INSERT INTO totalOrder(custKey,price,name,zipcode,addr,addrDetail,tel,itemCnt, itemName,itemImg) VALUES(${key},-1,(SELECT username FROM customer WHERE custKey=${key}),
@@ -22,6 +23,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="getOrderkey" parameterType="Integer" resultType="Integer">
 		SELECT orderKey FROM totalOrder WHERE custKey=${custKey} ORDER BY orderKey DESC LIMIT 1
 	</select>
+
 	<!-- total_order를 주문 내용으로 UPDATE하기 -->
 	<update id="orderUpdate">
 	    UPDATE totalOrder SET price=(select sum(price*cnt) from orderDetail where orderKey=${orderKey}),
@@ -40,7 +42,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="getOrderByOrderKey" parameterType="Integer" resultType="OrderDTO">
 		SELECT * FROM totalOrder WHERE orderKey=${orderKey}
 	</select>
+	
+	
 	<select id="getOrderWithItemInfo" resultType="OrderDTO">
 		SELECT * FROM totalOrder WHERE custKey=${custKey} ORDER BY rdate DESC
 	</select>
+	
+	
+	<update id="refund">
+		UPDATE totalOrder SET reason = #{reason}, status = "Q" WHERE orderKey = ${orderKey}
+	</update>
+	
+	
 </mapper>

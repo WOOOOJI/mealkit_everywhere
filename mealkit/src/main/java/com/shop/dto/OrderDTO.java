@@ -17,6 +17,9 @@ public class OrderDTO {
 	private String addrDetail;
 	private String tel;
 	private String req;
+	private String refund;
+	private String reason;
+	private String trackingNum;
 	
 	//장바구니에서 가져올 변수들
 	private String itemImg;

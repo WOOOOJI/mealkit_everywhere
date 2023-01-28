@@ -2,6 +2,38 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shop.mapper.CommentMapper">
+<mapper namespace="com.admin.mapper.CommentsMapper">
+	<!-- 문의 답변 보기 -->
+	<select id="qnaReply" parameterType="Integer" resultType="CommentsDTO">
+		SELECT c.boardKey AS "boardKey", c.adminKey AS "adminKey", c.content AS "content", c.rdate AS "rdate", c.commentsKey AS "commentsKey" 
+		FROM comments c
+		JOIN board b ON b.boardKey = c.boardKey
+		JOIN admin a ON a.adminKey = c.adminKey
+		WHERE c.boardKey = ${boardKey} 
+	</select> 
 	
+<!-- ///////////////////////////////////////////////////// -->	
+	<!-- 답글 등록 -->
+	<insert id="insertComments">
+		INSERT INTO comments (adminKey, boardKey, content)
+		VALUES ('1', ${boardKey}, #{content})
+	</insert>
+	
+	<!-- 답글 조회 -->
+	<select id="selectCommentList" resultType="CommentsDTO">
+		SELECT * 
+		FROM comments
+		WHERE boardKey=#{boardKey}
+	</select>
+	
+	<!-- 답글 수정 -->
+	<update id="updateComments">
+		UPDATE comments SET content = #{content} WHERE commentsKey = ${commentsKey}
+	</update>
+	
+	<!-- 답글 삭제 -->
+	<delete id="deleteComments">
+		DELETE FROM comments
+		WHERE commentsKey= ${commentsKey} 
+	</delete>
 </mapper>

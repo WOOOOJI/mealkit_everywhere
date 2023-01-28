@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>배송지 선택</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap"
+	rel="stylesheet">
+
+<link rel="stylesheet" th:href="@{/css/open-iconic-bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/animate.css}">
+
+<link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+<link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
+<link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+
+<link rel="stylesheet" th:href="@{/css/aos.css}">
+
+<link rel="stylesheet" th:href="@{/css/ionicons.min.css}">
+
+<link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
+<link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
+
+
+<link rel="stylesheet" th:href="@{/css/flaticon.css}">
+<link rel="stylesheet" th:href="@{/css/icomoon.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<style>
+#ad>li {
+	list-style: none;
+	float: left;
+}
+
+#ad {
+	width: 100%;
+	height: 100px;
+}
+</style>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+
+
+
+
+    <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      <div class="container">
+        <div class="row justify-content-center">
+				<form action="@{/order/submitAddr}" class="billing-form" name="addr_form" id="addr_form" method="POST">
+	          	<div class="row align-items-end">
+	          		
+                <div class="col-md-6">
+	                <div class="form-group" style="display:hidden;">
+	                	<label for="product">환불사유</label>
+	                	<select name="reason" id="reason">
+	                		<option value="음식이 상해서 왔어요.">음식이 상해서 왔어요.</option>
+	                		<option value="배송이 예정일보다 너무 늦게 도착해요.">배송이 예정일보다 너무 늦게 도착해요.</option>
+	                		<option value="제품의 유통기한이 많이 지났어요.">제품의 유통기한이 많이 지났어요.</option>
+	                		<option value="주문한 제품이 아닌 다른 제품이 왔어요.">주문한 제품이 아닌 다른 제품이 왔어요.</option>
+	                	</select>
+	                </div>
+                </div>
+	              
+                 <div class="col-md-12">
+	                <div class="form-group">
+	                	<label for="req">상세이유</label>
+	                  <input type="text" id="reasonDetail" class="form-control" placeholder="자세한 사유를 적어주세요." style="height:300px;">
+	                </div>
+                </div>
+                
+                <div class="col-md-12">
+                <a href="#"class="btn btn-primary py-3 px-4" style="float:right" onclick="refund()">환불신청</a>
+	          		
+	          		
+	          	</div>
+		            <div class="w-100"></div>	
+	         	</div>
+	         	  </form><!-- END -->
+	         	 </div>
+	         	 </div>
+
+
+
+
+</body>
+
+
+
+
+<script>
+	function refund(){
+		if(confirm("환불 신청을 하시겠습니까? 신청을 하신 뒤에는 되돌릴수 없습니다.")){			
+			var reason = $('#reason').val();
+			var orderKey = '[[${orderKey}]]';
+			if($('#reasonDetail').val() != null) reason += $('#reasonDetail').val();
+			
+			$.ajax({
+				url:"/order/refund",
+				type:"post",
+				data: {reason: reason, orderKey: orderKey},
+				success : function(data){
+					if(data == 1) {
+						alert("환불요청이 정상적으로 요청되었습니다.")
+						window.close();
+						opener.location.reload();
+					}
+					if(data == 0) alert("환불요청을 실패하였습니다. 잠시 후 다시 시도해주세요.");
+				}
+			});
+		}
+		
+		
+		
+		
+		
+	}
+</script>
+
+
+</html>

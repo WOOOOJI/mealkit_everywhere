@@ -2,6 +2,128 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shop.mapper.BoardMapper">
+<mapper namespace="com.admin.mapper.BoardMapper">
+	<!--선택한 문의글 삭제(목록에서) -->
+	<delete id="qnaDel">
+		DELETE FROM board
+		WHERE boardKey = ${boardKey}
+	</delete>
+	
+	<!-- 나의 문의 글 상세보기 -->
+	<select id="qnaDetail" resultType="BoardDTO">
+		SELECT b.boardKey AS "boardKey", b.custKey AS "custKey", b.itemKey AS "itemKey", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
+		, c.username AS "username", b.rdate AS "rdate"
+     	FROM board b
+		JOIN customer c ON c.custKey = b.custKey
+		JOIN item i ON i.itemKey = b.itemKey
+		WHERE  b.boardKey = ${boardKey} AND b.ntype='q'
+	</select>
+	
+	<!-- 문의 삭제 -->
+	<delete id="qnaDelete">
+		DELETE FROM board
+		WHERE boardKey = ${boardKey}
+	</delete>
+
+	<!-- 전체 문의 갯수 세기 -->
+	<select id="countQna" resultType="int" parameterType="Criteria">
+		SELECT count(boardKey) FROM board b
+		JOIN customer c ON c.custKey = b.custKey
+		JOIN item i ON i.itemKey = b.itemKey
+		WHERE  b.ntype = 'q'
+		<if test ="keyword != null">
+			<if test="!'boardKey'.equals(type)">
+				AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test = "'boardKey'.equals(type)">
+				AND boardKey = #{keyword}
+			</if>
+		</if>			
+	</select>
+	
+	<!--  오름차순으로 데이터 모두 조회 (LIMIT-데이터 시작위치[0이 처음]와 시작위치를 기준으로 가져올 데이터의 개수) -->
+	<select id="getQnaList" resultType="BoardDTO">
+		SELECT b.boardKey AS "boardKey", b.custKey AS "custKey", b.itemKey AS "itemKey", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
+		, c.username AS "username"
+	    FROM board b
+		JOIN customer c ON c.custKey = b.custKey
+		JOIN item i ON i.itemKey = b.itemKey
+		WHERE b.ntype = 'q' 
+		<if test= "keyword != null">
+			<if test = "type.equals('boardKey')">
+				AND boardKey = #{keyword}
+			</if>		
+			<if test = "!type.equals('boardKey')">
+				AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>
+		ORDER BY boardKey DESC
+		LIMIT #{skip}, #{amount}
+	</select>
+	
+<!-- ///////////////////////////////////////////////////////////////////////// -->
+	
+	<!--선택한 문의글 삭제(목록에서) -->
+	<delete id="reviewDel">
+		DELETE FROM board
+		WHERE boardKey = ${boardKey}
+	</delete>
+	
+	<!-- 나의 후기 글 상세보기 -->
+	<select id="reviewDetail" resultType="BoardDTO">
+		SELECT b.boardKey AS "boardKey", b.custKey AS "custKey", b.itemKey AS "itemKey", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
+		, c.username AS "username", b.rdate AS "rdate"
+     	FROM board b
+		JOIN customer c ON c.custKey = b.custKey
+		JOIN item i ON i.itemKey = b.itemKey
+		WHERE  b.boardKey = ${boardKey} AND b.ntype='r'
+	</select>
+	
+	<!-- 후기 삭제 -->
+	<delete id="reviewDelete">
+		DELETE FROM board
+		WHERE boardKey = ${boardKey}
+	</delete>
+	
+	<!-- 전체 후기 갯수 세기 -->
+	<select id="countReview" resultType="int" parameterType="Criteria">
+		SELECT count(*) FROM board b
+		JOIN customer c ON c.custKey = b.custKey
+		JOIN item i ON i.itemKey = b.itemKey
+		WHERE  b.ntype = 'r'
+		<if test ="keyword != null">
+			<if test="!'boardKey'.equals(type)">
+				AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test = "'boardKey'.equals(type)">
+				AND boardKey = #{keyword}
+			</if>
+		</if>			
+					
+	</select>
+	
+	<!--  오름차순으로 데이터 모두 조회 (LIMIT-데이터 시작위치[0이 처음]와 시작위치를 기준으로 가져올 데이터의 개수) -->
+	<select id="getReviewList" resultType="BoardDTO" parameterType="Criteria">
+		SELECT b.boardKey AS "boardKey", b.custKey AS "custKey", b.itemKey AS "itemKey", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
+		, c.username AS "username"
+	    FROM board b
+		JOIN customer c ON c.custKey = b.custKey
+		JOIN item i ON i.itemKey = b.itemKey
+		WHERE b.ntype = 'r'
+		<if test="keyword !=null">
+			<if test = "type.equals('boardKey')">
+				AND boardKey = #{keyword}
+			</if>		
+			<if test = "!type.equals('boardKey')">
+				AND ${type} LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>				
+		ORDER BY boardKey DESC
+		LIMIT #{skip}, #{amount}
+		
+	</select>
+	
+	
+
 	
 </mapper>

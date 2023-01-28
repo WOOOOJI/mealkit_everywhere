@@ -1,0 +1,207 @@
+<div class="row">
+	<div class="col-12 col-lg-12 col-xxl-12 d-flex">
+		<div class="card flex-fill">
+			<div class="card-header">
+				<h5 class="card-title mb-0" style="font-size: 30px;">문의 내역</h5>
+				
+					<!-- 검색 버튼 -->
+					<button id="searchBtn" class="btn btn-primary"
+						style="display: inline-block; float: right; margin-left: 10px;">검색하기
+					</button>
+				
+					<!-- 검색 키워드 select 태그 -->
+					<input id="keyword" type="search" class="form-control rounded"
+						placeholder="Search" aria-label="Search"
+						aria-describedby="search-addon"
+						style="display: inline-block; float: right; width: 30%;" />
+	
+					<div class="input-group float-right" style="display: inline;">
+						<select class="custom-select" id="inputGroupSelect04"
+							style="display: inline; float: right; margin-right: 10px; height: 32.59px">
+							<option selected value="boardKey">글번호</option>
+							<option value="username">작성자</option>
+							<option value="name">상품명</option>
+							<option value="title">제목</option>
+
+						</select>
+					</div>
+				
+				
+				
+			</div>
+			<table class="table table-hover my-0">
+				<thead>				
+					<div class="card-body text-left">
+						<button class="btn btn-primary btn-sm" th:onclick="boardDel()">삭제</button>
+					</div>
+
+					<tr>
+						<th class="d-none d-xl-table-cell" style="width: 120px;"><input
+							type="checkbox" id="cbxChkAll">전체선택</th>
+						<th>글번호</th>
+						<th>작성자</th>
+						<th class="d-none d-xl-table-cell" style="width: 300px;">상품명</th>
+
+
+						<th class="d-none d-xl-table-cell" style="width: 700px;">글제목</th>
+						<th class="d-none d-md-table-cell">작성일</th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+					<tr th:each="b:${qnaList}" th:if="${qnaList != null}">
+						<td class="d-none d-xl-table-cell"><input type="checkbox"
+							th:value="${b.boardKey}" name="chk"></td>
+						<td class="d-none d-xl-table-cell" th:text="${b.boardKey}"></td>
+						<td class="d-none d-xl-table-cell"
+							th:href="@{/board/qnalist(boardKey = ${b.boardKey})}"
+							th:text="${b.username}"></td>
+						<td class="d-none d-xl-table-cell" th:text="${b.name}"></td>
+						<td><a class="d-none d-xl-table-cell"
+							th:href="@{/board/qnadetail(boardKey = ${b.boardKey})}"
+							th:text="${b.title}"></a></td>
+						<td class="d-none d-md-table-cell" th:text="${b.rdate}"></td>
+					</tr>
+
+				</tbody>
+
+			</table>
+			<!--  찾는 검색결과가 없을시 -->
+             <div class="container-fluid" th:if="${qnaList == null}">
+                <div class="text-center">
+                    <div class="error mx-auto" style="font-size:50px; width:50%; margin-top:3%;">검색결과가 존재하지 않습니다.</div>
+                    <p class="lead text-gray-800 mb-5">찾으시는 검색관련 주문이 존재하지 않습니다!</p>
+                </div>
+
+            </div>
+		
+			
+			<!-- 페이징 바 -->
+			<nav aria-label="Page navigation example"
+				class="nav justify-content-center">
+				<ul class="pagination">
+					<li class="page-item">
+						<!-- 이전 버튼 -->
+						<div th:if="${keyword != null}">
+							<a th:if="${pageMaker.prev == true}"
+								th:href="@{/board/qnalist(pageNum = ${pageMaker.pageStart - 1},  keyword = ${keyword}, type = ${type})}"
+								class="page-link" href="#" aria-label="Previous"> <span
+								aria-hidden="true">&laquo;</span></a>
+						</div>
+						<div th:if="${keyword == null}">
+							<a th:if="${pageMaker.prev == true}"
+								th:href="@{/board/qnalist(pageNum = ${pageMaker.pageStart - 1})}"
+								class="page-link" href="#" aria-label="Previous"> <span
+								aria-hidden="true">&laquo;</span></a>
+						</div>
+					</li>
+					<!-- 페이지 번호 출력 -->
+					<li th:each="pageNum : ${pageNumList}" class="page-item" th:id="${pageNum}">
+						<!-- class="active" --> <a th:if="${keyword == null}"
+						class="page-link" th:id="${pageNum}"
+						th:href="@{/board/qnalist(pageNum = ${pageNum})}" th:text="${pageNum}"></a>
+						<a th:if="${keyword != null}" class="page-link"
+						th:href="@{/board/qnalist(pageNum = ${pageNum}, keyword = ${keyword}, type = ${type})}"
+						th:text="${pageNum}"></a>
+					</li>
+					<!-- 다음 버튼 -->
+					<li class="page-item">
+						<div th:if="${keyword != null}">
+							<a th:if="${pageMaker.next == true}"
+								th:href="@{/board/qnalist(pageNum = ${pageMaker.pageEnd + 1}, keyword = ${keyword}, type = ${type})}"
+								class="page-link" aria-label="Next"> <span
+								aria-hidden="true">&raquo;</span></a>
+						</div>
+						<div th:if="${keyword == null}">
+							<a th:if="${pageMaker.next == true}"
+								th:href="@{/board/qnalist(pageNum = ${pageMaker.pageEnd + 1})}"
+								class="page-link" aria-label="Next"> <span
+								aria-hidden="true">&raquo;</span></a>
+						</div>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	$(document).ready(function() {
+		$("#cbxChkAll").click(function() {
+			if ($("#cbxChkAll").is(":checked"))
+				$("input[name=chk]").prop("checked", true);
+			else
+				$("input[name=chk]").prop("checked", false);
+		});
+
+		$("input[name=chk]").click(function() {
+			var total = $("input[name=chk]").length;
+			var checked = $("input[name=chk]:checked").length;
+
+			if (total != checked)
+				$("#cbxChkAll").prop("checked", false);
+			else
+				$("#cbxChkAll").prop("checked", true);
+		});
+	});
+</script>
+
+<script>
+	function boardDel() {
+		var delArr = new Array();
+		var list = $("input[name=chk]");
+		for (var i = 0; i < list.length; i++) {
+			if (list[i].checked) {
+				delArr.push(list[i].value);
+			}
+
+		}
+		if (delArr.length == 0) {
+			alert("삭제할 글을 선택하세요.");
+			return false;
+		}
+		$.ajax({
+			url : "/admin/board/qnadel",
+			type : "post",
+			data : {
+				delList : delArr
+			},
+			success : function(data) {
+				if (data == 1) {
+					alert("정말 삭제하시겠습니까?");
+					location.reload();
+				} else {
+					alert("게시글 삭제를 실패하였습니다. 잠시 후 다시 시도해주세요.");
+				}
+			}
+		});
+	}
+</script>
+
+<script>
+	$(document).ready(function() {
+				$('#searchBtn').click(
+						function() {
+							var keyword = $('#keyword').val();
+							var type = $('#inputGroupSelect04').val();
+							
+
+							location.href = '/admin/board/qnalist?keyword=' + keyword
+									+ '&type=' + type;
+
+							alert(keyword + " " + type + " ");
+						});
+			});
+</script>
+
+
+<script>
+	$(document).ready(function() {
+		$("#[[${pageNum}]]").addClass("active");
+	});
+</script>
+
+
+

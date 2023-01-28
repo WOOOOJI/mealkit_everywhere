@@ -29,6 +29,14 @@ public class OrderService implements MyService<Integer, OrderDTO>{
 	public void modify(OrderDTO v) throws Exception {
 	}
 
+	
+	
+	
+	// 주석좀 달아주세요.
+
+	
+	
+	
 	@Override
 	public OrderDTO get(Integer k){
 		OrderDTO result=null;
@@ -129,4 +137,21 @@ public class OrderService implements MyService<Integer, OrderDTO>{
 		}
 		return result;
 	}
+	
+	//환불요청
+	public int refund(String reason, int orderKey) {
+		int result=0;
+		
+		try {
+			result = mapper.refund(reason, orderKey);			
+		}catch(Exception e) {
+			System.out.println("ERROR Caused by at OrderService row 147 line");
+			e.getMessage();
+		}
+		
+		return result;
+	}
+	
+	
+	
 }

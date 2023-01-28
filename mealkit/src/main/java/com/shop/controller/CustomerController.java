@@ -22,10 +22,12 @@ import com.shop.service.OrderService;
 
 @Controller
 @RequestMapping("/customer")
-public class CustomerController {
-
+public class CustomerController {		
+	
+	
 	
 	String dir="customer/";
+	
 	
 	
 	@Autowired
@@ -36,6 +38,7 @@ public class CustomerController {
 	
 	@Autowired
 	OrderDetailService orderDetailService;
+
 
 	// 회원가입 폼
 	@GetMapping("/memberForm")
@@ -202,8 +205,6 @@ public class CustomerController {
 	
 	
 	
-	// 주문내역 조회
-
 
 	@RequestMapping("/orderlist")
 	public String orderlist(Model model, HttpSession session) {

@@ -39,6 +39,10 @@ import lombok.ToString;
 	  //게시글 타입(공지사항/이벤트)
 	  private String ntype;
 	  
+	  
+	  private String orderBy;
+
+	  
 	  //디폴트값을 설정하는 기본 생성자 
 	  public Criteria() { 
 		 this.pageNum = 1;

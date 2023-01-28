@@ -49,8 +49,7 @@ public class BoardController {
 		                           
 		
 		  model.addAttribute("list", qnaList); 
-		  model.addAttribute("content",
-		  "/board/myqna");
+		  model.addAttribute("content", "/board/myqna");
 		 
 		
 		return "main";
@@ -151,5 +150,12 @@ public class BoardController {
         return "redirect:/board/reviewlist";
     }
 	
-	
+	//문의글 삭제 + 답변 삭제 (DDL문에서 on delete cascade추가해서 답변까지 함께 지울 수 있도록 함) 
+	@RequestMapping("/qnaDel")
+	public String qnaDel(int boardKey, Model model) throws Exception{
+		int result = service.qnaDel(boardKey);
+		model.addAttribute("result", result);
+		return "redirect:/board/qnalist";
+			
+		}
 }
