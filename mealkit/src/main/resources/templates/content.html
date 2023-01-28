@@ -211,7 +211,7 @@ function insertWish(item){
     			<input type="hidden" th:value="${i.itemKey}">
     				<div class="product">
     				<!-- 이미지 -->
-    					<a href="#" class="img-prod"><img class="img-fluid" th:src="@{/img/cook.jpg}" alt="Colorlib Template">
+    					<a th:href="@{/shoplist/productSingle(itemKey=${i.itemKey})}" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${i.img1}" alt="Colorlib Template">
     					<!-- 할인률 -->
     						<span class="status per" th:if="${i.per > 0}" th:text="${i.per}+'% SALE'"></span>
     						<div class="overlay"></div>
@@ -262,7 +262,7 @@ function insertWish(item){
     			<input type="hidden" th:value="${i.itemKey}">
     				<div class="product">
     				<!-- 이미지 -->
-    					<a href="#" class="img-prod"><img class="img-fluid" th:src="@{/img/cook.jpg}" alt="Colorlib Template">
+    					<a th:href="@{/shoplist/productSingle(itemKey=${i.itemKey})}" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${i.img1}" alt="Colorlib Template">
     					<!-- 할인률 -->
     						<span class="status per" th:if="${i.per > 0}" th:text="${i.per}+'% SALE'"></span>
     						<div class="overlay"></div>

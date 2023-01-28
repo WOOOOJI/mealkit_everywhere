@@ -51,6 +51,7 @@ public class OrderService implements MyService<Integer, OrderDTO> {
 	// 페이징 처리를 위해서 설정한 개수만큼의 주문 페이지 리스트 가져오기
 	public List<OrderDTO> getOrderList(Criteria cri){
 		try {
+			System.out.println(cri);
 			return orderMapper.getOrderList(cri);
 		} catch (Exception e) {
 			e.printStackTrace();

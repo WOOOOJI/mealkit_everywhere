@@ -34,7 +34,7 @@ public class OrderController {
 	@RequestMapping("")
 	public String orderManage(Model model, Criteria cri, @RequestParam(defaultValue="1", value="pageNum") int pageNum, String keyword, String type, @RequestParam(defaultValue="DESC", value="orderBy")String orderBy) {
 		
-		
+		System.out.println(cri);
 		if(keyword == null) keyword = "nothing";
 		
 		cri.setKeyword(keyword);
@@ -53,8 +53,6 @@ public class OrderController {
 		}else {
 			model.addAttribute("nothing", dir+"nothing");
 		}
-		
-		model.addAttribute("navbar", dir+"navbar");
 		model.addAttribute("content", dir+"orderlist");
 		model.addAttribute("active", itemPageResponseDTO.getActive());
 		model.addAttribute("pageNumList", itemPageResponseDTO.getPageNumList());
@@ -65,6 +63,7 @@ public class OrderController {
 		model.addAttribute("type", type);
 		model.addAttribute("orderBy", orderBy);
 		
+		System.out.println(orderList);
 		
 		return "main";
 	}

@@ -25,38 +25,36 @@
 						<select class="custom-select" id="inputGroupSelect03"
 							style="display: inline; float: left; margin-right: 10px; height: 32.59px">
 							<option selected value="R">음식 카테고리별</option>
-							<option value="D">한식</option>
-							<option value="D">중식</option>
-							<option value="D">일식</option>
-							<option value="D">양식</option>
-							<option value="D">동남아식</option>
+							<option value="1">한식</option>
+							<option value="2">중식</option>
+							<option value="3">일식</option>
+							<option value="4">양식</option>
 						</select>
 						
 						<select class="custom-select" id="inputGroupSelect03"
 							style="display: inline; float: left; margin-right: 10px; height: 32.59px">
 							<option selected value="R">나이대별</option>
-							<option value="D">10대</option>
-							<option value="D">20대</option>
-							<option value="D">30대</option>
-							<option value="D">40대</option>
-							<option value="D">50대</option>
-							<option value="D">60대</option>
-							<option value="D">70대 이상</option>
+							<option value="1">10대</option>
+							<option value="2">20대</option>
+							<option value="3">30대</option>
+							<option value="4">40대</option>
+							<option value="5">50대</option>
+							<option value="6">60대</option>
 						</select>
 						
 						
 						<select class="custom-select" id="inputGroupSelect03"
 							style="display: inline; float: left; margin-right: 10px; height: 32.59px">
 							<option selected value="R">성별</option>
-							<option value="D">남성</option>
-							<option value="D">여성</option>
+							<option value="13">남성</option>
+							<option value="24">여성</option>
 						</select>
 						
 					</div>
 					
-					<input type="date">
+					<input type="date" name="startDate">
 					 ~ 
-					<input type="date">
+					<input type="date" name="endDate">
 					<button class="btn btn-primary"
 						style="display: inline-block; margin-left: 10px;"
 						onclick="changeStatus()">조회하기</button>					
@@ -180,16 +178,28 @@
 
 								<table class="table mb-0">
 									<tbody>
+										<tr class="card-title">
+											<td>연령대</td>
+											<td class="text-end">판매된 개수</td>
+											<td>연령대</td>
+											<td class="text-end">판매된 개수</td>
+										</tr>
 										<tr>
-											<td>한식</td>
+											<td>10대</td>
+											<td class="text-end">4306개</td>
+											<td>40대</td>
 											<td class="text-end">4306개</td>
 										</tr>
 										<tr>
-											<td>중식</td>
+											<td>20대</td>
+											<td class="text-end">3801개</td>
+											<td>50대</td>
 											<td class="text-end">3801개</td>
 										</tr>
 										<tr>
-											<td>일식</td>
+											<td>30대</td>
+											<td class="text-end">1689개</td>
+											<td>60대</td>
 											<td class="text-end">1689개</td>
 										</tr>
 									</tbody>
@@ -211,23 +221,23 @@
 							<div class="align-self-center w-100">
 								<div class="py-3">
 									<div class="chart chart-xs">
-										<canvas id="chartjs-dashboard-pie"></canvas>
+										<canvas id="chartjs-dashboard-pie2"></canvas>
 									</div>
 								</div>
 
 								<table class="table mb-0">
 									<tbody>
+										<tr class="card-title">
+											<td>성별</td>
+											<td class="text-end">판매된 개수</td>
+										</tr>
 										<tr>
-											<td>한식</td>
+											<td>남성</td>
 											<td class="text-end">4306개</td>
 										</tr>
 										<tr>
-											<td>중식</td>
+											<td>여성</td>
 											<td class="text-end">3801개</td>
-										</tr>
-										<tr>
-											<td>일식</td>
-											<td class="text-end">1689개</td>
 										</tr>
 									</tbody>
 								</table>
@@ -249,14 +259,14 @@
 					<div class="card flex-fill">
 						<div class="card-header">
 							
-				<h5 class="card-title mb-0">최근 주문건</h5>
+				<h5 class="card-title mb-0">조회 주문건</h5>
 							
 				<div style="margin-top: 30px;">
 					<div class="input-group float-right" style="display: inline;">
 						<select class="custom-select" id="inputGroupSelect03"
 							style="display: inline; float: left; margin-right: 10px; height: 32.59px">
 							<option selected value="R">판매량순</option>
-							<option value="D"></option>
+							<option selected value="R">금액순</option>
 						</select>
 						
 
@@ -274,69 +284,69 @@
 						<table class="table table-hover my-0">
 							<thead>
 								<tr>
-									<th>판매상품명</th>
-									<th class="d-none d-xl-table-cell">받는 사람</th>
-									<th class="d-none d-xl-table-cell">결제 금액</th>
-									<th>주문상태</th>
-									<th class="d-none d-md-table-cell">주문 날짜</th>
+									<th>상품명</th>
+									<th class="d-none d-xl-table-cell">누적 금액</th>
+									<th>할인률</th>
+									<th class="d-none d-md-table-cell">상품가격</th>
+									<th class="d-none d-xl-table-cell">현재까지 판매된 개수</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 									<td>둘이 먹다 죽어도 모르는 한식 세트</td>
-									<td class="d-none d-xl-table-cell">김기태</td>
-									<td class="d-none d-xl-table-cell">65,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
+									<td class="d-none d-xl-table-cell">365,000원</td>
+									<td><span class="badge bg-success">70%</span></td>
+									<th class="d-none d-md-table-cell">28,000원</th>
+									<td class="d-none d-xl-table-cell">54개</td>
 								</tr>
 								<tr>
 									<td>사와디캅 팟타이</td>
-									<td class="d-none d-xl-table-cell">한승우</td>
-									<td class="d-none d-xl-table-cell">131,200원</td>
-									<td><span class="badge bg-danger">환불요청</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
+									<td class="d-none d-xl-table-cell">231,200원</td>
+									<td><span class="badge bg-danger">30%</span></td>
+									<th class="d-none d-md-table-cell">28,000원</th>
+									<td class="d-none d-xl-table-cell">44개</td>
 								</tr>
 								<tr>
 									<td>알찬 이탈리안 볼로네제라자냐</td>
-									<td class="d-none d-xl-table-cell">홍길동</td>
-									<td class="d-none d-xl-table-cell">631,200원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
+									<td class="d-none d-xl-table-cell">131,200원</td>
+									<td><span class="badge bg-success">30%</span></td>
+									<th class="d-none d-md-table-cell">28,000원</th>
+									<td class="d-none d-xl-table-cell">31개</td>
 								</tr>
 								<tr>
 									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">연우진</td>
-									<td class="d-none d-xl-table-cell">100,000원</td>
-									<td><span class="badge bg-warning">배송준비중</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
+									<td class="d-none d-xl-table-cell">110,000원</td>
+									<td><span class="badge bg-warning">40%</span></td>
+									<th class="d-none d-md-table-cell">28,000원</th>
+									<td class="d-none d-xl-table-cell">30개</td>
 								</tr>
 								<tr>
 									<td>얼큰한 꽂개탕</td>
-									<td class="d-none d-xl-table-cell">이상아</td>
-									<td class="d-none d-xl-table-cell">210,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
+									<td class="d-none d-xl-table-cell">109,000원</td>
+									<td><span class="badge bg-success">60%</span></td>
+									<th class="d-none d-md-table-cell">28,000원</th>
+									<td class="d-none d-xl-table-cell">28개</td>
 								</tr>
 								<tr>
 									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">한승우</td>
-									<td class="d-none d-xl-table-cell">10,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
+									<td class="d-none d-xl-table-cell">101,000원</td>
+									<td><span class="badge bg-success">80%</span></td>
+									<th class="d-none d-md-table-cell">28,000원</th>
+									<td class="d-none d-xl-table-cell">26개</td>
 								</tr>
 								<tr>
 									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">김기태</td>
-									<td class="d-none d-xl-table-cell">52,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
+									<td class="d-none d-xl-table-cell">98,000원</td>
+									<td><span class="badge bg-success">10%</span></td>
+									<th class="d-none d-md-table-cell">28,000원</th>
+									<td class="d-none d-xl-table-cell">22개</td>
 								</tr>
 								<tr>
 									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">김기태</td>
-									<td class="d-none d-xl-table-cell">65,000원</td>
-									<td><span class="badge bg-warning">배송준비중</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
+									<td class="d-none d-xl-table-cell">91,000원</td>
+									<td><span class="badge bg-warning">20%</span></td>
+									<th class="d-none d-md-table-cell">28,000원</th>
+									<td class="d-none d-xl-table-cell">25개</td>
 								</tr>
 							</tbody>
 						</table>
@@ -357,81 +367,42 @@
 
 <script src="js/app.js"></script>
 
+
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
-		var ctx = document.getElementById("chartjs-dashboard-line").getContext(
-				"2d");
-		var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-		gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-		gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-		// Line chart
-		new Chart(document.getElementById("chartjs-dashboard-line"), {
-			type : "line",
-			data : {
-				labels : [ "00:00", "01:00", "02:00", "03:00", "04:00",
-						"05:00", "06:00", "07:00", "08:00", "09:00", "10:00",
-						"11:00", "12:00", "13:00", "14:00", "15:00", "16:00",
-						"17:00", "18:00", "19:00", "20:00", "21:00", "22:00",
-						"23:00", "24:00" ],
-				datasets : [ {
-					label : "판매금 (원): ",
-					fill : true,
-					backgroundColor : gradient,
-					borderColor : window.theme.primary,
-					data : [ 2115, 1562, 1584, 1892, 1587, 1923, 2566, 2448,
-							2805, 3438, 2917, 3327, 2115, 1562, 1584, 1892,
-							1587, 1923, 2566, 2448, 2805, 3438, 2917, 3327 ]
-				} ]
+document.addEventListener("DOMContentLoaded", function() {
+	// Pie chart
+	new Chart(document.getElementById("chartjs-dashboard-pie"), {
+		type : "bar",
+		data : {
+			labels : [ "10대", "20대", "30대", "40대", "50대", "60대" ],
+			datasets : [ {
+				data : [ 43, 38, 16, 24, 12, 14],
+				backgroundColor : [window.theme.warning, window.theme.warning, window.theme.primary, window.theme.primary, window.theme.info, window.theme.info ],
+				borderWidth : 5
+			} ]
+		},
+		options : {
+			responsive : !window.MSInputMethodContext,
+			maintainAspectRatio : false,
+			legend : {
+				display : false
 			},
-			options : {
-				maintainAspectRatio : false,
-				legend : {
-					display : false
-				},
-				tooltips : {
-					intersect : false
-				},
-				hover : {
-					intersect : true
-				},
-				plugins : {
-					filler : {
-						propagate : false
-					}
-				},
-				scales : {
-					xAxes : [ {
-						reverse : true,
-						gridLines : {
-							color : "rgba(0,0,0,0.0)"
-						}
-					} ],
-					yAxes : [ {
-						ticks : {
-							stepSize : 1000
-						},
-						display : true,
-						borderDash : [ 3, 3 ],
-						gridLines : {
-							color : "rgba(0,0,0,0.0)"
-						}
-					} ]
-				}
-			}
-		});
+			cutoutPercentage : 75
+			
+		}
 	});
+});
 </script>
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
 		// Pie chart
-		new Chart(document.getElementById("chartjs-dashboard-pie"), {
+		new Chart(document.getElementById("chartjs-dashboard-pie2"), {
 			type : "pie",
 			data : {
-				labels : [ "Chrome", "Firefox", "IE" ],
+				labels : [ "남성 (%)", "여성 (%)"],
 				datasets : [ {
-					data : [ 4306, 3801, 1689 ],
-					backgroundColor : [ window.theme.primary,
-							window.theme.warning, window.theme.danger ],
+					data : [ 43, 38],
+					backgroundColor : [ window.theme.primary, window.theme.danger ],
 					borderWidth : 5
 				} ]
 			},
@@ -446,6 +417,7 @@
 		});
 	});
 </script>
+
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
 		// Bar chart

@@ -183,30 +183,26 @@
 						
 			
 			
+				<div class="row">
 			
-			
-			
-			
-			<div class="row">
-				
-				
-				
-				<div class="col-12 col-lg-12">
-					<div class="card">
+				<div class="col-xl-12 col-xxl-12">
+					<div class="card flex-fill w-100">
 						<div class="card-header">
-							<h5 class="card-title">일별 구매율</h5>
-							<h6 class="card-subtitle text-muted">총 접속한 사용자와 실제로 구매까지 이어진 회원의 비율로 구합니다.</h6>
+
+							<h5 class="card-title mb-0">이번달 매출 차트</h5>
 						</div>
-						<div class="card-body">
-							<div class="chart">
-								<canvas id="chartjs-bar"></canvas>
+						<div class="card-body py-3">
+							<div class="chart chart-sm">
+								<canvas id="chartjs-dashboard-line2"></canvas>
 							</div>
 						</div>
 					</div>
 				</div>
-			
-				
+
+
 			</div>
+			
+		
 				
 				
 			
@@ -450,6 +446,87 @@
 		});
 	});
 </script>
+
+
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		var ctx = document.getElementById("chartjs-dashboard-line2").getContext(
+				"2d");
+		var gradient = ctx.createLinearGradient(0, 0, 0, 225);
+		gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
+		gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
+		
+		var gradient2 = ctx.createLinearGradient(0, 0, 0, 225);
+		gradient2.addColorStop(0, "rgba(115, 217, 244, 1)");
+		gradient2.addColorStop(1, "rgba(415, 287, 244, 0)");
+		// Line chart
+		new Chart(document.getElementById("chartjs-dashboard-line2"), {
+			type : "line",
+			data : {
+				labels : [ "00:00", "01:00", "02:00", "03:00", "04:00",
+						"05:00", "06:00", "07:00", "08:00", "09:00", "10:00",
+						"11:00", "12:00", "13:00", "14:00", "15:00", "16:00",
+						"17:00", "18:00", "19:00", "20:00", "21:00", "22:00",
+						"23:00", "24:00" ],
+				datasets : [ {
+					label : "판매금 (원): ",
+					fill : true,
+					backgroundColor : gradient,
+					borderColor : window.theme.primary,
+					data : [ 2115, 1562, 1584, 1892, 1587, 1923, 2566, 2448,
+							2805, 3438, 2917, 3327, 2115, 1562, 1584, 1892,
+							1587, 1923, 2566, 2448, 2805, 3438, 2917, 3327 ]
+				}, {
+					label : "판매금 (원): ",
+					fill : true,
+					backgroundColor : gradient2,
+					borderColor : window.theme.primary,
+					data : [ 1115, 2562, 1484, 1692, 1787, 1423, 2266, 2148,
+							1805, 2438, 3917, 3327, 2115, 1562, 1584, 1892,
+							5587, 4923, 3566, 1448, 2205, 3938, 1917, 3027 ]
+				} ]
+			},
+			options : {
+				maintainAspectRatio : false,
+				legend : {
+					display : false
+				},
+				tooltips : {
+					intersect : false
+				},
+				hover : {
+					intersect : true
+				},
+				plugins : {
+					filler : {
+						propagate : false
+					}
+				},
+				scales : {
+					xAxes : [ {
+						reverse : true,
+						gridLines : {
+							color : "rgba(0,0,0,0.0)"
+						}
+					} ],
+					yAxes : [ {
+						ticks : {
+							stepSize : 1000
+						},
+						display : true,
+						borderDash : [ 3, 3 ],
+						gridLines : {
+							color : "rgba(0,0,0,0.0)"
+						}
+					} ]
+				}
+			}
+		});
+	});
+</script>
+
+
+
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
 		// Pie chart

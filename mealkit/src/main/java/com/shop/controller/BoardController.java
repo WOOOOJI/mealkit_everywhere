@@ -9,8 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shop.dto.BoardDTO;
@@ -158,4 +160,80 @@ public class BoardController {
 		return "redirect:/board/qnalist";
 			
 		}
+	
+	
+	
+	
+	
+	// 후기글 수정폼
+	@RequestMapping("/boardEdit")
+	public String boardEdit(int boardKey, Model model) {
+		BoardDTO dto = null;
+		try {
+			dto = service.reviewDetail(boardKey);
+		} catch (Exception e) {
+			System.out.println("Error Caused by BoardController at row 171");
+			e.printStackTrace();
+		}
+		
+		
+		model.addAttribute("content", "board/revieweditform");
+		model.addAttribute("board", dto);
+		
+		
+		return "main";
+	}
+	
+	
+	
+	
+	// 후기글 수정
+	@PostMapping("/boardEditOk")
+	@ResponseBody
+	public int boardEditOk(int boardKey, String content, Model model) {
+		int result = 0;
+	
+		result = service.boardEdit(boardKey, content);
+		
+		return result;
+	}
+	
+	
+	
+	// 문의글 수정폼
+	@RequestMapping("/qnaEdit")
+	public String qnaEdit(int boardKey, Model model) {
+		BoardDTO dto = null;
+		try {
+			dto = service.get(boardKey);
+		} catch (Exception e) {
+			System.out.println("Error Caused by BoardController at row 208");
+			e.printStackTrace();
+		}
+		
+		
+		model.addAttribute("content", "board/qnaeditform");
+		model.addAttribute("board", dto);
+		
+		
+		return "main";
+	}
+	
+	
+	
+	
+	// 문의글 수정
+	@PostMapping("/qnaEditOk")
+	@ResponseBody
+	public int qnaEditOk(int boardKey, String content, Model model) {
+		int result = 0;
+	
+		result = service.boardEdit(boardKey, content);
+		
+		return result;
+	}
+	
+	
+	
+	
 }

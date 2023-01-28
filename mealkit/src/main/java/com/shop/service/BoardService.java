@@ -75,4 +75,21 @@ public class BoardService implements MyService<Integer, BoardDTO>{
 		return mapper.qnaDel(k);
 	}
 	
+	//후기글 수정하기
+	public int boardEdit(int boardKey, String content) {
+		int result = 0;
+		
+		
+		try {			
+			result = mapper.boardEdit(boardKey, content);
+		}catch(Exception e) {
+			System.out.println("Error Caused by at BoardService row 84 line");
+			e.printStackTrace();
+		}
+
+		
+		
+		return result;
+	}
+	
 }

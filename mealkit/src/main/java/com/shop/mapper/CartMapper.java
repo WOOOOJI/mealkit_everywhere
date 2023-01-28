@@ -24,6 +24,6 @@ public interface CartMapper extends MyMapper<Integer, CartDTO>{
 	public void insertCart(int custKey, int itemKey, int cnt) throws Exception;
 	
 	// 장바구니에 이미 존재하는 물건을 추가를 하면 수량을 증가시키기
-	public void increaseCart(int cart_key, int itemKey, int cnt) throws Exception;
+	public void increaseCart(int cartKey, int itemKey, int cnt) throws Exception;
 	
 }

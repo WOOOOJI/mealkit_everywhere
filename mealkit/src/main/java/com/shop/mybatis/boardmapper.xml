@@ -56,5 +56,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE boardKey = ${boardKey}
 	</delete>
 	
+	
+	<!-- 후기글 수정 -->
+	<update id="boardEdit">
+		UPDATE board  
+		SET content = #{content}  
+		WHERE boardKey = ${boardKey}
+	</update>
+	
 
 </mapper>

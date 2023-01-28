@@ -28,4 +28,8 @@ public interface BoardMapper extends MyMapper<Integer, BoardDTO>{
 	
 	//문의글 삭제하기
 	public int qnaDel(int boardKey) throws Exception;
+	
+	//후기글 수정하기
+	public int boardEdit(int boardKey, String content) throws Exception;
+	
 }

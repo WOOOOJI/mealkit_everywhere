@@ -10,7 +10,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
           	<p style="font-size:20px;" class="breadcrumbs"><span class="mr-2"><a th:href="@{/}" >Home</a></span> <span>My QnA</span></p>
-            <h1 class="mb-0 bread" style="font-size:48px;">나의 후기 내역</h1>
+            <h1 class="mb-0 bread" style="font-size:48px;">나의 문의 내역</h1>
           </div>
         </div>
       </div>
@@ -26,24 +26,25 @@
 			 <div> 글제목<td><h2 class="mb-3" th:text="${board.title}" ></h2></td></div>
 			<div  th:text="${board.username}"> </div>
 			<button type="button" class="btn btn-sm btn-primary" id="btnList" style="float:right; margin-left:10px" th:onclick="boardDel([[${board.boardKey}]])">글 삭제</button>
-			<button type="button" class="btn btn-sm btn-primary" id="btnList" style="float:right;" th:onclick="boardEdit([[${board.boardKey}]])">글 수정</button>
 			<div  th:text="${board.rdate}"> </div> 
 			
 			
 			
 			 </tr>	
 			<hr>
-           
-            <p>
-              <img src="images/image_1.jpg" alt="" class="img-fluid">
-            </p>
-            <p th:text="${board.content}"></p>
-						<div style="margin-top : 20px">
+
+			<div class="card">
+				
+				<div class="card-body">
+					<textarea id="boardContent" class="form-control" rows="10" placeholder="수정할 글을 입력해주세요." th:text="${board.content}" th:value="${board.content}"></textarea>
+				</div>
+			</div>
+			<div style="margin-top : 20px">
 
 				<br><br><br>
 			</div>	
             <hr>
-              <button type="button" class="btn btn-sm btn-primary" id="btnList" th:onclick="'location.href=\''+ @{/board/reviewlist} + '\''">글 리스트 보기</button>
+              <button type="button" class="btn btn-sm btn-primary" id="btnList" th:onclick="boardEditOk([[${board.boardKey}]])">수정하기</button>
               
               <!-- END comment-list -->
             </div>
@@ -69,8 +70,42 @@
     </script>
     
     <script>
-    	function boardEdit(boardKey){
-    		location.href="/board/boardEdit?boardKey="+boardKey;	
+    	function boardEditOk(boardKey){
+	    	var content = $('#boardContent').val();
+	    	
+	    	if(content == '[[${board.content}]]'){
+	    		alert("수정된 내용이 없습니다. 수정하신 후에 다시 시도해주세요.");
+	    		return false;
+	    	}
+	    	
+    		if(confirm("정말 수정 하시겠습니까?")){
+    			
+    			if(content != null && content != ""){    				
+    				
+    				$.ajax({
+    					url:"/board/qnaEditOk",
+    					data: {boardKey : boardKey, content : content},
+    					method: "POST",
+    					success: function(result){
+    						if(result == 1){
+    							location.href="/board/qnadetail?boardKey="+boardKey;
+    						}else{
+    							alert("글 수정을 실패하였습니다. 잠시 후 다시 시도해주세요.");
+    						}
+    						
+    					}
+    					
+    				});
+    				
+    				
+    			}else{
+    				alert("수정할 글 내용을 입력해주세요.");
+    				return false;
+    			}
+    			
+    		}
+    		
+    		return false;
     	}
     </script>
     

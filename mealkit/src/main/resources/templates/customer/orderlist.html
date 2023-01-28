@@ -35,7 +35,7 @@ function go(orderKey){
 						    </thead>
 						    <tbody>
 						      <tr th:each="l:${list}" class="text-center">
-						      	<td class="img1"><img th:src="@{/img/}+${l.itemImg}" style="width:80px"></td>
+						      	<td class="img1"><img th:src="@{/img/product/}+${l.itemImg}" style="width:80px"></td>
 						      	<td class="text" th:if="${l.itemCnt>1}"th:text="${l.itemName}+' 외 '+${l.itemCnt-1}+'개 제품'"></td>
 						      	<td class="text" th:if="${l.itemCnt==1}"th:text="${l.itemName}"></td>
 						      	<td class="name" th:text="${l.name}"></td>
