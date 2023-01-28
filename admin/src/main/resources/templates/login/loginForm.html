@@ -18,7 +18,7 @@
 
 	<title>"MealKit 관리자 접속"</title>
 
-	<link href="css/app.css" rel="stylesheet">
+	<link th:href="@{/css/app.css}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -40,11 +40,11 @@
 							<div class="card-body">
 								<div class="m-sm-4">
 									<div class="text-center">
-										<img src="img/avatars/avatar.jpg" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
+										<img th:src="@{/img/cook.jpg}" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
 									</div>
 									<form th:action="@{/login}" id="frm" method="post">
 										<div class="mb-3">
-											<label class="form-label">이메일</label>
+											<label class="form-label">아이디</label>
 											<input class="form-control form-control-lg" type="email" name="adminId" id="adminId" placeholder="Enter your ID" />
 										</div>
 										<div class="mb-3">
@@ -55,8 +55,8 @@
 			
 										</div>
 										<div class="text-center mt-3">
+										<!-- 로그인 버튼 클릭시 onclick이벤트로 login() 함수 호출 -->
 											<a href="#" onclick="login()" class="btn btn-lg btn-primary">로그인 하기</a>
-											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
 										</div>
 									</form>
 								</div>
@@ -77,6 +77,7 @@
 
 <script>
 
+// 로그인 이벤트 발생시 호출될 함수. 공백에 대한 유호성 검사.
 function login(){
 	var id = document.getElementById('adminId').value;
 	var pwd = document.getElementById('adminPwd').value;
@@ -96,7 +97,7 @@ function login(){
 
 
 
-
+// 로그인 실패시 다시 로그인화면으로 돌아오게 되며 그때 전달된 result변수의 값이 1이면 실패. 2이면 성공 메인화면으로 이동.
 $(document).ready(function(){
 	if('[[${result}]]' == 1){
 		alert("아이디와 비밀번호를 확인해주세요.");

@@ -2,6 +2,115 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shop.mapper.OrderMapper">
+<mapper namespace="com.admin.mapper.OrderMapper">
+
+
+	<!-- 주문리스트 페이지 개수 -->
+	<select id="countOrder" resultType="int">
+		SELECT count(orderKey) FROM totalOrder t
+		JOIN customer c ON c.custKey = t.custKey
+		<if test="keyword != 'nothing'">
+			<if test="'t.addr'.equals(type)">
+				WHERE addr LIKE CONCAT('%', #{keyword}, '%') OR
+				addrDetail LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test='!"t.addr".equals(type) and !"c.username".equals(type)'>
+				WHERE ${type} LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			
+			<if test='"c.username".equals(type)'>
+				WHERE c.username LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</if>
+
+	</select>
+
+	<!-- 주문 페이지 정보 가져오기 -->
+	<select id="orderDetail" resultType="orderDTO">
+		SELECT * FROM totalOrder
+		WHERE orderKey=${orderKey}
+	</select>
+
+
+	<!-- orderKey 오름차순으로 데이터 모두 조회 (LIMIT-데이터 시작위치[0이 처음]와 시작위치를 기준으로 가져올 데이터의 
+		개수) -->
+	<select id="getOrderList" resultType="orderDTO">
+		SELECT c.username AS "custName", c.tel AS "custTel", t.orderKey AS
+		"orderKey", t.custKey AS "custKey", t.price AS "price", t.rdate AS
+		"rdate", t.status AS "status", t.name AS "name", t.zipcode AS
+		"zipcode", t.addr AS "addr", t.addrDetail AS "addrDetail", t.tel AS
+		"tel", t.req AS "req", t.reason AS "reason", t.trackingNum AS
+		"trackingNum" FROM totalOrder t
+		JOIN customer c ON c.custKey = t.custKey
+		<if test="keyword != 'nothing'">
+			<if test="'t.addr'.equals(type)">
+				WHERE t.addr LIKE CONCAT('%', #{keyword}, '%') OR
+				t.addrDetail LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			<if test='!"t.addr".equals(type) and !"c.username".equals(type) and !"t.orderKey".equals(type)'>
+				WHERE ${type} LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			
+			<if test='"t.orderKey".equals(type)'>
+				WHERE t.orderKey = #{keyword} 
+			</if>
+			
+			<if test='"c.username".equals(type)'>
+				WHERE c.username LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			
+		</if>
+
+		ORDER BY t.orderKey ${orderBy}
+		LIMIT #{skip}, #{amount}
+	</select>
+
+
+	<!-- 주문상태 변경하기 -->
+	<update id="statusChange">
+		UPDATE totalOrder SET status = #{status} WHERE
+		orderKey = ${orderKey}
+	</update>
+
+
+
+	<!-- 주문명세서에 해당되는 주문아이템의 상세 정보 가져오기 -->
+	<select id="getOrderDetail" resultType="ItemDTO">
+		SELECT i.name AS "name",
+		i.sale AS "sale", i.itemKey AS "itemKey", o.cnt AS "cnt" FROM
+		totalOrder t
+		JOIN orderDetail o ON o.orderKey = t.orderKey
+		JOIN item i
+		ON i.itemKey = o.itemKey
+		WHERE t.orderKey = ${orderKey}
+	</select>
+
+	<!-- 구매한 회원의 정보 가져오기 -->
+	<select id="getCustInfo" resultType="CustomerDTO">
+		SELECT c.username AS
+		"username", c.tel AS "tel", c.email AS "email", c.jumin AS "jumin",
+		c.gender AS "gender" FROM totalOrder t
+		JOIN customer c ON c.custKey =
+		t.custKey
+		WHERE orderKey = ${orderKey}
+	</select>
+
+
+	<!-- 주문을 받는 분의 정보 가져오기 -->
+	<select id="getToWho" resultType="OrderDTO">
+		SELECT orderKey, name, tel,
+		zipcode, reason, status, rdate,
+		addr, addrDetail, req, price,
+		trackingNum FROM totalOrder
+		WHERE orderKey = ${orderKey}
+	</select>
+
+
+
+	<!-- 운송장 번호 데이터 수정 및 삽입 -->
+	<update id="insertTrackingNum">
+		UPDATE totalOrder SET trackingNum = #{trackingNum}
+		WHERE orderKey = ${orderKey}
+	</update>
 
 </mapper>

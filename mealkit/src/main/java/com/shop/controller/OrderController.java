@@ -26,6 +26,9 @@ public class OrderController {
 
 	String dir = "order/";
 
+	
+	// 카멜 표기법으로 수정해주세요. ex) addrservice X addrService O
+	
 	@Autowired
 	AddressService addrservice;
 
@@ -237,6 +240,33 @@ public class OrderController {
 	@RequestMapping("/requestPay")
 	public int requestPay(String imp_uid, String merchant_uid) {
 		return 1;
+	}
+	
+	
+	// 환불 페이지 이동
+	@RequestMapping("/refundform")
+	public String refundForm(int orderKey, Model model) {
+		model.addAttribute("orderKey", orderKey);
+		return "order/refund";
+	}
+	
+	
+	// 환불처리
+	@RequestMapping("/refund")
+	@ResponseBody
+	public int refund(String reason, String orderKey) {
+		int result = 0;
+		result = orderservice.refund(reason, Integer.parseInt(orderKey));
+		return result;
+	}
+	
+	
+	// 주문 배송상태 확인
+	@RequestMapping("/orderTracking")
+	public String orderTracking(String trackingNum, Model model) {
+		model.addAttribute("trackingNum", trackingNum);
+		System.out.println(trackingNum);
+		return "order/tracking";
 	}
 
 }

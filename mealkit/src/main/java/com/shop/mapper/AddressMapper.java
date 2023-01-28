@@ -8,9 +8,12 @@ import org.springframework.stereotype.Repository;
 import com.shop.dto.AddressDTO;
 import com.shop.frame.MyMapper;
 
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
+
 @Repository
 @Mapper
 public interface AddressMapper extends MyMapper<Integer, AddressDTO>{
+	
 	//기본 배송지 확인
 	public AddressDTO checkDefault(int custKey) throws Exception;
 	//회원의 배송지 확인
@@ -21,3 +24,4 @@ public interface AddressMapper extends MyMapper<Integer, AddressDTO>{
 	public void insertAddress(int custKey,AddressDTO address) throws Exception;
 	//배송지 삭제하기
 }
+

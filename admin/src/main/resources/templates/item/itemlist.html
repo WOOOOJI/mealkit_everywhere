@@ -1,0 +1,195 @@
+<script>
+	$(document).ready(function() {
+		var pageNum = '[[${pageNum}]]';
+		document.getElementById(pageNum).className = 'active';
+	});
+</script>
+
+<style>
+#item_paging>li{
+	text-align: center;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    
+}
+
+th {
+	text-align: center;
+}
+
+a {
+	color: black;
+}
+
+#pageList>.active {
+	background: #3b7ddd;
+	color: #fff;
+	border: 1px solid transparent;
+	text-align: center;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+}
+
+
+</style>
+<main class="content">
+	<div class="row">
+		<div class="col-12 col-lg-12 col-xxl-12 d-flex">
+			<div class="card flex-fill">
+				<div class="card-header">
+					<h5 class="card-title mb-0">전체 상품 관리</h5>
+					<div style="float:right">
+					<label>
+						<select id="ascDesc" class="form-select form-select-sm" onchange="selectAscDesc()">
+							<option value="">순서</option>
+							<option value="DESC">내림차순</option>
+							<option value="ASC">오름차순</option>						
+						</select>
+					</label>
+					<label>
+						<select id="categoryKey" class="form-select form-select-sm" onchange="selectCategory()">
+							<option value="">카테고리</option>
+							<option value="0">전체</option>
+							<option value="1">한식</option>
+							<option value="2">중식</option>	
+							<option value="3">일식</option>
+							<option value="4">양식</option>					
+						</select>
+					</label>
+					<label>
+						<select id="orderCri" class="form-select form-select-sm" onchange="selectOrderCri()">
+							<option value="">정렬기준</option>
+							<option value="itemKey">상품번호</option>
+							<option value="name">상품명</option>
+							<option value="price">가격</option>	
+							<option value="sale">판매가</option>
+							<option value="cnt">재고</option>					
+						</select>
+					</label>
+					</div>
+				</div>
+				<table class="table table-hover my-0">
+					<thead>
+						<tr>
+							<th style="width: 80px">상품번호</th>
+							<th style="width: 350px">상품명</th>
+							<th class="d-none d-xl-table-cell" style="width: 80px">카테고리</th>
+							<th class="d-none d-xl-table-cell">상품설명</th>
+							<th style="width: 75px">정가</th>
+							<th style="width: 75px">할인가</th>
+							<th class="d-none d-xl-table-cell" style="width: 65px">재고</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="item_list" th:each="l:${list}">
+							<td><a th:text="${l.itemKey}"
+								th:href="@{/item/itemdetail(itemKey=${l.itemKey})}"></a></td>
+							<td><a th:text="${l.name}"
+								th:href="@{/item/itemdetail(itemKey=${l.itemKey})}"></a></td>
+							<td class="d-none d-xl-table-cell" th:switch="${l.categoryKey}">
+								<span th:case="'1'" th:text="한식"></span> <span th:case="'2'"
+								th:text="중식"></span> <span th:case="'3'" th:text="일식"></span> <span
+								th:case="'4'" th:text="양식"></span>
+							</td>
+							<td class="d-none d-xl-table-cell" th:text="${l.content}"></td>
+							<td th:text="${l.price}"></td>
+							<td th:text="${l.sale}"></td>
+							<td class="d-none d-xl-table-cell" th:text="${l.cnt}"></td>
+						</tr>
+
+					</tbody>
+				</table>
+				
+				<div style="margin:20px 0 20px 22% " class="col-6 col-lg-6 text-center">
+					<div style="display:inline">
+						<label>
+							<select id="searchType" class="form-select form-select-sm">
+								<option value="name">상품명</option>
+								<option value="num">상품번호</option>					
+							</select>
+						</label>
+					</div>
+						<input style="display:inline;width:70%" type="text" id="keyword" class="form-control" maxlength="45"
+								placeholder="검색어를 입력해주세요.">
+						<button class="btn btn-primary" onclick="searchKeyword()">검색</button>
+						
+				</div>
+				<a th:href="@{/item/registerform}" class="btn btn-primary">상품 등록하기</a>
+				
+			</div>
+		</div>
+		<!-- 페이징 바 -->
+		<div class="row mt-9" id="pageSection">
+			<div class="col text-center">
+				<div class="block-27">
+					<ul id="item_paging">
+						<!-- <a>태그의 href는 get방식만 가능하다? -->
+
+
+						<!-- th:if="${pageMaker.prev == true에서 ture를 ''로 묶으면 문자열로 인식한다. 따라서 true로 써야 한다 -->
+						<!-- 클래스는 공백으로도 설정이 된다 -->
+						<!-- 타임리프로 클래스 설정시 문자열이 아닌 값으로 넘긴다 -->
+
+						<!-- 이전 버튼 -->
+						<li class="prevbtn"><a th:if="${pageMaker.prev == true}"
+							th:href="@{/item/list(pageNum = ${pageMaker.pageStart - 1})}">&lt;</a></li>
+						<!-- 페이지 번호 출력 -->
+						<li th:each="pageNum : ${pageNumList}" id="pageList">
+							<!-- class="active" --> <a th:id="${pageNum}"
+							th:href="@{/item/list(pageNum = ${pageNum})}"
+							th:text="${pageNum}"></a>
+						</li>
+						<!-- 다음 버튼 -->
+						<li class="nextbtn"><a th:if="${pageMaker.next == true}"
+							th:href="@{/item/list(pageNum = ${pageMaker.pageEnd + 1})}">&gt;</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</main>
+
+<script>
+	var ascDesc="[[${ascDesc}]]";
+	var cat="[[${categoryKey}]]";
+	var cri="[[${orderCri}]]";
+	var type="[[${type}]]"
+
+	function selectAscDesc(){
+		var ascDesc=document.getElementById('ascDesc').value;
+		location.href="/admin/item/list?ascDesc="+ascDesc+"&categoryKey="+cat+"&orderCri="+cri;
+	}
+	
+	function selectCategory(){
+		var cat=document.getElementById('categoryKey').value;
+		location.href="/admin/item/list?ascDesc="+ascDesc+"&categoryKey="+cat+"&orderCri="+cri;
+	}
+	
+	function selectOrderCri(){
+		var cri=document.getElementById('orderCri').value;
+		location.href="/admin/item/list?ascDesc="+ascDesc+"&categoryKey="+cat+"&orderCri="+cri;
+	}
+	
+	function searchKeyword(){
+		
+		
+		var key=document.getElementById('keyword').value;
+		var type=document.getElementById('searchType').value;
+		if(key==""){
+			alert('검색어를 입력해주세요');
+			return false;
+		}else{
+			location.href="/admin/item/list?type="+type+"&keyword="+key;
+		}
+		
+	}
+	
+</script>
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+// 운송장 조회. 페이지 접속시 서버에서 전달된 운송장번호를 통해 바로 이동한다.
+ $(document).ready(function(){
+	$('form').submit();
+ });
+</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+        <form style="display:none;" action="http://info.sweettracker.co.kr/tracking/4" method="post" id="trackingPost">
+            <div class="form-group">
+              <label for="t_key">API key</label>
+              <input type="text" class="form-control" id="t_key" name="t_key" value="PAxuVkbUQArPcSZoJkcprQ">
+            </div>
+            <div class="form-group">
+              <label for="t_code">택배사 코드</label>
+              <input type="text" class="form-control" name="t_code" id="t_code" value="04">
+            </div>
+            <div class="form-group">
+              <label for="t_invoice">운송장 번호</label>
+              <input type="text" class="form-control" name="t_invoice" id="t_invoice" th:value="${trackingNum}">
+            </div>
+            <button type="submit" class="btn btn-default">조회하기</button>
+        </form>
+        
+        
+        
+</body>
+</html>

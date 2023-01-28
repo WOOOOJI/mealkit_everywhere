@@ -1,3 +1,4 @@
+
 <nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" th:href="@{/}">
@@ -9,33 +10,33 @@
 						판매 데이터 통계
 					</li>
 
-					<li class="sidebar-item active">
+					<li class="sidebar-item">
 						<a class="sidebar-link" th:href="@{/}">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">전체 통계 요약</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
-              <i class="align-middle" data-feather="user"></i> <span class="align-middle">시간별 통계</span>
+						<a class="sidebar-link" th:href="@{/yearanalyze}">
+              <i class="align-middle" data-feather="user"></i> <span class="align-middle">년도별 통계</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-sign-in.html">
-              <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">나이별 통계</span>
+						<a class="sidebar-link" th:href="@{/monthanalyze}">
+              <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">월별 통계</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-sign-up.html">
-              <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">상품별 통계</span>
+						<a class="sidebar-link" th:href="@{/dayanalyze}">
+              <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">일별 통계</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-blank.html">
-              <i class="align-middle" data-feather="book"></i> <span class="align-middle">성별 통계</span>
+						<a class="sidebar-link" th:href="@{/detailSearch}">
+              <i class="align-middle" data-feather="book"></i> <span class="align-middle">상세 검색</span>
             </a>
 					</li>
 
@@ -44,7 +45,7 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-buttons.html">
+						<a class="sidebar-link" th:href="@{/item/list}">
               <i class="align-middle" data-feather="square"></i> <span class="align-middle">상품 관리하기</span>
             </a>
 					</li>
@@ -56,19 +57,19 @@
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-cards.html">
+						<a class="sidebar-link" th:href="@{/notice}">
               <i class="align-middle" data-feather="grid"></i> <span class="align-middle">이벤트, 공지사항</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-typography.html">
+						<a class="sidebar-link" th:href="@{/board/qnalist}">
               <i class="align-middle" data-feather="align-left"></i> <span class="align-middle">문의, 후기</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="icons-feather.html">
+						<a class="sidebar-link" th:href="@{/order?orderBy=DESC}">
               <i class="align-middle" data-feather="coffee"></i> <span class="align-middle">주문 관리하기</span>
             </a>
 					</li>
@@ -102,9 +103,6 @@
 					</div>
 				</div>
 			</div>
-			
-			
-			
 			
 			
 			

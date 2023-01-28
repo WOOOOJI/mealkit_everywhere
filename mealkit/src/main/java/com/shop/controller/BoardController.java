@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.dto.BoardDTO;
 import com.shop.dto.CommentsDTO;
-import com.shop.dto.ItemDTO;
 import com.shop.service.BoardService;
 import com.shop.service.CommentsService;
 import com.shop.service.ItemService;
@@ -61,8 +57,7 @@ public class BoardController {
 		                           
 		
 		  model.addAttribute("list", qnaList); 
-		  model.addAttribute("content",
-		  "/board/myqna");
+		  model.addAttribute("content", "/board/myqna");
 		 
 		
 		return "main";
@@ -207,7 +202,6 @@ public class BoardController {
 	}
 	
 	
-	
 	//후기 수정 폼으로 넘어가는 메소드
 	@RequestMapping("/modReview")
 	public String modReview(BoardDTO boardDTO, HttpSession session , Model model) {
@@ -331,5 +325,13 @@ public class BoardController {
 		}
 				
 		return result;
+	}
+	//문의글 삭제 + 답변 삭제 (DDL문에서 on delete cascade추가해서 답변까지 함께 지울 수 있도록 함) 
+	@RequestMapping("/qnaDel")
+	public String qnaDel(int boardKey, Model model) throws Exception{
+		int result = service.qnaDel(boardKey);
+		model.addAttribute("result", result);
+		return "redirect:/board/qnalist";
+			
 	}
 }

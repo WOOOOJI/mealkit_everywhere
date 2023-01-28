@@ -1,0 +1,272 @@
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+
+
+<section class="content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-8">
+
+
+				<!-- 주문상태에 따른 태그(버튼 색상 및 글자) -->
+				<div class="invoice p-3 mb-3">
+					<div th:if="${order.status == 'Q'}">
+						<td><span class="badge bg-danger">환불요청</span></td>
+					</div>
+
+					<div th:if="${order.status == 'D'}">
+						<td><span class="badge bg-warning">배송중</span></td>
+					</div>
+
+					<div th:if="${order.status == 'S'}">
+						<td><span class="badge bg-success">배송완료</span></td>
+					</div>
+
+					<div th:if="${order.status == 'F'}">
+						<td><span class="badge bg-info">환불완료</span></td>
+					</div>
+
+					<div th:if="${order.status == 'R'}">
+						<td><span class="badge bg-primary">배송준비중</span></td>
+					</div>
+
+					<div th:if="${order.status == 'O'}">
+						<td><span class="badge bg-secondary">주문완료</span></td>
+					</div>
+					
+					
+					
+					<!-- 주문정보 -->
+					<div class="row">
+						<div class="col-12">
+							<h4>
+								<i class="fas fa-globe"></i> MealKit, Inc. <small
+									id="orderKey" class="float-right" th:text="'주문번호: ' +${order.orderKey}"></small>
+							</h4>
+						</div>
+						<!-- /.col -->
+					</div>
+					
+					
+					<!-- 회원정보 -->
+					<div class="row invoice-info">
+						<div class="col-sm-4 invoice-col">
+							<strong>회원정보</strong>
+							<address>
+								<span th:text="'성함: '+ ${cust.username}"></span><br> <span
+									th:text="'전화번호: '+${cust.tel}"></span><br> <span
+									th:text="'이메일: '+${cust.email}"></span><br> <span
+									th:text="'주민번호: '+${cust.jumin}+'-'+${cust.gender}+'xxxxxx'"></span>
+							</address>
+						</div>
+						
+						
+						<!-- 배송지 정보 -->
+						<div class="col-sm-4 invoice-col">
+							<strong>받으시는 분 정보</strong>
+							<address>
+								<span th:text="'받는 분 성함: '+${order.name}"></span><br> <span
+									th:text="'전화번호: '+${order.tel}"></span><br> <span
+									th:text="'받는 분 주소: '+${order.addr}+${order.addrDetail}"></span><br>
+								<span th:text="'우편번호: '+${order.zipcode}"></span><br> <span
+									th:text="'요청사항: '+${order.req}"></span><br> <span
+									th:if="${order.trackingNum != null}"
+									th:text="'송장번호: '+${order.trackingNum}"></span>
+							</address>
+						</div>
+						
+						<!-- 환불사유 -->
+						<div class="col-sm-4 invoice-col" th:if="${order.reason != null}">
+							<address>
+								<strong><span>환불요청</span></strong><br> <span
+									th:text="'환불사유: '+${order.reason}"></span><br>
+							</address>
+						</div>
+					</div>
+					<!-- /.row -->
+
+
+					<!-- 주문한 상품 상세 정보 -->
+					<div class="row">
+						<div class="col-12 table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>상품번호</th>
+										<th>상품명</th>
+										<th>상품 금액</th>
+										<th>주문 갯수</th>
+										<th>합계 금액</th>
+									</tr>
+								</thead>
+								<tbody>
+
+									<!-- 반복문으로 orderDetail 뿌리기 -->
+									<tr th:each="i:${itemList}">
+										<td th:text=${i.itemKey}>1</td>
+										<td th:text="${i.name}"></td>
+										<td th:text="${i.sale}"></td>
+										<td th:text="${i.cnt}+'개'"></td>
+										<td th:text="${i.cnt}*${i.sale}+'원'"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.col -->
+					</div>
+					<!-- /.row -->
+
+
+
+
+					<div class="row">
+						<!-- 결제정보 -->
+						<div class="col-6">
+							<p class="lead" th:text="'결제일: '+${order.rdate}"></p>
+
+							<div class="table-responsive">
+								<table class="table">
+									<tr>
+										<th style="width: 50%">총 합계금액:</th>
+										<td th:if="${order.price ge 33000}"
+											th:text="${order.price}+'원'"></td>
+										<td th:if="${order.price < 33000}"
+											th:text="${order.price-3000}+'원'"></td>
+									</tr>
+									<tr>
+										<th>배송비:</th>
+										<td th:if="${order.price ge 33000}">0원</td>
+										<td th:if="${order.price < 33000}">3000원</td>
+									</tr>
+									<tr>
+										<th>결제금액:</th>
+										<td th:text="${order.price}+'원'"></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						
+						
+						<!-- 송장 등록 및 수정 -->
+						<div class="col-6">
+						<!-- general form elements -->
+						<div class="card card-primary">
+							<div class="card-header" style="background-color:white;">
+								<h3 class="card-title">송장 등록 및 수정하기</h3>
+							</div>
+							<!-- /.card-header -->
+							<!-- form start -->
+								<div class="card-body">
+									<div>
+										<label for="trackingNum">송장번호</label> <input
+											type="text" class="form-control" id="trackingNum"
+											placeholder="-를 제외한 송장번호를 입력해주세요.">
+									</div>
+								</div>
+								<!-- /.card-body -->
+
+								<div class="card-footer" style="background-color:#fff;">
+									<button onclick="insertTrackingNum()" class="btn btn-secondary">등록하기</button>
+								</div>
+						</div>
+					</div>
+						
+					</div>
+					<!-- /.row -->
+
+						<!-- 뒤로가기, 배송조회, 환불처리 버튼 -->
+						<div class="row no-print">
+							<div class="col-12">
+								<button onclick="history.back()" type="button"
+									class="btn btn-primary float-right" style="margin-right: 5px;">
+									<i class="fas fa-download"></i>뒤로가기
+								</button>
+								<button type="button" class="btn btn-success float-right"
+									th:onclick="trackingNum([[${order.trackingNum}]])">
+									<i class="far fa-credit-card"></i> 배송조회
+								</button>
+								<button type="button" class="btn btn-danger float-right"
+									style="margin-right: 5px;" th:if="${order.status.equals('Q')}"
+									th:onclick="refundOk([[${order.orderKey}]])">
+									<i class="fas fa-download"></i>환불처리
+								</button>
+							</div>
+						</div>
+					</div>
+
+							
+					<script>
+						// 배송조회
+						function trackingNum(num) {
+							location.href = '/admin/order/orderTracking?trackingNum='+num;
+						}
+					</script>
+
+
+					<script>
+						// 환불처리 승인
+						function refundOk(orderKey) {
+							if (confirm("정말 환불처리 하시겠습니까?")) {
+									$.ajax({
+											url : "/admin/order/refundOk",
+											data : {
+												status : "F",
+												orderKey : orderKey
+											},
+											method : "GET",
+											success : function(data) {
+												if (data == 1) {
+													alert("환불처리가 정상적으로 되었습니다.");
+													location.reload();
+												} else {
+													alert("환불처리가 실패하였습니다. 잠시 후 다시 시도해주세요.");
+												}
+											}
+										});
+							}
+
+							return false;
+						}
+					</script>
+					
+					
+					
+					<script>
+						// 송장번호 입력 및 수정
+						function insertTrackingNum(){
+							var trackingNum = $('#trackingNum').val();
+							var orderKey = '[[${order.orderKey}]]';
+							const check = /[0-9]$/;
+							const lengthCheck = /[0-9]{10,12}$/;
+							if(trackingNum == ''){
+								alert("운송장 번호를 입력해주세요.");
+								return false;
+							}else if(!check.test(trackingNum)){
+								alert("- 제외한 숫자만 입력해주세요.");
+								return false;
+							}else if(!lengthCheck.test(trackingNum)){
+								alert("운송장 번호는 10~12자리 입니다.");
+								return false;
+							}else if(trackingNum.length > 12){
+								alert("운송장 번호는 최소 10자리에서 최대 12자리입니다.");
+								return false;
+							}else{
+								$.ajax({
+									url:"/admin/order/insertTrackingNum",
+									data:{trackingNum : trackingNum, orderKey : orderKey},
+									method: "GET",
+									success: function(data){
+										if(data == 1){
+											alert("운송장 번호가 수정되었습니다.")
+											location.reload();
+										}else{
+											alert("운송장 번호 업데이트를 실패하였습니다. 잠시 후 다시 시도해주세요.");
+										}
+									}
+								});
+							}
+						}	
+					</script>

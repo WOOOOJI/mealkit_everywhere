@@ -20,6 +20,21 @@ import lombok.ToString;
 	  //페이지 스킵
 	  private int skip;
 	  
+	  //검색 키워드 
+	  private String keyword;
+	  
+	  //검색 타입 
+	  private String type;
+	  
+	  //카테고리 번호
+	  private int categoryKey;
+	  
+	  //게시글 타입(공지사항/이벤트)
+	  private String ntype;
+	  
+	  
+	  private String orderBy;
+
 	  //이메일 검색 키워드 
 	  private String emailKeyword;
 
@@ -29,9 +44,6 @@ import lombok.ToString;
 	  //전화번호 검색 키워드 
 	  private String phNumberKeyword;
 	  
-	  //검색 타입 
-	  private String type;
-	  
 	  //정렬 기준
 	  private String orderCri;
 	  
@@ -39,7 +51,7 @@ import lombok.ToString;
 	  private String ascDesc = "desc";
 	  
 	  //디폴트값을 설정하는 기본 생성자 
-	  public Criteria() {
+	  public Criteria() { 
 		 this.pageNum = 1;
 		 this.amount = 12; 
 	  }

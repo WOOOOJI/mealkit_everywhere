@@ -39,4 +39,6 @@ public interface BoardMapper extends MyMapper<Integer, BoardDTO>{
 	//문의 전체 리스트
 	public List<BoardDTO> getQuestionsList(Criteria cri) throws Exception;
 
+	//문의글 삭제하기
+	public int qnaDel(int boardKey) throws Exception;
 }
