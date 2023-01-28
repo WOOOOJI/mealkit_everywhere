@@ -216,7 +216,6 @@ public class CustomerController {
 		int custKey=(int)session.getAttribute("custKey");
 		// 해당 회원의 모든 total_list를 받아오기
 		list=orderService.getOrderWithItemInfo(custKey);
-
 		model.addAttribute("list", list);
 		model.addAttribute("content", dir+"orderlist");
 		return "main";

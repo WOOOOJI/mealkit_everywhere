@@ -1,0 +1,300 @@
+<script>
+	function deleteFile1(obj) {
+	    obj.parent().remove();
+	    var str = "<input type='file' id='imgFile1' name='imgFile1' class='form-control'>";
+	    $("#img1Body").append(str);
+	}
+	
+	function deleteFile2(obj) {
+	    obj.parent().remove();
+	    var str = "<input type='file' name='imgFile2' class='form-control'>";
+	    $("#img2Body").append(str);
+	}
+	
+	function deleteFile3(obj) {
+	    obj.parent().remove();
+	    var str = "<input type='file' name='imgFile3' class='form-control'>";
+	    $("#img3Body").append(str);
+	}
+	
+	function deleteFile4(obj) {
+	    obj.parent().remove();
+	    var str = "<input type='file' name='imgFile4' class='form-control'>";
+	    $("#img4Body").append(str);
+	}
+	
+	function deleteFile5(obj) {
+	    obj.parent().remove();
+	    var str = "<input type='file' name='imgFile5' class='form-control'>";
+	    $("#img5Body").append(str);
+	}
+	
+	$(document).ready(function(){
+		$("button[name='fileDelete1']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile1($(this)); 
+        });
+		
+		$("button[name='fileDelete2']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile2($(this)); 
+        });
+		
+		$("button[name='fileDelete3']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile3($(this)); 
+        });
+		
+		$("button[name='fileDelete4']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile4($(this)); 
+        });
+		
+		$("button[name='fileDelete5']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile5($(this)); 
+        });
+		
+	});
+</script>
+
+<main class="content">
+	<div class="container-fluid p-0">
+
+		<h1 class="h3 mb-3">상품 조회/변경</h1>
+		<form name="registerForm" id="registerForm" enctype="multipart/form-data">
+			<input type="hidden" id="itemKey" name="itemKey" th:value="${item.itemKey}">
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="card-title mb-0">상품 정보</h5>
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">상품명</div>
+						</div>
+						<div class="card-body">
+							<input type="text" id="name" name="name" class="form-control" maxlength="45"
+								th:value="${item.name}">
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">상품 설명</div>
+						</div>
+						<div class="card-body">
+							<input type="text" id="contents" name="content" class="form-control" maxlength="300"
+								th:value="${item.content}">
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">정가</div>
+						</div>
+						<div class="card-body">
+							<input type="text" id="price" name="price" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+								th:value="${item.price}">
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">판매가</div>
+						</div>
+						<div class="card-body">
+							<input type="text" id="sale" name="sale" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+								th:value="${item.sale}">
+						</div>
+						
+						<div th:if="${item.categoryKey==1}"class="card-header">
+							<div class="card-title mb-0">카테고리</div>
+							<br> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="1" checked> <span class="form-check-label"> 한식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="2"> <span class="form-check-label"> 중식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="3"> <span class="form-check-label"> 일식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="4"> <span class="form-check-label"> 양식 </span>
+							</label>
+						</div>
+						
+						<div th:if="${item.categoryKey==2}"class="card-header">
+							<div class="card-title mb-0">카테고리</div>
+							<br> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="1"> <span class="form-check-label"> 한식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="2" checked> <span class="form-check-label"> 중식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="3"> <span class="form-check-label"> 일식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="4"> <span class="form-check-label"> 양식 </span>
+							</label>
+						</div>
+						
+						<div th:if="${item.categoryKey==3}"class="card-header">
+							<div class="card-title mb-0">카테고리</div>
+							<br> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="1"> <span class="form-check-label"> 한식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="2"> <span class="form-check-label"> 중식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="3" checked> <span class="form-check-label"> 일식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="4"> <span class="form-check-label"> 양식 </span>
+							</label>
+						</div>
+						
+						<div th:if="${item.categoryKey==4}"class="card-header">
+							<div class="card-title mb-0">카테고리</div>
+							<br> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="1"> <span class="form-check-label"> 한식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="2"> <span class="form-check-label"> 중식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="3"> <span class="form-check-label"> 일식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="4" checked> <span class="form-check-label"> 양식 </span>
+							</label>
+						</div>
+						
+						<div class="card-header">
+							<div class="card-title mb-0">재고</div>
+						</div>
+						<div class="card-body">
+							<input type="number" id="cnt" name="cnt" class="form-control"
+								th:value="${item.cnt}">
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">상품 사진 (최대 5개)</div>
+						</div>
+						
+						<div id="img1Body" class="card-body">
+						<div th:if="${item.img1!=null}">
+							<input type="text" th:value="${item.img1}" readonly="readonly" id="imgFile1" name="img1" class="form-control">
+							<button class="btn btn-danger" name="fileDelete1" style="float:right">이미지 삭제</button>
+						</div>
+						</div>
+						
+						<div id="img2Body" class="card-body">
+						<div th:if="${item.img2!=null}">
+							<input type="text" th:value="${item.img2}" name="img2" readonly="readonly" class="form-control">
+							<button class="btn btn-danger" name="fileDelete2" style="float:right">이미지 삭제</button>
+						</div>
+						<div th:unless="${item.img2!=null}">
+							<input type="file" name="imgFile2" class="form-control">
+						</div>
+						</div>
+						
+						
+						<div id="img3Body" class="card-body">
+						<div th:if="${item.img3!=null}">
+							<input type="text" th:value="${item.img3}" readonly="readonly" name="img3" class="form-control">
+							<button class="btn btn-danger" name="fileDelete3" style="float:right">이미지 삭제</button>
+						</div>
+						<div th:unless="${item.img3!=null}">
+							<input type="file" name="imgFile3" class="form-control">
+						</div>
+						</div>
+						
+						<div id="img4Body" class="card-body">
+						<div th:if="${item.img4!=null}">
+							<input type="text" th:value="${item.img4}" readonly="readonly" name="img4" class="form-control">
+							<button class="btn btn-danger" name="fileDelete4" style="float:right">이미지 삭제</button>
+						</div>
+						<div th:unless="${item.img4!=null}">
+							<input type="file" name="imgFile4" class="form-control">
+						</div>
+						</div>
+						
+						<div id="img5Body" class="card-body">
+						<div th:if="${item.img5!=null}">
+							<input type="text" th:value="${item.img5}" readonly="readonly" name="img5" class="form-control">
+							<button class="btn btn-danger" name="fileDelete5" style="float:right">이미지 삭제</button>
+						</div>
+						<div th:unless="${item.img5!=null}">
+							<input type="file" name="imgFile5" class="form-control">
+						</div>
+						</div>
+						<div class="card-body">
+							<a class="form-control" style="text-align:center" onclick="updateItem()">상품 수정하기</a>
+						</div>
+						<div class="card-body">
+							<a class="form-control" style="text-align:center" onclick="deleteItem()">상품 삭제하기</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</main>
+
+<script>
+function updateItem(){
+	if(!document.getElementById("name").value){
+		alert('상품명을 입력해주세요.');
+		return false;
+	}
+	
+	if(!document.getElementById("contents").value){
+		alert('상품설명을 입력해주세요.');
+		return false;
+	}
+	var price=parseInt(document.getElementById("price").value);
+	if(price<=0||!document.getElementById("price").value){
+		alert('0이 넘는 정가를 입력해주세요.');
+		return false;
+	}
+	
+	var sale=parseInt(document.getElementById("sale").value);
+	if(sale<=0||!document.getElementById("sale").value){
+		alert('0이 넘는 할인가를 입력해주세요.');
+		return false;
+	}
+	if(!document.querySelector('input[type=radio][name=categoryKey]:checked')){
+		alert('상품의 카테고리를 선택해주세요.')
+		return false;
+	}
+	
+	if(document.getElementById("cnt").value<=0){
+		alert('재고를 1개 이상으로 설정해주세요.')
+		return false;
+	}
+	
+
+	if(!document.getElementById("imgFile1").value){
+		alert('1번 파일을 첨부해주세요.');
+		return false;
+	}
+	
+	if(confirm('상품을 수정하시겠습니까?')){
+	document.registerForm.enctype= 'multipart/form-data';
+	document.registerForm.action = '/admin/item/update';
+	document.registerForm.method = 'POST';
+	document.registerForm.submit();
+	}else{
+		return false;
+	}
+}
+
+function deleteItem(){
+	if(confirm('상품을 삭제하시겠습니까?')){
+	document.registerForm.enctype= 'multipart/form-data';
+	document.registerForm.action = '/admin/item/delete';
+	document.registerForm.method = 'POST';
+	document.registerForm.submit();
+	}else{
+		return false;
+	}
+}
+	
+</script>

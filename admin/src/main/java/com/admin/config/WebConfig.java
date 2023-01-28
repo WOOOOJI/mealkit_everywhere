@@ -36,6 +36,8 @@ public class WebConfig implements WebMvcConfigurer {
   public void addInterceptors(InterceptorRegistry registry) {
       registry.addInterceptor(loginInterceptor)
               .addPathPatterns("/")
+              .addPathPatterns("/notice/**")
+              .addPathPatterns("/item/**")
               .excludePathPatterns("/loginForm", "/fonts/**", "/css/**", "/images/**", "/js/**", "/login", "/logincheck.do*");
   }
 }

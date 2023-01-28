@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.CartMapper">
 	<!-- 주문 완료시 장바구니를 제거 -->
-	<delete id="cart_delete" parameterType="Integer">
+	<delete id="cartDelete" parameterType="Integer">
 		DELETE FROM cart WHERE custKey=${custKey}
 	</delete>
 

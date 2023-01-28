@@ -1,0 +1,184 @@
+<script>
+	$(document).ready(function() {
+		var pageNum = '[[${pageNum}]]';
+		document.getElementById(pageNum).className = 'active';
+	});
+</script>
+
+<style>
+#item_paging>li{
+	text-align: center;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    
+}
+
+th {
+	text-align: center;
+}
+
+a {
+	color: black;
+}
+
+#pageList>.active {
+	background: #3b7ddd;
+	color: #fff;
+	border: 1px solid transparent;
+	text-align: center;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+}
+
+
+</style>
+<main class="content">
+	<div class="row">
+		<div class="col-12 col-lg-12 col-xxl-12 d-flex">
+			<div class="card flex-fill">
+				<div class="card-header">
+					<h5 class="card-title mb-0">이벤트/공지사항 관리</h5>
+					<div style="float:right">
+					<label>
+						<select id="ascDesc" class="form-select form-select-sm" onchange="selectAscDesc()">
+							<option value="">순서</option>
+							<option value="DESC">내림차순</option>
+							<option value="ASC">오름차순</option>						
+						</select>
+					</label>
+					<label>
+						<select id="ntype" class="form-select form-select-sm" onchange="selectNtype()">
+							<option value="">분류</option>
+							<option value="N">공지</option>
+							<option value="E">이벤트</option>		
+						</select>
+					</label>
+					<label>
+						<select id="orderCri" class="form-select form-select-sm" onchange="selectOrderCri()">
+							<option value="">정렬기준</option>
+							<option value="noticeKey">글번호</option>
+							<option value="title">제목</option>
+							<option value="writer">작성자</option>					
+						</select>
+					</label>
+					</div>
+				</div>
+				<table class="table table-hover my-0">
+					<thead>
+						<tr>
+							<th style="width:75px">글번호</th>
+							<th style="width:75px">분류</th>
+							<th>제목</th>
+							<th style="width:150px">작성자</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="notice_list" th:each="l:${list}">
+							<td><a th:text="${l.noticeKey}"
+								th:href="@{/notice/noticedetail(noticeKey=${l.noticeKey})}"></a></td>
+							<td th:switch="${l.ntype}">
+								<span th:case="'N'" th:text="공지"></span> <span th:case="'E'"
+								th:text="이벤트"></span>
+							</td>
+							<td><a th:text="${l.title}"
+								th:href="@{/notice/noticedetail(noticeKey=${l.noticeKey})}"></a></td>
+							<td class="d-none d-xl-table-cell" th:text="${l.writer}"></td>
+						</tr>
+
+					</tbody>
+				</table>
+				
+				<div style="margin:20px 0 20px 22% " class="col-6 col-lg-6 text-center">
+					<div style="display:inline">
+						<label>
+							<select id="searchType" class="form-select form-select-sm">
+								<option value="title">제목</option>
+								<option value="num">글번호</option>
+								<option value="writer">작성자</option>					
+							</select>
+						</label>
+					</div>
+						<input style="display:inline;width:70%" type="text" id="keyword" class="form-control" maxlength="45"
+								placeholder="검색어를 입력해주세요.">
+						<button class="btn btn-primary" onclick="searchKeyword()">검색</button>
+						
+				</div>
+				<a th:href="@{/notice/registerform}" class="btn btn-primary">이벤트/공지 등록하기</a>
+				
+			</div>
+		</div>
+		<!-- 페이징 바 -->
+		<div class="row mt-9" id="pageSection">
+			<div class="col text-center">
+				<div class="block-27">
+					<ul id="item_paging">
+						<!-- <a>태그의 href는 get방식만 가능하다? -->
+
+
+						<!-- th:if="${pageMaker.prev == true에서 ture를 ''로 묶으면 문자열로 인식한다. 따라서 true로 써야 한다 -->
+						<!-- 클래스는 공백으로도 설정이 된다 -->
+						<!-- 타임리프로 클래스 설정시 문자열이 아닌 값으로 넘긴다 -->
+
+						<!-- 이전 버튼 -->
+						<li class="prevbtn"><a th:if="${pageMaker.prev == true}"
+							th:href="@{/notice(pageNum = ${pageMaker.pageStart - 1})}">&lt;</a></li>
+						<!-- 페이지 번호 출력 -->
+						<li th:each="pageNum : ${pageNumList}" id="pageList">
+							<!-- class="active" --> <a th:id="${pageNum}"
+							th:href="@{/notice(pageNum = ${pageNum})}"
+							th:text="${pageNum}"></a>
+						</li>
+						<!-- 다음 버튼 -->
+						<li class="nextbtn"><a th:if="${pageMaker.next == true}"
+							th:href="@{/notice(pageNum = ${pageMaker.pageEnd + 1})}">&gt;</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</main>
+
+<script>
+	var ascDesc="[[${ascDesc}]]";
+	var ntype="[[${ntype}]]";
+	var cri="[[${orderCri}]]";
+	var type="[[${type}]]"
+
+	function selectAscDesc(){
+		var ascDesc=document.getElementById('ascDesc').value;
+		location.href="/admin/notice?ascDesc="+ascDesc+"&ntype="+ntype+"&orderCri="+cri;
+	}
+	
+	function selectNtype(){
+		var ntype=document.getElementById('ntype').value;
+		location.href="/admin/notice?ascDesc="+ascDesc+"&ntype="+ntype+"&orderCri="+cri;
+	}
+	
+	function selectOrderCri(){
+		var cri=document.getElementById('orderCri').value;
+		location.href="/admin/notice?ascDesc="+ascDesc+"&ntype="+ntype+"&orderCri="+cri;
+	}
+	
+	function searchKeyword(){
+		
+		
+		var key=document.getElementById('keyword').value;
+		var type=document.getElementById('searchType').value;
+		if(key==""){
+			alert('검색어를 입력해주세요');
+			return false;
+		}else{
+			location.href="/admin/notice?type="+type+"&keyword="+key;
+		}
+		
+	}
+	
+</script>
+
