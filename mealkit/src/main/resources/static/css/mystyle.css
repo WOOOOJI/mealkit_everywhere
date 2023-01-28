@@ -1,0 +1,309 @@
+.board_all * {
+	margin: 0;
+	padding: 0;	
+}
+
+.board_all ul {
+	list-style: none;	
+}
+
+.board_all li {
+	list-style: none;	
+}
+
+.board_all a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.board_wrap {
+	width: 1000px;
+	margin: 100px auto;
+}
+
+.board_title {
+	margin-bottom: 30px;
+}
+
+.board_title strong{
+	font-size: 1.5rem;
+}
+
+.board_title p{
+	margin-top: 5px;
+	font-size: 0.7rem;
+}
+
+.board_wrap .bt_wrap {
+	margin-top: 0px;
+	font-size: 0;
+	text-align: left;
+}
+
+.board_wrap .bt_wrap a{
+	display: inline-block;
+	min-width: 80px;
+	margin-left: 10px;
+	padding: 10px;
+	border: 1px solid #000;
+	border-radius: 2px;
+	font-size: 0.9rem;
+	text-align: center;
+}
+
+.board_wrap .bt_wrap a:first-child{
+	margin-left: 0;
+}
+
+.board_wrap .bt_wrap a.on {
+	background: #000;
+	color: #fff;
+}
+
+/*후기 게시판 스타일*/
+.board_list1 {
+	width: 100%;
+	border-top: 2px solid #000;
+}
+
+.board_list1 > div {
+	border-bottom: 1px solid #ddd;
+	font-size: 0;
+}
+
+.board_list1 > div > div.top1{
+	border-bottom: 1.7px solid #999;
+}
+
+.board_list1 > div:last-child{
+	border-bottom: 1px solid #000;	
+}
+
+.board_list1 > div > div > div{
+	display: inline-block;
+	padding: 8px 0;
+	font-size: 0.8rem;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.board_list1 > div > div {
+	width: 100%;
+}
+
+.board_list1 > .reviews1 > .contents1 > div {
+	width: 100%;
+}
+
+.board_list1 > div > div.top1 > div{
+	font-weight: 600;
+}
+
+.board_list1 .boardNum {
+	width: 5%;
+}
+.board_list1 .title {
+	width: 55%;
+	padding-left: 3%;
+	text-align: left;
+}
+.board_list1 .top1 .title {
+	text-align: center;
+}
+
+
+.board_list1 .rdate {
+	width: 25%;
+}
+.board_list1 .rate {
+	width: 15%;
+	text-align: center;
+}
+
+.board_list1 > .reviews1 > .contents1 > .user_comments1{
+	margin-top: 1px;
+	padding: 13px 200px 15px 230px;
+	line-height: 2.0;
+	background: #f8f8f8;
+	float: right;
+	text-align: left;
+}
+.board_page1 {
+	margin-top: 10px;
+	text-align: right;
+	font-size: 0;
+}
+
+.board_page1 a{
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	box-sizing: border-box;
+	vertical-align: middle;
+	border: 1px solid #ddd;
+	text-align: center;
+	border-left: 0;
+	line-height: 100%;
+	cursor:pointer;
+}
+.board_page1 a.bt{
+	padding-top: 10px;
+	font-size: 0.7rem;
+	letter-spacing: -1.5px;
+}
+.board_page1 a.num {
+	padding-top: 9px;
+	font-size: 0.9rem;
+}
+
+.board_page1 a.num.on {
+	border-color: #000;
+	background: #000;
+	color: #fff;
+}
+
+.board_page1 a:first-child{
+	border-left: 1px solid #ddd;
+}
+
+.one_review > .title {
+	cursor:pointer;
+}
+
+.reviews1 > .hide {
+	display:none;
+}
+
+
+
+
+/*문의 게시판 스타일 시작*/
+.board_list2 {
+	width: 100%;
+	border-top: 2px solid #000;
+}
+
+.board_list2 > div {
+	border-bottom: 1px solid #ddd;
+	font-size: 0;
+}
+
+.board_list2 > div > div.top2 {
+	border-bottom: 1.7px solid #999;
+}
+
+.board_list2 > div:last-child{
+	border-bottom: 1px solid #000;	
+}
+
+.board_list2 > div > div > div{
+	display: inline-block;
+	padding: 8px 0;
+	font-size: 0.8rem;
+	text-align: center;
+	vertical-align: middle;
+}
+
+/*문의 게시판 폭 설정*/
+.board_list2 > div > div {
+	width: 100%;
+}
+.board_list2 > .questions > .contents2 > div {
+	width: 100%;
+}
+
+
+/*top2 폰트 굵기*/
+.board_list2 > div > div.top2 > div{
+	font-weight: 600;
+}
+/*top2의 제목 가운데 정렬*/
+.board_list2 .top2 .title {
+	text-align: center;
+}
+
+
+/*문의 데이터 한 개 행 폭 설정*/
+.board_list2 .boardNum {
+	width: 5%;
+}
+.board_list2 .custKey {
+	width: 15%;
+	text-align: center;
+}
+.board_list2 .title {
+	width: 55%;
+	padding-left: 3%;
+	text-align: left;
+}
+.board_list2 .rdate {
+	width: 25%;
+}
+
+
+.board_list2 > .questions > .contents2 > .user_comments2{
+	margin-top: 1px;
+	padding: 13px 200px 15px 230px;
+	line-height: 2.0;
+	background: #f8f8f8;
+	float: right;
+	text-align: left;
+}
+
+
+.board_list2 > .questions > .contents2 > .admin_comments2{
+	margin-top: 1px;
+	padding: 13px 200px 15px 230px;
+	line-height: 2.0;
+	background: #E5E5E5;
+	float: right;
+	text-align: left;
+}
+
+
+.board_page2 {
+	margin-top: 10px;
+	text-align: right;
+	font-size: 0;
+}
+
+.board_page2 a{
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	box-sizing: border-box;
+	vertical-align: middle;
+	border: 1px solid #ddd;
+	text-align: center;
+	border-left: 0;
+	line-height: 100%;
+	cursor:pointer;
+}
+.board_page2 a.bt{
+	padding-top: 10px;
+	font-size: 0.7rem;
+	letter-spacing: -1.5px;
+}
+.board_page2 a.num {
+	padding-top: 9px;
+	font-size: 0.9rem;
+}
+
+.board_page2 a.num.on {
+	border-color: #000;
+	background: #000;
+	color: #fff;
+}
+
+.board_page2 a:first-child{
+	border-left: 1px solid #ddd;
+}
+
+.one_question > .title {
+	cursor:pointer;
+}
+
+.questions > .hide {
+	display:none;
+}
+

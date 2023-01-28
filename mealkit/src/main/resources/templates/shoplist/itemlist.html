@@ -90,7 +90,7 @@
     					<!-- 이름순 -->
     					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, asc_desc = 'asc', order_cri='name')}" id="name">이름순</a></li>
     					<!-- 낮은 가격순 -->
-    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, asc_desc = 'asc', order_cri='price')}" id="price">낮은 가격순</a></li>
+    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, asc_desc = 'asc', order_cri='sale')}" id="sale">낮은 가격순</a></li>
     				</ul>
     			</div>
     		</div>
@@ -105,14 +105,14 @@
 		    			<!-- 각 상품의 한 칸 구역 -->
 		    			<div class="product">
 		    				<!-- 상품 썸네일 -->
-		    				<a th:href="@{/shoplist/productSingle(itemKey = ${item.itemKey})}" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${item.img1}" alt="No image">
+		    				<a th:href="@{/shoplist/product(itemKey = ${item.itemKey})}" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${item.img1}" alt="No image">
 		    					<!-- 썸네일 위에 표시 되는 할인율 -->
 		    					<!-- span class="status">30%</span> -->
 		    					<div class="overlay"></div>
 		    				</a>
 		    				<div class="text py-3 pb-4 px-3 text-center">
 		    					<!-- 상품 이름 텍스트 -->
-		    					<h3><a th:href="@{/shoplist/productSingle(itemKey = ${item.itemKey})}"><span th:text="${item.name}"></span></a></h3>
+		    					<h3><a th:href="@{/shoplist/product(itemKey = ${item.itemKey})}"><span th:text="${item.name}"></span></a></h3>
 		    					<div class="d-flex">
 		    						<div class="pricing">
 				    					<p class="price"><span class="mr-2 price-dc" th:text="${item.price}"></span><span class="price-sale" th:text="${item.sale}"></span></p>

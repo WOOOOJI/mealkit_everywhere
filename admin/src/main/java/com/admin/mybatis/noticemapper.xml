@@ -2,6 +2,56 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shop.mapper.NoticeMapper">
+<mapper namespace="com.admin.mapper.NoticeMapper">
+<select id="select" resultType="NoticeDTO">
+	SELECT * FROM notice WHERE noticeKey=${noticeKey}
+</select>
+<update id="update" parameterType="NoticeDTO">
+	UPDATE notice SET ntype=#{ntype}, title=#{title}, writer=#{writer}, img1=#{img1}, img2=#{img2}
+	WHERE noticeKey=${noticeKey}
+</update>
+<delete id="delete">
+	DELETE FROM notice WHERE noticeKey=${noticeKey}
+</delete>
+	<!-- 이벤트 페이지 개수 -->
+	<select id="countNotice" resultType="int">
+		SELECT count(noticeKey) FROM
+		notice;
+	</select>
 
+	<!-- 이벤트 페이지 정보 가져오기 -->
+	<select id="noticeDetail" resultType="NoticeDTO">
+		SELECT * FROM item WHERE
+		noticeKey=${noticeKey}
+	</select>
+
+
+	<select id="getNoticeList" resultType="NoticeDTO"
+		parameterType="Criteria">
+		SELECT * FROM notice
+		<where>
+			<if test="ntype!='none'">
+				ntype=#{ntype}
+			</if>
+			<if test="keyword!='none'">
+				<if test="type=='title'">
+					title LIKE '%${keyword}%'
+				</if>
+				<if test="type=='num'">
+					noticeKey=${keyword}
+				</if>
+				<if test="type=='writer'">
+					writer LIKE '%${keyword}%'
+				</if>
+			</if>
+		</where>
+		ORDER BY ${orderCri} ${ascDesc}
+		LIMIT #{skip}, #{amount}
+	</select>
+	
+	<insert id="registerNotice" parameterType="NoticeDTO">
+		INSERT INTO
+		notice(adminKey, ntype, title, writer, img1, img2)
+		VALUES(${adminKey}, #{ntype}, #{title}, #{writer}, #{img1}, #{img2})
+	</insert>
 </mapper>

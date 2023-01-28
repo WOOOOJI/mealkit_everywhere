@@ -37,10 +37,10 @@ public class AdminController {
 			return "login/loginForm";
 		}
 		
-		
 			model.addAttribute("result", result);
 			session.setAttribute("adminId", dto.getAdminId());
 			session.setAttribute("name", dto.getName());
+			session.setAttribute("adminKey", dto.getAdminKey());
 		
 		return "main";
 	}

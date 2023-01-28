@@ -10,5 +10,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		JOIN board b ON b.boardKey = c.boardKey
 		JOIN admin a ON a.adminKey = c.adminKey
 		WHERE c.boardKey = ${boardKey} 
-	</select> 
+	</select>
+	
+	<select id="getComment" resultType="CommentsDTO" parameterType="CommentsDTO">
+		SELECT * FROM comments
+		WHERE boardKey = ${boardKey}
+	</select>
+	
+	
 </mapper>

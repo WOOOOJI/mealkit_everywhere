@@ -171,9 +171,9 @@ float:left;
 						    </thead>
 						    <tbody>
 						      <tr th:each="c:${cart_to_order}" class="text-center">	        
-						        <td class="image-prod"><a th:href="@{/}"><img th:src="@{/img/}+${c.itemImg}"></a></td>       
+						        <td class="image-prod"><a th:href="@{/shoplist/product(itemKey=${c.itemKey})}"><img style="width:50%" th:src="@{/img/product/}+${c.itemImg}"></a></td>       
 						        <td class="product-name">
-						        	<a th:href="@{/}" th:text="${c.itemName}" id="itemName"></a>
+						        	<a th:href="@{/shoplist/product(itemKey=${c.itemKey})}" th:text="${c.itemName}" id="itemName"></a>
 						        </td>
 						        <td class="sale" th:text="${c.itemSale}+'원'"></td>
 						        <td class="quantity">

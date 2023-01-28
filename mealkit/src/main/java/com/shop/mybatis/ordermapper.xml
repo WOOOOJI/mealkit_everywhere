@@ -16,8 +16,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 	<!-- 빈 total_order 생성하여 주문상세 받을 준비 -->
 	<insert id="createBlank" parameterType="Integer" >
-		INSERT INTO totalOrder(custKey,price,name,zipcode,addr,addrDetail,tel) VALUES(${key},-1,(SELECT username FROM customer WHERE custKey=${key}),
-		'blank','blank','blank','blank')
+		INSERT INTO totalOrder(custKey,price,name,zipcode,addr,addrDetail,tel,itemCnt, itemName,itemImg) VALUES(${key},-1,(SELECT username FROM customer WHERE custKey=${key}),
+		'blank','blank','blank','blank',-1,'blank','blank')
 	</insert>
 	<!-- orderKey의 정보 갖고오기 -->
 	<select id="getOrderkey" parameterType="Integer" resultType="Integer">
@@ -32,7 +32,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	    addr=(select addr from address where addrKey=${addrKey}),
 	    addrDetail=(select addrDetail from address where addrKey=${addrKey}),
 	    tel=(select tel from address where addrKey=${addrKey}),
-	    req=(select req from address where addrKey=${addrKey})
+	    req=(select req from address where addrKey=${addrKey}),
+	    itemCnt=(SELECT COUNT(cnt) FROM orderDetail WHERE orderKey=${orderKey}),
+	    itemName=(SELECT i.name FROM item i INNER JOIN orderDetail od ON od.itemKey=i.itemKey WHERE orderKey=${orderKey} LIMIT 1),
+	    itemImg=(SELECT i.img1 FROM item i INNER JOIN orderDetail od ON od.itemKey=i.itemKey WHERE orderKey=${orderKey} LIMIT 1)
 	    WHERE orderKey=${orderKey}
 	</update>
 	<!-- orderKey 이용해서 order 갖고오기 -->
@@ -42,11 +45,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	
 	<select id="getOrderWithItemInfo" resultType="OrderDTO">
-		SELECT o.orderKey, o.custKey, o.price, o.rdate, o.status, o.name, o.zipcode, o.addr, o.addrDetail, o.tel, o.req, 
-		(SELECT COUNT(cnt) FROM orderDetail WHERE orderKey=o.orderKey) AS itemCnt, i.name AS itemName, i.img1 AS itemImg FROM orderDetail od
-		INNER JOIN item i ON i.itemKey=od.itemKey
-		INNER JOIN totalOrder o ON o.orderKey=od.orderKey
-		WHERE custKey=${custKey} ORDER BY rdate DESC;
+		SELECT * FROM totalOrder WHERE custKey=${custKey} ORDER BY rdate DESC
 	</select>
 	
 	

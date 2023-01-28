@@ -10,7 +10,7 @@ import com.shop.dto.Criteria;
 import com.shop.dto.NoticeDTO;
 import com.shop.dto.OrderDetailDTO;
 import com.shop.dto.PageDTO;
-import com.shop.dto.response.ItemPageResponseDTO;
+import com.shop.dto.response.PageResponseDTO;
 import com.shop.frame.MyService;
 import com.shop.mapper.NoticeMapper;
 
@@ -71,7 +71,7 @@ public class NoticeService implements MyService<Integer, NoticeDTO>{
 	
 	
 	// 이벤트 리스트 페이징
-	public ItemPageResponseDTO getEventPageMaker(Criteria cri) {
+	public PageResponseDTO getEventPageMaker(Criteria cri) {
 		PageDTO pageMaker = null;
 		int active = 0;
 		List<Integer> pageNumList = new ArrayList<>();
@@ -91,7 +91,7 @@ public class NoticeService implements MyService<Integer, NoticeDTO>{
 		 * if(pageMaker.getCri().getPageNum() == i) { active = 1; }else { active = 0; }
 		 */
 		
-		ItemPageResponseDTO itemPageResponseDTO = ItemPageResponseDTO.builder()
+		PageResponseDTO itemPageResponseDTO = PageResponseDTO.builder()
 				.pageMaker(pageMaker)
 				.active(active)
 				.pageNumList(pageNumList)
@@ -142,7 +142,7 @@ public class NoticeService implements MyService<Integer, NoticeDTO>{
 		
 		
 		// 공지사항 페이징에 필요한 데이터 가져오기
-		public ItemPageResponseDTO getNoticePageMaker(Criteria cri) {
+		public PageResponseDTO getNoticePageMaker(Criteria cri) {
 			PageDTO pageMaker = null;
 			int active = 0;
 			List<Integer> pageNumList = new ArrayList<>();
@@ -162,7 +162,7 @@ public class NoticeService implements MyService<Integer, NoticeDTO>{
 			 * if(pageMaker.getCri().getPageNum() == i) { active = 1; }else { active = 0; }
 			 */
 			
-			ItemPageResponseDTO itemPageResponseDTO = ItemPageResponseDTO.builder()
+			PageResponseDTO itemPageResponseDTO = PageResponseDTO.builder()
 					.pageMaker(pageMaker)
 					.active(active)
 					.pageNumList(pageNumList)

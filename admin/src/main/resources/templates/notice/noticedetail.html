@@ -1,0 +1,151 @@
+<script>
+	function deleteFile1(obj) {
+	    obj.parent().remove();
+	    var str = "<input type='file' id='imgFile1' name='imgFile1' class='form-control'>";
+	    $("#img1Body").append(str);
+	}
+	
+	function deleteFile2(obj) {
+	    obj.parent().remove();
+	    var str = "<input type='file' name='imgFile2' class='form-control'>";
+	    $("#img2Body").append(str);
+	}
+	
+	$(document).ready(function(){
+		$("button[name='fileDelete1']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile1($(this)); 
+        });
+		
+		$("button[name='fileDelete2']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile2($(this)); 
+        });
+		
+	});
+</script>
+
+<main class="content">
+	<div class="container-fluid p-0">
+
+		<h1 class="h3 mb-3">공지/이벤트 조회/변경</h1>
+		<form name="registerForm" id="registerForm" enctype="multipart/form-data">
+			<input type="hidden" id="noticeKey" name="noticeKey" th:value="${notice.noticeKey}">
+			<input type="hidden" id="adminKey" name="adminKey" th:value="${notice.adminKey}">
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="card-title mb-0">상품 정보</h5>
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">종류</div>
+							<div th:if="${notice.ntype=='N'}"class="card-header">
+							<br> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="ntype"
+								value="N" checked> <span class="form-check-label"> 공지 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="ntype"
+								value="E"> <span class="form-check-label"> 이벤트 </span>
+							</label>
+						</div>
+						<div th:if="${notice.ntype=='E'}"class="card-header">
+							<br> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="ntype"
+								value="N"> <span class="form-check-label"> 공지 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="ntype"
+								value="E" checked> <span class="form-check-label"> 이벤트 </span>
+							</label>
+						</div>
+							<br> 
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">제목</div>
+						</div>
+						<div class="card-body">
+							<input type="text" id="title" name="title" class="form-control" maxlength="45"
+								th:value="${notice.title}">
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">작성자</div>
+						</div>
+						<div class="card-body">
+							<input type="text" id="writer" name="writer" class="form-control" th:value="${name}" readonly="readonly">
+						</div>
+						
+						<div class="card-header">
+							<div class="card-title mb-0">사진 (최대 2개)</div>
+						</div>
+						
+						<div id="img1Body" class="card-body">
+						<div th:if="${notice.img1!=null}">
+							<input type="text" th:value="${notice.img1}" readonly="readonly" id="imgFile1" name="img1" class="form-control">
+							<button class="btn btn-danger" name="fileDelete1" style="float:right">이미지 삭제</button>
+						</div>
+						</div>
+						
+						<div id="img2Body" class="card-body">
+						<div th:if="${notice.img2!=null}">
+							<input type="text" th:value="${notice.img2}" name="img2" readonly="readonly" class="form-control">
+							<button class="btn btn-danger" name="fileDelete2" style="float:right">이미지 삭제</button>
+						</div>
+						<div th:unless="${notice.img2!=null}">
+							<input type="file" name="imgFile2" class="form-control">
+						</div>
+						</div>
+						
+									
+						<div class="card-body">
+							<a class="form-control" style="text-align:center" onclick="updateNotice()">글 수정하기</a>
+						</div>
+						<div class="card-body">
+							<a class="form-control" style="text-align:center" onclick="deleteNotice()">상품 삭제하기</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</main>
+
+<script>
+function updateNotice(){
+	
+	if(!document.querySelector('input[type=radio][name=ntype]:checked')){
+		alert('글 분류를 선택해주세요.')
+		return false;
+	}
+	
+	if(!document.getElementById("title").value){
+		alert('제목을 입력해주세요.');
+		return false;
+	}
+	
+	if(!document.getElementById("imgFile1").value){
+		alert('1번 파일을 첨부해주세요.');
+		return false;
+	}
+	
+	if(confirm('글을 수정하시겠습니까?')){
+	document.registerForm.enctype= 'multipart/form-data';
+	document.registerForm.action = '/admin/notice/update';
+	document.registerForm.method = 'POST';
+	document.registerForm.submit();
+	}else{
+		return false;
+	}
+}
+
+function deleteNotice(){
+	if(confirm('글을 삭제하시겠습니까?')){
+	document.registerForm.enctype= 'multipart/form-data';
+	document.registerForm.action = '/admin/notice/delete';
+	document.registerForm.method = 'POST';
+	document.registerForm.submit();
+	}else{
+		return false;
+	}
+}
+	
+</script>

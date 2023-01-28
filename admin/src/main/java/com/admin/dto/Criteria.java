@@ -1,5 +1,4 @@
-
-  package com.admin.dto;
+package com.admin.dto;
   
   
 import lombok.Getter;
@@ -27,15 +26,29 @@ import lombok.ToString;
 	  //검색 타입 
 	  private String type;
 	  
-	  //정렬 기준
-	  private String order_cri;
-	  
-	  //차순
-	  private String orderBy;
-	  private String asc_desc;
-	  
 	  //카테고리 번호
 	  private int categoryKey;
+	  
+	  //게시글 타입(공지사항/이벤트)
+	  private String ntype;
+	  
+	  
+	  private String orderBy;
+
+	  //이메일 검색 키워드 
+	  private String emailKeyword;
+
+	  //이름 검색 키워드 
+	  private String nameKeyword;
+
+	  //전화번호 검색 키워드 
+	  private String phNumberKeyword;
+	  
+	  //정렬 기준
+	  private String orderCri;
+	  
+	  //차순
+	  private String ascDesc = "desc";
 	  
 	  //디폴트값을 설정하는 기본 생성자 
 	  public Criteria() { 

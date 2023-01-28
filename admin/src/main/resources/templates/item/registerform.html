@@ -1,0 +1,135 @@
+<main class="content">
+	<div class="container-fluid p-0">
+
+		<h1 class="h3 mb-3">상품 등록</h1>
+		<form name="registerForm" id="registerForm"  enctype="multipart/form-data">
+			<div class="row">
+				<div class="col-12">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="card-title mb-0">상품 정보</h5>
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">상품명</div>
+						</div>
+						<div class="card-body">
+							<input type="text" id="name" name="name" class="form-control" maxlength="45"
+								placeholder="상품명을 입력해주세요.">
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">상품 설명</div>
+						</div>
+						<div class="card-body">
+							<input type="text" id="contents" name="content" class="form-control" maxlength="300"
+								placeholder="상품 설명을 입력해주세요.">
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">정가</div>
+						</div>
+						<div class="card-body">
+							<input type="text" id="price" name="price" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+								placeholder="상품의 정가를 입력해주세요.">
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">판매가</div>
+						</div>
+						<div class="card-body">
+							<input type="text" id="sale" name="sale" class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+								placeholder="판매가를 입력해주세요.">
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">카테고리</div>
+							<br> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="1"> <span class="form-check-label"> 한식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="2"> <span class="form-check-label"> 중식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="3"> <span class="form-check-label"> 일식 </span>
+							</label> <label class="form-check form-check-inline"> <input
+								class="form-check-input" type="radio" name="categoryKey"
+								value="4"> <span class="form-check-label"> 양식 </span>
+							</label>
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">재고</div>
+						</div>
+						<div class="card-body">
+							<input type="number" id="cnt" name="cnt" class="form-control"
+								placeholder="0">
+						</div>
+						<div class="card-header">
+							<div class="card-title mb-0">상품 사진 (최대 5개)</div>
+						</div>
+						<div class="card-body">
+							<input type="file" id="imgFile1" name="imgFile1" class="form-control">
+						</div>
+						<div class="card-body">
+							<input type="file" name="imgFile2" class="form-control">
+						</div>
+						<div class="card-body">
+							<input type="file" name="imgFile3" class="form-control">
+						</div>
+						<div class="card-body">
+							<input type="file" name="imgFile4" class="form-control">
+						</div>
+						<div class="card-body">
+							<input type="file" name="imgFile5" class="form-control">
+						</div>
+						<div class="card-body">
+							<a class="form-control" style="text-align:center" onclick="register()">상품 등록하기</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</main>
+
+<script>
+function register(){
+	if(!document.getElementById("name").value){
+		alert('상품명을 입력해주세요.');
+		return false;
+	}
+	
+	if(!document.getElementById("contents").value){
+		alert('상품설명을 입력해주세요.');
+		return false;
+	}
+	var price=parseInt(document.getElementById("price").value);
+	if(price<=0||!document.getElementById("price").value){
+		alert('0이 넘는 정가를 입력해주세요.');
+		return false;
+	}
+	
+	var sale=parseInt(document.getElementById("sale").value);
+	if(sale<=0||!document.getElementById("sale").value){
+		alert('0이 넘는 할인가를 입력해주세요.');
+		return false;
+	}
+	if(!document.querySelector('input[type=radio][name=categoryKey]:checked')){
+		alert('상품의 카테고리를 선택해주세요.')
+		return false;
+	}
+	
+	if(document.getElementById("cnt").value<=0){
+		alert('재고를 1개 이상으로 설정해주세요.')
+		return false;
+	}
+	
+
+	if(!document.getElementById("imgFile1").value){
+		alert('1번 파일을 첨부해주세요.');
+		return false;
+	}
+	
+	document.registerForm.enctype= 'multipart/form-data';
+	document.registerForm.action = '/admin/item/register';
+	document.registerForm.method = 'POST';
+	document.registerForm.submit();
+}
+	
+</script>

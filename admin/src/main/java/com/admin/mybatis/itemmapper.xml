@@ -2,6 +2,66 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.shop.mapper.ItemMapper">
+<mapper namespace="com.admin.mapper.ItemMapper">
+	<insert id="registerItem" parameterType="ItemDTO">
+		INSERT INTO
+		item(categoryKey, name, img1, img2, img3, img4, img5, content,
+		price,
+		sale, cnt)
+		VALUES(${categoryKey}, #{name}, #{img1}, #{img2}, #{img3},
+		#{img4}, #{img5},
+		#{content}, ${price}, ${sale}, ${cnt})
+	</insert>
+	<select id="selectall" resultType="ItemDTO">
+		SELECT * FROM item WHERE
+		deleted='N' ORDER BY itemKey DESC
+	</select>
+	<select id="select" resultType="ItemDTO">
+		SELECT * FROM item WHERE
+		itemKey=${itemKey}
+	</select>
+
+	<update id="update">
+		UPDATE ITEM SET name=#{name}, content=#{content},
+		categoryKey=${categoryKey}, price=${price}, sale=${sale},
+		cnt=${cnt},
+		img1=#{img1}, img2=#{img2}, img3=#{img3}, img4=#{img4}, img5=#{img5}
+		WHERE itemKey=${itemKey}
+	</update>
+	<update id="deleted">
+		UPDATE item SET deleted = 'Y' WHERE
+		itemKey=${itemKey}
+	</update>
+
+	<!-- 이벤트 페이지 개수 -->
+	<select id="countItem" resultType="int">
+		SELECT count(itemKey) FROM
+		item;
+	</select>
+
+	<!-- 이벤트 페이지 정보 가져오기 -->
+	<select id="itemDetail" resultType="ItemDTO">
+		SELECT * FROM item WHERE
+		itemKey=${itemKey}
+	</select>
+
+
+	<select id="getItemList" resultType="ItemDTO"
+		parameterType="Criteria">
+		SELECT * FROM item WHERE deleted='N'
+		<if test="categoryKey!=0">
+			AND categoryKey=${categoryKey}
+		</if>
+		<if test="keyword!='none'">
+			<if test="type=='name'">
+				AND name LIKE '%${keyword}%'
+			</if>
+			<if test="type=='num'">
+				AND itemKey=${keyword}
+			</if>
+		</if>
+		ORDER BY ${orderCri} ${ascDesc}
+		LIMIT #{skip}, #{amount}
+	</select>
 
 </mapper>

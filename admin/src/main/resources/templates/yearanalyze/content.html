@@ -450,18 +450,10 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
-		var ctx = document.getElementById("chartjs-dashboard-line2").getContext(
-				"2d");
-		var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-		gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-		gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
 		
-		var gradient2 = ctx.createLinearGradient(0, 0, 0, 225);
-		gradient2.addColorStop(0, "rgba(115, 217, 244, 1)");
-		gradient2.addColorStop(1, "rgba(415, 287, 244, 0)");
 		// Line chart
 		new Chart(document.getElementById("chartjs-dashboard-line2"), {
-			type : "line",
+			type : "bar",
 			data : {
 				labels : [ "00:00", "01:00", "02:00", "03:00", "04:00",
 						"05:00", "06:00", "07:00", "08:00", "09:00", "10:00",
@@ -471,19 +463,27 @@
 				datasets : [ {
 					label : "판매금 (원): ",
 					fill : true,
-					backgroundColor : gradient,
+					backgroundColor : window.theme.primary,
 					borderColor : window.theme.primary,
+					hoverBackgroundColor : window.theme.primary,
+					hoverBorderColor : window.theme.primary,
 					data : [ 2115, 1562, 1584, 1892, 1587, 1923, 2566, 2448,
 							2805, 3438, 2917, 3327, 2115, 1562, 1584, 1892,
-							1587, 1923, 2566, 2448, 2805, 3438, 2917, 3327 ]
+							1587, 1923, 2566, 2448, 2805, 3438, 2917, 3327 ],
+							barPercentage : .75,
+							categoryPercentage : .5
 				}, {
 					label : "판매금 (원): ",
-					fill : true,
-					backgroundColor : gradient2,
-					borderColor : window.theme.primary,
+					label : "This year",
+					backgroundColor : "#dee2e6",
+					borderColor : "#dee2e6",
+					hoverBackgroundColor : "#dee2e6",
+					hoverBorderColor : "#dee2e6",
 					data : [ 1115, 2562, 1484, 1692, 1787, 1423, 2266, 2148,
 							1805, 2438, 3917, 3327, 2115, 1562, 1584, 1892,
-							5587, 4923, 3566, 1448, 2205, 3938, 1917, 3027 ]
+							5587, 4923, 3566, 1448, 2205, 3938, 1917, 3027 ],
+							barPercentage : .75,
+							categoryPercentage : .5
 				} ]
 			},
 			options : {
@@ -491,32 +491,20 @@
 				legend : {
 					display : false
 				},
-				tooltips : {
-					intersect : false
-				},
-				hover : {
-					intersect : true
-				},
-				plugins : {
-					filler : {
-						propagate : false
-					}
-				},
 				scales : {
-					xAxes : [ {
-						reverse : true,
+					yAxes : [ {
 						gridLines : {
-							color : "rgba(0,0,0,0.0)"
+							display : false
+						},
+						stacked : false,
+						ticks : {
+							stepSize : 20
 						}
 					} ],
-					yAxes : [ {
-						ticks : {
-							stepSize : 1000
-						},
-						display : true,
-						borderDash : [ 3, 3 ],
+					xAxes : [ {
+						stacked : false,
 						gridLines : {
-							color : "rgba(0,0,0,0.0)"
+							color : "transparent"
 						}
 					} ]
 				}

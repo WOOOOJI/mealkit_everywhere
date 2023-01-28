@@ -110,9 +110,9 @@
 						</thead>
 						<tbody>
 							<tr th:each="l:${list}" class="text-center">
-								<td class="name"><a th:href="@{/}"><img
-										th:src="@{/img/}+${l.itemImg}"></a></td>
-								<td class="name"><a th:href="@{/}"><span
+								<td class="name"><a th:href="@{/shoplist/product(itemKey=${l.itemKey})}"><img style="width:70%;"
+										th:src="@{/img/product/}+${l.itemImg}"></a></td>
+								<td class="name"><a th:href="@{/shoplist/product(itemKey=${l.itemKey})}"><span
 										th:text="${l.itemName}"></span></a></td>
 								<td class="price" th:text="${l.price}">가격</td>
 								<td class="cnt" th:text="${l.cnt}">개수</td>

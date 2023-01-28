@@ -26,7 +26,7 @@ import lombok.ToString;
 	  
 	  //검색 타입 
 	  private String type;
-	  
+
 	  //정렬 기준
 	  private String order_cri;
 	  
@@ -35,6 +35,9 @@ import lombok.ToString;
 	  
 	  //카테고리 번호
 	  private int categoryKey;
+	  
+	  //상품 번호
+	  private int itemKey;
 	  
 	  //디폴트값을 설정하는 기본 생성자 
 	  public Criteria() { 
@@ -54,13 +57,13 @@ import lombok.ToString;
 		  return type == null ? new String[] {} : type.split("");
 	  };
 	  
-	  //페이지 번호 세팅과 스킵 세팅
+	  //페이지 번호(pageNum)을 받았을 때 페이지 번호 세팅과 스킵 세팅
 	  public void setPageNum(int pageNum) {
 		  this.pageNum = pageNum;
 		  this.skip = (pageNum -1 ) * this.amount;
 	  }
 	  
-	  //데이터 개수 세팅과 스킵 세팅
+	  //데이터 개수(amount)를 받았을 때 데이터 개수 세팅과 스킵 세팅
 	  public void setAmount(int amount) {
 		  this.amount = amount;
 		  this.skip = (this.pageNum - 1) * amount;
