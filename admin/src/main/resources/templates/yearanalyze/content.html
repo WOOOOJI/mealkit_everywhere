@@ -5,7 +5,7 @@
 		<div class="container-fluid p-0">
 
 			<h1 class="h3 mb-3">
-				<strong style="font-size:40px;">2023년 </strong> - 현재 매출 현황
+				<strong style="font-size:40px;" th:text="${dash.nowYear}+'년'"> </strong> - 현재 매출 현황
 			</h1>
 			
 				
@@ -18,7 +18,7 @@
 									<div class="card-body">
 										<div class="row">
 											<div class="col mt-0">
-												<h5 class="card-title">이번 연도 배송량</h5>
+												<h5 class="card-title" >해당 연도 배송량</h5>
 											</div>
 
 											<div class="col-auto">
@@ -27,10 +27,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-6 mb-3" >201건</h1>
+										<h1 class="mt-6 mb-3" th:text="${dash.totalShip}+'건'"></h1>
 										<div class="mb-0">
-											<span class="text-danger"> <i
-												class="mdi mdi-arrow-bottom-right" ></i> -3.65%
+											<span class="text-danger" th:text="${dash.shipIncrease}+'%'"> <i
+												class="mdi mdi-arrow-bottom-right" ></i>
 											</span> <span class="text-muted">전년도 대비</span>
 										</div>
 									</div>
@@ -39,7 +39,7 @@
 									<div class="card-body">
 										<div class="row">
 											<div class="col mt-0">
-												<h5 class="card-title">이번 연도 방문자</h5>
+												<h5 class="card-title">해당 연도 방문자</h5>
 											</div>
 
 											<div class="col-auto">
@@ -50,7 +50,7 @@
 										</div>
 										<h1 class="mt-6 mb-3">14201명</h1>
 										<div class="mb-0">
-											<span class="text-success"> <i
+											<span class="text-success" > <i
 												class="mdi mdi-arrow-bottom-right" ></i> 5.25%
 											</span> <span class="text-muted">전년도 대비</span>
 										</div>
@@ -62,7 +62,7 @@
 									<div class="card-body">
 										<div class="row">
 											<div class="col mt-0">
-												<h5 class="card-title">이번 연도 판매액</h5>
+												<h5 class="card-title">해당 연도 판매액</h5>
 											</div>
 
 											<div class="col-auto">
@@ -71,10 +71,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-6 mb-3" value="">320,100원</h1>
+										<h1 class="mt-6 mb-3" th:text="${dash.totalPrice}+'원'"></h1>
 										<div class="mb-0">
-											<span class="text-success"> <i
-												class="mdi mdi-arrow-bottom-right"></i> 6.65%
+											<span class="text-success" th:text="${dash.sellIncrease}+'%'"> <i
+												class="mdi mdi-arrow-bottom-right"></i>
 											</span> <span class="text-muted">전년도 대비</span>
 										</div>
 									</div>
@@ -83,7 +83,7 @@
 									<div class="card-body">
 										<div class="row">
 											<div class="col mt-0">
-												<h5 class="card-title">이번 연도 구매확정률</h5>
+												<h5 class="card-title">해당 연도 구매확정률</h5>
 											</div>
 
 											<div class="col-auto">
@@ -92,10 +92,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-6 mb-3" >201,400원</h1>
+										<h1 class="mt-6 mb-3" th:text="${dash.confirmation}+'%'" ></h1>
 										<div class="mb-0">
-											<span class="text-danger"> <i
-												class="mdi mdi-arrow-bottom-right"></i> -2.25%
+											<span class="text-danger" th:text="${dash.confirmationIncrease}+'%'"> <i
+												class="mdi mdi-arrow-bottom-right"></i>
 											</span> <span class="text-muted">전년도 대비</span>
 										</div>
 									</div>
@@ -128,7 +128,7 @@
 					<div class="card flex-fill w-100">
 						<div class="card-header">
 
-							<h5 class="card-title mb-0">이번 연도 카테고리별 판매 비율</h5>
+							<h5 class="card-title mb-0">해당 연도 카테고리별 판매 비율</h5>
 						</div>
 						<div class="card-body d-flex">
 							<div class="align-self-center w-100">
@@ -177,7 +177,7 @@
 				<div class="col-xl-12 col-xxl-12">
 					<div class="card flex-fill w-100">
 						<div class="card-header">
-							<h5 class="card-title mb-0">이번 연도 매출 차트</h5>
+							<h5 class="card-title mb-0">해당 연도 매출 차트</h5>
 						</div>
 						<div class="card-body py-3">
 							<div class="chart chart-sm">
@@ -542,20 +542,16 @@
 </script>
 
 
-
-<script>
-$(document).ready(function(){
-	getDate();
-	
-}); 
-	
-</script>
-
 <script>
 	function getDate() {
 		var date = $(".selected").attr("aria-label"); //February 1, 2023
+		if(date == null){
+			alert("년,월,일을 선택해주세요.");
+			return false;
+		}
 		var arr = date.split(/ |,/);	//[February,  1, '',  2023]
-
+	
+		
 		var map = new Map();
 		map.set('January', 1);
 		map.set('February', 2);
@@ -604,7 +600,7 @@ $(document).ready(function(){
 			return false;
 		}
 
-		location.href="/yearanalyze?year="+year+"&month="+month+"&day="+day;
+		location.href="/admin/yearanalyze?year="+year;
 
 	}
 </script>

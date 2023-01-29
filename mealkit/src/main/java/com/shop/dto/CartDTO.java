@@ -14,6 +14,7 @@ public class CartDTO {
 	private SimpleDateFormat rdate;
 	
 	// 추가적인 데이터를 저장하기 위한 변수
+	private String img;
 	private String name;
 	private int price;
 	private int sale;

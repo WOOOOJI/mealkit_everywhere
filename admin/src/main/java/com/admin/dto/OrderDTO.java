@@ -17,11 +17,13 @@ public class OrderDTO {
 	private String addrDetail;
 	private String tel;
 	private String req;
-	private String refund;
 	private String reason;
 	private String trackingNum;
-
+	private String itemImg;
+	private String itemName;
+	private int itemCnt;
 	
 	//추가 변수
 	private String custName;
+	private String refund;
 }

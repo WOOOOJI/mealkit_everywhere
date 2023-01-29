@@ -1,36 +1,62 @@
 package com.admin.controller;
 
-import javax.servlet.http.HttpSession;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
+import com.admin.dto.DashBoardDTO;
+import com.admin.service.AnalyzeService;
+
 @Controller
 public class AnalyzeController {
-	@RequestMapping("/")
-	public String main(Model model, HttpSession session) {
-		model.addAttribute("content","content");
-		return "main";
-	}
+	
+	@Autowired
+	AnalyzeService service;
 	
 	
+	// 월별 대쉬보드 현황 가져오기 wooj
 	@RequestMapping("/monthanalyze")
-	public String month(Model model) {
+	public String month(Model model, String year, String month) {
+		
+		
+		DashBoardDTO dash = service.dashBoardCardMonth(year, month);
+		model.addAttribute("dash", dash);
+		
+		
+		
 		model.addAttribute("content", "monthanalyze/content");
 		return "main";
 	}
 	
 	
-	
+	// 년도별 대쉬보드 현황 가져오기 wooj
 	@RequestMapping("/yearanalyze")
-	public String year(Model model) {
+	public String year(Model model, String year) {
+		
+		
+		
+		DashBoardDTO dash = service.dashBoardCardYear(year);
+		model.addAttribute("dash", dash);
+
+		
+		
 		model.addAttribute("content", "yearanalyze/content");
 		return "main";
 	}
 	
+	
+	// 일별 대쉬보드 현황 가져오기 wooj
 	@RequestMapping("/dayanalyze")
-	public String day(Model model) {
+	public String day(Model model, String year, String month, String day) {
+		
+		
+		DashBoardDTO dash = service.dashBoardCardDay(year, month, day);
+		model.addAttribute("dash", dash);
+
+		
+		
 		model.addAttribute("content", "dayanalyze/content");
 		return "main";
 	}
@@ -41,6 +67,4 @@ public class AnalyzeController {
 		model.addAttribute("content", "detailsearch/content");
 		return "main";
 	}
-	
-	
 }

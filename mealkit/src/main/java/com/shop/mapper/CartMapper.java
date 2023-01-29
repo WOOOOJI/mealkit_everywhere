@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.shop.dto.CartDTO;
+import com.shop.dto.ItemDTO;
 import com.shop.frame.MyMapper;
 
 @Repository
@@ -25,5 +26,8 @@ public interface CartMapper extends MyMapper<Integer, CartDTO>{
 	
 	// 장바구니에 이미 존재하는 물건을 추가를 하면 수량을 증가시키기
 	public void increaseCart(int cartKey, int itemKey, int cnt) throws Exception;
+	
+	//주문상세 아이템 사진 가져오기
+	public ItemDTO itemImg(int cartKey) throws Exception;
 	
 }

@@ -5,10 +5,11 @@
 		<div class="container-fluid p-0">
 
 			<h1 class="h3 mb-3">
-				<strong style="font-size:40px;">2023년 1월 26일 </strong> - 현재 매출 현황
+				<strong style="font-size:40px;" th:text="${dash.nowYear}+'년 ' +  ${dash.nowMonth}+'월 ' +  ${dash.nowDay}+'일'" ></strong> - 현재 매출 현황
 			</h1>
 			
 				
+					
 			<div class="row">
 				<div class="col-xxl-6 col-xxl-5 d-flex">
 					<div class="w-100">
@@ -18,7 +19,7 @@
 									<div class="card-body">
 										<div class="row">
 											<div class="col mt-0">
-												<h5 class="card-title">일일 배송량</h5>
+												<h5 class="card-title" >해당 일 배송량</h5>
 											</div>
 
 											<div class="col-auto">
@@ -27,10 +28,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-6 mb-3">201건</h1>
+										<h1 class="mt-6 mb-3" th:text="${dash.totalShip}+'건'"></h1>
 										<div class="mb-0">
-											<span class="text-danger"> <i
-												class="mdi mdi-arrow-bottom-right"></i> -3.65%
+											<span class="text-danger" th:text="${dash.shipIncrease}+'%'"> <i
+												class="mdi mdi-arrow-bottom-right" ></i>
 											</span> <span class="text-muted">전일 대비</span>
 										</div>
 									</div>
@@ -39,7 +40,7 @@
 									<div class="card-body">
 										<div class="row">
 											<div class="col mt-0">
-												<h5 class="card-title">사이트 접속자</h5>
+												<h5 class="card-title">해당 일 방문자</h5>
 											</div>
 
 											<div class="col-auto">
@@ -50,8 +51,8 @@
 										</div>
 										<h1 class="mt-6 mb-3">14201명</h1>
 										<div class="mb-0">
-											<span class="text-success"> <i
-												class="mdi mdi-arrow-bottom-right"></i> 5.25%
+											<span class="text-success" > <i
+												class="mdi mdi-arrow-bottom-right" ></i> 5.25%
 											</span> <span class="text-muted">전일 대비</span>
 										</div>
 									</div>
@@ -62,7 +63,7 @@
 									<div class="card-body">
 										<div class="row">
 											<div class="col mt-0">
-												<h5 class="card-title">판매액</h5>
+												<h5 class="card-title">해당 일 판매액</h5>
 											</div>
 
 											<div class="col-auto">
@@ -71,10 +72,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-6 mb-3">320,100원</h1>
+										<h1 class="mt-6 mb-3" th:text="${dash.totalPrice}+'원'"></h1>
 										<div class="mb-0">
-											<span class="text-success"> <i
-												class="mdi mdi-arrow-bottom-right"></i> 6.65%
+											<span class="text-success" th:text="${dash.sellIncrease}+'%'"> <i
+												class="mdi mdi-arrow-bottom-right"></i>
 											</span> <span class="text-muted">전일 대비</span>
 										</div>
 									</div>
@@ -83,7 +84,7 @@
 									<div class="card-body">
 										<div class="row">
 											<div class="col mt-0">
-												<h5 class="card-title">구매확정</h5>
+												<h5 class="card-title">해당 일 구매확정률</h5>
 											</div>
 
 											<div class="col-auto">
@@ -92,10 +93,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-6 mb-3">201,400원</h1>
+										<h1 class="mt-6 mb-3" th:text="${dash.confirmation}+'%'" ></h1>
 										<div class="mb-0">
-											<span class="text-danger"> <i
-												class="mdi mdi-arrow-bottom-right"></i> -2.25%
+											<span class="text-danger" th:text="${dash.confirmationIncrease}+'%'"> <i
+												class="mdi mdi-arrow-bottom-right"></i>
 											</span> <span class="text-muted">전일 대비</span>
 										</div>
 									</div>
@@ -105,6 +106,7 @@
 					</div>
 				</div>
 				
+				
 				<div class="col-3 col-md-3 col-xxl-3 d-flex order-1 order-xxl-1">
 					<div class="card flex-fill">
 						<div class="card-header">
@@ -112,7 +114,7 @@
 							<h5 class="card-title mb-0">일별 조회</h5>
 							<button type="button" class="btn btn-sm btn-primary"
 													id="btnList" style="float: right;"
-													th:onclick="#">조회</button>
+													onclick="getDate()">조회</button>
 						</div>
 						<div class="card-body d-flex">
 							<div class="align-self-center w-100">
@@ -210,7 +212,7 @@
 				<div class="col-12 col-lg-12">
 					<div class="card">
 						<div class="card-header">
-							<h5 class="card-title">일별 구매율</h5>
+							<h5 class="card-title">전일 대비 구매율</h5>
 							<h6 class="card-subtitle text-muted">총 접속한 사용자와 실제로 구매까지 이어진 회원의 비율로 구합니다.</h6>
 						</div>
 						<div class="card-body">
@@ -556,6 +558,71 @@
 		});
 	});
 </script>
+
+
+<script>
+	function getDate() {
+		var date = $(".selected").attr("aria-label"); //February 1, 2023
+		if(date == null){
+			alert("년,월,일을 선택해주세요.");
+			return false;
+		}
+		var arr = date.split(/ |,/);	//[February,  1, '',  2023]
+	
+		
+		var map = new Map();
+		map.set('January', 1);
+		map.set('February', 2);
+		map.set('March', 3);
+		map.set('April', 4);
+		map.set('May', 5);
+		map.set('June', 6);
+		map.set('July', 7);
+		map.set('August', 8);
+		map.set('September', 9);
+		map.set('October', 10);
+		map.set('November', 11);
+		map.set('December', 12);
+
+		
+		var year = arr[3];
+		
+		var month = map.get(arr[0]);
+		if (month < 10) {
+			month = "0" + month; //01~09월
+		} 
+
+		var day = arr[1];
+		if (day < 10) {
+			day = day.padStart(2, '0'); //01~09일
+		}
+
+		
+		//날짜 조회 유효성검사
+		var today = new Date();
+		
+		var todayY = today.getFullYear();
+		var todayM = today.getMonth() + 1;
+		var todayD = today.getDate(); 
+		
+		if(year > todayY){
+			alert("해당 기간의 조회가 불가능합니다.");
+			return false;
+		
+		}else if(year == todayY && month > todayM){
+			alert("해당 기간의 조회가 불가능합니다.");
+			return false;
+			
+		}else if(year == todayY && month == todayM && day > todayD){
+			alert("해당 기간의 조회가 불가능합니다.");
+			return false;
+		}
+
+		location.href="/admin/dayanalyze?year="+year+"&month="+month+"&day="+day;
+
+	}
+</script>
+
 
 
 
