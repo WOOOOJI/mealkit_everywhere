@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.admin.mapper.AnalyzeMapper;
 
 @Service
-public class AnalyzeSerivce {
+public class AnalyzeService {
 
 	@Autowired
 	AnalyzeMapper mapper;

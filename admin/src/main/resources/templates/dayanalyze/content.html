@@ -18,7 +18,7 @@
 									<div class="card-body">
 										<div class="row">
 											<div class="col mt-0">
-												<h5 class="card-title">배송량</h5>
+												<h5 class="card-title">일일 배송량</h5>
 											</div>
 
 											<div class="col-auto">
@@ -31,7 +31,7 @@
 										<div class="mb-0">
 											<span class="text-danger"> <i
 												class="mdi mdi-arrow-bottom-right"></i> -3.65%
-											</span> <span class="text-muted">지난달 대비</span>
+											</span> <span class="text-muted">전일 대비</span>
 										</div>
 									</div>
 								</div>
@@ -52,7 +52,7 @@
 										<div class="mb-0">
 											<span class="text-success"> <i
 												class="mdi mdi-arrow-bottom-right"></i> 5.25%
-											</span> <span class="text-muted">지난달 대비</span>
+											</span> <span class="text-muted">전일 대비</span>
 										</div>
 									</div>
 								</div>
@@ -75,7 +75,7 @@
 										<div class="mb-0">
 											<span class="text-success"> <i
 												class="mdi mdi-arrow-bottom-right"></i> 6.65%
-											</span> <span class="text-muted">지난달 대비</span>
+											</span> <span class="text-muted">전일 대비</span>
 										</div>
 									</div>
 								</div>
@@ -96,7 +96,7 @@
 										<div class="mb-0">
 											<span class="text-danger"> <i
 												class="mdi mdi-arrow-bottom-right"></i> -2.25%
-											</span> <span class="text-muted">지난달 대비</span>
+											</span> <span class="text-muted">전일 대비</span>
 										</div>
 									</div>
 								</div>
@@ -109,7 +109,10 @@
 					<div class="card flex-fill">
 						<div class="card-header">
 
-							<h5 class="card-title mb-0">날짜별 조회</h5>
+							<h5 class="card-title mb-0">일별 조회</h5>
+							<button type="button" class="btn btn-sm btn-primary"
+													id="btnList" style="float: right;"
+													th:onclick="#">조회</button>
 						</div>
 						<div class="card-body d-flex">
 							<div class="align-self-center w-100">
@@ -138,16 +141,29 @@
 								<table class="table mb-0">
 									<tbody>
 										<tr>
+											<td>카테고리</td>
+											<td>총금액</td>
+											<td class="text-end">판매량</td>
+										</tr>
+										<tr>
 											<td>한식</td>
-											<td class="text-end">4306개</td>
+											<td>800000</td>
+											<td class="text-end">5000개</td>
 										</tr>
 										<tr>
 											<td>중식</td>
-											<td class="text-end">3801개</td>
+											<td>50000</td>
+											<td class="text-end">2000개</td>
 										</tr>
 										<tr>
 											<td>일식</td>
-											<td class="text-end">1689개</td>
+											<td>300000</td>
+											<td class="text-end">3000개</td>
+										</tr>
+										<tr>
+											<td>양식</td>
+											<td>70000</td>
+											<td class="text-end">4000개</td>
 										</tr>
 									</tbody>
 								</table>
@@ -166,7 +182,7 @@
 					<div class="card flex-fill w-100">
 						<div class="card-header">
 
-							<h5 class="card-title mb-0">이번달 매출 차트</h5>
+							<h5 class="card-title mb-0">일일 매출 차트</h5>
 						</div>
 						<div class="card-body py-3">
 							<div class="chart chart-sm">
@@ -221,16 +237,15 @@
 					<div class="card flex-fill">
 						<div class="card-header">
 
-							<h5 class="card-title mb-0">최근 주문건</h5>
+							<h5 class="card-title mb-0">판매순위 BEST 10</h5>
 						</div>
 						<table class="table table-hover my-0">
 							<thead>
 								<tr>
-									<th>판매상품명</th>
-									<th class="d-none d-xl-table-cell">받는 사람</th>
-									<th class="d-none d-xl-table-cell">결제 금액</th>
-									<th>주문상태</th>
-									<th class="d-none d-md-table-cell">주문 날짜</th>
+									<th>상품명</th>
+									<th class="d-none d-xl-table-cell">가격</th>
+									<th>판매 수량</th>
+									<th>총 판매 금액</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -239,56 +254,48 @@
 									<td class="d-none d-xl-table-cell">김기태</td>
 									<td class="d-none d-xl-table-cell">65,000원</td>
 									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
 								</tr>
 								<tr>
 									<td>사와디캅 팟타이</td>
 									<td class="d-none d-xl-table-cell">한승우</td>
 									<td class="d-none d-xl-table-cell">131,200원</td>
 									<td><span class="badge bg-danger">환불요청</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
 								</tr>
 								<tr>
 									<td>알찬 이탈리안 볼로네제라자냐</td>
 									<td class="d-none d-xl-table-cell">홍길동</td>
 									<td class="d-none d-xl-table-cell">631,200원</td>
 									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
 								</tr>
 								<tr>
 									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
 									<td class="d-none d-xl-table-cell">연우진</td>
 									<td class="d-none d-xl-table-cell">100,000원</td>
 									<td><span class="badge bg-warning">배송준비중</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
 								</tr>
 								<tr>
 									<td>얼큰한 꽂개탕</td>
 									<td class="d-none d-xl-table-cell">이상아</td>
 									<td class="d-none d-xl-table-cell">210,000원</td>
 									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
 								</tr>
 								<tr>
 									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
 									<td class="d-none d-xl-table-cell">한승우</td>
 									<td class="d-none d-xl-table-cell">10,000원</td>
 									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
 								</tr>
 								<tr>
 									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
 									<td class="d-none d-xl-table-cell">김기태</td>
 									<td class="d-none d-xl-table-cell">52,000원</td>
 									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
 								</tr>
 								<tr>
 									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
 									<td class="d-none d-xl-table-cell">김기태</td>
 									<td class="d-none d-xl-table-cell">65,000원</td>
 									<td><span class="badge bg-warning">배송준비중</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
 								</tr>
 							</tbody>
 						</table>
@@ -302,16 +309,15 @@
 					<div class="card flex-fill">
 						<div class="card-header">
 
-							<h5 class="card-title mb-0">최근 주문건</h5>
+							<h5 class="card-title mb-0">판매순위 WORST 10</h5>
 						</div>
 						<table class="table table-hover my-0">
 							<thead>
 								<tr>
-									<th>판매상품명</th>
-									<th class="d-none d-xl-table-cell">받는 사람</th>
-									<th class="d-none d-xl-table-cell">결제 금액</th>
-									<th>주문상태</th>
-									<th class="d-none d-md-table-cell">주문 날짜</th>
+									<th>상품명</th>
+									<th class="d-none d-xl-table-cell">가격</th>
+									<th>판매 수량</th>
+									<th>총 판매 금액</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -403,13 +409,13 @@
 						"17:00", "18:00", "19:00", "20:00", "21:00", "22:00",
 						"23:00", "24:00" ],
 				datasets : [ {
-					label : "판매금 (원): ",
+					label : "판매금 (원) ",
 					fill : true,
 					backgroundColor : gradient,
 					borderColor : window.theme.primary,
 					data : [ 2115, 1562, 1584, 1892, 1587, 1923, 2566, 2448,
 							2805, 3438, 2917, 3327, 2115, 1562, 1584, 1892,
-							1587, 1923, 2566, 2448, 2805, 3438, 2917, 3327 ]
+							1587, 1923, 2566, 2448, 2805, 3438, 2917, 3327, 5555 ]
 				} ]
 			},
 			options : {
@@ -456,11 +462,11 @@
 		new Chart(document.getElementById("chartjs-dashboard-pie"), {
 			type : "pie",
 			data : {
-				labels : [ "Chrome", "Firefox", "IE" ],
+				labels : [ "한식", "중식", "일식", "양식" ],
 				datasets : [ {
-					data : [ 4306, 3801, 1689 ],
-					backgroundColor : [ window.theme.primary,
-							window.theme.warning, window.theme.danger ],
+					data : [ 4306, 3801, 1689, 1000 ],
+					backgroundColor : [ window.theme.danger,
+							window.theme.warning, window.theme.success, window.theme.primary],
 					borderWidth : 5
 				} ]
 			},
@@ -475,51 +481,7 @@
 		});
 	});
 </script>
-<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		// Bar chart
-		new Chart(document.getElementById("chartjs-dashboard-bar"), {
-			type : "bar",
-			data : {
-				labels : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월",
-						"8월", "9월", "10월", "11월", "12월" ],
-				datasets : [ {
-					label : "This year",
-					backgroundColor : window.theme.primary,
-					borderColor : window.theme.primary,
-					hoverBackgroundColor : window.theme.primary,
-					hoverBorderColor : window.theme.primary,
-					data : [ 54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79 ],
-					barPercentage : .75,
-					categoryPercentage : .5
-				} ]
-			},
-			options : {
-				maintainAspectRatio : false,
-				legend : {
-					display : false
-				},
-				scales : {
-					yAxes : [ {
-						gridLines : {
-							display : false
-						},
-						stacked : false,
-						ticks : {
-							stepSize : 20
-						}
-					} ],
-					xAxes : [ {
-						stacked : false,
-						gridLines : {
-							color : "transparent"
-						}
-					} ]
-				}
-			}
-		});
-	});
-</script>
+
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
 		var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
@@ -543,27 +505,27 @@
 		new Chart(document.getElementById("chartjs-bar"), {
 			type : "bar",
 			data : {
-				labels : [ "1", "2", "3", "4", "5",
-						"6", "7", "8", "08:00", "09:00", "10:00",
-						"11:00", "12:00", "00:00", "01:00", "02:00", "03:00", "04:00",
-						"05:00", "06:00", "07:00", "08:00", "09:00", "10:00",
-						"11:00", "12:00" ],
+				labels : [ "00:00", "01:00", "02:00", "03:00", "04:00",
+					"05:00", "06:00", "07:00", "08:00", "09:00", "10:00",
+					"11:00", "12:00", "13:00", "14:00", "15:00", "16:00",
+					"17:00", "18:00", "19:00", "20:00", "21:00", "22:00",
+					"23:00", "24:00" ],
 				datasets : [ {
-					label : "Last year",
+					label : "오늘? 당일? 구매율 (%) ",
 					backgroundColor : window.theme.primary,
 					borderColor : window.theme.primary,
 					hoverBackgroundColor : window.theme.primary,
 					hoverBorderColor : window.theme.primary,
-					data : [ 54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79, 54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79 ],
+					data : [ 54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79, 54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79, 80],
 					barPercentage : .75,
 					categoryPercentage : .5
 				}, {
-					label : "This year",
+					label : "어제? 전일? 구매율 (%) ",
 					backgroundColor : "#dee2e6",
 					borderColor : "#dee2e6",
 					hoverBackgroundColor : "#dee2e6",
 					hoverBorderColor : "#dee2e6",
-					data : [ 69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68, 69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68 ],
+					data : [ 69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68, 69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68, 75],
 					barPercentage : .75,
 					categoryPercentage : .5
 				} ]
