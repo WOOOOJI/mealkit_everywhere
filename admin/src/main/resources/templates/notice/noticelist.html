@@ -22,6 +22,7 @@ th {
 
 a {
 	color: black;
+	text-decoration: none;
 }
 
 #pageList>.active {
@@ -104,7 +105,7 @@ a {
 							</select>
 						</label>
 					</div>
-						<input style="display:inline;width:70%" type="text" id="keyword" class="form-control" maxlength="45"
+						<input style="display:inline;width:60%" type="text" id="keyword" class="form-control" maxlength="45"
 								placeholder="검색어를 입력해주세요.">
 						<button class="btn btn-primary" onclick="searchKeyword()">검색</button>
 						
@@ -127,16 +128,16 @@ a {
 
 						<!-- 이전 버튼 -->
 						<li class="prevbtn"><a th:if="${pageMaker.prev == true}"
-							th:href="@{/notice(pageNum = ${pageMaker.pageStart - 1})}">&lt;</a></li>
+							th:href="@{/notice(pageNum = ${pageMaker.pageStart - 1}, ascDesc = ${ascDesc}, ntype = ${ntype}, orderCri = ${orderCri})}">&lt;</a></li>
 						<!-- 페이지 번호 출력 -->
 						<li th:each="pageNum : ${pageNumList}" id="pageList">
 							<!-- class="active" --> <a th:id="${pageNum}"
-							th:href="@{/notice(pageNum = ${pageNum})}"
+							th:href="@{/notice(pageNum = ${pageNum}, ascDesc = ${ascDesc}, ntype = ${ntype}, orderCri = ${orderCri})}"
 							th:text="${pageNum}"></a>
 						</li>
 						<!-- 다음 버튼 -->
 						<li class="nextbtn"><a th:if="${pageMaker.next == true}"
-							th:href="@{/notice(pageNum = ${pageMaker.pageEnd + 1})}">&gt;</a></li>
+							th:href="@{/notice(pageNum = ${pageMaker.pageEnd + 1}, keyword = ${keyword}, type = ${type}, orderBy = ${orderBy})}">&gt;</a></li>
 					</ul>
 				</div>
 			</div>

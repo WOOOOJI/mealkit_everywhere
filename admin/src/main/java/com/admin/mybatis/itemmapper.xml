@@ -34,9 +34,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</update>
 
 	<!-- 이벤트 페이지 개수 -->
-	<select id="countItem" resultType="int">
-		SELECT count(itemKey) FROM
-		item;
+	<select id="countItem" parameterType="Criteria" resultType="int">
+		SELECT count(itemKey) FROM item
+		<where>
+			<if test="categoryKey != 0">
+				and categoryKey =${categoryKey}
+			</if>
+		</where>
+		
+		ORDER BY #{orderCri} #{ascDesc}
 	</select>
 
 	<!-- 이벤트 페이지 정보 가져오기 -->

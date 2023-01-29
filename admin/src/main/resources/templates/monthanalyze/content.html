@@ -1,4 +1,15 @@
 
+<script>
+
+var arr='[[${saleschart}]]';
+alert(arr);
+var ad=arr.substring(1,arr.length-1);
+alert(ad);
+var array=ad.split(',');
+alert(array);
+
+</script>
+
 
 
 	<main class="content">
@@ -401,15 +412,13 @@
 						"05:00", "06:00", "07:00", "08:00", "09:00", "10:00",
 						"11:00", "12:00", "13:00", "14:00", "15:00", "16:00",
 						"17:00", "18:00", "19:00", "20:00", "21:00", "22:00",
-						"23:00", "24:00" ],
+						"23:00", "24:00","1","2","3","4","5","6","7","8" ],
 				datasets : [ {
 					label : "판매금 (원): ",
 					fill : true,
 					backgroundColor : gradient,
 					borderColor : window.theme.primary,
-					data : [ 2115, 1562, 1584, 1892, 1587, 1923, 2566, 2448,
-							2805, 3438, 2917, 3327, 2115, 1562, 1584, 1892,
-							1587, 1923, 2566, 2448, 2805, 3438, 2917, 3327 ]
+					data : array
 				} ]
 			},
 			options : {

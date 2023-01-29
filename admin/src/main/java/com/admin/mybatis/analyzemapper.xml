@@ -3,5 +3,84 @@
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.admin.mapper.AnalyzeMapper">
+
+
+	<!-- 연간 카테고리별 통계 -->
+	<select id="categoryYearAnalyze" parameterType="String" resultType="ItemDTO">
+		SELECT i.categoryKey, sum(od.price*od.cnt) AS salesSum,
+		count(od.price*od.cnt) AS salesCnt
+		FROM orderDetaiL od
+		INNER JOIN item i ON i.itemKey=od.itemKey
+		INNER JOIN totalOrder o ON o.orderKey=od.orderKey WHERE
+		<![CDATA[
+		DATE_FORMAT(o.rdate, '%Y-%m-%d') >= DATE_FORMAT( '${year}-01-01','%Y-%m-%d') AND 
+		DATE_FORMAT(o.rdate, '%Y-%m-%d') <= DATE_FORMAT('${year}-12-31', '%Y-%m-%d')
+		]]>
+		GROUP BY i.categoryKey
+		ORDER BY categoryKey ASC
+	</select>
 	
+	<!-- 월간 카테고리별 통계 -->
+	<select id="categoryMonthAnalyze" parameterType="String" resultType="ItemDTO">
+		SELECT i.categoryKey, sum(od.price*od.cnt) AS salesSum,
+		count(od.price*od.cnt) AS salesCnt
+		FROM orderDetaiL od
+		INNER JOIN item i ON i.itemKey=od.itemKey
+		INNER JOIN totalOrder o ON o.orderKey=od.orderKey WHERE
+		<![CDATA[
+		DATE_FORMAT(o.rdate, '%Y-%m-%d') >= DATE_FORMAT( '${year}-${month}-01','%Y-%m-%d') AND 
+		DATE_FORMAT(o.rdate, '%Y-%m-%d') <= DATE_FORMAT('${year}-${month}-31', '%Y-%m-%d')
+		]]>
+		GROUP BY i.categoryKey
+		ORDER BY categoryKey ASC
+	</select>
+	
+		<!-- 월간 카테고리별 통계 -->
+	<select id="categoryDayAnalyze" parameterType="String" resultType="ItemDTO">
+		SELECT i.categoryKey, sum(od.price*od.cnt) AS salesSum,
+		count(od.price*od.cnt) AS salesCnt
+		FROM orderDetaiL od
+		INNER JOIN item i ON i.itemKey=od.itemKey
+		INNER JOIN totalOrder o ON o.orderKey=od.orderKey WHERE
+		<![CDATA[
+		DATE_FORMAT(o.rdate, '%Y-%m-%d') = DATE_FORMAT( '${year}-${month}-${day}','%Y-%m-%d')
+		]]>
+		GROUP BY i.categoryKey
+		ORDER BY categoryKey ASC
+	</select>
+	<select id="yearSalesChart" parameterType="String" resultType="OrderDTO">
+		SELECT * 
+		FROM(
+			SELECT DATE_FORMAT(dt.d,'%Y-%m') AS tempDate,
+			IFNULL(SUM(o.price),0) AS totalSales
+            FROM dateT dt
+            LEFT JOIN  totalOrder o ON (DATE_FORMAT(o.rdate, '%Y-%m-%d')=dt.d)
+            GROUP BY tempDate
+            ORDER BY tempDate ASC
+			)a
+		WHERE tempDate LIKE CONCAT ('%', #{year}, '%')
+	</select>
+	<select id="monthSalesChart" parameterType="String" resultType="OrderDTO">
+		SELECT * 
+		FROM(
+			SELECT DATE_FORMAT(dt.d,'%Y-%m-%d') AS tempDate,
+			IFNULL(SUM(o.price),0) AS totalSales
+            FROM dateT dt
+            LEFT JOIN  totalOrder o ON (DATE_FORMAT(o.rdate, '%Y-%m-%d')=dt.d)
+            GROUP BY tempDate
+            ORDER BY tempDate ASC
+			)a
+		WHERE tempDate LIKE CONCAT ('%', '${year}-${month}', '%')
+	</select>
+	<select id="daySalesChart" parameterType="String" resultType="OrderDTO">
+		SELECT * 
+		FROM(
+			SELECT tt.t AS tempDate,
+			IFNULL(SUM(o.price),0) AS totalSales
+            FROM timeT tt
+            LEFT JOIN  totalOrder o ON (HOUR(o.rdate)=tt.t) AND DATE_FORMAT(o.rdate, '%Y-%m-%d') LIKE '${year}-${month}-${day}'
+            GROUP BY tempDate
+            ORDER BY tempDate ASC
+		)a;
+	</select>
 </mapper>
