@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shop.dto.CartDTO;
+import com.shop.dto.ItemDTO;
 import com.shop.frame.MyService;
 import com.shop.mapper.CartMapper;
 
@@ -67,6 +68,20 @@ public class CartService implements MyService<Integer, CartDTO>{
 	// 장바구니에 이미 존재하는 물건을 추가를 하면 수량을 증가시키기
 	public void increaseCart(int cartKey, int itemKey, int cnt) throws Exception{
 		mapper.increaseCart(cartKey, itemKey, cnt);
+	}
+	
+	
+	public ItemDTO itemImg(int cartKey) {
+		ItemDTO dto = null;
+		
+		try {
+			dto = mapper.itemImg(cartKey);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return dto;
 	}
 }
 

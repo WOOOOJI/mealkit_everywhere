@@ -45,5 +45,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		UPDATE cart SET cnt=cnt+${cnt} WHERE cartKey=${cartKey}
 	</update>
 
+	<select id="itemImg" resultType="ItemDTO">
+		SELECT i.img1 AS "img1" FROM cart c 
+		JOIN item i ON i.itemKey = c.itemKey
+		WHERE c.cartKey=${cartKey}
+	</select>
 	
 </mapper>

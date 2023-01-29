@@ -117,11 +117,11 @@
 						      	<!-- 삭제 버튼 -->
 						        <td class="product-remove"><a href="#" th:onclick="del([[${c.cartKey}]])"><span class="ion-ios-close"></span></a></td>
 						        <!-- 상품이미지 -->
-						        <td class="image-prod"><a class="itemhover" th:href="@{/item(itemKey=${c.itemKey})}"><img th:src="@{/img/product/images.jpeg}"></a></td>
+						        <td class="image-prod"><a class="itemhover" th:href="@{/shoplist/product(itemKey=${c.itemKey})}"><img style="width:50%" th:src="@{/img/product/}+${c.img}"></a></td>
 						        
 						        <td class="product-name">
 						        	<!-- 상품명 -->
-						        	<a class="itemhover" th:href="@{/item(itemKey=${c.itemKey})}"><h3 class="texthover" th:text="${c.name}"></h3></a>
+						        	<a class="itemhover" th:href="@{/shoplist/product(itemKey=${c.itemKey})}"><h3 class="texthover" th:text="${c.name}"></h3></a>
 						        	<!-- 정가 -->
 						        	<p th:text="${c.price}+원"></p>
 						        </td>

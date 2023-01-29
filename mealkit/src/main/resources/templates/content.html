@@ -6,9 +6,13 @@ history.scrollRestoration = "auto";
 // 장바구니 제품 추가
 
 function insertCart(item){
+	var goOrNot = 0;
+	if(confirm("장바구니에 상품이 담겼습니다. 바로 장바구니로 이동하시겠습니까?")){
+		goOrNot = 1;
+	};
 	var itemKey = item;
 	var cnt = 1;
-	location.href="/cart/cartInsert?itemKey="+itemKey+"&cnt="+cnt;
+	location.href="/cart/cartInsert?itemKey="+itemKey+"&cnt="+cnt+"&goOrNot="+goOrNot;
 };
 
 function insertWish(item){
