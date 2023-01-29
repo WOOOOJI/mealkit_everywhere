@@ -31,7 +31,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println("돌아가 제발;;;");
             return false;
         }
     }

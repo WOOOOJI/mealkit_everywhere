@@ -72,7 +72,9 @@
 						        <td class="username" th:text="${b.username}"></td>
 						        
 						        <!-- 상품명 -->
-						        <a href="#"> <td class="title"  th:text="${b.name}" ></td></a>
+						        <td>
+						 	  	 <a th:href="@{/shoplist/product(itemKey=${b.itemKey})}"> <h6 class="title" th:text="${b.name}" ></h6></a>
+						        </td>
 						        
 						        <!-- 글작성일 -->
 						        <td class="content"  th:text="${b.rdate}"></td>

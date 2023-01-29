@@ -1,7 +1,5 @@
 package com.admin.dto;
 
-import java.text.SimpleDateFormat;
-
 import lombok.Data;
 
 @Data

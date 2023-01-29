@@ -12,4 +12,5 @@ public class WishDTO {
 	private String name;
 	private int price;
 	private int sale;
+	private String img1;
 }

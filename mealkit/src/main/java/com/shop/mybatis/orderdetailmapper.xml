@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- orderKey 이용해서 주문상세 갖고오기 -->
 
 	<select id="getOrderdetailByOrderkey" parameterType="Integer" resultType="OrderDetailDTO">
-		SELECT od.price, i.name AS itemName, od.cnt, i.img1 AS itemImg FROM item i
+		SELECT od.price, i.name AS itemName, od.cnt, i.img1 AS itemImg, i.itemKey AS "itemKey" FROM item i
 		INNER JOIN orderDetail od on i.itemKey=od.itemKey
 		WHERE orderKey=${orderKey};
 	</select>

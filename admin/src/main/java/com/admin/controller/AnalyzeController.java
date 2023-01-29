@@ -1,7 +1,6 @@
 package com.admin.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.admin.dto.DashBoardDTO;
 import com.admin.dto.ItemDTO;
 import com.admin.dto.OrderDTO;
 import com.admin.service.AnalyzeService;
@@ -20,10 +20,7 @@ public class AnalyzeController {
 	AnalyzeService analyzeService;
 
 	@RequestMapping("/monthanalyze")
-	public String month(Model model) {
-
-		String year = "2023";
-		String month="01";
+	public String month(String year, String month, Model model) {
 
 		List<ItemDTO> categoryMonthAnalyze = null;
 		List<OrderDTO> monthSalesChart=null;
@@ -58,14 +55,17 @@ public class AnalyzeController {
 			arr.add(o.getTotalSales());
 		}
 		
+		DashBoardDTO dash = analyzeService.dashBoardCardMonth(year, month);
+		
+		model.addAttribute("dash", dash);
 		model.addAttribute("saleschart", arr);
 		model.addAttribute("content", "monthanalyze/content");
 		return "main";
 	}
 
 	@RequestMapping("/yearanalyze")
-	public String year(Model model) {
-		String year = "2022";
+	public String year(String year, Model model) {
+
 
 		List<ItemDTO> categoryYearAnalyze = null;
 		List<OrderDTO> yearSalesChart=null;
@@ -98,17 +98,19 @@ public class AnalyzeController {
 		for(OrderDTO o:yearSalesChart) {
 			arr.add(o.getTotalSales());
 		}
+		
+		
+		DashBoardDTO dash = analyzeService.dashBoardCardYear(year);
+		model.addAttribute("dash", dash);
+		
 		model.addAttribute("saleschart", arr);
 		model.addAttribute("content", "yearanalyze/content");
 		return "main";
 	}
 
 	@RequestMapping("/dayanalyze")
-	public String day(Model model) {
+	public String day(String year, String month, String day, Model model) {
 		
-		String year = "2022";
-		String month="12";
-		String day="30";
 
 		List<ItemDTO> categoryDayAnalyze = null;
 		List<OrderDTO> daySalesChart=null;
@@ -135,15 +137,20 @@ public class AnalyzeController {
 				break;
 			}
 		}
+		
 		daySalesChart=analyzeService.daySalesChart(year,month,day);
 		ArrayList arr=new ArrayList();
 		for(OrderDTO o:daySalesChart) {
 			arr.add(o.getTotalSales());
 		}
+		
+		DashBoardDTO dash = analyzeService.dashBoardCardDay(year, month, day);
+		model.addAttribute("dash", dash);
 		model.addAttribute("saleschart", arr);
 		model.addAttribute("content", "dayanalyze/content");
 		return "main";
 	}
+
 
 	@RequestMapping("/detailSearch")
 	public String detailSearch(Model model) {

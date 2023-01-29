@@ -11,6 +11,7 @@ import com.admin.dto.OrderDTO;
 @Mapper
 @Repository
 public interface AnalyzeMapper {
+
 	// 카테고리별 연간 분석 (판매액,판매량)
 	public List<ItemDTO> categoryYearAnalyze(String year) throws Exception;
 
@@ -28,4 +29,13 @@ public interface AnalyzeMapper {
 
 	// 특정 년도의 매출차트 데이터 가져오기(월 별)
 	public List<OrderDTO> daySalesChart(String year, String month, String day) throws Exception;
+
+	
+	
+	public OrderDTO dashBoardCardYear(String year) throws Exception;
+	public OrderDTO dashBoardCardMonth(String year, String month) throws Exception;
+	public OrderDTO dashBoardCardDay(String year, String month, String day) throws Exception;
+	
+	
+
 }
