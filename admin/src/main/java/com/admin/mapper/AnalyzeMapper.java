@@ -36,6 +36,6 @@ public interface AnalyzeMapper {
 	public OrderDTO dashBoardCardMonth(String year, String month) throws Exception;
 	public OrderDTO dashBoardCardDay(String year, String month, String day) throws Exception;
 	
-	
-
+	//나이대별 판매개수 구하기
+	public List<OrderDTO> ageRangeSales(int categoryKey, String gender, String gender1, String gender2, String startDate, String endDate) throws Exception;
 }

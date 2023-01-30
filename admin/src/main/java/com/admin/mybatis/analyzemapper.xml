@@ -113,5 +113,22 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	FROM totalOrder
 	WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status NOT LIKE 'F';
 	</select>
+	
+	<!-- 나이대별 판매개수 구하기  -->
+	<select id="ageRangeSales" resultType="OrderDTO">
+		SELECT COUNT(od.cnt) AS totalSales, floor((YEAR(NOW())-(if(c.gender='1'or c.gender='2',1900,2000)+left(c.jumin,2)))/10)*10 AS ageRange FROM totalOrder t
+		INNER JOIN customer c ON t.custKey=c.custKey
+		INNER JOIN orderDetail od ON od.orderKey=t.orderKey
+		INNER JOIN item i ON i.itemKey=od.itemKey
+		WHERE (DATE_FORMAT(t.rdate,'%y-%m-%d') BETWEEN DATE_FORMAT('${startDate}','%y-%m-%d') AND DATE_FORMAT('${endDate}','%y-%m-%d'))
+		<if test="gender!='noGender'">
+		AND (c.gender=${gender1} or c.gender=${gender2})
+		</if>
+		<if test="categoryKey!=-1">
+		AND i.categoryKey=${categoryKey}
+		</if>
+		GROUP BY ageRange
+		ORDER BY ageRange ASC;
+	</select>
 
 </mapper>

@@ -427,4 +427,15 @@ public class AnalyzeService {
 
 			return dash;
 		}
+		
+		//나이대별 판매개수 구하기
+		public List<OrderDTO> ageRangeSales(int categoryKey, String gender, String gender1, String gender2, String startDate, String endDate){
+			List<OrderDTO> result=null;
+			try {
+				result=mapper.ageRangeSales(categoryKey, gender, gender1, gender2, startDate, endDate);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
 }
