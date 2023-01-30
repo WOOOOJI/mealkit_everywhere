@@ -35,5 +35,8 @@ public class OrderDTO {
 	private int totalSales;
 
 	private String refund;
+	
+	//나이대별 분석에 필요한 변수
+	private String ageRange;
 
 }

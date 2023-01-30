@@ -1,4 +1,4 @@
-package com.admin.analysis;
+package com.admin.analyze;
 
 import java.util.List;
 

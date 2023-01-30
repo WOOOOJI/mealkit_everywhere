@@ -1,12 +1,15 @@
 package com.admin.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.admin.dto.DashBoardDTO;
 import com.admin.dto.ItemDTO;
@@ -153,7 +156,49 @@ public class AnalyzeController {
 
 
 	@RequestMapping("/detailSearch")
-	public String detailSearch(Model model) {
+	public String detailSearch(@RequestParam(value = "categoryKey", defaultValue = "-1") int categoryKey,
+			@RequestParam(value = "age", defaultValue = "noAge") String age,
+			@RequestParam(value = "gender", defaultValue = "noGender") String gender, String startDate, String endDate, Model model) {
+		
+		List<OrderDTO> ageRangeSales=null;
+		
+		//처음 접속 시 날짜를 기본으로 전날로 설정
+		if(startDate==null||startDate.equals("")) {
+		Calendar cal = Calendar.getInstance();
+		String format = "yyyy-MM-dd";
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		cal.add(cal.DATE, -1); //날짜를 하루 뺀다.
+		startDate = sdf.format(cal.getTime());
+		endDate = sdf.format(cal.getTime());
+		}
+		System.out.println(startDate+endDate);
+		//성별 처리
+		String gender1=""; String gender2="";
+		if(!gender.equals("noGender")) {
+			gender1=gender.split(",")[0];
+			gender2=gender.split(",")[1];
+		}
+		
+		//나이대별 판매량 조회
+		ageRangeSales=analyzeService.ageRangeSales(categoryKey, gender, gender1, gender2, startDate, endDate);
+		
+		//나이대별 판매량 조회한 것을 나이대에 맞게 addAttribute 수행
+		for(OrderDTO o:ageRangeSales) {
+			switch(o.getAgeRange()) {
+			case("10"):case("10.0"): model.addAttribute("age10Sales", o.getTotalSales()); break;
+			case("20"):case("20.0"): model.addAttribute("age20Sales", o.getTotalSales()); break;
+			case("30"):case("30.0"): model.addAttribute("age30Sales", o.getTotalSales()); break;
+			case("40"):case("40.0"): model.addAttribute("age40Sales", o.getTotalSales()); break;
+			case("50"):case("50.0"): model.addAttribute("age50Sales", o.getTotalSales()); break;
+			case("60"):case("60.0"): model.addAttribute("age60Sales", o.getTotalSales()); break;
+			}
+		}
+		
+		model.addAttribute("categoryKey", categoryKey);
+		model.addAttribute("age", age);
+		model.addAttribute("gender", gender);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
 		model.addAttribute("content", "detailsearch/content");
 		return "main";
 	}
