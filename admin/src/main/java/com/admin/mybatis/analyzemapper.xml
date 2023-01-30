@@ -22,7 +22,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="dashBoardCardYear" resultType="OrderDTO">
 	SELECT COUNT(orderKey) AS "itemCnt", SUM(price) AS "price",
 	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND status NOT LIKE 'F' ) AS "status",
-	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND status LIKE 'F') AS "refund" 
+	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND status LIKE 'F') AS "refund",
+	(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND status NOT LIKE 'F') AS "totalSales"
 	FROM totalOrder
 	WHERE rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND status NOT LIKE 'F'
 	</select>
@@ -31,7 +32,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="dashBoardCardMonth" resultType="OrderDTO">
 	SELECT COUNT(orderKey) AS "itemCnt", SUM(price) AS "price",
 	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-01 00:00:00' AND '${year}-${month}-31 23:59:59' AND status NOT LIKE 'F' ) AS "status",
-	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-01 00:00:00' AND '${year}-${month}-31 23:59:59' AND status LIKE 'F') AS "refund" 
+	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-01 00:00:00' AND '${year}-${month}-31 23:59:59' AND status LIKE 'F') AS "refund",
+	(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${year}-${month}-01 00:00:00' AND '${year}-${month}-31 23:59:59' AND status NOT LIKE 'F') AS "totalSales"
 	FROM totalOrder
 	WHERE rdate BETWEEN '${year}-${month}-01 00:00:00' AND '${year}-${month}-31 23:59:59' AND status NOT LIKE 'F'
 	</select>
@@ -106,7 +108,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="dashBoardCardDay" resultType="OrderDTO">
 	SELECT COUNT(orderKey) AS "itemCnt", SUM(price) AS "price",
 	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status NOT LIKE 'F' ) AS "status",
-	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status LIKE 'F') AS "refund" 
+	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status LIKE 'F') AS "refund",
+	(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status NOT LIKE 'F') AS "totalSales" 
 	FROM totalOrder
 	WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status NOT LIKE 'F';
 	</select>

@@ -175,6 +175,9 @@ public class AnalyzeService {
 			//올해 총 매출액
 			dash.setTotalPrice(thisY.getPrice());
 			
+			//올해 총 판매개수
+			dash.setTotalItemCnt(thisY.getTotalSales());
+			
 			//올해 총 배송량
 			dash.setTotalShip(thisY.getItemCnt());
 			
@@ -186,6 +189,12 @@ public class AnalyzeService {
 			if( tempSell == -1.0) tempSell = 0.0;
 			String tempSellS = String.format("%.2f", tempSell);
 			dash.setSellIncrease(tempSellS);
+			
+			//올해와 작년 판매개수 증가율
+			double tempCnt = Math.round((thisY.getTotalSales() - lastY.getTotalSales()) / (float)lastY.getTotalSales() * 100)*100/100.0;
+			if( tempCnt == -1.0) tempCnt = 0.0;
+			String tempCntS = String.format("%.2f", tempCnt);
+			dash.setItemCntIncrease(tempCntS);
 			
 			//올해와 작년 배송량 증가율
 			double tempShip = Math.round((thisY.getItemCnt() - lastY.getItemCnt()) / (float)lastY.getItemCnt() * 100)*100/100.0;
@@ -255,6 +264,9 @@ public class AnalyzeService {
 			//이번달 총 매출액
 			dash.setTotalPrice(thisM.getPrice());
 			
+			//올해 총 판매개수
+			dash.setTotalItemCnt(thisM.getTotalSales());
+			
 			//이번달 총 배송량
 			dash.setTotalShip(thisM.getItemCnt());
 			
@@ -266,6 +278,12 @@ public class AnalyzeService {
 			if( tempSell == -1.0) tempSell = 0.0;
 			String tempSellS = String.format("%.2f", tempSell);
 			dash.setSellIncrease(tempSellS);
+			
+			//올해와 작년 판매개수 증가율
+			double tempCnt = Math.round((thisM.getTotalSales() - lastM.getTotalSales()) / (float)lastM.getTotalSales() * 100)*100/100.0;
+			if( tempCnt == -1.0) tempCnt = 0.0;
+			String tempCntS = String.format("%.2f", tempCnt);
+			dash.setItemCntIncrease(tempCntS);
 
 			
 			//이번달과 저번달 배송량 증가율
@@ -372,6 +390,9 @@ public class AnalyzeService {
 			//오늘 총 배송량
 			dash.setTotalShip(thisD.getItemCnt());
 			
+			//올해 총 판매개수
+			dash.setTotalItemCnt(thisD.getTotalSales());
+			
 			//오늘 구매확정율
 			dash.setConfirmation(Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0);
 			
@@ -380,6 +401,12 @@ public class AnalyzeService {
 			if( tempSell == -1.0) tempSell = 0.0;
 			String tempSellS = String.format("%.2f", tempSell);
 			dash.setSellIncrease(tempSellS);
+			
+			//올해와 작년 판매개수 증가율
+			double tempCnt = Math.round((thisD.getTotalSales() - lastD.getTotalSales()) / (float)lastD.getTotalSales() * 100)*100/100.0;
+			if( tempCnt == -1.0) tempCnt = 0.0;
+			String tempCntS = String.format("%.2f", tempCnt);
+			dash.setItemCntIncrease(tempCntS);
 			
 			//오늘과 어제 배송량 증가율
 			double tempShip = Math.round((thisD.getItemCnt() - lastD.getItemCnt()) / (float)lastD.getItemCnt() * 100)*100/100.0;

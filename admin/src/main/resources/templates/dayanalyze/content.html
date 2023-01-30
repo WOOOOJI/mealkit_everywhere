@@ -47,7 +47,7 @@ var array=ad.split(',');
 									<div class="card-body">
 										<div class="row">
 											<div class="col mt-0">
-												<h5 class="card-title">해당 일 방문자</h5>
+												<h5 class="card-title">해당 일 제품 판매수</h5>
 											</div>
 
 											<div class="col-auto">
@@ -56,10 +56,10 @@ var array=ad.split(',');
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-6 mb-3">14201명</h1>
+										<h1 class="mt-6 mb-3" th:text="${dash.totalItemCnt}+'개'"></h1>
 										<div class="mb-0">
-											<span class="text-success" > <i
-												class="mdi mdi-arrow-bottom-right" ></i> 5.25%
+											<span class="text-success" th:text="${dash.itemCntIncrease}"> <i
+												class="mdi mdi-arrow-bottom-right" ></i>
 											</span> <span class="text-muted">전일 대비</span>
 										</div>
 									</div>
