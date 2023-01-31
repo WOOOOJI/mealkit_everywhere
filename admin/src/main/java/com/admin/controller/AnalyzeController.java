@@ -179,6 +179,7 @@ public class AnalyzeController {
 			gender2=gender.split(",")[1];
 		}
 		
+		
 		//나이대별 판매량 조회
 		ageRangeSales=analyzeService.ageRangeSales(categoryKey, gender, gender1, gender2, startDate, endDate);
 		
@@ -194,12 +195,15 @@ public class AnalyzeController {
 			}
 		}
 		
+		
 		model.addAttribute("categoryKey", categoryKey);
 		model.addAttribute("age", age);
 		model.addAttribute("gender", gender);
 		model.addAttribute("startDate", startDate);
 		model.addAttribute("endDate", endDate);
 		model.addAttribute("content", "detailsearch/content");
+		
+
 		return "main";
 	}
 }

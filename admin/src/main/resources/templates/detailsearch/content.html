@@ -1,18 +1,35 @@
+<style>
 
+</style>
 
 
 	<main class="content">
 		<div class="container-fluid p-0">
 
-			<h1 class="h3 mb-3">
-				<strong style="font-size:40px;">2023년 1월 </strong> - 현재 매출 현황
+			<h1 class="h4 mb-3">상세 매출 현황</h1>
+			<h1 class="h4 mb-3">
+				<strong style="font-size:40px;" th:text="${startDate}+' ~ '+${endDate}"> </strong>
 			</h1>
 			<div class="card-header">
 				
 				
 				<!-- 현재 들어온 페이지의 단락 -->
 				<h5 class="card-title mb-0" style="font-size: 30px;">전체 주문건</h5>
-
+				
+				
+				<span th:if="${categoryKey} == -1" class="card-title mb-0" style="display:inline-block">카테고리:  /</span>
+				
+				<span th:if="${#strings.equals(age, 'noAge')}" class="card-title mb-0" style="display:inline-block">나이:  /</span>
+				
+				<span th:if="${#strings.equals(gender, 'noGender')}" class="card-title mb-0" style="display:inline-block">성별:  </span>
+				
+				<span th:if="${categoryKey} != -1 and !${categoryKey} != null" class="card-title mb-0" style="display:inline-block" th:text="'카테고리:  '+${categoryName}+' /'"></span>
+				
+				<span th:if="!${#strings.equals(age, 'noAge')}" class="card-title mb-0" style="display:inline-block" th:text="'카테고리:'+ ${age} +'대 /'"></span>
+				
+				<span th:if="!${#strings.equals(gender, 'noGender')}" class="card-title mb-0" style="display:inline-block" th:text="'성별:  '+${genderName}"></span>
+				
+				
 
 
 
@@ -183,49 +200,49 @@
 
 								<table class="table mb-0">
 									<tbody>
-										<tr class="card-title">
+										<tr class="card-title" >
 											<td>연령대</td>
 											<td class="text-end">판매된 개수</td>
-											<td>연령대</td>
-											<td class="text-end">판매된 개수</td>
+											
 										</tr>
-										<tr>
 										
-											<td th:if="!${#strings.equals(age, '10')}" >10대</td>
-											<td th:if="!${#strings.equals(age, '10')} and ${age10Sales != null}" th:text="${age10Sales} ? ${age10Sales}+'개' : '0개'" class="text-end">4306개</td>
-											<td th:if="${#strings.equals(age, '10')}" style="background:gray">10대</td>
-											<td th:if="${#strings.equals(age, '10')} and ${age10Sales != null}" th:text="${age10Sales} ? ${age10Sales}+'개' : '0개'" style="background:gray" class="text-end">4306개</td>
+										<tr>
+											
+											<tr id="selected10">
+											<td style="padding:0.1rem 0.1rem;">10대</td>
+											<td th:text="${age10Sales} ? ${age10Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											</tr>
+											
+											<tr id="selected20">
+											<td style="padding:0.1rem 0.1rem;">20대</td>
+											<td th:text="${age20Sales} ? ${age20Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											</tr>
 											
 											
-											<td th:if="!${#strings.equals(age, '40')}" >40대</td>
-											<td th:if="!${#strings.equals(age, '40')} and ${age10Sales != null}" th:text="${age40Sales} ? ${age40Sales}+'개' : '0개'" class="text-end">4306개</td>
-											<td th:if="${#strings.equals(age, '40')}" style="background:gray">40대</td>
-											<td th:if="${#strings.equals(age, '40')} and ${age10Sales != null}" th:text="${age40Sales ? ${age40Sales}+'개' : '0개'}" style="background:gray" class="text-end">4306개</td>
+										</tr>
+										
+										<tr>
+											
+											<tr id="selected30">
+											<td style="padding:0.1rem 0.1rem;">30대</td>
+											<td th:text="${age30Sales} ? ${age30Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											</tr>
+											
+											<tr id="selected40">
+											<td style="padding:0.1rem 0.1rem;">40대</td>
+											<td th:text="${age40Sales} ? ${age40Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											</tr>
 											
 										</tr>
 										<tr>
-											<td th:if="!${#strings.equals(age, '20')}" >20대</td>
-											<td th:if="!${#strings.equals(age, '20')} and ${age10Sales != null}" th:text="${age20Sales} ? ${age20Sales}+'개' : '0개'" class="text-end">4306개</td>
-											<td th:if="${#strings.equals(age, '20')}" style="background:gray">20대</td>
-											<td th:if="${#strings.equals(age, '20')} and ${age10Sales != null}" th:text="${age20Sales} ? ${age20Sales}+'개' : '0개'" style="background:gray" class="text-end">4306개</td>
-											
-											<td th:if="!${#strings.equals(age, '50')}" >50대</td>
-											<td th:if="!${#strings.equals(age, '50')} and ${age10Sales != null}" th:text="${age50Sales} ? ${age50Sales}+'개' : '0개'" class="text-end">4306개</td>
-											<td th:if="${#strings.equals(age, '50')}" style="background:gray">50대</td>
-											<td th:if="${#strings.equals(age, '50')} and ${age10Sales != null}" th:text="${age50Sales} ? ${age50Sales}+'개' : '0개'" style="background:gray" class="text-end">4306개</td>
-											
-										</tr>
-										<tr>
-											<td th:if="!${#strings.equals(age, '30')}" >30대</td>
-											<td th:if="!${#strings.equals(age, '30')} and ${age10Sales != null}" th:text="${age30Sales} ? ${age30Sales}+'개' : '0개'" class="text-end">4306개</td>
-											<td th:if="${#strings.equals(age, '30')}" style="background:gray">30대</td>
-											<td th:if="${#strings.equals(age, '30')} and ${age10Sales != null}" th:text="${age30Sales} ? ${age30Sales}+'개' : '0개'" style="background:gray" class="text-end">4306개</td>
-											
-											<td th:if="!${#strings.equals(age, '60')}" >60대</td>
-											<td th:if="!${#strings.equals(age, '60')} and ${age10Sales != null}" th:text="${age60Sales} ? ${age60Sales}+'개' : '0개'" class="text-end">4306개</td>
-											<td th:if="${#strings.equals(age, '60')}" style="background:gray">60대</td>
-											<td th:if="${#strings.equals(age, '60')} and ${age10Sales != null}" th:text="${age60Sales} ? ${age60Sales}+'개' : '0개'" style="background:gray" class="text-end">4306개</td>
-											
+											<tr id="selected50">
+											<td style="padding:0.1rem 0.1rem;">50대</td>
+											<td th:text="${age50Sales} ? ${age50Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											</tr>
+											<tr id="selected60">
+											<td style="padding:0.1rem 0.1rem;">60대</td>
+											<td th:text="${age60Sales} ? ${age60Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											</tr>
 										</tr>
 									</tbody>
 								</table>
@@ -245,7 +262,7 @@
 							<h5 th:if="!${#strings.equals(gender,'noGender')} and !${#strings.equals(age,'noAge')}" class="card-title mb-0" th:text="${age}+'대 남녀 판매 비율'"></h5> -->
 							
 							<h5 th:if="${#strings.equals(age,'noAge')}" class="card-title mb-0">남녀 판매 비율</h5>
-							<h5 th:if="!${#strings.equals(age,'noAge')}" class="card-title mb-0">남녀 판매 비율</h5>
+							<h5 th:if="!${#strings.equals(age,'noAge')}" th:text="${age}+'대 남녀 판매 비율'" class="card-title mb-0"></h5>
 							
 							
 						</div>
@@ -263,19 +280,16 @@
 											<td>성별</td>
 											<td class="text-end">판매된 개수</td>
 										</tr>
-										<tr>
-											<td th:if="${#strings.equals(gender, 'noGender')}">남성</td>
-											<td th:if="${#strings.equals(gender, 'noGender')}" class="text-end">4306개</td>
+										<tr id="men">
+											<td id="menCntTitle" style="padding:0.4rem 0.4rem;">남성</td>
+											<td class="text-end" id="menCnt" style="padding:0.4rem 0.4rem;">4306개</td>
 											
-											<td th:if="${#strings.equals(gender, '1,3')}" style="background:gray">남성</td>
-											<td th:if="${#strings.equals(gender, '1,3')}" style="background:gray" class="text-end">4306개</td>
 										</tr>
-										<tr>
-											<td th:if="${#strings.equals(gender, 'noGender')}">여성</td>
-											<td th:if="${#strings.equals(gender, 'noGender')}" class="text-end">3801개</td>
+										<tr id="women">
+											<td id="womenCntTitle" style="padding:0.4rem 0.4rem;">여성</td>
+											<td class="text-end" id="womenCnt" style="padding:0.4rem 0.4rem;">3801개</td>
 											
-											<td th:if="${#strings.equals(gender, '2,4')}" style="background:gray">여성</td>
-											<td th:if="${#strings.equals(gender, '2,4')}" style="background:gray" class="text-end">3801개</td>
+											
 										</tr>
 									</tbody>
 								</table>
@@ -407,6 +421,23 @@
 
 
 <script>
+
+var age10 = '[[${age10Sales}]]';
+var age20 = '[[${age20Sales}]]';
+var age30 = '[[${age30Sales}]]';
+var age40 = '[[${age40Sales}]]';
+var age50 = '[[${age50Sales}]]';
+var age60 = '[[${age60Sales}]]';
+
+
+if(age10 == null) age10 = 0;
+if(age20 == null) age20 = 0;
+if(age30 == null) age30 = 0;
+if(age40 == null) age40 = 0;
+if(age50 == null) age50 = 0;
+if(age60 == null) age60 = 0;
+
+
 document.addEventListener("DOMContentLoaded", function() {
 	// Pie chart
 	new Chart(document.getElementById("chartjs-dashboard-pie"), {
@@ -414,7 +445,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		data : {
 			labels : [ "10대", "20대", "30대", "40대", "50대", "60대" ],
 			datasets : [ {
-				data : [ 43, 38, 16, 24, 12, 14],
+				data : [ age10, age20, age30, age40, age50, age60],
 				backgroundColor : [window.theme.warning, window.theme.warning, window.theme.primary, window.theme.primary, window.theme.info, window.theme.info ],
 				borderWidth : 5
 			} ]
@@ -527,8 +558,97 @@ function submitSelectedGroup(){
 
 </script>
 
+<script>
+
+if('[[${gender}]]' == '1,3'){
+	
+	document.getElementById('men').className = 'gradient';
+}
+if('[[${gender}]]' == '2,4') {
+	
+	document.getElementById('women').className = 'gradient';
+}
+
+if('[[${age}]]' == "10"){
+	document.getElementById('selected10').className = 'gradient';
+}else if('[[${age}]]' == "20"){
+	document.getElementById('selected20').className = 'gradient';
+}else if('[[${age}]]' == "30"){
+	document.getElementById('selected30').className = 'gradient';
+}else if('[[${age}]]' == "40"){
+	document.getElementById('selected40').className = 'gradient';
+}else if('[[${age}]]' == "50"){
+	document.getElementById('selected50').className = 'gradient';
+}else if('[[${age}]]' == "60"){
+	document.getElementById('selected60').className = 'gradient';
+}
+
+</script>
 
 
+<script>
+
+var colors = new Array(
+  [102,204,255],
+  [204,255,255],
+  [102,204,255],
+  [45,175,230],
+  [102,204,255],
+  [255,255,255]);
+
+var step = 0;
+//color table indices for: 
+// current color left
+// next color left
+// current color right
+// next color right
+var colorIndices = [0,1,2,3];
+
+//transition speed
+var gradientSpeed = 0.002;
+
+function updateGradient()
+{
+  
+  if ( $===undefined ) return;
+  
+var c0_0 = colors[colorIndices[0]];
+var c0_1 = colors[colorIndices[1]];
+var c1_0 = colors[colorIndices[2]];
+var c1_1 = colors[colorIndices[3]];
+
+var istep = 1 - step;
+var r1 = Math.round(istep * c0_0[0] + step * c0_1[0]);
+var g1 = Math.round(istep * c0_0[1] + step * c0_1[1]);
+var b1 = Math.round(istep * c0_0[2] + step * c0_1[2]);
+var color1 = "rgb("+r1+","+g1+","+b1+")";
+
+var r2 = Math.round(istep * c1_0[0] + step * c1_1[0]);
+var g2 = Math.round(istep * c1_0[1] + step * c1_1[1]);
+var b2 = Math.round(istep * c1_0[2] + step * c1_1[2]);
+var color2 = "rgb("+r2+","+g2+","+b2+")";
+
+ $('.gradient').css({
+   background: "-webkit-gradient(linear, left top, right top, from("+color1+"), to("+color2+"))"}).css({
+    background: "-moz-linear-gradient(left, "+color1+" 0%, "+color2+" 100%)"});
+  
+  step += gradientSpeed;
+  if ( step >= 1 )
+  {
+    step %= 1;
+    colorIndices[0] = colorIndices[1];
+    colorIndices[2] = colorIndices[3];
+    
+    //pick two new target color indices
+    //do not pick the same as the current one
+    colorIndices[1] = ( colorIndices[1] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
+    colorIndices[3] = ( colorIndices[3] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
+    
+  }
+}
+
+setInterval(updateGradient,10);
+</script>
 </body>
 
 </html>
