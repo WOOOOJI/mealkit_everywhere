@@ -347,62 +347,14 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>둘이 먹다 죽어도 모르는 한식 세트</td>
-									<td class="d-none d-xl-table-cell">365,000원</td>
-									<td><span class="badge bg-success">70%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">54개</td>
+								<tr th:each="f : ${filterdDTOList}">
+									<td th:text="${f.name}">둘이 먹다 죽어도 모르는 한식 세트</td>
+									<td th:text="${f.totPrice}" class="d-none d-xl-table-cell">365,000원</td>
+									<td><span th:text="${f.salePct}" class="badge bg-success">70%</span></td>
+									<th th:text="${f.sale}" class="d-none d-md-table-cell">28,000원</th>
+									<td th:text="${f.totCnt}" class="d-none d-xl-table-cell">54개</td>
 								</tr>
-								<tr>
-									<td>사와디캅 팟타이</td>
-									<td class="d-none d-xl-table-cell">231,200원</td>
-									<td><span class="badge bg-danger">30%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">44개</td>
-								</tr>
-								<tr>
-									<td>알찬 이탈리안 볼로네제라자냐</td>
-									<td class="d-none d-xl-table-cell">131,200원</td>
-									<td><span class="badge bg-success">30%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">31개</td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">110,000원</td>
-									<td><span class="badge bg-warning">40%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">30개</td>
-								</tr>
-								<tr>
-									<td>얼큰한 꽂개탕</td>
-									<td class="d-none d-xl-table-cell">109,000원</td>
-									<td><span class="badge bg-success">60%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">28개</td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">101,000원</td>
-									<td><span class="badge bg-success">80%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">26개</td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">98,000원</td>
-									<td><span class="badge bg-success">10%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">22개</td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">91,000원</td>
-									<td><span class="badge bg-warning">20%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">25개</td>
-								</tr>
+
 							</tbody>
 						</table>
 					</div>
@@ -585,6 +537,7 @@ function submitSelectedGroup(){
 		alert("시작날짜인 "+endDate+" 는 오늘 날짜인 "+today+" 보다 큽니다. 다시 선택해주세요");
 		return false;
 	}
+	
 	
 	location.href="/admin/detailSearch?categoryKey="+categoryKey+"&age="+age+"&gender="+gender+"&startDate="+startDate+"&endDate="+endDate+'&align='+align;
 	

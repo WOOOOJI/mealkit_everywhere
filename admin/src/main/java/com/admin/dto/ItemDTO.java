@@ -41,8 +41,5 @@ public class ItemDTO {
 	//카테고리별 판매 통계에 필요한 변수
 	private int salesSum;
 	private int salesCnt;
-	
-	
-
 }
 

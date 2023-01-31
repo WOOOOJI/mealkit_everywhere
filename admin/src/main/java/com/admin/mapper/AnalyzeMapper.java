@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.admin.dto.FilterdDTO;
 import com.admin.dto.ItemDTO;
 import com.admin.dto.OrderDTO;
 
@@ -29,6 +30,10 @@ public interface AnalyzeMapper {
 
 	// 특정 년도의 매출차트 데이터 가져오기(월 별)
 	public List<OrderDTO> daySalesChart(String year, String month, String day) throws Exception;
+
+	
+	// 상세 검색된 상품 리스트
+	public List<FilterdDTO> filterdData(FilterdDTO filterdDTO) throws Exception; 
 
 	//나이대별 판매개수 구하기
 	public List<OrderDTO> ageRangeSales(int categoryKey, String gender, String gender1, String gender2, String startDate, String endDate) throws Exception;

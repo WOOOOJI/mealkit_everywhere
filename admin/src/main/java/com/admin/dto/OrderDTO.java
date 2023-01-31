@@ -19,15 +19,19 @@ public class OrderDTO {
 	private String req;
 	private String reason;
 	private String trackingNum;
-
-
-	// 추가 변수
-	private String itemImg;
-	private String itemName;
 	private int itemCnt;
+	private String itemName;
+	private String itemImg;
 	
 	//추가 변수
 	private String custName;
+	
+	//기간별 TOP10, BOT10, 매출데이터를 위한 변수
+	private int totCnt;
+	private int totPrice;
+	private int mthly;
+	private int daily;
+	private int timly;
 
 
 	// 년,월,일의 매출차트에 필요한 변수 (날짜 지정)

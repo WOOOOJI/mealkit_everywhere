@@ -12,24 +12,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.admin.dto.DashBoardDTO;
+import com.admin.dto.FilterdDTO;
 import com.admin.dto.ItemDTO;
 import com.admin.dto.OrderDTO;
 import com.admin.service.AnalyzeService;
+import com.admin.service.CustomerService;
+import com.admin.service.OrderService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 public class AnalyzeController {
+	@Autowired
+	OrderService orderService;
 
 	@Autowired
 	AnalyzeService analyzeService;
+	
+	@Autowired
+	CustomerService customerService;
 
 	@RequestMapping("/monthanalyze")
 	public String month(String year, String month, Model model) {
 
 		List<ItemDTO> categoryMonthAnalyze = null;
 		List<OrderDTO> monthSalesChart=null;
+		List<OrderDTO> lastMonthSalesChart=null;
+		List<OrderDTO> monthTOP10List = new ArrayList<>();
+		List<OrderDTO> monthBOT10List = new ArrayList<>();
 		// 카테고리별 연간 판매량, 판매액
 		categoryMonthAnalyze = analyzeService.categoryMonthAnalyze(year,month);
 		for (ItemDTO i : categoryMonthAnalyze) {
@@ -56,17 +67,31 @@ public class AnalyzeController {
 		
 		//월별 매출 차트
 		monthSalesChart=analyzeService.monthSalesChart(year, month);
+		lastMonthSalesChart=analyzeService.lastMonthSalesChart(year, month);
+
 		ArrayList<Integer> arr=new ArrayList<Integer>();
 		for(OrderDTO o:monthSalesChart) {
 			arr.add(o.getTotalSales());
 		}
+		ArrayList arr2=new ArrayList();
+		for(OrderDTO o:lastMonthSalesChart) {
+			arr2.add(o.getTotalSales());
+		}
 		
 		DashBoardDTO dash = analyzeService.dashBoardCardMonth(year, month);
+		monthTOP10List = orderService.getDayTOP10List(month);
+		monthBOT10List = orderService.getDayTOP10List(month);
 		
 		model.addAttribute("dash", dash);
 		model.addAttribute("saleschart", arr);
+		model.addAttribute("salesMatchChart", arr2);
+		model.addAttribute("monthTOP10List", monthTOP10List);
+		model.addAttribute("monthBOT10List", monthBOT10List);
 		model.addAttribute("content", "monthanalyze/content");
 		return "main";
+
+
+		
 	}
 
 	@RequestMapping("/yearanalyze")
@@ -75,6 +100,9 @@ public class AnalyzeController {
 
 		List<ItemDTO> categoryYearAnalyze = null;
 		List<OrderDTO> yearSalesChart=null;
+		List<OrderDTO> lastYearSalesChart=null;
+		List<OrderDTO> yearTOP10List = new ArrayList<>();
+		List<OrderDTO> yearBOT10List = new ArrayList<>();
 
 		// 카테고리별 연간 판매량, 판매액
 		categoryYearAnalyze = analyzeService.categoryYearAnalyze(year);
@@ -101,16 +129,25 @@ public class AnalyzeController {
 		}
 		
 		yearSalesChart=analyzeService.yearSalesChart(year);
-		ArrayList<Integer> arr=new ArrayList<Integer>();
+		lastYearSalesChart=analyzeService.lastYearSalesChart(year);
+		
+		ArrayList arr=new ArrayList();
 		for(OrderDTO o:yearSalesChart) {
 			arr.add(o.getTotalSales());
 		}
-		
+		ArrayList arr2=new ArrayList();
+		for(OrderDTO o:lastYearSalesChart) {
+			arr2.add(o.getTotalSales());
+		}
 		
 		DashBoardDTO dash = analyzeService.dashBoardCardYear(year);
+		yearTOP10List = orderService.getYearTOP10List(year);
+		yearBOT10List = orderService.getYearTOP10List(year);
 		model.addAttribute("dash", dash);
-		
 		model.addAttribute("saleschart", arr);
+		model.addAttribute("salesMatchChart", arr2);
+		model.addAttribute("yearMthlyList", yearTOP10List);
+		model.addAttribute("yearBOT10List", yearBOT10List);
 		model.addAttribute("content", "yearanalyze/content");
 		return "main";
 	}
@@ -121,6 +158,9 @@ public class AnalyzeController {
 
 		List<ItemDTO> categoryDayAnalyze = null;
 		List<OrderDTO> daySalesChart=null;
+		List<OrderDTO> lastDaySalesChart=null;
+		List<OrderDTO> dayTOP10List = new ArrayList<>();
+		List<OrderDTO> dayBOT10List = new ArrayList<>();
 		// 카테고리별 연간 판매량, 판매액
 		categoryDayAnalyze = analyzeService.categoryDayAnalyze(year,month,day);
 		for (ItemDTO i : categoryDayAnalyze) {
@@ -141,23 +181,30 @@ public class AnalyzeController {
 			case 4:
 				model.addAttribute("usSum", i.getSalesSum());
 				model.addAttribute("usCnt", i.getSalesCnt());
-				break;	
+				break;
 			}
-			
-			System.out.println(i.getSalesCnt());
 		}
 		
-		
-		
 		daySalesChart=analyzeService.daySalesChart(year,month,day);
-		ArrayList<Integer> arr=new ArrayList<Integer>();
+		lastDaySalesChart=analyzeService.lastDaySalesChart(year,month,day);
+		
+		ArrayList arr=new ArrayList();
 		for(OrderDTO o:daySalesChart) {
 			arr.add(o.getTotalSales());
 		}
+		ArrayList arr2=new ArrayList();
+		for(OrderDTO o:lastDaySalesChart) {
+			arr2.add(o.getTotalSales());
+		}
 		
 		DashBoardDTO dash = analyzeService.dashBoardCardDay(year, month, day);
+		dayTOP10List = orderService.getDayTOP10List(day);
+		dayBOT10List = orderService.getDayTOP10List(day);
 		model.addAttribute("dash", dash);
 		model.addAttribute("saleschart", arr);
+		model.addAttribute("salesMatchChart", arr2);
+		model.addAttribute("dayTOP10List", dayTOP10List);
+		model.addAttribute("dayBOT10List", dayBOT10List);
 		model.addAttribute("content", "dayanalyze/content");
 		return "main";
 	}
@@ -166,11 +213,15 @@ public class AnalyzeController {
 	@RequestMapping("/detailSearch")
 	public String detailSearch(@RequestParam(value = "categoryKey", defaultValue = "-1") int categoryKey,
 			@RequestParam(value = "age", defaultValue = "noAge") String age,
-			@RequestParam(value = "gender", defaultValue = "noGender") String gender, String startDate, String endDate, Model model) {
+			@RequestParam(value = "gender", defaultValue = "noGender") String gender, String startDate, String endDate, String align, 
+			Model model) {
 		
-
+		FilterdDTO filterdDTO = new FilterdDTO();
 		DashBoardDTO dash = new DashBoardDTO();
 		
+		if(align == null) {
+			align = "totPrice";
+		}
 		
 		
 
@@ -193,6 +244,8 @@ public class AnalyzeController {
 			gender1=gender.split(",")[0];
 			gender2=gender.split(",")[1];
 		}
+		
+		
 
 		//나이대별 판매량 조회 ===========================================
 		ageRangeSales=analyzeService.ageRangeSales(categoryKey, gender, gender1, gender2, startDate, endDate);
@@ -235,6 +288,24 @@ public class AnalyzeController {
 		// 상세조회 대시보드======================================================
 		dash = analyzeService.dashBoardCardDetail(startDate, endDate, gender, gender1, gender2, age, categoryKey);
 		
+		
+		
+		
+		// 인기상품 대시보드 -----------------------------------------------
+
+		
+		filterdDTO.setAge(age);
+		filterdDTO.setAlign(align);
+		filterdDTO.setCategoryKey(categoryKey);
+		filterdDTO.setEndDate(endDate);
+		filterdDTO.setStartDate(startDate);
+		filterdDTO.setGender1(gender1);
+		filterdDTO.setGender2(gender2);
+		
+		List<FilterdDTO> filterdDTOList = analyzeService.filterdData(filterdDTO);
+		
+		model.addAttribute("filterdDTOList", filterdDTOList);
+		
 		model.addAttribute("dash", dash);
 		model.addAttribute("categoryKey", categoryKey);
 		model.addAttribute("age", age);
@@ -247,3 +318,5 @@ public class AnalyzeController {
 		return "main";
 	}
 }
+	
+	

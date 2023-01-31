@@ -2,6 +2,7 @@ package com.admin.service;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.admin.dto.DashBoardDTO;
+import com.admin.dto.FilterdDTO;
 import com.admin.dto.ItemDTO;
 import com.admin.dto.OrderDTO;
 import com.admin.mapper.AnalyzeMapper;
@@ -19,6 +21,9 @@ public class AnalyzeService {
 
 	@Autowired
 	AnalyzeMapper mapper;
+	
+	@Autowired
+	CustomerService customerService;
 
 	public List<ItemDTO> categoryYearAnalyze(String year) {
 		Date date = new Date();
@@ -94,6 +99,33 @@ public class AnalyzeService {
 		
 		return result;
 	}
+	
+	// 작년의 매출차트 데이터 가져오기(월 별)
+		public List<OrderDTO> lastYearSalesChart(String year){
+			
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+			
+			String nowDate = sdf.format(date);
+			if(year == null) {
+				year = nowDate;		
+				int lastYearNum = Integer.valueOf(year) - 1;
+				year = String.valueOf(lastYearNum);
+			}else {
+				int lastYearNum = Integer.valueOf(year) - 1;
+				year = String.valueOf(lastYearNum);
+			}
+
+			
+			List<OrderDTO> result = null;
+			try {
+				result=mapper.yearSalesChart(year);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return result;
+		}
 
 	// 특정 년도의 매출차트 데이터 가져오기(월 별)
 	public List<OrderDTO> monthSalesChart(String year, String month){
@@ -115,6 +147,45 @@ public class AnalyzeService {
 		}
 		return result;
 	}
+	
+	// 작월의 매출차트 데이터 가져오기(일 별)
+			public List<OrderDTO> lastMonthSalesChart(String year, String month){
+				Date date = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+				String nowDate = sdf.format(date);
+				String[] dateArr = nowDate.split("-");
+				
+				if(year == null && month == null) {
+					year = dateArr[0];
+					month = dateArr[1];
+					
+					int lastMonthNum = Integer.valueOf(month) - 1;
+					
+					if(lastMonthNum == 0) {
+						lastMonthNum = 12;
+						year = String.valueOf(Integer.parseInt(year)-1);
+					}
+					month = String.valueOf(lastMonthNum);
+					
+				}else {
+					int lastMonthNum = Integer.valueOf(month) - 1;
+
+					if(lastMonthNum == 0) {
+						lastMonthNum = 12;
+						year = String.valueOf(Integer.parseInt(year)-1);
+					}
+					month = String.valueOf(lastMonthNum);
+				}
+				
+				List<OrderDTO> result = null;
+				
+				try {
+					result=mapper.monthSalesChart(year,month);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return result;
+			}
 
 	// 특정 년도의 매출차트 데이터 가져오기(월 별)
 	public List<OrderDTO> daySalesChart(String year, String month, String day){
@@ -137,6 +208,54 @@ public class AnalyzeService {
 		}
 		return result;
 	}
+	
+	// 작일의 매출차트 데이터 가져오기(시간 별)
+		public List<OrderDTO> lastDaySalesChart(String year, String month, String day){
+			Date datee = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String nowDate = sdf.format(datee);
+			String[] dateArrr = nowDate.split("-");
+			
+			
+			if(day == null) {
+				year = dateArrr[0];
+				month = dateArrr[1];
+				day = dateArrr[2];
+				
+				int lastMonthNum = Integer.valueOf(month) - 1;
+				int lastDayNum = Integer.valueOf(day) - 1;
+
+				if(lastDayNum == 0) {
+					lastDayNum = 31;
+					if(lastMonthNum == 0) {
+						lastMonthNum = 12;
+						month = String.valueOf(lastMonthNum);
+					}
+				}
+				day = String.valueOf(lastDayNum);
+
+			}else {
+				int lastMonthNum = Integer.valueOf(month) - 1;
+				int lastDayNum = Integer.valueOf(day) - 1;
+
+				if(lastDayNum == 0) {
+					lastDayNum = 31;
+					if(lastMonthNum == 0) {
+						lastMonthNum = 12;
+						month = String.valueOf(lastMonthNum);
+					}
+				}
+				day = String.valueOf(lastDayNum);
+			}
+			
+			List<OrderDTO> result = null;
+			try {
+				result=mapper.daySalesChart(year,month,day);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
 	
 	
 	
@@ -493,4 +612,63 @@ public class AnalyzeService {
 			}
 			return result;
 		}
+		//나이대 계산
+				public String ageCalc(String age, int custKey) {
+					
+					//현재 날짜-시간 정보
+					Calendar cal2 = Calendar.getInstance();
+					cal2.setTime(new Date());
+					
+					String juminStr = customerService.custJumin(custKey);
+					
+					int year = Integer.valueOf(juminStr.substring(0,4));
+					int month = Integer.valueOf(juminStr.substring(4,6));
+					int day = Integer.valueOf(juminStr.substring(6,8));
+					
+					Calendar calen = Calendar.getInstance();
+					calen.set(year, month-1, day);
+					
+					Calendar calen2 = Calendar.getInstance();
+					calen2.setTime(new Date());
+					
+					Date startDate = calen.getTime();
+					Date endDate = calen2.getTime();
+					
+					long diffMillies = endDate.getTime() - startDate.getTime();
+					
+					int custAge = (int)((diffMillies / (365 * 24 * 60 * 60 * 1000L) ) + 1);
+					
+					String generation = "";
+					
+					switch(custAge/10) {
+						case 1: generation = "10";
+								break;
+						case 2: generation = "20";
+								break;
+						case 3: generation = "30";
+								break;
+						case 4: generation = "40";
+								break;
+						case 5: generation = "50";
+								break;
+						case 6: generation = "60";
+								break;
+					}
+					
+					return generation;
+				}
+				
+				//상세 검색된 서비스
+				public List<FilterdDTO> filterdData(FilterdDTO filterdDTO){
+					
+					List<FilterdDTO> filterdDTOList = new ArrayList<>();
+					
+					try {
+						filterdDTOList = mapper.filterdData(filterdDTO);
+						return filterdDTOList;
+					} catch (Exception e) {
+						e.printStackTrace();
+						return null;
+					}
+				}
 }

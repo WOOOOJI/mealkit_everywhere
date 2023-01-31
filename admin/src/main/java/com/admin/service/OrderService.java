@@ -182,5 +182,74 @@ public class OrderService implements MyService<Integer, OrderDTO> {
 		}
 		return result;
 	}
-
+	
+	
+	// 연도별 TOP10, BOT10, 매출 차트데이터 ======================================
+	// 연도별 TOP10 리스트
+	public List<OrderDTO> getYearTOP10List(String year){
+		
+		try {
+			return orderMapper.getYearTOP10List(year);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// 연도별 BOT10 리스트
+	public List<OrderDTO> getYearBOT10List(String year){
+		
+		try {
+			return orderMapper.getYearBOT10List(year);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// 월별 TOP10, BOT10, 매출 차트데이터 ======================================
+	// 월별 TOP10 리스트
+	public List<OrderDTO> getMonthTOP10List(String month){
+		
+		try {
+			return orderMapper.getMonthTOP10List(month);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// 월별 BOT10 리스트
+	public List<OrderDTO> getMonthBOT10List(String month){
+		
+		try {
+			return orderMapper.getMonthBOT10List(month);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// 일별 TOP10, BOT10, 매출 차트데이터 ======================================
+	// 일별 TOP10 리스트
+	public List<OrderDTO> getDayTOP10List(String day){
+		
+		try {
+			return orderMapper.getDayTOP10List(day);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	// 일별 BOT10 리스트
+	public List<OrderDTO> getDayBOT10List(String day){
+		
+		try {
+			return orderMapper.getDayBOT10List(day);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
