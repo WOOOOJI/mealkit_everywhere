@@ -43,4 +43,29 @@ public interface OrderMapper extends MyMapper<Integer, OrderDTO>{
 	
 	// 운송장번호 입력 및 수정 (삭제는 없음)
 	public int insertTrackingNum(String trackingNum, int orderKey) throws Exception;
+	
+	
+	
+	// TOP10, BOT10, 매출 차트 데이터 ===================================================================
+
+	// 연도별 TOP10 리스트
+	public List<OrderDTO> getYearTOP10List(String year) throws Exception;
+
+	// 연도별 BOT10 리스트	
+	public List<OrderDTO> getYearBOT10List(String year) throws Exception;
+
+	// 월별 TOP10 리스트	
+	public List<OrderDTO> getMonthTOP10List(String month) throws Exception;
+	
+	// 월별 BOT10 리스트	
+	public List<OrderDTO> getMonthBOT10List(String month) throws Exception;
+	
+	// 일별 TOP10 리스트	
+	public List<OrderDTO> getDayTOP10List(String day) throws Exception;
+	
+	// 일별 BOT10 리스트	
+	public List<OrderDTO> getDayBOT10List(String day) throws Exception;
+	
+	
+	
 }

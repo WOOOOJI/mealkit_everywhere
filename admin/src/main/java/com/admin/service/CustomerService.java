@@ -35,8 +35,13 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 	}
 
 	@Override
-	public CustomerDTO get(Integer k) throws Exception {
-		return customerMapper.select(k);
+	public CustomerDTO get(Integer k) {
+		try {
+			return customerMapper.select(k);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -103,6 +108,27 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//회원 주민 앞6자리에 19, 20 작업
+	public String custJumin(int custKey) {
+		
+		CustomerDTO customerDTO = new CustomerDTO();
+		String juminStr = "";
+		try {
+			customerDTO = customerMapper.custJumin(custKey);
+			juminStr = customerDTO.getJumin();
+			if(juminStr.substring(0,1)=="9") {
+				juminStr = "19"+juminStr;
+			}else {
+				juminStr = "20"+juminStr;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return juminStr;
 	}
 
 }

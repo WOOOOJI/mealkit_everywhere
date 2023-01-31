@@ -62,9 +62,6 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT count(*) FROM item 
 		
 		<where>
-		<!-- 	<if test="keyword != null">
-				and name like concat('%' , #{keyword}, '%')
-			</if> -->
 			<if test="categoryKey != 0">
 				and categoryKey = #{categoryKey}
 			</if>

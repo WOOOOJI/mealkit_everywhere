@@ -19,8 +19,11 @@ public interface CustomerMapper extends MyMapper<Integer, CustomerDTO>{
 	//회원 수 카운트
 	public int countCust(Criteria cri) throws Exception;
 	
-
 	//회원 차단 설정
 	public void changeLocked(CustomerDTO customerDTO) throws Exception;
+	
+	//회원 주민 앞6자리 추출
+	public CustomerDTO custJumin(int custKey) throws Exception;
+	
 }
 	 

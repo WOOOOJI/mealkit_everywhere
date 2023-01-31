@@ -53,6 +53,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		UPDATE customer SET banned = #{banned} WHERE custKey = ${custKey}
 	</update>
 	
+	<select id="custJumin" parameterType="int" resultType="CustomerDTO">
+		SELECT * FROM customer WHERE custKey = ${custKey};
+	</select>
+	
 </mapper>
 
 
