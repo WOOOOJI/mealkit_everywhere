@@ -411,4 +411,15 @@ public class AnalyzeService {
 			}
 			return result;
 		}
+		
+		//성별 판매량 구하기
+		public List<OrderDTO> genderSales(int categoryKey, String age, String startDate, String endDate){
+			List<OrderDTO> result=null;
+			try {
+				result=mapper.genderSales(categoryKey, age, startDate, endDate);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
 }

@@ -127,5 +127,20 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		GROUP BY ageRange
 		ORDER BY ageRange ASC;
 	</select>
-
+	
+	<!-- 성별 판매량 구하기 -->
+	<select id="genderSales" resultType="OrderDTO">
+		SELECT COUNT(od.cnt) AS totalSales, (if(c.gender='1' or c.gender='3','male','female')) AS gender FROM totalOrder t
+		INNER JOIN customer c ON c.custKey=t.custKey
+		INNER JOIN orderDetail od ON od.orderKey=t.orderKey
+		INNER JOIN item i ON i.itemKey=od.itemKey
+		WHERE (DATE_FORMAT(t.rdate,'%y-%m-%d') BETWEEN DATE_FORMAT('${startDate}','%y-%m-%d') AND DATE_FORMAT('${endDate}','%y-%m-%d'))
+		<if test="age!='noAge'">
+			AND (floor((YEAR(NOW())-(if(gender='1'or gender='2',1900,2000)+left(jumin,2)))/10)*10='${age}')
+		</if>
+		<if test="categoryKey!=-1">
+			AND i.categoryKey=${categoryKey}
+		</if>
+		GROUP BY gender;
+	</select>
 </mapper>

@@ -38,5 +38,8 @@ public class OrderDTO {
 	
 	//나이대별 분석에 필요한 변수
 	private String ageRange;
+	
+	//성별별 분석에 필요한 변수
+	private String gender;
 
 }
