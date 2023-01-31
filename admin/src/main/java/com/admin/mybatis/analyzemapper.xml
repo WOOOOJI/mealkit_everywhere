@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- 연간 카테고리별 통계 -->
 	<select id="categoryYearAnalyze" parameterType="String" resultType="ItemDTO">
 		SELECT i.categoryKey, sum(od.price*od.cnt) AS salesSum,
-		count(od.price*od.cnt) AS salesCnt
+		SUM(od.cnt) AS salesCnt
 		FROM orderDetaiL od
 		INNER JOIN item i ON i.itemKey=od.itemKey
 		INNER JOIN totalOrder o ON o.orderKey=od.orderKey WHERE
@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		DATE_FORMAT(o.rdate, '%Y-%m-%d') >= DATE_FORMAT( '${year}-01-01','%Y-%m-%d') AND 
 		DATE_FORMAT(o.rdate, '%Y-%m-%d') <= DATE_FORMAT('${year}-12-31', '%Y-%m-%d')
 		]]>
+		AND o.status NOT LIKE 'F'
 		GROUP BY i.categoryKey
 		ORDER BY categoryKey ASC
 	</select>
@@ -23,7 +24,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	SELECT COUNT(orderKey) AS "itemCnt", SUM(price) AS "price",
 	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND status NOT LIKE 'F' ) AS "status",
 	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND status LIKE 'F') AS "refund",
-	(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND status NOT LIKE 'F') AS "totalSales"
+	(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE t.rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND status NOT LIKE 'F') AS "totalSales"
 	FROM totalOrder
 	WHERE rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND status NOT LIKE 'F'
 	</select>
@@ -42,7 +43,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- 월간 카테고리별 통계 -->
 	<select id="categoryMonthAnalyze" parameterType="String" resultType="ItemDTO">
 		SELECT i.categoryKey, sum(od.price*od.cnt) AS salesSum,
-		count(od.price*od.cnt) AS salesCnt
+		SUM(od.cnt) AS salesCnt
 		FROM orderDetaiL od
 		INNER JOIN item i ON i.itemKey=od.itemKey
 		INNER JOIN totalOrder o ON o.orderKey=od.orderKey WHERE
@@ -50,6 +51,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		DATE_FORMAT(o.rdate, '%Y-%m-%d') >= DATE_FORMAT( '${year}-${month}-01','%Y-%m-%d') AND 
 		DATE_FORMAT(o.rdate, '%Y-%m-%d') <= DATE_FORMAT('${year}-${month}-31', '%Y-%m-%d')
 		]]>
+		AND o.status NOT LIKE 'F'
 		GROUP BY i.categoryKey
 		ORDER BY categoryKey ASC
 	</select>
@@ -57,13 +59,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		<!-- 월간 카테고리별 통계 -->
 	<select id="categoryDayAnalyze" parameterType="String" resultType="ItemDTO">
 		SELECT i.categoryKey, sum(od.price*od.cnt) AS salesSum,
-		count(od.price*od.cnt) AS salesCnt
+		SUM(od.cnt) AS salesCnt
 		FROM orderDetaiL od
 		INNER JOIN item i ON i.itemKey=od.itemKey
 		INNER JOIN totalOrder o ON o.orderKey=od.orderKey WHERE
 		<![CDATA[
 		DATE_FORMAT(o.rdate, '%Y-%m-%d') = DATE_FORMAT( '${year}-${month}-${day}','%Y-%m-%d')
 		]]>
+		AND o.status NOT LIKE 'F'
 		GROUP BY i.categoryKey
 		ORDER BY categoryKey ASC
 	</select>
@@ -74,7 +77,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			SELECT DATE_FORMAT(dt.d,'%Y-%m') AS tempDate,
 			IFNULL(SUM(o.price),0) AS totalSales
             FROM dateT dt
-            LEFT JOIN  totalOrder o ON (DATE_FORMAT(o.rdate, '%Y-%m-%d')=dt.d)
+            LEFT JOIN  totalOrder o ON (DATE_FORMAT(o.rdate, '%Y-%m-%d')=dt.d) AND (o.status NOT LIKE 'F')
             GROUP BY tempDate
             ORDER BY tempDate ASC
 			)a
@@ -86,7 +89,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			SELECT DATE_FORMAT(dt.d,'%Y-%m-%d') AS tempDate,
 			IFNULL(SUM(o.price),0) AS totalSales
             FROM dateT dt
-            LEFT JOIN  totalOrder o ON (DATE_FORMAT(o.rdate, '%Y-%m-%d')=dt.d)
+            LEFT JOIN  totalOrder o ON (DATE_FORMAT(o.rdate, '%Y-%m-%d')=dt.d) AND (o.status NOT LIKE 'F')
             GROUP BY tempDate
             ORDER BY tempDate ASC
 			)a
@@ -98,7 +101,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			SELECT tt.t AS tempDate,
 			IFNULL(SUM(o.price),0) AS totalSales
             FROM timeT tt
-            LEFT JOIN  totalOrder o ON (HOUR(o.rdate)=tt.t) AND DATE_FORMAT(o.rdate, '%Y-%m-%d') LIKE '${year}-${month}-${day}'
+            LEFT JOIN  totalOrder o ON (HOUR(o.rdate)=tt.t) AND DATE_FORMAT(o.rdate, '%Y-%m-%d') LIKE '${year}-${month}-${day}' AND (o.status NOT LIKE 'F')
             GROUP BY tempDate
             ORDER BY tempDate ASC
 		)a;
@@ -116,11 +119,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- 나이대별 판매개수 구하기  -->
 	<select id="ageRangeSales" resultType="OrderDTO">
-		SELECT COUNT(od.cnt) AS totalSales, floor((YEAR(NOW())-(if(c.gender='1'or c.gender='2',1900,2000)+left(c.jumin,2)))/10)*10 AS ageRange FROM totalOrder t
+		SELECT SUM(od.cnt) AS totalSales, floor((YEAR(NOW())-(if(c.gender='1'or c.gender='2',1900,2000)+left(c.jumin,2)))/10)*10 AS ageRange FROM totalOrder t
 		INNER JOIN customer c ON t.custKey=c.custKey
 		INNER JOIN orderDetail od ON od.orderKey=t.orderKey
 		INNER JOIN item i ON i.itemKey=od.itemKey
 		WHERE (DATE_FORMAT(t.rdate,'%y-%m-%d') BETWEEN DATE_FORMAT('${startDate}','%y-%m-%d') AND DATE_FORMAT('${endDate}','%y-%m-%d'))
+		AND (t.status NOT LIKE 'F')
 		<if test="gender!='noGender'">
 		AND (c.gender=${gender1} or c.gender=${gender2})
 		</if>
@@ -130,5 +134,21 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		GROUP BY ageRange
 		ORDER BY ageRange ASC;
 	</select>
-
+	
+	<!-- 성별 판매량 구하기 -->
+	<select id="genderSales" resultType="OrderDTO">
+		SELECT SUM(od.cnt) AS totalSales, (if(c.gender='1' or c.gender='3','male','female')) AS gender FROM totalOrder t
+		INNER JOIN customer c ON c.custKey=t.custKey
+		INNER JOIN orderDetail od ON od.orderKey=t.orderKey
+		INNER JOIN item i ON i.itemKey=od.itemKey
+		WHERE (DATE_FORMAT(t.rdate,'%y-%m-%d') BETWEEN DATE_FORMAT('${startDate}','%y-%m-%d') AND DATE_FORMAT('${endDate}','%y-%m-%d'))
+		AND (t.status NOT LIKE 'F')
+		<if test="age!='noAge'">
+			AND (floor((YEAR(NOW())-(if(gender='1'or gender='2',1900,2000)+left(jumin,2)))/10)*10='${age}')
+		</if>
+		<if test="categoryKey!=-1">
+			AND i.categoryKey=${categoryKey}
+		</if>
+		GROUP BY gender;
+	</select>
 </mapper>

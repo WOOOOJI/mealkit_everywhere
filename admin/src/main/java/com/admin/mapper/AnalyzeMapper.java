@@ -38,4 +38,7 @@ public interface AnalyzeMapper {
 	
 	//나이대별 판매개수 구하기
 	public List<OrderDTO> ageRangeSales(int categoryKey, String gender, String gender1, String gender2, String startDate, String endDate) throws Exception;
+	
+	//성별 판매량 구하기
+	public List<OrderDTO> genderSales(int categoryKey, String age, String startDate, String endDate) throws Exception;
 }

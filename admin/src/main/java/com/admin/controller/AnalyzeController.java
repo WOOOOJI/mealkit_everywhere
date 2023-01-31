@@ -53,7 +53,7 @@ public class AnalyzeController {
 		
 		//월별 매출 차트
 		monthSalesChart=analyzeService.monthSalesChart(year, month);
-		ArrayList arr=new ArrayList();
+		ArrayList<Integer> arr=new ArrayList<Integer>();
 		for(OrderDTO o:monthSalesChart) {
 			arr.add(o.getTotalSales());
 		}
@@ -97,7 +97,7 @@ public class AnalyzeController {
 		}
 		
 		yearSalesChart=analyzeService.yearSalesChart(year);
-		ArrayList arr=new ArrayList();
+		ArrayList<Integer> arr=new ArrayList<Integer>();
 		for(OrderDTO o:yearSalesChart) {
 			arr.add(o.getTotalSales());
 		}
@@ -137,12 +137,16 @@ public class AnalyzeController {
 			case 4:
 				model.addAttribute("usSum", i.getSalesSum());
 				model.addAttribute("usCnt", i.getSalesCnt());
-				break;
+				break;	
 			}
+			
+			System.out.println(i.getSalesCnt());
 		}
 		
+		
+		
 		daySalesChart=analyzeService.daySalesChart(year,month,day);
-		ArrayList arr=new ArrayList();
+		ArrayList<Integer> arr=new ArrayList<Integer>();
 		for(OrderDTO o:daySalesChart) {
 			arr.add(o.getTotalSales());
 		}
@@ -161,6 +165,7 @@ public class AnalyzeController {
 			@RequestParam(value = "gender", defaultValue = "noGender") String gender, String startDate, String endDate, Model model) {
 		
 		List<OrderDTO> ageRangeSales=null;
+		List<OrderDTO> genderSales=null;
 		
 		//처음 접속 시 날짜를 기본으로 전날로 설정
 		if(startDate==null||startDate.equals("")) {
@@ -178,9 +183,8 @@ public class AnalyzeController {
 			gender1=gender.split(",")[0];
 			gender2=gender.split(",")[1];
 		}
-		
-		
-		//나이대별 판매량 조회
+
+		//나이대별 판매량 조회 ===========================================
 		ageRangeSales=analyzeService.ageRangeSales(categoryKey, gender, gender1, gender2, startDate, endDate);
 		
 		//나이대별 판매량 조회한 것을 나이대에 맞게 addAttribute 수행
@@ -195,7 +199,29 @@ public class AnalyzeController {
 			}
 		}
 		
+
+		// 성별 판매량 조회 =========================================
+		genderSales=analyzeService.genderSales(categoryKey, age, startDate, endDate);
 		
+		for(OrderDTO o:genderSales) {
+			switch(o.getGender()) {
+			case("male"): model.addAttribute("maleSales", o.getTotalSales()); break;
+			case("female"): model.addAttribute("femaleSales", o.getTotalSales()); break;
+			}
+		}
+		
+		switch(categoryKey) {
+			case(1):model.addAttribute("categoryName", "한식"); break;
+			case(2):model.addAttribute("categoryName", "중식"); break;
+			case(3):model.addAttribute("categoryName", "일식"); break;
+			case(4):model.addAttribute("categoryName", "양식"); break;
+		}
+		
+		switch(gender1) {
+			case("1"): model.addAttribute("genderName", "남성"); break;
+			case("2"): model.addAttribute("genderName", "여성"); break;
+		}
+
 		model.addAttribute("categoryKey", categoryKey);
 		model.addAttribute("age", age);
 		model.addAttribute("gender", gender);

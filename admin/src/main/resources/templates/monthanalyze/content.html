@@ -1,10 +1,27 @@
-
 <script>
 
 var arr='[[${saleschart}]]';
 var ad=arr.substring(1,arr.length-1);
 var array=ad.split(',');
 
+var max = parseInt(array[0]);
+for(var i=0; i<array.length; i++){
+	if(parseInt(array[i]) > max){
+		max = parseInt(array[i]);
+	}
+	
+}
+var arr2='[[${salesMatchChart}]]';
+var ad2=arr2.substring(1,arr2.length-1);
+var array2=ad2.split(',');
+
+var max2 = parseInt(array2[0]);
+for(var i=0; i<array2.length; i++){
+	if(parseInt(array2[i]) > max2){
+		max2 = parseInt(array2[i]);
+	}
+	
+}
 </script>
 
 
@@ -146,36 +163,48 @@ var array=ad.split(',');
 										<canvas id="chartjs-dashboard-pie"></canvas>
 									</div>
 								</div>
-
 								<table class="table mb-0">
 									<tbody>
 										<tr>
 											<td>카테고리</td>
 											<td>총금액</td>
-											<td class="text-end">판매량</td>
+											<td>판매량</td>
 										</tr>
 										<tr>
 											<td>한식</td>
-											<td>800000</td>
-											<td class="text-end">5000개</td>
+											<td th:if="${koreanSum} == null">0원</td>
+											<td th:unless="${koreanSum} == null" th:text="${koreanSum} +'원'"></td>
+											
+											<td th:if="${koreanCnt} == null">0개</td>
+											<td th:unless="${koreanCnt} == null" th:text="${koreanCnt} +'개'"></td>
+											
 										</tr>
 										<tr>
 											<td>중식</td>
-											<td>50000</td>
-											<td class="text-end">2000개</td>
+											<td th:if="${chineseSum} == null">0원</td>
+											<td th:unless="${chineseSum} == null" th:text="${chineseSum} +'원'"></td>
+											
+											<td th:if="${chineseCnt} == null">0개</td>
+											<td th:unless="${chineseCnt} == null" th:text="${chineseCnt} +'개'"></td>
 										</tr>
 										<tr>
 											<td>일식</td>
-											<td>300000</td>
-											<td class="text-end">3000개</td>
+											<td th:if="${japaneseSum} == null">0원</td>
+											<td th:unless="${japaneseSum} == null" th:text="${japaneseSum} +'원'"></td>
+											
+											<td th:if="${japaneseCnt} == null">0개</td>
+											<td th:unless="${japaneseCnt} == null" th:text="${japaneseCnt} +'개'"></td>
 										</tr>
 										<tr>
 											<td>양식</td>
-											<td>70000</td>
-											<td class="text-end">4000개</td>
+											<td th:if="${usSum} == null">0원</td>
+											<td th:unless="${usSum} == null" th:text="${usSum} +'원'"></td>
+											
+											<td th:if="${usCnt} == null">0개</td>
+											<td th:unless="${usCnt} == null" th:text="${usCnt} +'개'"></td>
 										</tr>
 									</tbody>
-								</table>
+								</table>		
 							</div>
 						</div>
 					</div>
@@ -219,8 +248,8 @@ var array=ad.split(',');
 				<div class="col-12 col-lg-12">
 					<div class="card">
 						<div class="card-header">
-							<h5 class="card-title">전월 대비 구매율</h5>
-							<h6 class="card-subtitle text-muted">총 접속한 사용자와 실제로 구매까지 이어진 회원의 비율로 구합니다.</h6>
+							<h5 class="card-title">전월 대비 판매금액</h5>
+							<h6 class="card-subtitle text-muted"></h6>
 						</div>
 						<div class="card-body">
 							<div class="chart">
@@ -257,13 +286,12 @@ var array=ad.split(',');
 									<th>총 판매 금액</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>둘이 먹다 죽어도 모르는 한식 세트</td>
-									<td class="d-none d-xl-table-cell">김기태</td>
-									<td class="d-none d-xl-table-cell">65,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
+							<tbody >
+								<tr  th:each="m:${list}">
+									<td th:text="${m.name}">둘이 먹다 죽어도 모르는 한식 세트</td>
+									<td class="d-none d-xl-table-cell" th:text="${m.price}">가격...</td>
+									<td class="d-none d-xl-table-cell" th:text="${m.cnt}">판매수량....</td>
+									<td><span class="badge bg-success" th:text="${m.name}">총 판매금액....</span></td>
 								</tr>
 								<tr>
 									<td>사와디캅 팟타이</td>
@@ -456,7 +484,9 @@ var array=ad.split(',');
 					} ],
 					yAxes : [ {
 						ticks : {
-							stepSize : 1000
+							min : 0,
+							stepSize : parseInt(max/3/1000)*1000, 
+							max : max
 						},
 						display : true,
 						borderDash : [ 3, 3 ],
@@ -477,7 +507,7 @@ var array=ad.split(',');
 			data : {
 				labels : [ "한식", "중식", "일식", "양식" ],
 				datasets : [ {
-					data : [ 4306, 3801, 1689, 1000 ],
+					data : [ "[[${koreanSum}]]", "[[${chineseSum}]]", "[[${japaneseSum}]]", "[[${usSum}]]"],
 					backgroundColor : [ window.theme.danger,
 							window.theme.warning, window.theme.success, window.theme.primary],
 					borderWidth : 5
@@ -518,21 +548,21 @@ var array=ad.split(',');
 			data : {
 				labels : [ "1일", "2일", "3일", "4일","5일", "6일","7일", "8일","9일", "10일","11일", "12일","13일", "14일","15일", "16일","17일", "18일","19일", "20일","21일", "22일", "23일", "24일","25일", "26일","27일", "28일","29일", "30일", "31일"],
 				datasets : [ {
-					label : "이번 달  구매율 (%)",
+					label : "당월 판매금액 (원)",
 					backgroundColor : window.theme.primary,
 					borderColor : window.theme.primary,
 					hoverBackgroundColor : window.theme.primary,
 					hoverBorderColor : window.theme.primary,
-					data : [ 54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79, 54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79,55, 73, 60,55, 73, 60,40 ],
+					data : array,
 					barPercentage : .75,
 					categoryPercentage : .5
 				}, {
-					label : "지난 달 구매율 (%)",
+					label : "전월 판매금액 (원)",
 					backgroundColor : "#dee2e6",
 					borderColor : "#dee2e6",
 					hoverBackgroundColor : "#dee2e6",
 					hoverBorderColor : "#dee2e6",
-					data : [ 69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68, 69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68,79, 51, 68,79, 51, 68,50 ],
+					data : array2,
 					barPercentage : .75,
 					categoryPercentage : .5
 				} ]
@@ -549,7 +579,8 @@ var array=ad.split(',');
 						},
 						stacked : false,
 						ticks : {
-							stepSize : 20
+							min : 0,
+							stepSize : parseInt(max/3/1000)*1000, 
 						}
 					} ],
 					xAxes : [ {

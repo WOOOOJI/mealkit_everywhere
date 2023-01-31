@@ -14,7 +14,7 @@
 				
 				
 				<!-- 현재 들어온 페이지의 단락 -->
-				<h5 class="card-title mb-0" style="font-size: 30px;">전체 주문건</h5>
+				<h5 class="card-title mb-0" style="font-size: 30px;">조회 주문건</h5>
 				
 				
 				<span th:if="${categoryKey} == -1" class="card-title mb-0" style="display:inline-block">카테고리:  /</span>
@@ -25,7 +25,7 @@
 				
 				<span th:if="${categoryKey} != -1 and !${categoryKey} != null" class="card-title mb-0" style="display:inline-block" th:text="'카테고리:  '+${categoryName}+' /'"></span>
 				
-				<span th:if="!${#strings.equals(age, 'noAge')}" class="card-title mb-0" style="display:inline-block" th:text="'카테고리:'+ ${age} +'대 /'"></span>
+				<span th:if="!${#strings.equals(age, 'noAge')}" class="card-title mb-0" style="display:inline-block" th:text="'나이:'+ ${age} +'대 /'"></span>
 				
 				<span th:if="!${#strings.equals(gender, 'noGender')}" class="card-title mb-0" style="display:inline-block" th:text="'성별:  '+${genderName}"></span>
 				
@@ -282,12 +282,12 @@
 										</tr>
 										<tr id="men">
 											<td id="menCntTitle" style="padding:0.4rem 0.4rem;">남성</td>
-											<td class="text-end" id="menCnt" style="padding:0.4rem 0.4rem;">4306개</td>
+											<td class="text-end" id="menCnt" style="padding:0.4rem 0.4rem;" th:text="${maleSales} ? ${maleSales}+'개' : '0개'"></td>
 											
 										</tr>
 										<tr id="women">
 											<td id="womenCntTitle" style="padding:0.4rem 0.4rem;">여성</td>
-											<td class="text-end" id="womenCnt" style="padding:0.4rem 0.4rem;">3801개</td>
+											<td class="text-end" id="womenCnt" style="padding:0.4rem 0.4rem;" th:text="${femaleSales} ? ${femaleSales}+'개' : '0개'"></td>
 											
 											
 										</tr>
@@ -463,28 +463,34 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
-		// Pie chart
-		new Chart(document.getElementById("chartjs-dashboard-pie2"), {
-			type : "pie",
-			data : {
-				labels : [ "남성 (%)", "여성 (%)"],
-				datasets : [ {
-					data : [ 43, 38],
-					backgroundColor : [ window.theme.primary, window.theme.danger ],
-					borderWidth : 5
-				} ]
+var maleSales = '[[${manSales}]]';
+if(maleSales == null) maleSales = 1;
+
+var femaleSales = '[[${femanSales}]]';
+if(femaleSales == null) femaleSales = 1;
+
+document.addEventListener("DOMContentLoaded", function() {
+	// Pie chart
+	new Chart(document.getElementById("chartjs-dashboard-pie2"), {
+		type : "pie",
+		data : {
+			labels : [ "남성 (개수)", "여성 (개수)"],
+			datasets : [ {
+				data : [ maleSales, femaleSales],
+				backgroundColor : [ window.theme.primary, window.theme.danger ],
+				borderWidth : 5
+			} ]
+		},
+		options : {
+			responsive : !window.MSInputMethodContext,
+			maintainAspectRatio : false,
+			legend : {
+				display : false
 			},
-			options : {
-				responsive : !window.MSInputMethodContext,
-				maintainAspectRatio : false,
-				legend : {
-					display : false
-				},
-				cutoutPercentage : 75
-			}
-		});
+			cutoutPercentage : 75
+		}
 	});
+});
 </script>
 
 <script>
