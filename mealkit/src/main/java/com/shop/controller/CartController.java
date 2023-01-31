@@ -76,13 +76,15 @@ public class CartController {
 			
 			for(CartDTO dto : cartList) {
 				// List에서 dto객체를 꺼내 각각의 총 가격을 더해서 단순 합계 금액을 구해준다.       // Calculate totalPrice each of Cart_key
-				 totalPrice += dto.getPrice() * dto.getCnt();
-				 // 또한 기존가 - 세일가 의 값을 구해서 최종 할인 가격을 구해준다.                // salePrice.
-				 salePrice += (dto.getPrice() - dto.getSale()) * dto.getCnt();
+				totalPrice += dto.getPrice() * dto.getCnt();
+				// 또한 기존가 - 세일가 의 값을 구해서 최종 할인 가격을 구해준다.                // salePrice.
+				salePrice += (dto.getPrice() - dto.getSale()) * dto.getCnt();
+				
+				dto.setImg(service.itemImg(dto.getCartKey()).getImg1());
 			}
 			
 			// System.out.println(salePrice);
-
+			
 			
 			
 			
@@ -182,7 +184,7 @@ public class CartController {
 
 	// 장바구니에 상품 담기.     Insert Item on user's CART        ------------------------------------------------------------------------------------------------
 		@GetMapping("/cart/cartInsert")
-		public String cartInsert(int itemKey, int cnt, HttpServletRequest req) {
+		public String cartInsert(int itemKey, int cnt, int goOrNot, HttpServletRequest req) {
 			
 			// 세션값을 먼저 구해서 해당 사용자의 고유 번호를 가져와서 담아준다.                                      get session (custKey) from user's Session
 			HttpSession session = req.getSession();
@@ -202,6 +204,8 @@ public class CartController {
 						
 						// 존재한다면 해당 장바구니 아이템의 개수를 1증가시킨다.
 						service.increaseCart(c.getCartKey(), itemKey, cnt);
+						if(goOrNot == 1) return "redirect:/cart/list";
+						if(goOrNot == 2) return "redirect:/shoplist";
 						return "redirect:/";
 					}
 				}
@@ -211,6 +215,10 @@ public class CartController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			System.out.println(goOrNot);
+			if(goOrNot == 1) return "redirect:/cart/list";
+			if(goOrNot == 2) return "redirect:/shoplist";
+			
 			
 			return "redirect:/";
 		}

@@ -14,5 +14,4 @@ public class MainController {
 		model.addAttribute("content","content");
 		return "main";
 	}
-	
 }

@@ -22,6 +22,9 @@ public class DashBoardDTO {
     private double confirmation;
 
     private String sellIncrease;
+    private int totalItemCnt;
+
+    private String itemCntIncrease;
     private String shipIncrease;
     private String confirmationIncrease;
 }

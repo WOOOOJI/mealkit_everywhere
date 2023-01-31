@@ -14,9 +14,16 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	DELETE FROM notice WHERE noticeKey=${noticeKey}
 </delete>
 	<!-- 이벤트 페이지 개수 -->
-	<select id="countNotice" resultType="int">
-		SELECT count(noticeKey) FROM
-		notice;
+	<select id="countNotice" parameterType="Criteria" resultType="int">
+		SELECT count(noticeKey) FROM notice
+		<where>
+			<if test="ntype != 'none'">
+				and ntype =#{ntype}
+			</if>
+		</where>
+		
+		ORDER BY #{orderCri} #{ascDesc}
+		
 	</select>
 
 	<!-- 이벤트 페이지 정보 가져오기 -->

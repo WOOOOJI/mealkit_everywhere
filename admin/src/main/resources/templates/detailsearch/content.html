@@ -1,18 +1,35 @@
+<style>
 
+</style>
 
 
 	<main class="content">
 		<div class="container-fluid p-0">
 
-			<h1 class="h3 mb-3">
-				<strong style="font-size:40px;">2023년 1월 </strong> - 현재 매출 현황
+			<h1 class="h4 mb-3">상세 매출 현황</h1>
+			<h1 class="h4 mb-3">
+				<strong style="font-size:40px;" th:text="${startDate}+' ~ '+${endDate}"> </strong>
 			</h1>
 			<div class="card-header">
 				
 				
 				<!-- 현재 들어온 페이지의 단락 -->
-				<h5 class="card-title mb-0" style="font-size: 30px;">전체 주문건</h5>
-
+				<h5 class="card-title mb-0" style="font-size: 30px;">조회 주문건</h5>
+				
+				
+				<span th:if="${categoryKey} == -1" class="card-title mb-0" style="display:inline-block">카테고리:  /</span>
+				
+				<span th:if="${#strings.equals(age, 'noAge')}" class="card-title mb-0" style="display:inline-block">나이:  /</span>
+				
+				<span th:if="${#strings.equals(gender, 'noGender')}" class="card-title mb-0" style="display:inline-block">성별:  </span>
+				
+				<span th:if="${categoryKey} != -1 and !${categoryKey} != null" class="card-title mb-0" style="display:inline-block" th:text="'카테고리:  '+${categoryName}+' /'"></span>
+				
+				<span th:if="!${#strings.equals(age, 'noAge')}" class="card-title mb-0" style="display:inline-block" th:text="'나이:'+ ${age} +'대 /'"></span>
+				
+				<span th:if="!${#strings.equals(gender, 'noGender')}" class="card-title mb-0" style="display:inline-block" th:text="'성별:  '+${genderName}"></span>
+				
+				
 
 
 
@@ -22,42 +39,42 @@
 				<!-- 상태변경 관련 select 태그 -->
 				<div style="margin-top: 30px;">
 					<div class="input-group float-right" style="display: inline;">
-						<select class="custom-select" id="inputGroupSelect03"
+						<select class="custom-select" id="selectGroupCategory"
 							style="display: inline; float: left; margin-right: 10px; height: 32.59px">
-							<option selected value="R">음식 카테고리별</option>
+							<option selected value="-1">음식 카테고리별</option>
 							<option value="1">한식</option>
 							<option value="2">중식</option>
 							<option value="3">일식</option>
 							<option value="4">양식</option>
 						</select>
 						
-						<select class="custom-select" id="inputGroupSelect03"
+						<select class="custom-select" id="selectGroupAge"
 							style="display: inline; float: left; margin-right: 10px; height: 32.59px">
-							<option selected value="R">나이대별</option>
-							<option value="1">10대</option>
-							<option value="2">20대</option>
-							<option value="3">30대</option>
-							<option value="4">40대</option>
-							<option value="5">50대</option>
-							<option value="6">60대</option>
+							<option selected value="noAge">나이대별</option>
+							<option value="10">10대</option>
+							<option value="20">20대</option>
+							<option value="30">30대</option>
+							<option value="40">40대</option>
+							<option value="50">50대</option>
+							<option value="60">60대</option>
 						</select>
 						
 						
-						<select class="custom-select" id="inputGroupSelect03"
+						<select class="custom-select" id="selectGroupGender"
 							style="display: inline; float: left; margin-right: 10px; height: 32.59px">
-							<option selected value="R">성별</option>
-							<option value="13">남성</option>
-							<option value="24">여성</option>
+							<option selected value="noGender">성별</option>
+							<option value="1,3">남성</option>
+							<option value="2,4">여성</option>
 						</select>
 						
 					</div>
 					
-					<input type="date" name="startDate">
+					<input type="date" name="startDate" id="startDate" min="2020-01-01" max="2040-01-01">
 					 ~ 
-					<input type="date" name="endDate">
+					<input type="date" name="endDate" id="endDate" min="2020-01-01" max="2040-01-01">
 					<button class="btn btn-primary"
 						style="display: inline-block; margin-left: 10px;"
-						onclick="changeStatus()">조회하기</button>					
+						onclick="submitSelectedGroup()">조회하기</button>					
 					
 				</div>
 			</div>
@@ -74,7 +91,7 @@
 									<div class="card-body">
 										<div class="row">
 											<div class="col mt-0">
-												<h5 class="card-title">배송량</h5>
+												<h4 class="card-title">배송량</h4>
 											</div>
 
 											<div class="col-auto">
@@ -85,9 +102,9 @@
 										</div>
 										<h1 class="mt-6 mb-3">201건</h1>
 										<div class="mb-0">
-											<span class="text-danger"> <i
-												class="mdi mdi-arrow-bottom-right"></i> -3.65%
-											</span> <span class="text-muted">지난달 대비</span>
+											<span class="text-primary"> <i
+												class="mdi mdi-arrow-bottom-right"></i> 배송중, 배송완료
+											</span> <span class="text-muted"> 주문건에만 해당</span>
 										</div>
 									</div>
 								</div>
@@ -95,7 +112,7 @@
 									<div class="card-body">
 										<div class="row">
 											<div class="col mt-0">
-												<h5 class="card-title">사이트 접속자</h5>
+												<h5 class="card-title">판매된 제품 수</h5>
 											</div>
 
 											<div class="col-auto">
@@ -104,11 +121,11 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-6 mb-3">14201명</h1>
+										<h1 class="mt-6 mb-3">14201개</h1>
 										<div class="mb-0">
-											<span class="text-success"> <i
-												class="mdi mdi-arrow-bottom-right"></i> 5.25%
-											</span> <span class="text-muted">지난달 대비</span>
+											<span class="text-primary"> <i
+												class="mdi mdi-arrow-bottom-right"></i>환불처리 된 주문건
+											</span> <span class="text-muted"> 제외</span>
 										</div>
 									</div>
 								</div>
@@ -129,9 +146,9 @@
 										</div>
 										<h1 class="mt-6 mb-3">320,100원</h1>
 										<div class="mb-0">
-											<span class="text-success"> <i
-												class="mdi mdi-arrow-bottom-right"></i> 6.65%
-											</span> <span class="text-muted">지난달 대비</span>
+											<span class="text-primary"> <i
+												class="mdi mdi-arrow-bottom-right"></i> 환불처리 된 금액
+											</span> <span class="text-muted">제외</span>
 										</div>
 									</div>
 								</div>
@@ -150,9 +167,9 @@
 										</div>
 										<h1 class="mt-6 mb-3">201,400원</h1>
 										<div class="mb-0">
-											<span class="text-danger"> <i
-												class="mdi mdi-arrow-bottom-right"></i> -2.25%
-											</span> <span class="text-muted">지난달 대비</span>
+											<span class="text-primary"> <i
+												class="mdi mdi-arrow-bottom-right"></i> 전체주문건 대비 환불건
+											</span> <span class="text-muted"> 비율</span>
 										</div>
 									</div>
 								</div>
@@ -166,7 +183,12 @@
 					<div class="card flex-fill w-100">
 						<div class="card-header">
 
-							<h5 class="card-title mb-0">나이대별 판매 비율</h5>
+							<h5 th:if="${#strings.equals(gender, 'noGender')}" class="card-title mb-0">나이대별 판매 비율</h5>
+							<h5 th:if="${#strings.equals(gender, '1,3')}" class="card-title mb-0">남성 나이대별 판매 비율</h5>
+							<h5 th:if="${#strings.equals(gender, '2,4')}" class="card-title mb-0">여성 나이대별 판매 비율</h5>
+							
+							
+							
 						</div>
 						<div class="card-body d-flex">
 							<div class="align-self-center w-100">
@@ -178,29 +200,49 @@
 
 								<table class="table mb-0">
 									<tbody>
-										<tr class="card-title">
+										<tr class="card-title" >
 											<td>연령대</td>
 											<td class="text-end">판매된 개수</td>
-											<td>연령대</td>
-											<td class="text-end">판매된 개수</td>
+											
+										</tr>
+										
+										<tr>
+											
+											<tr id="selected10">
+											<td style="padding:0.1rem 0.1rem;">10대</td>
+											<td th:text="${age10Sales} ? ${age10Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											</tr>
+											
+											<tr id="selected20">
+											<td style="padding:0.1rem 0.1rem;">20대</td>
+											<td th:text="${age20Sales} ? ${age20Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											</tr>
+											
+											
+										</tr>
+										
+										<tr>
+											
+											<tr id="selected30">
+											<td style="padding:0.1rem 0.1rem;">30대</td>
+											<td th:text="${age30Sales} ? ${age30Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											</tr>
+											
+											<tr id="selected40">
+											<td style="padding:0.1rem 0.1rem;">40대</td>
+											<td th:text="${age40Sales} ? ${age40Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											</tr>
+											
 										</tr>
 										<tr>
-											<td>10대</td>
-											<td class="text-end">4306개</td>
-											<td>40대</td>
-											<td class="text-end">4306개</td>
-										</tr>
-										<tr>
-											<td>20대</td>
-											<td class="text-end">3801개</td>
-											<td>50대</td>
-											<td class="text-end">3801개</td>
-										</tr>
-										<tr>
-											<td>30대</td>
-											<td class="text-end">1689개</td>
-											<td>60대</td>
-											<td class="text-end">1689개</td>
+											<tr id="selected50">
+											<td style="padding:0.1rem 0.1rem;">50대</td>
+											<td th:text="${age50Sales} ? ${age50Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											</tr>
+											<tr id="selected60">
+											<td style="padding:0.1rem 0.1rem;">60대</td>
+											<td th:text="${age60Sales} ? ${age60Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											</tr>
 										</tr>
 									</tbody>
 								</table>
@@ -215,7 +257,14 @@
 					<div class="card flex-fill w-100">
 						<div class="card-header">
 
-							<h5 class="card-title mb-0">성별 판매 비율</h5>
+							<!-- <h5 th:if="${#strings.equals(gender,'noGender')} and ${#strings.equals(age,'noAge')}" class="card-title mb-0">남녀 판매 비율</h5>
+							<h5 th:if="${#strings.equals(gender,'noGender')} and !${#strings.equals(age,'noAge')}" class="card-title mb-0" th:text="${age}+'대 남녀 판매 비율'"></h5>
+							<h5 th:if="!${#strings.equals(gender,'noGender')} and !${#strings.equals(age,'noAge')}" class="card-title mb-0" th:text="${age}+'대 남녀 판매 비율'"></h5> -->
+							
+							<h5 th:if="${#strings.equals(age,'noAge')}" class="card-title mb-0">남녀 판매 비율</h5>
+							<h5 th:if="!${#strings.equals(age,'noAge')}" th:text="${age}+'대 남녀 판매 비율'" class="card-title mb-0"></h5>
+							
+							
 						</div>
 						<div class="card-body d-flex">
 							<div class="align-self-center w-100">
@@ -231,13 +280,16 @@
 											<td>성별</td>
 											<td class="text-end">판매된 개수</td>
 										</tr>
-										<tr>
-											<td>남성</td>
-											<td class="text-end">4306개</td>
+										<tr id="men">
+											<td id="menCntTitle" style="padding:0.4rem 0.4rem;">남성</td>
+											<td class="text-end" id="menCnt" style="padding:0.4rem 0.4rem;" th:text="${maleSales} ? ${maleSales}+'개' : '0개'"></td>
+											
 										</tr>
-										<tr>
-											<td>여성</td>
-											<td class="text-end">3801개</td>
+										<tr id="women">
+											<td id="womenCntTitle" style="padding:0.4rem 0.4rem;">여성</td>
+											<td class="text-end" id="womenCnt" style="padding:0.4rem 0.4rem;" th:text="${femaleSales} ? ${femaleSales}+'개' : '0개'"></td>
+											
+											
 										</tr>
 									</tbody>
 								</table>
@@ -263,10 +315,10 @@
 							
 				<div style="margin-top: 30px;">
 					<div class="input-group float-right" style="display: inline;">
-						<select class="custom-select" id="inputGroupSelect03"
+						<select class="custom-select" id="selectGroupOrderBy"
 							style="display: inline; float: left; margin-right: 10px; height: 32.59px">
-							<option selected value="R">판매량순</option>
-							<option selected value="R">금액순</option>
+							<option value="cnt">판매량순</option>
+							<option selected value="sale">금액순</option>
 						</select>
 						
 
@@ -365,10 +417,27 @@
 </div>
 </div>
 
-<script src="js/app.js"></script>
+<script th:src="@{/js/app.js}"></script>
 
 
 <script>
+
+var age10 = '[[${age10Sales}]]';
+var age20 = '[[${age20Sales}]]';
+var age30 = '[[${age30Sales}]]';
+var age40 = '[[${age40Sales}]]';
+var age50 = '[[${age50Sales}]]';
+var age60 = '[[${age60Sales}]]';
+
+
+if(age10 == null) age10 = 0;
+if(age20 == null) age20 = 0;
+if(age30 == null) age30 = 0;
+if(age40 == null) age40 = 0;
+if(age50 == null) age50 = 0;
+if(age60 == null) age60 = 0;
+
+
 document.addEventListener("DOMContentLoaded", function() {
 	// Pie chart
 	new Chart(document.getElementById("chartjs-dashboard-pie"), {
@@ -376,7 +445,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		data : {
 			labels : [ "10대", "20대", "30대", "40대", "50대", "60대" ],
 			datasets : [ {
-				data : [ 43, 38, 16, 24, 12, 14],
+				data : [ age10, age20, age30, age40, age50, age60],
 				backgroundColor : [window.theme.warning, window.theme.warning, window.theme.primary, window.theme.primary, window.theme.info, window.theme.info ],
 				borderWidth : 5
 			} ]
@@ -394,155 +463,198 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
-		// Pie chart
-		new Chart(document.getElementById("chartjs-dashboard-pie2"), {
-			type : "pie",
-			data : {
-				labels : [ "남성 (%)", "여성 (%)"],
-				datasets : [ {
-					data : [ 43, 38],
-					backgroundColor : [ window.theme.primary, window.theme.danger ],
-					borderWidth : 5
-				} ]
+var maleSales = '[[${manSales}]]';
+if(maleSales == null) maleSales = 1;
+
+var femaleSales = '[[${femanSales}]]';
+if(femaleSales == null) femaleSales = 1;
+
+document.addEventListener("DOMContentLoaded", function() {
+	// Pie chart
+	new Chart(document.getElementById("chartjs-dashboard-pie2"), {
+		type : "pie",
+		data : {
+			labels : [ "남성 (개수)", "여성 (개수)"],
+			datasets : [ {
+				data : [ maleSales, femaleSales],
+				backgroundColor : [ window.theme.primary, window.theme.danger ],
+				borderWidth : 5
+			} ]
+		},
+		options : {
+			responsive : !window.MSInputMethodContext,
+			maintainAspectRatio : false,
+			legend : {
+				display : false
 			},
-			options : {
-				responsive : !window.MSInputMethodContext,
-				maintainAspectRatio : false,
-				legend : {
-					display : false
-				},
-				cutoutPercentage : 75
-			}
-		});
+			cutoutPercentage : 75
+		}
 	});
+});
 </script>
 
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
-		// Bar chart
-		new Chart(document.getElementById("chartjs-dashboard-bar"), {
-			type : "bar",
-			data : {
-				labels : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월",
-						"8월", "9월", "10월", "11월", "12월" ],
-				datasets : [ {
-					label : "This year",
-					backgroundColor : window.theme.primary,
-					borderColor : window.theme.primary,
-					hoverBackgroundColor : window.theme.primary,
-					hoverBorderColor : window.theme.primary,
-					data : [ 54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79 ],
-					barPercentage : .75,
-					categoryPercentage : .5
-				} ]
-			},
-			options : {
-				maintainAspectRatio : false,
-				legend : {
-					display : false
-				},
-				scales : {
-					yAxes : [ {
-						gridLines : {
-							display : false
-						},
-						stacked : false,
-						ticks : {
-							stepSize : 20
-						}
-					} ],
-					xAxes : [ {
-						stacked : false,
-						gridLines : {
-							color : "transparent"
-						}
-					} ]
-				}
-			}
-		});
-	});
-</script>
-<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
-		var defaultDate = date.getUTCFullYear() + "-"
-				+ (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
-		document.getElementById("datetimepicker-dashboard").flatpickr({
-			inline : true,
-			prevArrow : "<span title=\"Previous month\">&laquo;</span>",
-			nextArrow : "<span title=\"Next month\">&raquo;</span>",
-			defaultDate : defaultDate
-		});
-	});
+// selectGroupGender 선택한 성별 
+// null가능 -> 변수명: gender null: noGender 
 
+
+// selectGroupCategory 선택한 카테고리
+// null가능 -> 변수명: categoryKey null: -1
+
+
+// selectGroupAge 선택한 나이대
+// null가능 -> 변수명: age null: noAge
+
+
+// startDate 선택한 시작 날짜
+// endDate 선택한 끝 날짜
+
+// selectGroupOrderBy 선택한 정렬 방식
+// null없음 -> 변수명: align default: sale
+
+function submitSelectedGroup(){
+	var gender = $('#selectGroupGender').val();
+	var age = $('#selectGroupAge').val();
+	var categoryKey = $('#selectGroupCategory').val();
+	var startDate = $('#startDate').val();
+	var endDate = $('#endDate').val();
+	var align = $('#selectGroupOrderBy').val();
 	
+	var today = new Date();
+ 	var smallDate = new Date(startDate);
+ 	var bigDate = new Date(endDate);
+	// 테스트 로그
+	/* console.log(gender);
+	console.log(age);
+	console.log(categoryKey);
+	console.log(startDate);
+	console.log(endDate); */
+	
+	// 날짜 공백 유효성 검사
+	if(startDate == "" && endDate == ""){
+		alert("검색할 시작날짜와 종료날짜를 선택해주세요");
+		return false;
+	}
+	
+	if(startDate == "" && endDate != ""){
+		alert("시작날짜를 선택해주세요");
+		return false;
+	}else if(startDate != "" && endDate == ""){
+		alert("종료날짜를 선택해주세요");
+		return false;
+	}
+	
+	
+	// 날짜 범위 유효성 검사
+	if(smallDate > bigDate){
+		alert("선택한 시작날짜인 "+startDate+" 는 종료날짜인 "+endDate+" 보다 큽니다. 다시 선택해주세요");
+		return false;
+	}else if(today < bigDate){
+		alert("종료날짜인 "+endDate+" 는 오늘 날짜인 "+today+" 보다 큽니다. 다시 선택해주세요");
+		return false;
+	}else if(today < smallDate){
+		alert("시작날짜인 "+endDate+" 는 오늘 날짜인 "+today+" 보다 큽니다. 다시 선택해주세요");
+		return false;
+	}
+	
+	location.href="/admin/detailSearch?categoryKey="+categoryKey+"&age="+age+"&gender="+gender+"&startDate="+startDate+"&endDate="+endDate+'&align='+align;
+	
+}
+
+
+</script>
+
+<script>
+
+if('[[${gender}]]' == '1,3'){
+	
+	document.getElementById('men').className = 'gradient';
+}
+if('[[${gender}]]' == '2,4') {
+	
+	document.getElementById('women').className = 'gradient';
+}
+
+if('[[${age}]]' == "10"){
+	document.getElementById('selected10').className = 'gradient';
+}else if('[[${age}]]' == "20"){
+	document.getElementById('selected20').className = 'gradient';
+}else if('[[${age}]]' == "30"){
+	document.getElementById('selected30').className = 'gradient';
+}else if('[[${age}]]' == "40"){
+	document.getElementById('selected40').className = 'gradient';
+}else if('[[${age}]]' == "50"){
+	document.getElementById('selected50').className = 'gradient';
+}else if('[[${age}]]' == "60"){
+	document.getElementById('selected60').className = 'gradient';
+}
+
 </script>
 
 
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
-		// Bar chart
-		new Chart(document.getElementById("chartjs-bar"), {
-			type : "bar",
-			data : {
-				labels : [ "1", "2", "3", "4", "5",
-						"6", "7", "8", "08:00", "09:00", "10:00",
-						"11:00", "12:00", "00:00", "01:00", "02:00", "03:00", "04:00",
-						"05:00", "06:00", "07:00", "08:00", "09:00", "10:00",
-						"11:00", "12:00" ],
-				datasets : [ {
-					label : "Last year",
-					backgroundColor : window.theme.primary,
-					borderColor : window.theme.primary,
-					hoverBackgroundColor : window.theme.primary,
-					hoverBorderColor : window.theme.primary,
-					data : [ 54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79, 54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79 ],
-					barPercentage : .75,
-					categoryPercentage : .5
-				}, {
-					label : "This year",
-					backgroundColor : "#dee2e6",
-					borderColor : "#dee2e6",
-					hoverBackgroundColor : "#dee2e6",
-					hoverBorderColor : "#dee2e6",
-					data : [ 69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68, 69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68 ],
-					barPercentage : .75,
-					categoryPercentage : .5
-				} ]
-			},
-			options : {
-				maintainAspectRatio : false,
-				legend : {
-					display : false
-				},
-				scales : {
-					yAxes : [ {
-						gridLines : {
-							display : false
-						},
-						stacked : false,
-						ticks : {
-							stepSize : 20
-						}
-					} ],
-					xAxes : [ {
-						stacked : false,
-						gridLines : {
-							color : "transparent"
-						}
-					} ]
-				}
-			}
-		});
-	});
+
+var colors = new Array(
+  [102,204,255],
+  [204,255,255],
+  [102,204,255],
+  [45,175,230],
+  [102,204,255],
+  [255,255,255]);
+
+var step = 0;
+//color table indices for: 
+// current color left
+// next color left
+// current color right
+// next color right
+var colorIndices = [0,1,2,3];
+
+//transition speed
+var gradientSpeed = 0.002;
+
+function updateGradient()
+{
+  
+  if ( $===undefined ) return;
+  
+var c0_0 = colors[colorIndices[0]];
+var c0_1 = colors[colorIndices[1]];
+var c1_0 = colors[colorIndices[2]];
+var c1_1 = colors[colorIndices[3]];
+
+var istep = 1 - step;
+var r1 = Math.round(istep * c0_0[0] + step * c0_1[0]);
+var g1 = Math.round(istep * c0_0[1] + step * c0_1[1]);
+var b1 = Math.round(istep * c0_0[2] + step * c0_1[2]);
+var color1 = "rgb("+r1+","+g1+","+b1+")";
+
+var r2 = Math.round(istep * c1_0[0] + step * c1_1[0]);
+var g2 = Math.round(istep * c1_0[1] + step * c1_1[1]);
+var b2 = Math.round(istep * c1_0[2] + step * c1_1[2]);
+var color2 = "rgb("+r2+","+g2+","+b2+")";
+
+ $('.gradient').css({
+   background: "-webkit-gradient(linear, left top, right top, from("+color1+"), to("+color2+"))"}).css({
+    background: "-moz-linear-gradient(left, "+color1+" 0%, "+color2+" 100%)"});
+  
+  step += gradientSpeed;
+  if ( step >= 1 )
+  {
+    step %= 1;
+    colorIndices[0] = colorIndices[1];
+    colorIndices[2] = colorIndices[3];
+    
+    //pick two new target color indices
+    //do not pick the same as the current one
+    colorIndices[1] = ( colorIndices[1] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
+    colorIndices[3] = ( colorIndices[3] + Math.floor( 1 + Math.random() * (colors.length - 1))) % colors.length;
+    
+  }
+}
+
+setInterval(updateGradient,10);
 </script>
-
-
-
-
-
-
 </body>
 
 </html>

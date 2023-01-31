@@ -7,9 +7,9 @@ public class OrderDTO {
 	private int orderKey;
 	private int custKey;
 	private int price;
-	
+
 	private String rdate;
-	
+
 	private String status;
 	private String name;
 	private String zipcode;
@@ -25,63 +25,6 @@ public class OrderDTO {
 	
 	//추가 변수
 	private String custName;
-	private String refund;
-
-	
-	
-	// 년,월,일의 매출차트에 필요한 변수 (날짜 지정)
-	private String tempDate;
-	private int totalSales;
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	//기간별 TOP10, BOT10, 매출데이터를 위한 변수
 	private int totCnt;
@@ -89,4 +32,20 @@ public class OrderDTO {
 	private int mthly;
 	private int daily;
 	private int timly;
+
+
+	// 년,월,일의 매출차트에 필요한 변수 (날짜 지정)
+	private String tempDate;
+	private int totalSales;
+
+	private String refund;
+	
+	//나이대별 분석에 필요한 변수
+	private String ageRange;
+
+
+	//성별별 분석에 필요한 변수
+	private String gender;
+
+
 }

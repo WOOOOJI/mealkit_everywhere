@@ -21,13 +21,11 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession();
         String adminId = (String)session.getAttribute("adminId");
-        System.out.println(adminId);
         if(adminId != null) {
             return true;
         } else {
             try {
                 response.sendRedirect("/admin/loginForm");
-                System.out.println("돌아가 제발;;;");
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -42,4 +42,13 @@ public interface AnalyzeMapper {
 	// 상세 검색된 상품 리스트
 	public List<FilterdDTO> filterdData(FilterdDTO filterdDTO) throws Exception; 
 
+	//나이대별 판매개수 구하기
+	public List<OrderDTO> ageRangeSales(int categoryKey, String gender, String gender1, String gender2, String startDate, String endDate) throws Exception;
+
+	//상세검색 배송량, 판매액, 구매확정 
+	public OrderDTO dashBoardCardDetail(String startDate, String endDate, String gender, String gender1, String gender2, String age, int categoryKey) throws Exception;
+
+	//성별 판매량 구하기
+	public List<OrderDTO> genderSales(int categoryKey, String age, String startDate, String endDate) throws Exception;
+
 }
