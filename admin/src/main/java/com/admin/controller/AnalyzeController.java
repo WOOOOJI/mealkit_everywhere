@@ -169,7 +169,7 @@ public class AnalyzeController {
 			@RequestParam(value = "gender", defaultValue = "noGender") String gender, String startDate, String endDate, Model model) {
 		
 
-		OrderDTO dash=null;
+		DashBoardDTO dash = new DashBoardDTO();
 		
 		
 		

@@ -457,35 +457,34 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 <script>
+var maleSales = '[[${maleSales}]]';
+if(maleSales == null) maleSales = 1;
 
-	var maleSales = '[[${manSales}]]';
-	if(maleSales == null) maleSales = 1;
+var femaleSales = '[[${femaleSales}]]';
+if(femaleSales == null) femaleSales = 1;
 
-	var femaleSales = '[[${femanSales}]]';
-	if(femaleSales == null) femaleSales = 1;
-
-	document.addEventListener("DOMContentLoaded", function() {
-		// Pie chart
-		new Chart(document.getElementById("chartjs-dashboard-pie2"), {
-			type : "pie",
-			data : {
-				labels : [ "남성 (개수)", "여성 (개수)"],
-				datasets : [ {
-					data : [ maleSales, femaleSales],
-					backgroundColor : [ window.theme.primary, window.theme.danger ],
-					borderWidth : 5
-				} ]
+document.addEventListener("DOMContentLoaded", function() {
+	// Pie chart
+	new Chart(document.getElementById("chartjs-dashboard-pie2"), {
+		type : "pie",
+		data : {
+			labels : [ "남성 (개수)", "여성 (개수)"],
+			datasets : [ {
+				data : [ maleSales, femaleSales],
+				backgroundColor : [ window.theme.primary, window.theme.danger ],
+				borderWidth : 5
+			} ]
+		},
+		options : {
+			responsive : !window.MSInputMethodContext,
+			maintainAspectRatio : false,
+			legend : {
+				display : false
 			},
-			options : {
-				responsive : !window.MSInputMethodContext,
-				maintainAspectRatio : false,
-				legend : {
-					display : false
-				},
-				cutoutPercentage : 75
-			}
-		});
+			cutoutPercentage : 75
+		}
 	});
+});
 </script>
 
 

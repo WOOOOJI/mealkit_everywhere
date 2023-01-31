@@ -100,9 +100,9 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-6 mb-3">201건</h1>
+										<h1 class="mt-6 mb-3"  th:text="${dash.totalShip} != 0 ? ${dash.totalShip}+'건' : '0건'"></h1>
 										<div class="mb-0">
-											<span class="text-primary"> <i
+											<span class="text-primary"><i
 												class="mdi mdi-arrow-bottom-right"></i> 배송중, 배송완료
 											</span> <span class="text-muted"> 주문건에만 해당</span>
 										</div>
@@ -121,7 +121,7 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-6 mb-3">14201개</h1>
+										<h1 class="mt-6 mb-3"  th:text="${dash.totalItemCnt} != 0 ? ${dash.totalItemCnt}+'개' : '0개'"></h1>
 										<div class="mb-0">
 											<span class="text-primary"> <i
 												class="mdi mdi-arrow-bottom-right"></i>환불처리 된 주문건
@@ -144,7 +144,7 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-6 mb-3">320,100원</h1>
+										<h1 class="mt-6 mb-3"  th:text="${dash.totalPrice} != 0 ? ${dash.totalPrice}+'원' : '0원'"></h1>
 										<div class="mb-0">
 											<span class="text-primary"> <i
 												class="mdi mdi-arrow-bottom-right"></i> 환불처리 된 금액
@@ -165,7 +165,7 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-6 mb-3">201,400원</h1>
+										<h1 class="mt-6 mb-3"  th:text="${dash.confirmation} != 0 ? ${dash.confirmation}+'%' : '0.0%'"></h1>
 										<div class="mb-0">
 											<span class="text-primary"> <i
 												class="mdi mdi-arrow-bottom-right"></i> 전체주문건 대비 환불건
@@ -317,9 +317,12 @@
 					<div class="input-group float-right" style="display: inline;">
 						<select class="custom-select" id="selectGroupOrderBy"
 							style="display: inline; float: left; margin-right: 10px; height: 32.59px">
-							<option value="cnt">판매량순</option>
-							<option selected value="sale">금액순</option>
+							<option value="totCnt">판매량순</option>
+							<option selected value="totPrice">금액순</option>
 						</select>
+						<button class="btn btn-primary"
+						style="display: inline-block; margin-left: 10px;"
+						onclick="submitSelectedGroup()">조회하기</button>		
 						
 
 					</div>
@@ -463,10 +466,10 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 <script>
-var maleSales = '[[${manSales}]]';
+var maleSales = '[[${maleSales}]]';
 if(maleSales == null) maleSales = 1;
 
-var femaleSales = '[[${femanSales}]]';
+var femaleSales = '[[${femaleSales}]]';
 if(femaleSales == null) femaleSales = 1;
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -519,6 +522,32 @@ function submitSelectedGroup(){
 	var startDate = $('#startDate').val();
 	var endDate = $('#endDate').val();
 	var align = $('#selectGroupOrderBy').val();
+	
+	if(gender == null){			
+		gender = '[[${gender}]]';
+	}
+	
+	if(age == null){		
+		age = '[[${age}]]';
+	}
+	
+	if(categoryKey == null){		
+		categoryKey = '[[${categoryKey}]]';
+	}
+	
+	if(startDate == ""){		
+		startDate = '[[${startDate}]]';
+	}
+	
+	if(endDate == ""){		
+		endDate = '[[${endDate}]]';
+	}
+	
+	if(align == null){		
+		align = '[[${align}]]';
+	}
+	
+	
 	
 	var today = new Date();
  	var smallDate = new Date(startDate);

@@ -430,21 +430,46 @@ public class AnalyzeService {
 		
 
 		//상세검색 배송량, 판매액, 구매확정 
-		public OrderDTO dashBoardCardDetail(String startDate, String endDate, String gender,String gender1, String gender2, String age, int categoryKey) {
+		public DashBoardDTO dashBoardCardDetail(String startDate, String endDate, String gender,String gender1, String gender2, String age, int categoryKey) {
 			
-			OrderDTO thisD = null;
-					
+			
+			int thisRefund = 0;
+			int thisNotRefund = 0;
+			int totalShip = 0;
+			int refund = 0;
+			OrderDTO totalSales = null;
+			DashBoardDTO dash = new DashBoardDTO();		
 
-			
 			try {
-				thisD = mapper.dashBoardCardDetail(startDate, endDate, gender, gender1, gender2, age, categoryKey);
-				
+				totalSales = mapper.getSales(startDate, endDate, gender, gender1, gender2, age, categoryKey);
+				refund = mapper.getTotalRefund(startDate, endDate, gender, gender1, gender2, age, categoryKey);
+				totalShip = mapper.getTotalShip(startDate, endDate, gender, gender1, gender2, age, categoryKey);
 			}catch(Exception e){
 				e.printStackTrace();
 			}		
+			System.out.println(totalSales);
+			
+			thisNotRefund = totalSales.getTotalSales();
+			thisRefund = refund;
 			
 			
-			return thisD;
+			//오늘 총 매출액
+			dash.setTotalPrice(totalSales.getPrice());
+			
+			//오늘 총 배송량
+			dash.setTotalShip(totalShip);
+			
+			//올해 총 판매개수
+			dash.setTotalItemCnt(totalSales.getTotalSales());
+			
+			
+			
+			// 구매확정률
+			dash.setConfirmation(Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0);
+			
+			
+			
+			return dash;
 		}
 
 		//나이대별 판매개수 구하기

@@ -21,7 +21,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	<!-- 주어진 년도에 해당되는 판매액, 배송건, 구매확정률에 대한 데이터 -->
 	<select id="dashBoardCardYear" resultType="OrderDTO">
-	SELECT COUNT(orderKey) AS "itemCnt", SUM(price) AS "price",
+	SELECT SUM(price) AS "price",
+	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND (status LIKE 'D' OR status LIKE 'S')) AS "itemCnt",
 	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND status NOT LIKE 'F' ) AS "status",
 	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND status LIKE 'F') AS "refund",
 	(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE t.rdate BETWEEN '${year}-01-01 00:00:00' AND '${year}-12-31 23:59:59' AND status NOT LIKE 'F') AS "totalSales"
@@ -31,7 +32,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 	<!-- 주어진 년도, 월에 해당되는 판매액, 배송건, 구매확정률에 대한 데이터 -->
 	<select id="dashBoardCardMonth" resultType="OrderDTO">
-	SELECT COUNT(orderKey) AS "itemCnt", SUM(price) AS "price",
+	SELECT SUM(price) AS "price",
+	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-01 00:00:00' AND '${year}-${month}-31 23:59:59' AND (status LIKE 'D' OR status LIKE 'S')) AS "itemCnt",
 	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-01 00:00:00' AND '${year}-${month}-31 23:59:59' AND status NOT LIKE 'F' ) AS "status",
 	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-01 00:00:00' AND '${year}-${month}-31 23:59:59' AND status LIKE 'F') AS "refund",
 	(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${year}-${month}-01 00:00:00' AND '${year}-${month}-31 23:59:59' AND status NOT LIKE 'F') AS "totalSales"
@@ -41,7 +43,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- 주어진 년도, 월, 일 에 해당되는 판매액, 배송건, 구매확정률에 대한 데이터 -->
 	<select id="dashBoardCardDay" resultType="OrderDTO">
-	SELECT COUNT(orderKey) AS "itemCnt", SUM(price) AS "price",
+	SELECT SUM(price) AS "price",
+	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND (status LIKE 'D' OR status LIKE 'S')) AS "itemCnt",
 	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status NOT LIKE 'F' ) AS "status",
 	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status LIKE 'F') AS "refund",
 	(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status NOT LIKE 'F') AS "totalSales" 
@@ -118,27 +121,80 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 	
 
-	<!--상세검색 배송량, 판매액, 구매확정-->
-	<select id="dashBoardCardDetail" resultType="OrderDTO">
-	SELECT SUM(t.itemCNT) AS "itemCnt", SUM(t.price) AS "price",
-		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59' AND status LIKE 'D' AND 'S' ) AS "status",
-		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59' AND status LIKE 'F') AS "refund" 
-	FROM totalOrder t
-		INNER JOIN orderDetail o ON o.orderKey = t.orderKey 
-    	INNER JOIN item i ON i.itemKey = o.itemKey
-    	INNER JOIN category c ON c.categoryKey = i.categoryKey
-    	INNER JOIN customer cu ON cu.custKey = t.custKey
-	WHERE (DATE_FORMAT(t.rdate,'%y-%m-%d') BETWEEN DATE_FORMAT('${startDate}','%y-%m-%d') AND DATE_FORMAT('${endDate}','%y-%m-%d')) AND status NOT LIKE 'F'
-		<if test = "categoryKey != -1">
-			AND c.categoryKey = ${categoryKey} 
+	
+	<!-- 배송량 -->
+	<select id="getTotalShip" resultType="int">
+		SELECT IFNULL(COUNT(distinct t.orderKey),0) AS 'status'
+	    FROM totalOrder t
+	    JOIN customer ct ON ct.custKey = t.custKey
+	    JOIN orderDetail od ON t.orderKey = od.orderKey
+	    JOIN item i ON i.itemKey = od.itemKey
+	    JOIN category c ON c.categoryKey = i.categoryKey
+	    WHERE t.rdate BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59' 
+	    AND (status LIKE 'D' OR status LIKE 'S')
+	    
+	    <if test="categoryKey!=-1">
+	    AND i.categoryKey = ${categoryKey}
+	    </if>
+	    
+	    <if test="gender!='noGender'">
+		AND (ct.gender=${gender1} or ct.gender=${gender2})
 		</if>
-		<if test="gender!='noGender'">
-		AND (cu.gender=${gender1} or cu.gender=${gender2})
-		</if>
-		<if test="age!='noAge'">
+	    
+	    <if test="age!='noAge'">
 			AND (floor((YEAR(NOW())-(if(gender='1'or gender='2',1900,2000)+left(jumin,2)))/10)*10='${age}')
 		</if>
+	    
 	</select>
+    
+    <!-- 환불처리된 상품 -->
+    <select id="getTotalRefund" resultType="int">
+	    SELECT IFNULL(COUNT(distinct t.orderKey),0) AS "refund"
+		FROM totalOrder t
+	    JOIN customer ct ON ct.custKey = t.custKey
+	    JOIN orderDetail od ON t.orderKey = od.orderKey
+	    JOIN item i ON i.itemKey = od.itemKey
+	    JOIN category c ON c.categoryKey = i.categoryKey
+	    WHERE t.rdate BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59' 
+	    AND (status LIKE 'F')
+	    <if test="categoryKey!=-1">
+	    AND i.categoryKey = ${categoryKey}
+	    </if>
+	    
+	    <if test="gender!='noGender'">
+		AND (ct.gender=${gender1} or ct.gender=${gender2})
+		</if>
+	    
+	    <if test="age!='noAge'">
+			AND (floor((YEAR(NOW())-(if(gender='1'or gender='2',1900,2000)+left(jumin,2)))/10)*10='${age}')
+		</if>
+    </select>
+    
+    
+    <!-- 총판매액, 총 판매수량 -->
+    <select id="getSales" resultType="OrderDTO">
+	    SELECT IFNULL(SUM(od.price * od.cnt),0) AS "price", IFNULL(SUM(od.cnt),0) AS 'totalSales'
+		FROM totalOrder t
+	    JOIN customer ct ON ct.custKey = t.custKey
+	    JOIN orderDetail od ON t.orderKey = od.orderKey
+	    JOIN item i ON i.itemKey = od.itemKey
+	    JOIN category c ON c.categoryKey = i.categoryKey
+	    WHERE t.rdate BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59' 
+	    AND (status NOT LIKE 'F')
+	    <if test="categoryKey!=-1">
+	    AND i.categoryKey = ${categoryKey}
+	    </if>
+	    
+	    <if test="gender!='noGender'">
+		AND (ct.gender=${gender1} or ct.gender=${gender2})
+		</if>
+	    
+	    <if test="age!='noAge'">
+			AND (floor((YEAR(NOW())-(if(gender='1'or gender='2',1900,2000)+left(jumin,2)))/10)*10='${age}')
+		</if>
+    </select>
+
+
 
 	<!-- 나이대별 판매개수 구하기  -->
 	<select id="ageRangeSales" resultType="OrderDTO">

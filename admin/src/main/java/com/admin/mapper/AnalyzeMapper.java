@@ -30,19 +30,24 @@ public interface AnalyzeMapper {
 	// 특정 년도의 매출차트 데이터 가져오기(월 별)
 	public List<OrderDTO> daySalesChart(String year, String month, String day) throws Exception;
 
-	
-	
-	public OrderDTO dashBoardCardYear(String year) throws Exception;
-	public OrderDTO dashBoardCardMonth(String year, String month) throws Exception;
-	public OrderDTO dashBoardCardDay(String year, String month, String day) throws Exception;
-	
 	//나이대별 판매개수 구하기
 	public List<OrderDTO> ageRangeSales(int categoryKey, String gender, String gender1, String gender2, String startDate, String endDate) throws Exception;
 
-	//상세검색 배송량, 판매액, 구매확정 
-	public OrderDTO dashBoardCardDetail(String startDate, String endDate, String gender, String gender1, String gender2, String age, int categoryKey) throws Exception;
+	//년도별 현황 DashBoard 구현	
+	public OrderDTO dashBoardCardYear(String year) throws Exception;
+	//월별 현황 DashBoard 구현
+	public OrderDTO dashBoardCardMonth(String year, String month) throws Exception;
+	//일별 현황 DashBoard 구현
+	public OrderDTO dashBoardCardDay(String year, String month, String day) throws Exception;
+	
 
 	//성별 판매량 구하기
 	public List<OrderDTO> genderSales(int categoryKey, String age, String startDate, String endDate) throws Exception;
 
+	//상세검색 현황 배송량 가져오기
+	public int getTotalShip(String startDate, String endDate, String gender, String gender1, String gender2, String age, int categoryKey) throws Exception;
+	//상세검색 현황 환불량 가져오기
+	public int getTotalRefund(String startDate, String endDate, String gender, String gender1, String gender2, String age, int categoryKey) throws Exception;
+	//상세검색 현황 총 판매액, 수량 가져오기
+	public OrderDTO getSales(String startDate, String endDate, String gender, String gender1, String gender2, String age, int categoryKey) throws Exception;
 }
