@@ -16,6 +16,9 @@ import com.admin.dto.ItemDTO;
 import com.admin.dto.OrderDTO;
 import com.admin.service.AnalyzeService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class AnalyzeController {
 
@@ -72,6 +75,7 @@ public class AnalyzeController {
 
 		List<ItemDTO> categoryYearAnalyze = null;
 		List<OrderDTO> yearSalesChart=null;
+
 		// 카테고리별 연간 판매량, 판매액
 		categoryYearAnalyze = analyzeService.categoryYearAnalyze(year);
 		for (ItemDTO i : categoryYearAnalyze) {
@@ -164,6 +168,12 @@ public class AnalyzeController {
 			@RequestParam(value = "age", defaultValue = "noAge") String age,
 			@RequestParam(value = "gender", defaultValue = "noGender") String gender, String startDate, String endDate, Model model) {
 		
+
+		OrderDTO dash=null;
+		
+		
+		
+
 		List<OrderDTO> ageRangeSales=null;
 		List<OrderDTO> genderSales=null;
 		
@@ -222,6 +232,10 @@ public class AnalyzeController {
 			case("2"): model.addAttribute("genderName", "여성"); break;
 		}
 
+		// 상세조회 대시보드======================================================
+		dash = analyzeService.dashBoardCardDetail(startDate, endDate, gender, gender1, gender2, age, categoryKey);
+		
+		model.addAttribute("dash", dash);
 		model.addAttribute("categoryKey", categoryKey);
 		model.addAttribute("age", age);
 		model.addAttribute("gender", gender);

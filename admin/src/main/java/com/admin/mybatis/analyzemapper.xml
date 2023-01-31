@@ -39,6 +39,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	WHERE rdate BETWEEN '${year}-${month}-01 00:00:00' AND '${year}-${month}-31 23:59:59' AND status NOT LIKE 'F'
 	</select>
 	
+	<!-- 주어진 년도, 월, 일 에 해당되는 판매액, 배송건, 구매확정률에 대한 데이터 -->
+	<select id="dashBoardCardDay" resultType="OrderDTO">
+	SELECT COUNT(orderKey) AS "itemCnt", SUM(price) AS "price",
+	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status NOT LIKE 'F' ) AS "status",
+	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status LIKE 'F') AS "refund",
+	(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status NOT LIKE 'F') AS "totalSales" 
+	FROM totalOrder
+	WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status NOT LIKE 'F';
+	</select>
 
 	<!-- 월간 카테고리별 통계 -->
 	<select id="categoryMonthAnalyze" parameterType="String" resultType="ItemDTO">
@@ -56,7 +65,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		ORDER BY categoryKey ASC
 	</select>
 	
-		<!-- 월간 카테고리별 통계 -->
+		<!-- 일간 카테고리별 통계 -->
 	<select id="categoryDayAnalyze" parameterType="String" resultType="ItemDTO">
 		SELECT i.categoryKey, sum(od.price*od.cnt) AS salesSum,
 		SUM(od.cnt) AS salesCnt
@@ -107,16 +116,30 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		)a;
 	</select>
 
-	<!-- 주어진 년도, 월, 일 에 해당되는 판매액, 배송건, 구매확정률에 대한 데이터 -->
-	<select id="dashBoardCardDay" resultType="OrderDTO">
-	SELECT COUNT(orderKey) AS "itemCnt", SUM(price) AS "price",
-	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status NOT LIKE 'F' ) AS "status",
-	(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status LIKE 'F') AS "refund",
-	(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status NOT LIKE 'F') AS "totalSales" 
-	FROM totalOrder
-	WHERE rdate BETWEEN '${year}-${month}-${day} 00:00:00' AND '${year}-${month}-${day} 23:59:59' AND status NOT LIKE 'F';
-	</select>
 	
+
+	<!--상세검색 배송량, 판매액, 구매확정-->
+	<select id="dashBoardCardDetail" resultType="OrderDTO">
+	SELECT SUM(t.itemCNT) AS "itemCnt", SUM(t.price) AS "price",
+		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59' AND status LIKE 'D' AND 'S' ) AS "status",
+		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59' AND status LIKE 'F') AS "refund" 
+	FROM totalOrder t
+		INNER JOIN orderDetail o ON o.orderKey = t.orderKey 
+    	INNER JOIN item i ON i.itemKey = o.itemKey
+    	INNER JOIN category c ON c.categoryKey = i.categoryKey
+    	INNER JOIN customer cu ON cu.custKey = t.custKey
+	WHERE (DATE_FORMAT(t.rdate,'%y-%m-%d') BETWEEN DATE_FORMAT('${startDate}','%y-%m-%d') AND DATE_FORMAT('${endDate}','%y-%m-%d')) AND status NOT LIKE 'F'
+		<if test = "categoryKey != -1">
+			AND c.categoryKey = ${categoryKey} 
+		</if>
+		<if test="gender!='noGender'">
+		AND (cu.gender=${gender1} or cu.gender=${gender2})
+		</if>
+		<if test="age!='noAge'">
+			AND (floor((YEAR(NOW())-(if(gender='1'or gender='2',1900,2000)+left(jumin,2)))/10)*10='${age}')
+		</if>
+	</select>
+
 	<!-- 나이대별 판매개수 구하기  -->
 	<select id="ageRangeSales" resultType="OrderDTO">
 		SELECT SUM(od.cnt) AS totalSales, floor((YEAR(NOW())-(if(c.gender='1'or c.gender='2',1900,2000)+left(c.jumin,2)))/10)*10 AS ageRange FROM totalOrder t
@@ -151,4 +174,5 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		</if>
 		GROUP BY gender;
 	</select>
+
 </mapper>

@@ -428,6 +428,25 @@ public class AnalyzeService {
 			return dash;
 		}
 		
+
+		//상세검색 배송량, 판매액, 구매확정 
+		public OrderDTO dashBoardCardDetail(String startDate, String endDate, String gender,String gender1, String gender2, String age, int categoryKey) {
+			
+			OrderDTO thisD = null;
+					
+
+			
+			try {
+				thisD = mapper.dashBoardCardDetail(startDate, endDate, gender, gender1, gender2, age, categoryKey);
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}		
+			
+			
+			return thisD;
+		}
+
 		//나이대별 판매개수 구하기
 		public List<OrderDTO> ageRangeSales(int categoryKey, String gender, String gender1, String gender2, String startDate, String endDate){
 			List<OrderDTO> result=null;
