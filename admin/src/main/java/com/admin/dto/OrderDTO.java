@@ -47,5 +47,7 @@ public class OrderDTO {
 	//성별별 분석에 필요한 변수
 	private String gender;
 
-
+	//실시간 분석에 필요한 변수
+	private String avgPrice;
+	private String avgCnt;
 }
