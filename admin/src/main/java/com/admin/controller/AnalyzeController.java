@@ -299,6 +299,7 @@ public class AnalyzeController {
 		filterdDTO.setCategoryKey(categoryKey);
 		filterdDTO.setEndDate(endDate);
 		filterdDTO.setStartDate(startDate);
+		filterdDTO.setGender(gender);
 		filterdDTO.setGender1(gender1);
 		filterdDTO.setGender2(gender2);
 		

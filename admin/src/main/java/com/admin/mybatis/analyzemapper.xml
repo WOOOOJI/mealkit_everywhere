@@ -320,13 +320,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 				AND (floor((YEAR(NOW())-(if(gender='1'or
 				gender='2',1900,2000)+left(jumin,2)))/10)*10=#{age})
 			</if>
-			<if test="gender1 != null">
-				AND (cust.gender = #{gender1} OR cust.gender =
-				#{gender2})
-			</if>
+			<if test="gender != 'noGender'">
+                AND (cust.gender = ${gender1} OR cust.gender = ${gender2})
+            </if>
 		</where>
 		GROUP BY ordDet.itemKey
 		ORDER BY ${align} DESC
+		LIMIT 0, 10
 		
 	</select>
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.mapper.RealTimeAnalyzeMapper">
+
+<!-- 현재 시간대 대쉬보드 실시간 차트. -->
+<select id="realTimeDashBoard" resultType="OrderDTO">
+SELECT SUM(price) AS "price",
+		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59' AND (status LIKE 'D' OR status LIKE 'S')) AS "itemCnt",
+		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59' AND status NOT LIKE 'F' ) AS "status",
+		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59' AND status LIKE 'F') AS "refund",
+		(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59' AND status NOT LIKE 'F') AS "totalSales"
+		FROM totalOrder
+		WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59'
+		AND status NOT LIKE 'F';
+</select> 
+
+
+        
+        
+<!-- 오늘 하루 누적 대쉬보드 실시간 차트. -->
+<select id="totalTimeDashBoard" resultType="OrderDTO">
+SELECT SUM(price) AS "price",
+		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59' AND (status LIKE 'D' OR status LIKE 'S')) AS "itemCnt",
+		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59' AND status NOT LIKE 'F' ) AS "status",
+		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59' AND status LIKE 'F') AS "refund",
+		(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59' AND status NOT LIKE 'F') AS "totalSales"
+		FROM totalOrder
+		WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59'
+		AND status NOT LIKE 'F';
+</select>
+
+
+
+</mapper>

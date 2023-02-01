@@ -20,6 +20,7 @@ public class FilterdDTO {
 	private int totCnt;
 	
 	private String age;
+	private String gender;
 	private String gender1;
 	private String gender2;
 	private String startDate;

@@ -1,5 +1,5 @@
 
-
+	
 
 	<main class="content">
 		<div class="container-fluid p-0">
@@ -410,6 +410,36 @@
 	</main>
 </div>
 </div>
+
+
+<script>
+function getRealTimeData(){
+	$.ajax({
+		url:'/admin/getRealTimeData',
+		method:'GET',
+		dataType:'JSON',
+		success: function(data){
+			alert("비동기 통신 성공!");
+		}
+		
+	});
+}
+
+
+$(document).ready(function(){
+
+	getRealTimeData();
+		
+	
+});
+
+
+
+
+</script>
+
+
+
 
 <script th:src="@{/js/app.js}"></script>
 
