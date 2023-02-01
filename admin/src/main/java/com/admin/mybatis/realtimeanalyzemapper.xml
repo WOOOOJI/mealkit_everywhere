@@ -16,8 +16,7 @@ SELECT SUM(price) AS "price",
 		AND status NOT LIKE 'F';
 </select> 
 
-
-        
+      
         
 <!-- 오늘 하루 누적 대쉬보드 실시간 차트. -->
 <select id="totalTimeDashBoard" resultType="OrderDTO">
@@ -31,6 +30,57 @@ SELECT SUM(price) AS "price",
 		AND status NOT LIKE 'F';
 </select>
 
-
-
+		<select id="realTimeSalesChart" parameterType="String" resultType="OrderDTO">
+		SELECT *
+		FROM(
+		SELECT tt.t AS tempDate,
+		IFNULL(SUM(o.price),0) AS totalSales
+		FROM timeT tt
+		LEFT JOIN totalOrder o ON (HOUR(o.rdate)=tt.t) AND 
+		DATE_FORMAT(o.rdate,'%Y-%m-%d') LIKE '${NOWDATE}' AND (o.status NOT LIKE 'F')
+		GROUP BY tempDate
+		ORDER BY tempDate ASC
+		)a;
+	</select>
+	
+	<select id="realTimeAgeRangeSales" resultType="OrderDTO">
+		SELECT SUM(od.cnt) AS totalSales,
+		floor((YEAR(NOW())-(if(c.gender='1'or
+		c.gender='2',1900,2000)+left(c.jumin,2)))/10)*10 AS ageRange FROM
+		totalOrder t
+		INNER JOIN customer c ON t.custKey=c.custKey
+		INNER JOIN
+		orderDetail od ON od.orderKey=t.orderKey
+		INNER JOIN item i ON
+		i.itemKey=od.itemKey
+		WHERE DATE_FORMAT(t.rdate,'%Y-%m-%d') LIKE '${NOWDATE}'
+		AND (t.status NOT LIKE 'F')
+		GROUP BY ageRange
+		ORDER BY ageRange ASC
+	</select>
+	
+	<!-- 성별 판매량 구하기 -->
+	<select id="realTimeGenderSales" resultType="OrderDTO">
+		SELECT SUM(od.cnt) AS totalSales, (if(c.gender='1' or
+		c.gender='3','male','female')) AS gender FROM totalOrder t
+		INNER JOIN
+		customer c ON c.custKey=t.custKey
+		INNER JOIN orderDetail od ON
+		od.orderKey=t.orderKey
+		INNER JOIN item i ON i.itemKey=od.itemKey
+		WHERE DATE_FORMAT(t.rdate,'%Y-%m-%d') LIKE '${NOWDATE}'
+		AND (t.status NOT LIKE 'F')
+		GROUP BY gender
+	</select>
+	
+	<select id="stackedOrderAvg" resultType="OrderDTO">
+		select ROUND((SUM(distinct t.price)/COUNT(distinct t.orderKey)),1) AS avgPrice, ROUND((SUM(distinct od.cnt)/COUNT(distinct t.orderKey)),1) AS avgCnt FROM totalOrder t
+		INNER JOIN orderDetail od ON od.orderKey=t.orderKey
+		WHERE t.rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59'
+	</select>
+	<select id="realTimeOrderAvg" resultType="OrderDTO">
+		select ROUND((SUM(distinct t.price)/COUNT(distinct t.orderKey)),1) AS avgPrice, ROUND((SUM(distinct od.cnt)/COUNT(distinct t.orderKey)),1) AS avgCnt FROM totalOrder t
+		INNER JOIN orderDetail od ON od.orderKey=t.orderKey
+		WHERE t.rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} 23:59:59'
+	</select>
 </mapper>

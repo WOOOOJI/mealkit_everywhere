@@ -36,14 +36,14 @@ class RealTimeDashBoardTests {
 		
 		
 		
-		 nowDash = service.realTimeDashBoard(NOWDATE, NOWTIME);
+		 nowDash = service.realTimeDashBoard();
 		 
 		 // 현시간
 		 System.out.println("현시간 매출");
 		 System.out.println(nowDash);
 		 
 		 
-		 totalDash = service.totalTimeDashBoard(NOWDATE);
+		 totalDash = service.totalTimeDashBoard();
 		 
 		 // 누적
 		 System.out.println("누적 매출");

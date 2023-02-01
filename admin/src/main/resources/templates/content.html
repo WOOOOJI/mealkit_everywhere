@@ -26,9 +26,9 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-1 mb-3">201건</h1>
+										<h1 class="mt-1 mb-3" id="nowShip"></h1>
 										<div class="mb-0">
-											<span class="text-danger"> <i
+											<span class="text-danger" id="totalShip"> <i
 												class="mdi mdi-arrow-bottom-right"></i> -3.65%
 											</span> <span class="text-muted">누적</span>
 										</div>
@@ -47,10 +47,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-1 mb-3">14201명</h1>
+										<h1 class="mt-1 mb-3" id="newItemCnt"></h1>
 										<div class="mb-0">
 											<span class="text-success"> <i
-												class="mdi mdi-arrow-bottom-right"></i> 5.25%
+												class="mdi mdi-arrow-bottom-right" id="totalItemCnt"></i>
 											</span> <span class="text-muted">누적</span>
 										</div>
 									</div>
@@ -70,10 +70,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-1 mb-3">320,100원</h1>
+										<h1 class="mt-1 mb-3" id="nowTotalPrice"></h1>
 										<div class="mb-0">
 											<span class="text-success"> <i
-												class="mdi mdi-arrow-bottom-right"></i> 6.65%
+												class="mdi mdi-arrow-bottom-right" id="totalTotalPrice"></i>
 											</span> <span class="text-muted">누적</span>
 										</div>
 									</div>
@@ -91,10 +91,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-1 mb-3">201,400원</h1>
+										<h1 class="mt-1 mb-3" id="nowConfirm"></h1>
 										<div class="mb-0">
 											<span class="text-danger"> <i
-												class="mdi mdi-arrow-bottom-right"></i> -2.25%
+												class="mdi mdi-arrow-bottom-right" id="totalConfirm"></i>
 											</span> <span class="text-muted">누적</span>
 										</div>
 									</div>
@@ -413,13 +413,27 @@
 
 
 <script>
-function getRealTimeData(){
+function getRealTimeData(){	
 	$.ajax({
 		url:'/admin/getRealTimeData',
 		method:'GET',
 		dataType:'JSON',
 		success: function(data){
-			alert("비동기 통신 성공!");
+			
+			
+			$('#nowShip').text(data.nowDash.totalShip);
+			$('#totalShip').text(data.totalDash.totalShip);
+			
+			$('#newItemCnt').text(data.nowDash.totalItemCnt);
+			$('#totalItemCnt').text(data.totalDash.totalItemCnt);	
+			
+			$('#nowTotalPrice').text(data.nowDash.totalPrice);
+			$('#totalTotalPrice').text(data.totalDash.totalPrice);
+			
+			$('#nowConfirm').text(data.nowDash.confirmation+'%');
+			$('#totalConfirm').text(data.totalDash.confirmation+'%');
+			
+		
 		}
 		
 	});
@@ -430,7 +444,10 @@ $(document).ready(function(){
 
 	getRealTimeData();
 		
-	
+	setInterval(function (){
+		getRealTimeData();
+	}, 10000);
+
 });
 
 
