@@ -99,12 +99,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="stackedOrderAvg" resultType="OrderDTO">
-		select ROUND((SUM(distinct t.price)/COUNT(distinct t.orderKey)),1) AS avgPrice, ROUND((SUM(od.cnt)/COUNT(distinct t.orderKey)),1) AS avgCnt FROM totalOrder t
+		select ROUND((SUM(distinct t.price)/COUNT(distinct t.orderKey))) AS avgPrice, ROUND((SUM(od.cnt)/COUNT(distinct t.orderKey)),1) AS avgCnt FROM totalOrder t
 		INNER JOIN orderDetail od ON od.orderKey=t.orderKey
 		WHERE t.rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59'
 	</select>
 	<select id="realTimeOrderAvg" resultType="OrderDTO">
-		select ROUND((SUM(distinct t.price)/COUNT(distinct t.orderKey)),1) AS avgPrice, ROUND((SUM(od.cnt)/COUNT(distinct t.orderKey)),1) AS avgCnt FROM totalOrder t
+		select ROUND((SUM(distinct t.price)/COUNT(distinct t.orderKey))) AS avgPrice, ROUND((SUM(od.cnt)/COUNT(distinct t.orderKey)),1) AS avgCnt FROM totalOrder t
 		INNER JOIN orderDetail od ON od.orderKey=t.orderKey
 		WHERE t.rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} 23:59:59'
 	</select>

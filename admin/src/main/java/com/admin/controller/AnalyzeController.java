@@ -159,7 +159,6 @@ public class AnalyzeController {
 	@RequestMapping("/dayanalyze")
 	public String day(String year, String month, String day, Model model) {
 		
-
 		List<ItemDTO> categoryDayAnalyze = null;
 		List<OrderDTO> daySalesChart=null;
 		List<OrderDTO> lastDaySalesChart=null;

@@ -422,9 +422,9 @@ function getRealTimeData(){
 			
 			//주문건당 평균판매개수/판매금액
 			$('#stackedCnt').text(data.orderavg.stackedCnt+'개');
-			$('#stackedPrice').text(data.orderavg.stackedPrice+'원');
+			$('#stackedPrice').text(priceToString(data.orderavg.stackedPrice)+'원');
 			$('#realtimeCnt').text(data.orderavg.realtimeCnt+'개');
-			$('#realtimePrice').text(data.orderavg.realtimePrice+'원');
+			$('#realtimePrice').text(priceToString(data.orderavg.realtimePrice)+'원');
 
 			//매출차트
 			chart=data.chart;
@@ -479,7 +479,7 @@ function getRealTimeData(){
 				appendedList += '<td>' + value.totPrice + '원' + '</td>'; 
 				appendedList += '<td>' + value.salePct +'%'+ '</td>'; 
 				appendedList += '<td>' + value.sale + '원' + '</td>'; 
-				appendedList += '<td>' + value.totCnt + '개' + '</td>'; 
+				appendedList += '<td class="text-center">' + value.totCnt + '개' + '</td>'; 
 				appendedList += '</tr>'; 
 			});
 			

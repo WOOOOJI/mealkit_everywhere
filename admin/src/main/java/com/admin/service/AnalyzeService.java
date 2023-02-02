@@ -38,6 +38,7 @@ public class AnalyzeService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return result;
 	}
 
@@ -47,11 +48,13 @@ public class AnalyzeService {
 		String nowDate = sdf.format(date);
 		String[] dateArr = nowDate.split("-");
 		
-		
+		System.out.println(nowDate);
 		if(year == null && month == null) {
 			year = dateArr[0];
 			month = dateArr[1];
 		}
+		System.out.println(year);
+		System.out.println(month);
 		List<ItemDTO> result = null;
 		try {
 			result = mapper.categoryMonthAnalyze(year, month);

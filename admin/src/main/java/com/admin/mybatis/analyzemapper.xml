@@ -93,10 +93,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		FROM orderDetaiL od
 		INNER JOIN item i ON i.itemKey=od.itemKey
 		INNER JOIN totalOrder o ON o.orderKey=od.orderKey WHERE
-		<![CDATA[
-		DATE_FORMAT(o.rdate, '%Y-%m-%d') >= DATE_FORMAT( '${year}-${month}-01','%Y-%m-%d') AND 
-		DATE_FORMAT(o.rdate, '%Y-%m-%d') <= DATE_FORMAT('${year}-${month}-31', '%Y-%m-%d')
-		]]>
+		DATE_FORMAT(o.rdate, '%Y-%m-%d') BETWEEN '${year}-${month}-01' AND '${year}-${month}-31'
 		AND o.status NOT LIKE 'F'
 		GROUP BY i.categoryKey
 		ORDER BY categoryKey

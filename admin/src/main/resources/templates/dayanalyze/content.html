@@ -1,4 +1,7 @@
 <script>
+function priceToString(price) {
+    return price.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
 
 var arr='[[${saleschart}]]';
 var ad=arr.substring(1,arr.length-1);
@@ -186,7 +189,7 @@ console.log(max);
 										<tr>
 											<td>한식</td>
 											<td th:if="${koreanSum} == null">0원</td>
-											<td th:unless="${koreanSum} == null" th:text="${koreanSum} +'원'"></td>
+											<td th:unless="${koreanSum} == null" id="commaKS"></td>
 											
 											<td th:if="${koreanCnt} == null">0개</td>
 											<td th:unless="${koreanCnt} == null" th:text="${koreanCnt} +'개'"></td>
@@ -195,7 +198,7 @@ console.log(max);
 										<tr>
 											<td>중식</td>
 											<td th:if="${chineseSum} == null">0원</td>
-											<td th:unless="${chineseSum} == null" th:text="${chineseSum} +'원'"></td>
+											<td th:unless="${chineseSum} == null" id="commaCS"></td>
 											
 											<td th:if="${chineseCnt} == null">0개</td>
 											<td th:unless="${chineseCnt} == null" th:text="${chineseCnt} +'개'"></td>
@@ -203,7 +206,7 @@ console.log(max);
 										<tr>
 											<td>일식</td>
 											<td th:if="${japaneseSum} == null">0원</td>
-											<td th:unless="${japaneseSum} == null" th:text="${japaneseSum} +'원'"></td>
+											<td th:unless="${japaneseSum} == null" id="commaJS"></td>
 											
 											<td th:if="${japaneseCnt} == null">0개</td>
 											<td th:unless="${japaneseCnt} == null" th:text="${japaneseCnt} +'개'"></td>
@@ -211,7 +214,7 @@ console.log(max);
 										<tr>
 											<td>양식</td>
 											<td th:if="${usSum} == null">0원</td>
-											<td th:unless="${usSum} == null" th:text="${usSum} +'원'"></td>
+											<td th:unless="${usSum} == null" id="commaUS"></td>
 											
 											<td th:if="${usCnt} == null">0개</td>
 											<td th:unless="${usCnt} == null" th:text="${usCnt} +'개'"></td>
@@ -591,6 +594,15 @@ console.log(max);
 		location.href="/admin/dayanalyze?year="+year+"&month="+month+"&day="+day;
 
 	}
+	
+var commaKS=priceToString("[[${koreanSum}]]");
+var commaCS=priceToString("[[${chineseSum}]]");
+var commaJS=priceToString("[[${japaneseSum}]]");
+var commaUS=priceToString("[[${usSum}]]");
+$('#commaKS').text(commaKS+'원');
+$('#commaCS').text(commaCS+'원');
+$('#commaJS').text(commaJS+'원');
+$('#commaUS').text(commaUS+'원');
 </script>
 
 
