@@ -1,4 +1,5 @@
 
+	
 
 
 	<main class="content">
@@ -26,9 +27,9 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-1 mb-3">201건</h1>
+										<h1 class="mt-1 mb-3" id="nowShip"></h1>
 										<div class="mb-0">
-											<span class="text-danger"> <i
+											<span class="text-danger" id="totalShip"> <i
 												class="mdi mdi-arrow-bottom-right"></i> -3.65%
 											</span> <span class="text-muted">누적</span>
 										</div>
@@ -47,10 +48,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-1 mb-3">14201명</h1>
+										<h1 class="mt-1 mb-3" id="newItemCnt"></h1>
 										<div class="mb-0">
 											<span class="text-success"> <i
-												class="mdi mdi-arrow-bottom-right"></i> 5.25%
+												class="mdi mdi-arrow-bottom-right" id="totalItemCnt"></i>
 											</span> <span class="text-muted">누적</span>
 										</div>
 									</div>
@@ -70,10 +71,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-1 mb-3">320,100원</h1>
+										<h1 class="mt-1 mb-3" id="nowTotalPrice"></h1>
 										<div class="mb-0">
 											<span class="text-success"> <i
-												class="mdi mdi-arrow-bottom-right"></i> 6.65%
+												class="mdi mdi-arrow-bottom-right" id="totalTotalPrice"></i>
 											</span> <span class="text-muted">누적</span>
 										</div>
 									</div>
@@ -91,10 +92,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-1 mb-3">201,400원</h1>
+										<h1 class="mt-1 mb-3" id="nowConfirm"></h1>
 										<div class="mb-0">
 											<span class="text-danger"> <i
-												class="mdi mdi-arrow-bottom-right"></i> -2.25%
+												class="mdi mdi-arrow-bottom-right" id="totalConfirm"></i>
 											</span> <span class="text-muted">누적</span>
 										</div>
 									</div>
@@ -219,63 +220,16 @@
 									<th class="d-none d-xl-table-cell">현재까지 판매된 개수</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>둘이 먹다 죽어도 모르는 한식 세트</td>
-									<td class="d-none d-xl-table-cell">365,000원</td>
-									<td><span class="badge bg-success">70%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">54개</td>
-								</tr>
-								<tr>
-									<td>사와디캅 팟타이</td>
-									<td class="d-none d-xl-table-cell">231,200원</td>
-									<td><span class="badge bg-danger">30%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">44개</td>
-								</tr>
-								<tr>
-									<td>알찬 이탈리안 볼로네제라자냐</td>
-									<td class="d-none d-xl-table-cell">131,200원</td>
-									<td><span class="badge bg-success">30%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">31개</td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">110,000원</td>
-									<td><span class="badge bg-warning">40%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">30개</td>
-								</tr>
-								<tr>
-									<td>얼큰한 꽂개탕</td>
-									<td class="d-none d-xl-table-cell">109,000원</td>
-									<td><span class="badge bg-success">60%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">28개</td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">101,000원</td>
-									<td><span class="badge bg-success">80%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">26개</td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">98,000원</td>
-									<td><span class="badge bg-success">10%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">22개</td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">91,000원</td>
-									<td><span class="badge bg-warning">20%</span></td>
-									<th class="d-none d-md-table-cell">28,000원</th>
-									<td class="d-none d-xl-table-cell">25개</td>
-								</tr>
+							
+							<!-- 상품 리스트 -->
+							<tbody id="belowList">
+								<!-- <tr th:each="product : ${productList}" id="productTable">
+									<td th:text=${product.name}>둘이 먹다 죽어도 모르는 한식 세트</td>
+									<td th:text=${product.totPrice} class="d-none d-xl-table-cell">365,000원</td>
+									<td th:text=${product.salePct}><span class="badge bg-success">70%</span></td>
+									<th th:text=${product.sale} class="d-none d-md-table-cell">28,000원</th>
+									<td th:text=${product.totCnt} class="d-none d-xl-table-cell">54개</td>
+								</tr> -->
 							</tbody>
 						</table>
 						
@@ -410,6 +364,75 @@
 	</main>
 </div>
 </div>
+
+
+<script>
+var lastDayChart;
+function getRealTimeData(){	
+	$.ajax({
+		url:'/admin/getRealTimeData',
+		method:'GET',
+		dataType:'JSON',
+		async: false,
+		success: function(data){
+			
+			
+			$('#nowShip').text(data.nowDash.totalShip);
+			$('#totalShip').text(data.totalDash.totalShip);
+			
+			$('#newItemCnt').text(data.nowDash.totalItemCnt);
+			$('#totalItemCnt').text(data.totalDash.totalItemCnt);	
+			
+			$('#nowTotalPrice').text(data.nowDash.totalPrice);
+			$('#totalTotalPrice').text(data.totalDash.totalPrice);
+			
+			$('#nowConfirm').text(data.nowDash.confirmation+'%');
+			$('#totalConfirm').text(data.totalDash.confirmation+'%');
+			
+			
+			var resultList = new Array;
+			var resultList = data.productList;
+			
+			var appendedList = '';
+			
+			$.each(resultList, function(key, value) {
+				appendedList += '<tr>'; 
+				appendedList += '<td>' + value.name + '</td>'; 
+				appendedList += '<td>' + value.totPrice + '</td>'; 
+				appendedList += '<td>' + value.salePct + '</td>'; 
+				appendedList += '<td>' + value.sale + '</td>'; 
+				appendedList += '<td>' + value.totCnt + '</td>'; 
+				appendedList += '</tr>'; 
+			});
+			
+			$('#belowList').html(appendedList);
+			
+			lastDayChart = data.lastDayChart;
+			console.log(lastDayChart);
+		}
+		
+	});
+}
+
+
+$(document).ready(function(){
+
+	getRealTimeData();
+		
+	setInterval(function (){
+		getRealTimeData();
+		console.log(lastDayChart);
+	}, 10000);
+
+});
+
+
+
+
+</script>
+
+
+
 
 <script th:src="@{/js/app.js}"></script>
 
@@ -571,7 +594,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					borderColor : "#dee2e6",
 					hoverBackgroundColor : "#dee2e6",
 					hoverBorderColor : "#dee2e6",
-					data : [ 45000, 37000, 41000, 55000, 62000, 45000, 55000, 73000, 60000, 76000, 48000, 79000, 80000, 45000, 37000, 41000, 55000, 62000, 45000, 55000, 73000, 60000, 76000, 48000, 79000, 80000],
+					data : lastDayChart,
 					barPercentage : .75,
 					categoryPercentage : .5
 				}, {
@@ -580,7 +603,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					borderColor : window.theme.primary,
 					hoverBackgroundColor : window.theme.primary,
 					hoverBorderColor : window.theme.primary,
-					data : [ 69000, 46000, 30000, 48000, 52000, 51000, 44000, 53000, 62000, 79000, 51000, 68000, 40000, 69000, 46000, 30000, 48000, 52000, 51000, 44000, 53000, 62000, 79000, 51000, 68000, 40000],
+					data : [ 0, 40, 0, 40, 50, 50, 40, 50, 60, 70, 50, 0, 0, 60, 40, 30, 40, 50, 50, 40, 50, 60, 70, 50, 60, 40],
 					barPercentage : .75,
 					categoryPercentage : .5
 				} ]

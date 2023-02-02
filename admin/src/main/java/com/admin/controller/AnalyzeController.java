@@ -79,8 +79,8 @@ public class AnalyzeController {
 		}
 		
 		DashBoardDTO dash = analyzeService.dashBoardCardMonth(year, month);
-		monthTOP10List = orderService.getDayTOP10List(month);
-		monthBOT10List = orderService.getDayTOP10List(month);
+		monthTOP10List = orderService.getMonthTOP10List(month);
+		monthBOT10List = orderService.getMonthBOT10List(month);
 		
 		model.addAttribute("dash", dash);
 		model.addAttribute("saleschart", arr);
@@ -299,6 +299,7 @@ public class AnalyzeController {
 		filterdDTO.setCategoryKey(categoryKey);
 		filterdDTO.setEndDate(endDate);
 		filterdDTO.setStartDate(startDate);
+		filterdDTO.setGender(gender);
 		filterdDTO.setGender1(gender1);
 		filterdDTO.setGender2(gender2);
 		
