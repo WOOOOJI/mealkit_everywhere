@@ -114,10 +114,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-1 mb-3">201건</h1>
+										<h1 class="mt-1 mb-3" id="realtimeCnt"></h1>
 										<div class="mb-0">
-											<span class="text-danger"> <i
-												class="mdi mdi-arrow-bottom-right"></i> -3.65%
+											<span class="text-danger" id="stackedCnt"> <i
+												class="mdi mdi-arrow-bottom-right"></i> 
 											</span> <span class="text-muted">누적</span>
 										</div>
 									</div>
@@ -135,10 +135,10 @@
 												</div>
 											</div>
 										</div>
-										<h1 class="mt-1 mb-3">14201명</h1>
+										<h1 class="mt-1 mb-3" id="realtimePrice"></h1>
 										<div class="mb-0">
-											<span class="text-success"> <i
-												class="mdi mdi-arrow-bottom-right"></i> 5.25%
+											<span class="text-success" id="stackedPrice"> <i
+												class="mdi mdi-arrow-bottom-right"></i>
 											</span> <span class="text-muted">누적</span>
 										</div>
 									</div>
@@ -158,8 +158,8 @@
 							<h5 class="card-title">2023-01-27</h5>
 							<h6 class="card-subtitle text-muted">실시간 시간별 매출 차트</h6>
 						</div>
-						<div class="card-body py-3">
-							<div class="chart chart-sm">
+						<div class="card-body py-3" id="reloadtest">
+							<div class="chart chart-sm" id="chartData">
 								<canvas id="chartjs-dashboard-line"></canvas>
 							</div>
 						</div>
@@ -288,9 +288,8 @@
 					<div class="card flex-fill w-100">
 						<div class="card-header">
 
-							<h5 th:if="${#strings.equals(gender, 'noGender')}" class="card-title mb-0">나이대별 판매 비율</h5>
-							<h5 th:if="${#strings.equals(gender, '1,3')}" class="card-title mb-0">남성 나이대별 판매 비율</h5>
-							<h5 th:if="${#strings.equals(gender, '2,4')}" class="card-title mb-0">여성 나이대별 판매 비율</h5>
+							<h5  class="card-title mb-0">나이대별 판매 비율</h5>
+
 							
 							
 							
@@ -298,7 +297,7 @@
 						<div class="card-body d-flex">
 							<div class="align-self-center w-100">
 								<div class="py-3">
-									<div class="chart chart-xs">
+									<div class="chart chart-xs" id="ageData">
 										<canvas id="chartjs-dashboard-pie"></canvas>
 									</div>
 								</div>
@@ -315,40 +314,40 @@
 											
 											<tr id="selected10">
 											<td style="padding:0.1rem 0.1rem;">10대</td>
-											<td th:text="${age10Sales} ? ${age10Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											<td class="text-end" style="padding:0.1rem 0.1rem;" id="age10Sales"></td>
 											</tr>
 											
 											<tr id="selected20">
 											<td style="padding:0.1rem 0.1rem;">20대</td>
-											<td th:text="${age20Sales} ? ${age20Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											<td class="text-end" style="padding:0.1rem 0.1rem;" id="age20Sales"></td>
 											</tr>
 											
 											
-										</tr>
+									
 										
 										<tr>
 											
 											<tr id="selected30">
 											<td style="padding:0.1rem 0.1rem;">30대</td>
-											<td th:text="${age30Sales} ? ${age30Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											<td class="text-end" style="padding:0.1rem 0.1rem;" id="age30Sales"></td>
 											</tr>
 											
 											<tr id="selected40">
 											<td style="padding:0.1rem 0.1rem;">40대</td>
-											<td th:text="${age40Sales} ? ${age40Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											<td class="text-end" style="padding:0.1rem 0.1rem;" id="age40Sales"></td>
 											</tr>
 											
-										</tr>
+									
 										<tr>
 											<tr id="selected50">
 											<td style="padding:0.1rem 0.1rem;">50대</td>
-											<td th:text="${age50Sales} ? ${age50Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											<td class="text-end" style="padding:0.1rem 0.1rem;" id="age50Sales"></td>
 											</tr>
 											<tr id="selected60">
 											<td style="padding:0.1rem 0.1rem;">60대</td>
-											<td th:text="${age60Sales} ? ${age60Sales}+'개' : '0개'" class="text-end" style="padding:0.1rem 0.1rem;">4306개</td>
+											<td class="text-end" style="padding:0.1rem 0.1rem;" id="age60Sales"></td>
 											</tr>
-										</tr>
+										
 									</tbody>
 								</table>
 							</div>
@@ -366,15 +365,14 @@
 							<h5 th:if="${#strings.equals(gender,'noGender')} and !${#strings.equals(age,'noAge')}" class="card-title mb-0" th:text="${age}+'대 남녀 판매 비율'"></h5>
 							<h5 th:if="!${#strings.equals(gender,'noGender')} and !${#strings.equals(age,'noAge')}" class="card-title mb-0" th:text="${age}+'대 남녀 판매 비율'"></h5> -->
 							
-							<h5 th:if="${#strings.equals(age,'noAge')}" class="card-title mb-0">남녀 판매 비율</h5>
-							<h5 th:if="!${#strings.equals(age,'noAge')}" th:text="${age} != null ? ${age}+'대 남녀 판매 비율' : '남녀 판매 비율'" class="card-title mb-0"></h5>
+							<h5 class="card-title mb-0">남녀 판매 비율</h5>
 							
 							
 						</div>
 						<div class="card-body d-flex">
 							<div class="align-self-center w-100">
 								<div class="py-3">
-									<div class="chart chart-xs">
+									<div class="chart chart-xs" id="genderData">
 										<canvas id="chartjs-dashboard-pie2"></canvas>
 									</div>
 								</div>
@@ -387,12 +385,12 @@
 										</tr>
 										<tr id="men">
 											<td id="menCntTitle" style="padding:0.4rem 0.4rem;">남성</td>
-											<td class="text-end" id="menCnt" style="padding:0.4rem 0.4rem;" th:text="${maleSales} ? ${maleSales}+'개' : '0개'"></td>
+											<td class="text-end" id="menCnt" style="padding:0.4rem 0.4rem;"></td>
 											
 										</tr>
 										<tr id="women">
 											<td id="womenCntTitle" style="padding:0.4rem 0.4rem;">여성</td>
-											<td class="text-end" id="womenCnt" style="padding:0.4rem 0.4rem;" th:text="${femaleSales} ? ${femaleSales}+'개' : '0개'"></td>
+											<td class="text-end" id="womenCnt" style="padding:0.4rem 0.4rem;"></td>
 											
 											
 										</tr>
@@ -411,12 +409,23 @@
 </div>
 </div>
 
-
+<script th:src="@{/js/app.js}"></script>
 <script>
+var chart;
+var maleSales;
+var femaleSales;
+var max;
+var age10Sales;
+var age20Sales;
+var age30Sales;
+var age40Sales;
+var age50Sales;
+var age60Sales;
 function getRealTimeData(){	
 	$.ajax({
 		url:'/admin/getRealTimeData',
 		method:'GET',
+		async:false,
 		dataType:'JSON',
 		success: function(data){
 			
@@ -433,60 +442,89 @@ function getRealTimeData(){
 			$('#nowConfirm').text(data.nowDash.confirmation+'%');
 			$('#totalConfirm').text(data.totalDash.confirmation+'%');
 			
-		
+			//주문건당 평균판매개수/판매금액
+			$('#stackedCnt').text(data.orderavg.stackedCnt+'개');
+			$('#stackedPrice').text(data.orderavg.stackedPrice+'원');
+			$('#realtimeCnt').text(data.orderavg.realtimeCnt+'개');
+			$('#realtimePrice').text(data.orderavg.realtimePrice+'원');
+
+			//매출차트
+			chart=data.chart;
+			
+			max = chart[0];
+			for(var i=0; i<chart.length; i++){
+				if(chart[i] > max){
+					max = chart[i];
+				}
+				
+			}
+			
+			//성별 판매량
+			maleSales=data.genderData[0].male;
+			femaleSales=data.genderData[0].female;
+			if(maleSales==0&&femaleSales==0){
+				maleSales=-1;
+				femaleSales=-1;
+			}
+			$('#menCnt').text(maleSales+'개');
+			$('#womenCnt').text(femaleSales+'개');
+			
+			//나이대별 판매량
+			age10Sales=data.ageData[0].age10Sales;
+			age20Sales=data.ageData[0].age20Sales;
+			age30Sales=data.ageData[0].age30Sales;
+			age40Sales=data.ageData[0].age40Sales;
+			age50Sales=data.ageData[0].age50Sales;
+			age60Sales=data.ageData[0].age60Sales;
+			$('#age10Sales').text(age10Sales+'개');
+			$('#age20Sales').text(age20Sales+'개');
+			$('#age30Sales').text(age30Sales+'개');
+			$('#age40Sales').text(age40Sales+'개');
+			$('#age50Sales').text(age50Sales+'개');
+			$('#age60Sales').text(age60Sales+'개');
+			
+			
 		}
 		
 	});
 }
-
+function reloadChart(){
+	$('#reloadtest').load(location.href+" #reloadData");
+}
 
 $(document).ready(function(){
-
 	getRealTimeData();
-		
+	llchart();
+	genderChart();
+	ageChart()
+	
 	setInterval(function (){
 		getRealTimeData();
-	}, 10000);
-
+		$('#chartjs-dashboard-line').remove();
+		$('#chartjs-dashboard-pie').remove();
+		$('#chartjs-dashboard-pie2').remove();
+		$('.chartjs-size-monitor').remove();
+		$('#chartData').append('<canvas id="chartjs-dashboard-line"></canvas>')
+		$('#ageData').append('<canvas id="chartjs-dashboard-pie"></canvas>')
+		$('#genderData').append('<canvas id="chartjs-dashboard-pie2"></canvas>')
+		genderChart();
+		ageChart();
+		llchart();
+	}, 3000);
+	
 });
 
 
 
 
-</script>
-
-
-
-
-<script th:src="@{/js/app.js}"></script>
-
-
-<script>
-
-var age10 = '[[${age10Sales}]]';
-var age20 = '[[${age20Sales}]]';
-var age30 = '[[${age30Sales}]]';
-var age40 = '[[${age40Sales}]]';
-var age50 = '[[${age50Sales}]]';
-var age60 = '[[${age60Sales}]]';
-
-
-if(age10 == null) age10 = 0;
-if(age20 == null) age20 = 0;
-if(age30 == null) age30 = 0;
-if(age40 == null) age40 = 0;
-if(age50 == null) age50 = 0;
-if(age60 == null) age60 = 0;
-
-
-document.addEventListener("DOMContentLoaded", function() {
+function ageChart(){
 	// Pie chart
 	new Chart(document.getElementById("chartjs-dashboard-pie"), {
 		type : "bar",
 		data : {
 			labels : [ "10대", "20대", "30대", "40대", "50대", "60대" ],
 			datasets : [ {
-				data : [ age10, age20, age30, age40, age50, age60],
+				data : [age10Sales,age20Sales,age30Sales,age40Sales,age50Sales,age60Sales],
 				backgroundColor : [window.theme.warning, window.theme.warning, window.theme.primary, window.theme.primary, window.theme.info, window.theme.info ],
 				borderWidth : 5
 			} ]
@@ -501,16 +539,10 @@ document.addEventListener("DOMContentLoaded", function() {
 			
 		}
 	});
-});
-</script>
-<script>
-var maleSales = '[[${maleSales}]]';
-if(maleSales == null) maleSales = 1;
+}
 
-var femaleSales = '[[${femaleSales}]]';
-if(femaleSales == null) femaleSales = 1;
 
-document.addEventListener("DOMContentLoaded", function() {
+function genderChart(){
 	// Pie chart
 	new Chart(document.getElementById("chartjs-dashboard-pie2"), {
 		type : "pie",
@@ -531,14 +563,11 @@ document.addEventListener("DOMContentLoaded", function() {
 			cutoutPercentage : 75
 		}
 	});
-});
-</script>
+}
 
-
-<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		var ctx = document.getElementById("chartjs-dashboard-line").getContext(
-				"2d");
+function llchart(){
+		
+		var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
 		var gradient = ctx.createLinearGradient(0, 0, 0, 225);
 		gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
 		gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
@@ -550,15 +579,13 @@ document.addEventListener("DOMContentLoaded", function() {
 						"05:00", "06:00", "07:00", "08:00", "09:00", "10:00",
 						"11:00", "12:00", "13:00", "14:00", "15:00", "16:00",
 						"17:00", "18:00", "19:00", "20:00", "21:00", "22:00",
-						"23:00", "24:00" ],
+						"23:00" ],
 				datasets : [ {
 					label : "판매금 (원): ",
 					fill : true,
 					backgroundColor : gradient,
 					borderColor : window.theme.primary,
-					data : [ 2115, 1562, 1584, 1892, 1587, 1923, 2566, 2448,
-							2805, 3438, 2917, 3327, 2115, 1562, 1584, 1892,
-							1587, 1923, 2566, 2448, 2805, 3438, 2917, 3327 ]
+					data : chart
 				} ]
 			},
 			options : {
@@ -586,7 +613,8 @@ document.addEventListener("DOMContentLoaded", function() {
 					} ],
 					yAxes : [ {
 						ticks : {
-							stepSize : 1000
+							stepSize : parseInt(max/3/1000)*1000,
+							max : max
 						},
 						display : true,
 						borderDash : [ 3, 3 ],
@@ -597,13 +625,10 @@ document.addEventListener("DOMContentLoaded", function() {
 				}
 			}
 		});
-	});
-</script>
+}
 
-
-<script>
 	document.addEventListener("DOMContentLoaded", function() {
-		// Bar chart
+		
 		new Chart(document.getElementById("chartjs-bar"), {
 			type : "bar",
 			data : {

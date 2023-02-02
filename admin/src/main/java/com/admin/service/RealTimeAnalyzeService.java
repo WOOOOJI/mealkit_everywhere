@@ -112,8 +112,6 @@ public class RealTimeAnalyzeService {
  		//실시간 구매확정율
  		dash.setConfirmation(Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0);
  		
- 		System.out.println(dash);
- 		
  		
  		return dash;
  	}
