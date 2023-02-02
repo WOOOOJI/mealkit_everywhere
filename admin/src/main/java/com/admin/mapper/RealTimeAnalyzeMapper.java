@@ -30,7 +30,6 @@ public interface RealTimeAnalyzeMapper {
 	public OrderDTO realTimeDashBoard(String NOWDATE, String NOWTIME) throws Exception;
 	// 누적 대쉬보드 현황
 	public OrderDTO totalTimeDashBoard(String NOWDATE) throws Exception;
-
 	// 실시간 판매 상품리스트
 	public List<FilterdDTO> realTimefilterdData(FilterdDTO filterdDTO) throws Exception;
 }

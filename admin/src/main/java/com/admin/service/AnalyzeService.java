@@ -261,9 +261,7 @@ public class AnalyzeService {
 			
 			List<OrderDTO> result = null;
 			try {
-				System.out.println(year+"년도, "+month+" 월, "+day+" 일");
 				result=mapper.daySalesChart(year,month,day);
-				System.out.println("daySalesChart에 값 담김 ,");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
