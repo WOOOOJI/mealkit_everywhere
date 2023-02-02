@@ -157,7 +157,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		IFNULL(SUM(o.price),0) AS totalSales
 		FROM timeT tt
 		LEFT JOIN totalOrder o ON (HOUR(o.rdate)=tt.t) AND DATE_FORMAT(o.rdate,
-		'%y-%m-%d') LIKE '${year}-${month}-${day}' AND (o.status NOT LIKE 'F')
+		'%Y-%m-%d') LIKE '${year}-${month}-${day}' AND (o.status NOT LIKE 'F')
 		GROUP BY tempDate
 		ORDER BY tempDate ASC
 		)a;
