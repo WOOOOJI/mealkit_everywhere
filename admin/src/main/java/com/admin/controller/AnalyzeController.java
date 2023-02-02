@@ -140,7 +140,11 @@ public class AnalyzeController {
 			arr2.add(o.getTotalSales());
 		}
 		
+		
 		DashBoardDTO dash = analyzeService.dashBoardCardYear(year);
+		
+		
+		
 		yearTOP10List = orderService.getYearTOP10List(year);
 		yearBOT10List = orderService.getYearTOP10List(year);
 		model.addAttribute("dash", dash);

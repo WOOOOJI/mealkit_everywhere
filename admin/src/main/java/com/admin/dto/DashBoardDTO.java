@@ -17,12 +17,12 @@ public class DashBoardDTO {
     private String nowMonth;
     private String nowDay;
 
-    private int totalPrice;
-    private int totalShip;
+    private String totalPrice;
+    private String totalShip;
     private double confirmation;
 
     private String sellIncrease;
-    private int totalItemCnt;
+    private String totalItemCnt;
 
     private String itemCntIncrease;
     private String shipIncrease;

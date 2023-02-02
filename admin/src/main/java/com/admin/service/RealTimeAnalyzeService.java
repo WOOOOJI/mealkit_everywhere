@@ -101,13 +101,13 @@ public class RealTimeAnalyzeService {
  		int thisRefund = Integer.parseInt(od.getRefund());
  		
  		//실시간 매출액
- 		dash.setTotalPrice(od.getPrice());
+ 		dash.setTotalPrice(String.valueOf(od.getPrice()));
  		
  		//실시간 배송량
- 		dash.setTotalShip(od.getItemCnt());
+ 		dash.setTotalShip(String.valueOf(od.getItemCnt()));
  		
  		//실시간 판매개수
- 		dash.setTotalItemCnt(od.getTotalSales());
+ 		dash.setTotalItemCnt(String.valueOf(od.getTotalSales()));
  		
  		//실시간 구매확정율
  		dash.setConfirmation(Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0);
@@ -137,13 +137,13 @@ public class RealTimeAnalyzeService {
  		
  		
  		//누적 총 매출액
- 		dash.setTotalPrice(od.getPrice());
+ 		dash.setTotalPrice(String.valueOf(od.getPrice()));
  		
  		//누적 총 배송량
- 		dash.setTotalShip(od.getItemCnt());
+ 		dash.setTotalShip(String.valueOf(od.getItemCnt()));
  		
  		//올해 총 판매개수
- 		dash.setTotalItemCnt(od.getTotalSales());
+ 		dash.setTotalItemCnt(String.valueOf(od.getTotalSales()));
  		
  		//오늘 구매확정율
  		dash.setConfirmation(Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0);

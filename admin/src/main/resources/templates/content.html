@@ -28,9 +28,9 @@
 										</div>
 										<h1 class="mt-1 mb-3" id="nowShip"></h1>
 										<div class="mb-0">
-											<span class="text-danger" id="totalShip"> <i
-												class="mdi mdi-arrow-bottom-right"></i> -3.65%
-											</span> <span class="text-muted">누적</span>
+											<span class="text-primary" id="totalShip"> <i
+												class="mdi mdi-arrow-bottom-right"></i>
+											</span> <span class="text-muted"></span>
 										</div>
 									</div>
 								</div>
@@ -49,9 +49,9 @@
 										</div>
 										<h1 class="mt-1 mb-3" id="newItemCnt"></h1>
 										<div class="mb-0">
-											<span class="text-success"> <i
+											<span class="text-primary"> <i
 												class="mdi mdi-arrow-bottom-right" id="totalItemCnt"></i>
-											</span> <span class="text-muted">누적</span>
+											</span> <span class="text-muted"></span>
 										</div>
 									</div>
 								</div>
@@ -72,9 +72,9 @@
 										</div>
 										<h1 class="mt-1 mb-3" id="nowTotalPrice"></h1>
 										<div class="mb-0">
-											<span class="text-success"> <i
+											<span class="text-primary"> <i
 												class="mdi mdi-arrow-bottom-right" id="totalTotalPrice"></i>
-											</span> <span class="text-muted">누적</span>
+											</span> <span class="text-muted"></span>
 										</div>
 									</div>
 								</div>
@@ -93,9 +93,9 @@
 										</div>
 										<h1 class="mt-1 mb-3" id="nowConfirm"></h1>
 										<div class="mb-0">
-											<span class="text-danger"> <i
+											<span class="text-primary"> <i
 												class="mdi mdi-arrow-bottom-right" id="totalConfirm"></i>
-											</span> <span class="text-muted">누적</span>
+											</span> <span class="text-muted"></span>
 										</div>
 									</div>
 								</div>
@@ -413,6 +413,10 @@
 
 
 <script>
+function priceToString(price) {
+    return price.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
 function getRealTimeData(){	
 	$.ajax({
 		url:'/admin/getRealTimeData',
@@ -420,15 +424,23 @@ function getRealTimeData(){
 		dataType:'JSON',
 		success: function(data){
 			
+			var nowShip = priceToString(data.nowDash.totalShip);
+			var totalShip = priceToString(data.totalDash.totalShip);
+			var nowItemCnt = priceToString(data.nowDash.totalItemCnt);
+			var totalItemCnt = priceToString(data.totalDash.totalItemCnt);
+			var nowPrice = priceToString(data.nowDash.totalPrice);
+			var totalPrice = priceToString(data.totalDash.totalPrice);
 			
-			$('#nowShip').text(data.nowDash.totalShip);
-			$('#totalShip').text(data.totalDash.totalShip);
 			
-			$('#newItemCnt').text(data.nowDash.totalItemCnt);
-			$('#totalItemCnt').text(data.totalDash.totalItemCnt);	
 			
-			$('#nowTotalPrice').text(data.nowDash.totalPrice);
-			$('#totalTotalPrice').text(data.totalDash.totalPrice);
+			$('#nowShip').text(nowShip+'건');
+			$('#totalShip').text(totalShip+'건');
+			
+			$('#newItemCnt').text(nowItemCnt+'개');
+			$('#totalItemCnt').text(totalItemCnt+'개');	
+			
+			$('#nowTotalPrice').text(nowPrice+'원');
+			$('#totalTotalPrice').text(totalPrice+'원');
 			
 			$('#nowConfirm').text(data.nowDash.confirmation+'%');
 			$('#totalConfirm').text(data.totalDash.confirmation+'%');
