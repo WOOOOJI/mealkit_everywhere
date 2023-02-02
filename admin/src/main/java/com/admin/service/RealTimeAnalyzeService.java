@@ -1,12 +1,14 @@
 package com.admin.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.admin.dto.DashBoardDTO;
+import com.admin.dto.FilterdDTO;
 import com.admin.dto.OrderAVG;
 import com.admin.dto.OrderDTO;
 import com.admin.mapper.RealTimeAnalyzeMapper;
@@ -17,8 +19,20 @@ public class RealTimeAnalyzeService {
 	@Autowired
 	RealTimeAnalyzeMapper mapper;
 	
+    @Autowired
+	AnalyzeService analyzeService;
+	
 	// 현재날짜, 시간
     final static LocalDateTime NOW = LocalDateTime.now();
+   	
+    // 현재년도 nowYear
+    final static String NOWYEAR = NOW.toString().substring(2,4);
+
+    // 현재월 nowMonth
+    final static String NOWMONTH = NOW.toString().substring(5,7);
+    
+    // 현재일 nowDay
+    final static String NOWDAY = NOW.toString().substring(8,10);
 
     // 현재날짜 nowDate
     final static String NOWDATE = NOW.toString().substring(0,10);
@@ -112,8 +126,6 @@ public class RealTimeAnalyzeService {
  		//실시간 구매확정율
  		dash.setConfirmation(Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0);
  		
- 		System.out.println(dash);
- 		
  		
  		return dash;
  	}
@@ -152,6 +164,40 @@ public class RealTimeAnalyzeService {
  		
  		return dash;
  	}
+ 	
+ 	 // 실시간 판매순위 리스트
+ 		public List<FilterdDTO> RealTimefilterdData(){
+ 			FilterdDTO filterdDTO = new FilterdDTO();
+ 			String gender = "noGender";
+ 			String align = "totPrice";
+ 			filterdDTO.setAlign(align);
+ 			filterdDTO.setGender(gender);
+ 			filterdDTO.setStartDate(NOWDATE);
+ 			filterdDTO.setEndDate(NOWDATE + " " + NOWTIME);
+ 			
+ 			List<FilterdDTO> filterdDTOList = new ArrayList<>();
+ 			
+ 			try {
+ 				filterdDTOList = mapper.realTimefilterdData(filterdDTO);
+ 				return filterdDTOList;
+ 			} catch (Exception e) {
+ 				e.printStackTrace();
+ 				return null;
+ 			}
+ 		}
+ 		
+ 		
+ 		// 하루전 매출 차트
+ 		public List<OrderDTO> lastDayChart(){
+ 			List<OrderDTO> lastDaySalesChart = new ArrayList<>();
+ 			lastDaySalesChart = analyzeService.lastDaySalesChart(NOWYEAR,NOWMONTH,NOWDAY);
+ 			
+ 			ArrayList arr2=new ArrayList();
+ 			for(OrderDTO o:lastDaySalesChart) {
+ 				arr2.add(o.getTotalSales());
+ 			}
+ 			return lastDaySalesChart;
+ 		}
  	
 
 }

@@ -3,32 +3,57 @@
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.admin.mapper.RealTimeAnalyzeMapper">
+	
+	<!-- 실시간 판매순위 -->
+	<select id="realTimefilterdData" resultType="FilterdDTO" parameterType="FilterdDTO">
+		SELECT
+		item.categoryKey, item.name,
+		sum(ordDet.price * ordDet.cnt) AS totPrice,
+		ROUND(((item.price - item.sale) / item.price)*100, 0) AS salePct,
+		item.sale,
+		sum(ordDet.cnt) AS totCnt
+		FROM orderDetail AS ordDet, 
+		item,
+		customer AS cust
+		RIGHT OUTER JOIN totalorder totOrd
+		ON (totOrd.rdate BETWEEN date(#{startDate}) AND date_add(#{endDate}, INTERVAL 1 DAY)) AND
+		status NOT LIKE 'F'
+		<where>
+			<if test="gender == 'noGender'">
+				AND ordDet.orderKey = totOrd.orderKey AND ordDet.itemKey
+				= item.itemKey AND cust.custKey = totOrd.custKey
+			</if>
+		</where>
+		GROUP BY ordDet.itemKey
+		ORDER BY ${align} DESC
+		LIMIT 0, 10
+	</select>
 
-<!-- 현재 시간대 대쉬보드 실시간 차트. -->
-<select id="realTimeDashBoard" resultType="OrderDTO">
-SELECT SUM(price) AS "price",
-		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59' AND (status LIKE 'D' OR status LIKE 'S')) AS "itemCnt",
-		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59' AND status NOT LIKE 'F' ) AS "status",
-		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59' AND status LIKE 'F') AS "refund",
-		(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59' AND status NOT LIKE 'F') AS "totalSales"
-		FROM totalOrder
-		WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59'
-		AND status NOT LIKE 'F';
-</select> 
-
-      
-        
-<!-- 오늘 하루 누적 대쉬보드 실시간 차트. -->
-<select id="totalTimeDashBoard" resultType="OrderDTO">
-SELECT SUM(price) AS "price",
-		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59' AND (status LIKE 'D' OR status LIKE 'S')) AS "itemCnt",
-		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59' AND status NOT LIKE 'F' ) AS "status",
-		(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59' AND status LIKE 'F') AS "refund",
-		(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59' AND status NOT LIKE 'F') AS "totalSales"
-		FROM totalOrder
-		WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59'
-		AND status NOT LIKE 'F';
-</select>
+	<!-- 현재 시간대 대쉬보드 실시간 차트. -->
+	<select id="realTimeDashBoard" resultType="OrderDTO">
+	SELECT SUM(price) AS "price",
+			(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59' AND (status LIKE 'D' OR status LIKE 'S')) AS "itemCnt",
+			(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59' AND status NOT LIKE 'F' ) AS "status",
+			(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59' AND status LIKE 'F') AS "refund",
+			(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59' AND status NOT LIKE 'F') AS "totalSales"
+			FROM totalOrder
+			WHERE rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} ${NOWTIME}:59:59'
+			AND status NOT LIKE 'F';
+	</select> 
+	
+	      
+	        
+	<!-- 오늘 하루 누적 대쉬보드 실시간 차트. -->
+	<select id="totalTimeDashBoard" resultType="OrderDTO">
+	SELECT SUM(price) AS "price",
+			(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59' AND (status LIKE 'D' OR status LIKE 'S')) AS "itemCnt",
+			(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59' AND status NOT LIKE 'F' ) AS "status",
+			(SELECT COUNT(orderKey) FROM totalOrder WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59' AND status LIKE 'F') AS "refund",
+			(SELECT SUM(od.cnt) FROM totalOrder t JOIN orderDetail od ON od.orderKey = t.orderKey WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59' AND status NOT LIKE 'F') AS "totalSales"
+			FROM totalOrder
+			WHERE rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59'
+			AND status NOT LIKE 'F';
+	</select>
 
 		<select id="realTimeSalesChart" parameterType="String" resultType="OrderDTO">
 		SELECT *
@@ -74,12 +99,12 @@ SELECT SUM(price) AS "price",
 	</select>
 	
 	<select id="stackedOrderAvg" resultType="OrderDTO">
-		select ROUND((SUM(distinct t.price)/COUNT(distinct t.orderKey)),1) AS avgPrice, ROUND((SUM(distinct od.cnt)/COUNT(distinct t.orderKey)),1) AS avgCnt FROM totalOrder t
+		select ROUND((SUM(distinct t.price)/COUNT(distinct t.orderKey)),1) AS avgPrice, ROUND((SUM(od.cnt)/COUNT(distinct t.orderKey)),1) AS avgCnt FROM totalOrder t
 		INNER JOIN orderDetail od ON od.orderKey=t.orderKey
 		WHERE t.rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59'
 	</select>
 	<select id="realTimeOrderAvg" resultType="OrderDTO">
-		select ROUND((SUM(distinct t.price)/COUNT(distinct t.orderKey)),1) AS avgPrice, ROUND((SUM(distinct od.cnt)/COUNT(distinct t.orderKey)),1) AS avgCnt FROM totalOrder t
+		select ROUND((SUM(distinct t.price)/COUNT(distinct t.orderKey)),1) AS avgPrice, ROUND((SUM(od.cnt)/COUNT(distinct t.orderKey)),1) AS avgCnt FROM totalOrder t
 		INNER JOIN orderDetail od ON od.orderKey=t.orderKey
 		WHERE t.rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} 23:59:59'
 	</select>

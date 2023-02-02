@@ -232,6 +232,7 @@ public class AnalyzeService {
 						month = String.valueOf(lastMonthNum);
 					}
 				}
+				month = String.valueOf(lastMonthNum);
 				day = String.valueOf(lastDayNum);
 
 			}else {
@@ -242,10 +243,20 @@ public class AnalyzeService {
 					lastDayNum = 31;
 					if(lastMonthNum == 0) {
 						lastMonthNum = 12;
-						month = String.valueOf(lastMonthNum);
 					}
 				}
-				day = String.valueOf(lastDayNum);
+				
+				if(lastMonthNum<10) {
+					month = "0"+String.valueOf(lastMonthNum);
+				}else {
+					month = String.valueOf(lastMonthNum);
+				}
+				if(lastDayNum<10) {
+					day = "0"+ String.valueOf(lastDayNum);
+				}else {
+					day = String.valueOf(lastDayNum);
+				}
+				
 			}
 			
 			List<OrderDTO> result = null;
