@@ -140,7 +140,11 @@ public class AnalyzeController {
 			arr2.add(o.getTotalSales());
 		}
 		
+		
 		DashBoardDTO dash = analyzeService.dashBoardCardYear(year);
+		
+		
+		
 		yearTOP10List = orderService.getYearTOP10List(year);
 		yearBOT10List = orderService.getYearBOT10List(year);
 		model.addAttribute("dash", dash);
@@ -299,6 +303,7 @@ public class AnalyzeController {
 		filterdDTO.setCategoryKey(categoryKey);
 		filterdDTO.setEndDate(endDate);
 		filterdDTO.setStartDate(startDate);
+		filterdDTO.setGender(gender);
 		filterdDTO.setGender1(gender1);
 		filterdDTO.setGender2(gender2);
 		

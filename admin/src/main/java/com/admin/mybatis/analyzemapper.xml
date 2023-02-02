@@ -157,7 +157,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		IFNULL(SUM(o.price),0) AS totalSales
 		FROM timeT tt
 		LEFT JOIN totalOrder o ON (HOUR(o.rdate)=tt.t) AND DATE_FORMAT(o.rdate,
-		'%Y-%m-%d') LIKE '${year}-${month}-${day}' AND (o.status NOT LIKE 'F')
+		'%y-%m-%d') LIKE '${year}-${month}-${day}' AND (o.status NOT LIKE 'F')
 		GROUP BY tempDate
 		ORDER BY tempDate ASC
 		)a;
@@ -306,7 +306,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		item,
 		customer AS cust
 		RIGHT OUTER JOIN totalorder totOrd
-		ON (totOrd.rdate BETWEEN date(#{startDate}) AND date(#{endDate})) AND
+		ON (totOrd.rdate BETWEEN date(#{startDate}) AND date_add(#{endDate}, INTERVAL 1 DAY)) AND
 		status NOT LIKE 'F'
 		<where>
 			<if test="startDate != null">
@@ -317,17 +317,15 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 				AND (item.categoryKey = ${categoryKey})
 			</if>
 			<if test="age != 'noAge'">
-				AND (floor((YEAR(NOW())-(if(gender='1'or
-				gender='2',1900,2000)+left(jumin,2)))/10)*10=#{age})
+				AND (floor((YEAR(NOW())-(if(gender='1'or gender='2',1900,2000)+left(jumin,2)))/10)*10=#{age})
 			</if>
-			<if test="gender1 != null">
-				AND (cust.gender = #{gender1} OR cust.gender =
-				#{gender2})
-			</if>
+			<if test="gender != 'noGender'">
+                AND (cust.gender = ${gender1} OR cust.gender = ${gender2})
+            </if>
 		</where>
 		GROUP BY ordDet.itemKey
 		ORDER BY ${align} DESC
-		
+		LIMIT 0, 10
 	</select>
 
 </mapper>

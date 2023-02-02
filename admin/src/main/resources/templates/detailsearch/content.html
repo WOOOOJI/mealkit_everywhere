@@ -311,7 +311,7 @@
 					<div class="card flex-fill">
 						<div class="card-header">
 							
-				<h5 class="card-title mb-0">조회 주문건</h5>
+				<h5 class="card-title mb-0">인기상품 TOP 10</h5>
 							
 				<div style="margin-top: 30px;">
 					<div class="input-group float-right" style="display: inline;">
@@ -340,6 +340,7 @@
 							<thead>
 								<tr>
 									<th>상품명</th>
+									<th class="d-none d-xl-table-cell">순위</th>
 									<th class="d-none d-xl-table-cell">누적 금액</th>
 									<th>할인률</th>
 									<th class="d-none d-md-table-cell">상품가격</th>
@@ -347,8 +348,9 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="f : ${filterdDTOList}">
-									<td th:text="${f.name}">둘이 먹다 죽어도 모르는 한식 세트</td>
+								<tr th:each="f, idx : ${filterdDTOList}">
+									<td th:text="${idx.count}+'위'"></td>
+									<td th:text="${f.name}"></td>
 									<td th:text="${f.totPrice}" class="d-none d-xl-table-cell">365,000원</td>
 									<td><span th:text="${f.salePct}" class="badge bg-success">70%</span></td>
 									<th th:text="${f.sale}" class="d-none d-md-table-cell">28,000원</th>

@@ -232,6 +232,7 @@ public class AnalyzeService {
 						month = String.valueOf(lastMonthNum);
 					}
 				}
+				month = String.valueOf(lastMonthNum);
 				day = String.valueOf(lastDayNum);
 
 			}else {
@@ -242,10 +243,20 @@ public class AnalyzeService {
 					lastDayNum = 31;
 					if(lastMonthNum == 0) {
 						lastMonthNum = 12;
-						month = String.valueOf(lastMonthNum);
 					}
 				}
-				day = String.valueOf(lastDayNum);
+				
+				if(lastMonthNum<10) {
+					month = "0"+String.valueOf(lastMonthNum);
+				}else {
+					month = String.valueOf(lastMonthNum);
+				}
+				if(lastDayNum<10) {
+					day = "0"+ String.valueOf(lastDayNum);
+				}else {
+					day = String.valueOf(lastDayNum);
+				}
+				
 			}
 			
 			List<OrderDTO> result = null;
@@ -286,19 +297,23 @@ public class AnalyzeService {
 				e.printStackTrace();
 			}		
 			
+			
+			
 			int thisNotRefund = Integer.parseInt(thisY.getStatus());
 			int thisRefund = Integer.parseInt(thisY.getRefund());
 			int lastNotRefund = Integer.parseInt(lastY.getStatus());
 			int lastRefund = Integer.parseInt(lastY.getRefund());
-				
+			
+			
+			
 			//올해 총 매출액
-			dash.setTotalPrice(thisY.getPrice());
+			dash.setTotalPrice(String.format("%,d", thisY.getPrice()));
 			
 			//올해 총 판매개수
-			dash.setTotalItemCnt(thisY.getTotalSales());
+			dash.setTotalItemCnt(String.format("%,d", thisY.getTotalSales()));
 			
 			//올해 총 배송량
-			dash.setTotalShip(thisY.getItemCnt());
+			dash.setTotalShip(String.format("%,d", thisY.getItemCnt()));
 			
 			//올해 구매확정율
 			dash.setConfirmation(Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0);
@@ -381,13 +396,13 @@ public class AnalyzeService {
 			int lastRefund = Integer.parseInt(lastM.getRefund());
 			
 			//이번달 총 매출액
-			dash.setTotalPrice(thisM.getPrice());
+			dash.setTotalPrice(String.format("%,d", thisM.getPrice()));
 			
-			//올해 총 판매개수
-			dash.setTotalItemCnt(thisM.getTotalSales());
+			//이번달 총 판매개수
+			dash.setTotalItemCnt(String.format("%,d", thisM.getTotalSales()));
 			
 			//이번달 총 배송량
-			dash.setTotalShip(thisM.getItemCnt());
+			dash.setTotalShip(String.format("%,d", thisM.getItemCnt()));
 			
 			//이번달 구매확정율
 			dash.setConfirmation(Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0);
@@ -504,13 +519,13 @@ public class AnalyzeService {
 			int lastRefund = Integer.parseInt(lastD.getRefund());
 			
 			//오늘 총 매출액
-			dash.setTotalPrice(thisD.getPrice());
+			dash.setTotalPrice(String.format("%,d", thisD.getPrice()));
+			
+			//오늘 총 판매개수
+			dash.setTotalItemCnt(String.format("%,d", thisD.getTotalSales()));
 			
 			//오늘 총 배송량
-			dash.setTotalShip(thisD.getItemCnt());
-			
-			//올해 총 판매개수
-			dash.setTotalItemCnt(thisD.getTotalSales());
+			dash.setTotalShip(String.format("%,d", thisD.getItemCnt()));
 			
 			//오늘 구매확정율
 			dash.setConfirmation(Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0);
@@ -573,13 +588,15 @@ public class AnalyzeService {
 			
 			
 			//오늘 총 매출액
-			dash.setTotalPrice(totalSales.getPrice());
-			
-			//오늘 총 배송량
-			dash.setTotalShip(totalShip);
+			//올해 총 매출액
+			dash.setTotalPrice(String.format("%,d", totalSales.getPrice()));
 			
 			//올해 총 판매개수
-			dash.setTotalItemCnt(totalSales.getTotalSales());
+			dash.setTotalItemCnt(String.format("%,d", thisNotRefund));
+			
+			//올해 총 배송량
+			dash.setTotalShip(String.format("%,d", totalShip));
+			
 			
 			
 			
