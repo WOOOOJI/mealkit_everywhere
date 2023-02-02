@@ -66,27 +66,29 @@
 					<div class="row">
 						<div class="col-md-9 col-lg-8 mx-auto">
 							<div class="text-center mb-8">
-				               <h3 class="text-uppercase"><strong>비밀번호 변경</strong></h3>
-				            </div>	
+				               <h3 class="text-uppercase"><strong>회원정보 확인</strong></h3>
+				            </div>
+
+		
 									
-							<!-- 로그인 폼 -->
-							<form id="loginForm" th:action="@{/customer/resetPwdForm}" method="post">
+							<!-- 회원 확인 폼 -->
+						<form id="custcheckForm" th:action="@{/customer/updatePwdForm}" method="post">
 								<div class="form-floating mb-3">
-									<input name="email" type="text" class="form-control"
-										id="inputId" placeholder="name@example.com"> <label
-										for="id">아이디 (이메일)</label>
+									<input name="email" type="email" class="form-control"
+										id="email" placeholder="name@example.com"> <label
+										for="email">Email address</label>
 								</div>
 								<div class="form-floating mb-3">
-									<input name="tel" type="text" class="form-control"
-										id="inputTel" placeholder="Password"> <label
-										for="userpwd">전화번호</label>
+									<input name="userpwd" type="password" class="form-control"
+										id="userpwd" placeholder="Password"> <label
+										for="userpwd">Password</label>
 								</div>
-					             
+	
 
 								<div class="d-grid">
 									<button
 										class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2"
-										type="submit" id="searchBtn">비밀번호 찾기</button>
+										type="submit" id="searchBtn">비밀번호 변경</button>
 					
 									
 								</div>
@@ -102,13 +104,13 @@
  <script>
 	
 	$('#searchBtn').click(function(){
-		if ($("#inputId").val() == "" || $("#inputId").val() == null) {
+		if ($("#email").val() == "" || $("#email").val() == null) {
 			alert("ID 입력 후 확인하세요.");
 			return false;
 		}
 
-		if ($("#inputTel").val() == "" || $("#inputTel").val() == null) {
-			alert("전화번호 입력 후 확인하세요.");
+		if ($("#userpwd").val() == "" || $("#userpwd").val() == null) {
+			alert("비밀번호 입력 후 확인하세요.");
 			return false;
 		}
 		
@@ -118,36 +120,9 @@
 		
 
 </script> 
-<!-- 
+
 <script>
-$('#checkPwd').click(function() {
-    const email = $('#inputId').val();
-    if(!email || email.trim() === ""){
-        alert("이메일을 입력하세요.");
-    } else{
-        $.ajax({
-            type: 'post',
-            url: '/customer/login',
-            data: {'email': email},
-            datatype: "text"
-        }).done(function(result){
-            console.log(result);
-            if(result == "true"){
-                console.log("이메일 전송 완료");
-                alert("임시 비밀번호를 전송하였습니다.");
-                window.location.href="/customer/login";
-            } else if(result == "false"){
-                console.log("이메일 전송 실패");
-                // 이메일이 존재하지 않으면
-                alert("이메일이 존재하지 않습니다.");
-                window.location.reload();
-            }
-        }).fail(function(error){
-            alert(JSON.stringify(error));
-        })
-    }
-});
+if('[[${num}]]'== 10) alert("일치하는 회원정보가 없습니다.");
 
 
-
-</script> -->
+</script>

@@ -35,5 +35,11 @@ public interface CustomerMapper extends MyMapper<Integer, CustomerDTO>{
 	
 	//회원탈퇴
 	public int signOut(CustomerDTO dto);
+	
+	//마이페이지 비밀번호 변경 전 회원정보 확인하기
+	public CustomerDTO custCheck(CustomerDTO dto);
+	
+	//마이페이지 비밀번호 변경
+	public CustomerDTO updatePwdForm(CustomerDTO dto);
 }
 	 

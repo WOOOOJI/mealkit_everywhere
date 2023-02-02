@@ -1,4 +1,5 @@
 <script>
+
 var arr='[[${saleschart}]]';
 var ad=arr.substring(1,arr.length-1);
 var array=ad.split(',');
@@ -20,6 +21,12 @@ for(var i=0; i<array2.length; i++){
 		max2 = parseInt(array2[i]);
 	}
 	
+}
+//전년도 대비 판매금액 차트 세로축 간격
+if(max > max2){
+	var max3 = max;
+}else{
+	var max3 = max2;
 }
 </script>
 
@@ -265,60 +272,21 @@ for(var i=0; i<array2.length; i++){
 						<table class="table table-hover my-0">
 							<thead>
 								<tr>
+									<th>순위</th>
 									<th>상품명</th>
-									<th class="d-none d-xl-table-cell">가격</th>
-									<th>주문량</th>
-									<th>총 판매 금액</th>
+									<th class="d-none d-xl-table-cell">가격 (원)</th>
+									<th>판매 수량 (개)</th>
+									<th>총 판매 금액 (원)</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>둘이 먹다 죽어도 모르는 한식 세트</td>
-									<td class="d-none d-xl-table-cell">65,000원</td>
-									<td class="d-none d-xl-table-cell">130개</td>
-									<td><span class="badge bg-success">8,450,000</span></td>
-								</tr>
-								<tr>
-									<td>사와디캅 팟타이</td>
-									<td class="d-none d-xl-table-cell">65,000원</td>
-									<td class="d-none d-xl-table-cell">130개</td>
-									<td><span class="badge bg-success">8,450,000</span></td>
-								</tr>
-								<tr>
-									<td>알찬 이탈리안 볼로네제라자냐</td>
-									<td class="d-none d-xl-table-cell">65,000원</td>
-									<td class="d-none d-xl-table-cell">130개</td>
-									<td><span class="badge bg-success">8,450,000</span></td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-								<td class="d-none d-xl-table-cell">65,000원</td>
-									<td class="d-none d-xl-table-cell">130개</td>
-									<td><span class="badge bg-success">8,450,000</span></td>
-								</tr>
-								<tr>
-									<td>얼큰한 꽂개탕</td>
-									<td class="d-none d-xl-table-cell">65,000원</td>
-									<td class="d-none d-xl-table-cell">130개</td>
-									<td><span class="badge bg-success">8,450,000</span></td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-								<td class="d-none d-xl-table-cell">65,000원</td>
-									<td class="d-none d-xl-table-cell">130개</td>
-									<td><span class="badge bg-success">8,450,000</span></td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-								<td class="d-none d-xl-table-cell">65,000원</td>
-									<td class="d-none d-xl-table-cell">130개</td>
-									<td><span class="badge bg-success">8,450,000</span></td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-								<td class="d-none d-xl-table-cell">65,000원</td>
-									<td class="d-none d-xl-table-cell">130개</td>
-									<td><span class="badge bg-success">8,450,000</span></td>
+							<tbody >
+								
+								<tr th:each="y, yS : ${yearMthlyList}">
+									<td th:text="${yS.count}"></td>
+									<td th:text="${y.itemName}"></td>
+									<td th:text="${y.price}" class="d-none d-xl-table-cell"></td>
+									<td th:text="${y.totCnt}" class="d-none d-xl-table-cell"></td>
+									<td th:text="${y.totPrice}" class="d-none d-xl-table-cell"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -337,60 +305,20 @@ for(var i=0; i<array2.length; i++){
 						<table class="table table-hover my-0">
 							<thead>
 								<tr>
+									<th>순위</th>
 									<th>상품명</th>
-									<th class="d-none d-xl-table-cell">가격</th>
-									<th>판매 수량</th>
-									<th>총 판매 금액</th>
+									<th class="d-none d-xl-table-cell">가격 (원)</th>
+									<th>판매 수량 (개)</th>
+									<th>총 판매 금액 (원)</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>둘이 먹다 죽어도 모르는 한식 세트</td>
-									<td class="d-none d-xl-table-cell">김기태</td>
-									<td class="d-none d-xl-table-cell">65,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-								</tr>
-								<tr>
-									<td>사와디캅 팟타이</td>
-									<td class="d-none d-xl-table-cell">한승우</td>
-									<td class="d-none d-xl-table-cell">131,200원</td>
-									<td><span class="badge bg-danger">환불요청</span></td>
-								</tr>
-								<tr>
-									<td>알찬 이탈리안 볼로네제라자냐</td>
-									<td class="d-none d-xl-table-cell">홍길동</td>
-									<td class="d-none d-xl-table-cell">631,200원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">연우진</td>
-									<td class="d-none d-xl-table-cell">100,000원</td>
-									<td><span class="badge bg-warning">배송준비중</span></td>
-								</tr>
-								<tr>
-									<td>얼큰한 꽂개탕</td>
-									<td class="d-none d-xl-table-cell">이상아</td>
-									<td class="d-none d-xl-table-cell">210,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">한승우</td>
-									<td class="d-none d-xl-table-cell">10,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">김기태</td>
-									<td class="d-none d-xl-table-cell">52,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">김기태</td>
-									<td class="d-none d-xl-table-cell">65,000원</td>
-									<td><span class="badge bg-warning">배송준비중</span></td>
+							<tr th:each="b, yS : ${yearBOT10List}">
+									<td th:text="${yS.count}"></td>
+									<td th:text="${b.itemName}"></td>
+									<td th:text="${b.price}" class="d-none d-xl-table-cell"></td>
+									<td th:text="${b.totCnt}" class="d-none d-xl-table-cell"></td>
+									<td th:text="${b.totPrice}" class="d-none d-xl-table-cell"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -462,7 +390,10 @@ for(var i=0; i<array2.length; i++){
 						borderDash : [ 3, 3 ],
 						gridLines : {
 							color : "rgba(0,0,0,0.0)"
-						}
+						},
+						scaleLabel: {
+							display: true,
+							labelString: '단위: 원'}
 					} ]
 				}
 			}
@@ -555,8 +486,12 @@ for(var i=0; i<array2.length; i++){
 						stacked : false,
 						ticks : {
 							min : 0,
-							stepSize : parseInt(max/3/10000)*10000,
-						}
+							stepSize : parseInt(max3/3/10000)*10000,
+							max : max3
+						},
+						scaleLabel: {
+							display: true,
+							labelString: '단위: 원'}
 					} ],
 					xAxes : [ {
 						stacked : false,

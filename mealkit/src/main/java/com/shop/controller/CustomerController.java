@@ -176,19 +176,42 @@ public class CustomerController {
 		return "customer/login";
 	}
 
-	// 마이페이지 처음
-	@RequestMapping("/mypage")
-	public String mypageForm(Model model) {
-		model.addAttribute("content","customer/mypage" );
-		return "main";
-	}
 
-	// 마이페이지 비밀번호 변경폼
-	@RequestMapping("/myresetPwdForm") 
-	 public String myresetpwd(Model model, CustomerDTO dto) { 
+//-------------------------------------------------------------------	
+	// 마이페이지 비밀번호 변경전 회원정보 확인폼
+	@RequestMapping("/custcheckform")
+	public String custCheckRorm(Model model) {
+		return "customer/custcheck";
+	}
+	
+	// 마이페이지 비밀번호 변경전 회원정보 확인하기
+	@PostMapping("/custcheck")
+	public String custCheck(CustomerDTO dto, Model model, HttpServletRequest req) throws Exception {
+		// System.out.println(dto.toString());
+		HttpSession session = req.getSession();
+		CustomerDTO customerDTO = service.custCheck(dto);
+		System.out.println(customerDTO);
+		if (customerDTO != null) {
+			session.setAttribute("custKey", customerDTO.getCustKey());
+			session.setAttribute("email", customerDTO.getEmail());
+			session.setAttribute("username", customerDTO.getUsername());
+			model.addAttribute("loginResult", "success");
+			model.addAttribute("username", customerDTO.getUsername()); 
+			System.out.println(session);
+			return "trash";
+		} else {
+			model.addAttribute("loginResult", "fail"); // 로그인 실패시 '아이디와 비밀번호를 확인하세요.' 메세지
+			model.addAttribute("content", "customer/custcheck");
+			return "customer/custcheck";
+		}
+	}
+	
+	// 마이페이지 - 비밀번호 변경하기
+	@PostMapping("/updatePwdForm")
+	public String updatePwdForm(CustomerDTO dto, Model model) {
 		CustomerDTO d = null;
 		try {
-			d = service.resetPwdForm(dto);
+			d = service.updatePwdForm(dto);
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -196,19 +219,12 @@ public class CustomerController {
 
 		if (d != null) {
 			model.addAttribute("custKey", d.getCustKey());
-			return "customer/resetpwd";
+			return "customer/updatepwd";
 		}
-		model.addAttribute("num", 0);
-		return "customer/findpwd"; 
-		
+		model.addAttribute("num", 10);
+		return "customer/custcheck"; //
 	}
-	
-	
-	
-	
-	
-	
-
+//----------------------------------------------------------------------------------------------
 	@RequestMapping("/orderlist")
 	public String orderlist(Model model, HttpSession session) {
 		//회원의 주문 리스트를 불러오기

@@ -79,8 +79,8 @@ public class AnalyzeController {
 		}
 		
 		DashBoardDTO dash = analyzeService.dashBoardCardMonth(year, month);
-		monthTOP10List = orderService.getDayTOP10List(month);
-		monthBOT10List = orderService.getDayTOP10List(month);
+		monthTOP10List = orderService.getMonthTOP10List(month);
+		monthBOT10List = orderService.getMonthBOT10List(month);
 		
 		model.addAttribute("dash", dash);
 		model.addAttribute("saleschart", arr);
@@ -142,7 +142,7 @@ public class AnalyzeController {
 		
 		DashBoardDTO dash = analyzeService.dashBoardCardYear(year);
 		yearTOP10List = orderService.getYearTOP10List(year);
-		yearBOT10List = orderService.getYearTOP10List(year);
+		yearBOT10List = orderService.getYearBOT10List(year);
 		model.addAttribute("dash", dash);
 		model.addAttribute("saleschart", arr);
 		model.addAttribute("salesMatchChart", arr2);
@@ -199,7 +199,7 @@ public class AnalyzeController {
 		
 		DashBoardDTO dash = analyzeService.dashBoardCardDay(year, month, day);
 		dayTOP10List = orderService.getDayTOP10List(day);
-		dayBOT10List = orderService.getDayTOP10List(day);
+		dayBOT10List = orderService.getDayBOT10List(day);
 		model.addAttribute("dash", dash);
 		model.addAttribute("saleschart", arr);
 		model.addAttribute("salesMatchChart", arr2);

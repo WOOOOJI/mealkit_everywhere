@@ -61,8 +61,17 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		UPDATE customer SET signout = 'Y' WHERE custKey = ${custKey} AND email LIKE #{email} AND userpwd LIKE #{userpwd}
 	</update>
 	
-	
-	
+	<!-- 마이페이지 비밀번호 변경전 회원정보 확인하기 -->
+	<select id="custCheck" parameterType="CustomerDto" resultType="CustomerDto">
+        SELECT email, username, userpwd, tel, custKey FROM customer
+        WHERE email = #{email} AND userpwd = #{userpwd} AND signout='N'
+    </select>
+    
+    <!-- 마이페이지 비밀번호 변경 -->
+        <select id="updatePwdForm" resultType="CustomerDTO">
+    	SELECT * FROM customer
+    	WHERE email=#{email} AND userpwd=#{userpwd}
+    </select> 
 </mapper>
 
 

@@ -104,6 +104,18 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 		return mapper.signOut(dto);
 	}
 	
+	
+	
+	//마이페이지 비밀번호 변경 전 회원정보 확인하기
+	public CustomerDTO custCheck(CustomerDTO dto) throws Exception {
+		CustomerDTO result = mapper.custCheck(dto);
+		return result;
+	}
+	
+	//마이페이지 비밀번호 변경 
+	public CustomerDTO updatePwdForm(CustomerDTO dto) throws Exception{	
+		return mapper.updatePwdForm(dto);
+	}
 }
 
 

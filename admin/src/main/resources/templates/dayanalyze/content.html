@@ -22,6 +22,13 @@ var array2=ad2.split(',');
 		}
 		
 	}
+	
+	// 전일 대비 판매금액 차트 세로축 간격
+	if(max > max2){
+		var max3 = max;
+	}else{
+		var max3 = max2;
+	}
 
 console.log(max);
 
@@ -285,61 +292,21 @@ console.log(max);
 						</div>
 						<table class="table table-hover my-0">
 							<thead>
-								<tr>
+									<tr>
+									<th>순위</th>
 									<th>상품명</th>
-									<th class="d-none d-xl-table-cell">가격</th>
-									<th>판매 수량</th>
-									<th>총 판매 금액</th>
+									<th class="d-none d-xl-table-cell">가격 (원)</th>
+									<th>판매 수량 (개)</th>
+									<th>총 판매 금액 (원)</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
-									<td>둘이 먹다 죽어도 모르는 한식 세트</td>
-									<td class="d-none d-xl-table-cell">김기태</td>
-									<td class="d-none d-xl-table-cell">65,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-								</tr>
-								<tr>
-									<td>사와디캅 팟타이</td>
-									<td class="d-none d-xl-table-cell">한승우</td>
-									<td class="d-none d-xl-table-cell">131,200원</td>
-									<td><span class="badge bg-danger">환불요청</span></td>
-								</tr>
-								<tr>
-									<td>알찬 이탈리안 볼로네제라자냐</td>
-									<td class="d-none d-xl-table-cell">홍길동</td>
-									<td class="d-none d-xl-table-cell">631,200원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">연우진</td>
-									<td class="d-none d-xl-table-cell">100,000원</td>
-									<td><span class="badge bg-warning">배송준비중</span></td>
-								</tr>
-								<tr>
-									<td>얼큰한 꽂개탕</td>
-									<td class="d-none d-xl-table-cell">이상아</td>
-									<td class="d-none d-xl-table-cell">210,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">한승우</td>
-									<td class="d-none d-xl-table-cell">10,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">김기태</td>
-									<td class="d-none d-xl-table-cell">52,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">김기태</td>
-									<td class="d-none d-xl-table-cell">65,000원</td>
-									<td><span class="badge bg-warning">배송준비중</span></td>
+							<tbody >
+								<tr th:each="d, yS : ${dayTOP10List}">
+									<td th:text="${yS.count}"></td>
+									<td th:text="${d.itemName}"></td>
+									<td th:text="${d.price}" class="d-none d-xl-table-cell"></td>
+									<td th:text="${d.totCnt}" class="d-none d-xl-table-cell"></td>
+									<td th:text="${d.totPrice}" class="d-none d-xl-table-cell"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -358,68 +325,20 @@ console.log(max);
 						<table class="table table-hover my-0">
 							<thead>
 								<tr>
+									<th>순위</th>
 									<th>상품명</th>
-									<th class="d-none d-xl-table-cell">가격</th>
-									<th>판매 수량</th>
-									<th>총 판매 금액</th>
+									<th class="d-none d-xl-table-cell">가격 (원)</th>
+									<th>판매 수량 (개)</th>
+									<th>총 판매 금액 (원)</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>둘이 먹다 죽어도 모르는 한식 세트</td>
-									<td class="d-none d-xl-table-cell">김기태</td>
-									<td class="d-none d-xl-table-cell">65,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
-								</tr>
-								<tr>
-									<td>사와디캅 팟타이</td>
-									<td class="d-none d-xl-table-cell">한승우</td>
-									<td class="d-none d-xl-table-cell">131,200원</td>
-									<td><span class="badge bg-danger">환불요청</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
-								</tr>
-								<tr>
-									<td>알찬 이탈리안 볼로네제라자냐</td>
-									<td class="d-none d-xl-table-cell">홍길동</td>
-									<td class="d-none d-xl-table-cell">631,200원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">연우진</td>
-									<td class="d-none d-xl-table-cell">100,000원</td>
-									<td><span class="badge bg-warning">배송준비중</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
-								</tr>
-								<tr>
-									<td>얼큰한 꽂개탕</td>
-									<td class="d-none d-xl-table-cell">이상아</td>
-									<td class="d-none d-xl-table-cell">210,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">한승우</td>
-									<td class="d-none d-xl-table-cell">10,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">김기태</td>
-									<td class="d-none d-xl-table-cell">52,000원</td>
-									<td><span class="badge bg-success">주문완료</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
-								</tr>
-								<tr>
-									<td>알찬 두부 한 모 우삼겹 된장찌개</td>
-									<td class="d-none d-xl-table-cell">김기태</td>
-									<td class="d-none d-xl-table-cell">65,000원</td>
-									<td><span class="badge bg-warning">배송준비중</span></td>
-									<th class="d-none d-md-table-cell">2022-12-31</th>
+							<tr th:each="b, yS : ${dayBOT10List}">
+									<td th:text="${yS.count}"></td>
+									<td th:text="${b.itemName}"></td>
+									<td th:text="${b.price}" class="d-none d-xl-table-cell"></td>
+									<td th:text="${b.totCnt}" class="d-none d-xl-table-cell"></td>
+									<td th:text="${b.totPrice}" class="d-none d-xl-table-cell"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -494,7 +413,10 @@ console.log(max);
 						borderDash : [ 3, 3 ],
 						gridLines : {
 							color : "rgba(0,0,0,0.0)"
-						}
+						},
+						scaleLabel: {
+							display: true,
+							labelString: '단위: 원'}
 					} ]
 				}
 			}
@@ -588,8 +510,12 @@ console.log(max);
 						stacked : false,
 						ticks : {
 							min : 0,
-							stepSize : parseInt(max/3/1000)*1000,
-						}
+							stepSize : parseInt(max3/3/10000)*10000,
+							max : max3
+						},
+						scaleLabel: {
+							display: true,
+							labelString: '단위: 원'}
 					} ],
 					xAxes : [ {
 						stacked : false,

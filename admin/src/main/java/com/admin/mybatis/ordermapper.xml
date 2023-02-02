@@ -121,7 +121,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE ordDet.orderKey = totOrd.orderKey 
 		AND DATE_FORMAT(totOrd.rdate, '%Y') = #{rdate} 
 		AND item.itemKey = ordDet.itemKey 
-		GROUP BY item.itemKey ORDER BY totPrice DESC;
+		GROUP BY item.itemKey ORDER BY totPrice DESC
+		LIMIT 10;
 	</select>
 
 	<!-- 연도별 BOT10 상품의 상품명, 가격, 누적주문량, 누적판매액 리스트 -->
@@ -131,7 +132,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE ordDet.orderKey = totOrd.orderKey 
 		AND DATE_FORMAT(totOrd.rdate, '%Y') = #{rdate} 
 		AND item.itemKey = ordDet.itemKey 
-		GROUP BY item.itemKey ORDER BY totPrice ASC;
+		GROUP BY item.itemKey ORDER BY totPrice ASC
+		LIMIT 10;
 	</select>
 	
 	
@@ -142,7 +144,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE ordDet.orderKey = totOrd.orderKey 
 		AND DATE_FORMAT(totOrd.rdate, '%m') = #{rdate} 
 		AND item.itemKey = ordDet.itemKey 
-		GROUP BY item.itemKey ORDER BY totPrice DESC;
+		GROUP BY item.itemKey ORDER BY totPrice DESC
+		LIMIT 10;
 	</select>
 	
 	<!-- 월별 BOT10 상품 상품명, 가격, 누적주문량, 누적판매액 리스트 상품 리스트 -->
@@ -152,7 +155,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE ordDet.orderKey = totOrd.orderKey 
 		AND DATE_FORMAT(totOrd.rdate, '%m') = #{rdate} 
 		AND item.itemKey = ordDet.itemKey 
-		GROUP BY item.itemKey ORDER BY totPrice ASC;
+		GROUP BY item.itemKey ORDER BY totPrice ASC
+		LIMIT 10;
 	</select>
 	
 	<!-- 일별 TOP10 상품 상품명, 가격, 누적주문량, 누적판매액 리스트 -->
@@ -162,7 +166,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE ordDet.orderKey = totOrd.orderKey 
 		AND DATE_FORMAT(totOrd.rdate, '%d') = #{rdate} 
 		AND item.itemKey = ordDet.itemKey 
-		GROUP BY item.itemKey ORDER BY totPrice DESC;
+		GROUP BY item.itemKey ORDER BY totPrice DESC
+		LIMIT 10;
 	</select>
 
 	<!-- 일별 TOP10 상품 상품명, 가격, 누적주문량, 누적판매액 리스트 -->
@@ -172,7 +177,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		WHERE ordDet.orderKey = totOrd.orderKey 
 		AND DATE_FORMAT(totOrd.rdate, '%d') = #{rdate} 
 		AND item.itemKey = ordDet.itemKey 
-		GROUP BY item.itemKey ORDER BY totPrice ASC;
+		GROUP BY item.itemKey ORDER BY totPrice ASC
+		LIMIT 10;
 	</select>
 	
 </mapper>
