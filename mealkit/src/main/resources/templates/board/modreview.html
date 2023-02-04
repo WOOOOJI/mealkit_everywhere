@@ -2,12 +2,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 <style> @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@500&display=swap'); </style>
 
-    <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
+    <div class="hero-wrap hero-bread" style="background-color: #82AE46;">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
           	<p style="font-size:20px;" class="breadcrumbs"><span class="mr-2"></span></p>
-            <h1 class="mb-0 bread" style="font-size:48px;">후기 수정</h1>
+            <h1 class="mb-0 bread" style="font-size:48px; color:#FFFFFF; background-color:#82AE46">후기 수정</h1>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
 			 	</td>
 			 </div>
 				<div text=""> </div>
-				<button type="button" class="btn btn-sm btn-primary" id="btnList" style="float:right; margin-left:10px" th:onclick="reviewDel([[${boardDTO.boardKey}]])">후기 삭제</button>
+				<button type="button" class="btn btn-sm btn-primary" id="btnList" style="float:right; margin-left:10px; color:#FFFFFF; background-color:#82AE46; border-color:#FFFFFF" th:onclick="reviewDel([[${boardDTO.boardKey}]])">후기 삭제</button>
 				<div text=""> </div> 
 			
 			 </tr>	
@@ -55,7 +55,7 @@
 			</div>	
             <hr>
     	      <!-- 근데 여기서 onclick할때 왜 []를 쓰고 썼었더라..? -->
-              <button type="button" class="btn btn-sm btn-primary" id="btnList" th:onclick="modReview([[${boardDTO.boardKey}]])">수정하기</button>
+              <button type="button" class="btn btn-sm btn-primary" id="btnList" style="color:#FFFFFF; background-color:#82AE46; border-color:#FFFFFF" th:onclick="modReview([[${boardDTO.boardKey}]])">수정하기</button>
               
               <!-- END comment-list -->
             </div>

@@ -38,10 +38,26 @@
 		
 		//후기 쓰기
 		$('#writeReview').click(function(){
-			var itemKey = '[[${item.itemKey}]]';
-			
-			
-			window.open('[[@{/board/writeReview?itemKey=}]]'+itemKey,'popup','width=640px,height=475px,resizable=no')
+			var goingObj = new Object();
+			goingObj.itemKey = '[[${item.itemKey}]]';
+
+			$.ajax({
+				url: "/board/reviewJudge",
+				type: "POST",
+				contentType: "application/json; charset=UTF-8",
+				data: JSON.stringify(goingObj),
+				dataType: 'JSON',
+				success: function(data){
+					alert(data);
+					if(data.flag == true){
+						window.open('[[@{/board/writeReview?itemKey=}]]'+goingObj.itemKey,'popup','width=640px,height=475px,left=800px,top=200px,resizable=yes')
+					}else{
+						alert("구매한 회원만 후기를 작성할수있습니다");
+						location.href="/shoplist/product?itemKey=" + goingObj.itemKey;
+					}
+				},
+				error: function(){alert("실패")},
+			})
 		}); 
 
 		
@@ -50,7 +66,7 @@
 			var itemKey = '[[${item.itemKey}]]';
 			
 			
-			window.open('[[@{/board/writeQuestion?itemKey=}]]'+itemKey,'popup','width=640px,height=475px,resizable=no')
+			window.open('[[@{/board/writeQuestion?itemKey=}]]'+itemKey,'popup','width=640px,height=475px,left=800px,top=200px,resizable=no')
 		}); 
 
 		
@@ -88,7 +104,24 @@
 				review += '<div class="one_review">';
 				review += '<div class="boardNum" id="reviewNum'+value.boardKey+'">'+ value.boardKey +'</div>';
 				review += '<div class="custKey" style="display:none">'+ value.custKey +'</div>';
-				review += '<div class="rate">'+ value.rate +'</div>';
+				review += '<div class="rate">';
+				
+					if(value.rate != 0){	
+						for(var i=0; i<value.rate; i++) {
+							review += '<a href="javascript:void(0);"><span class="ion-ios-star"></span></a>';
+						}
+						if(value.rate != 5){
+							for(var j=0; j<(5-value.rate); j++){
+								review += '<a href="javascript:void(0);"><span class="ion-ios-star-outline"></span></a>';
+							}
+						}
+					}else{
+						for(var k=0; k<5; k++){
+							review += '<a href="javascript:void(0);"><span class="ion-ios-star-outline"></span></a>';
+						}
+					}
+				
+				review += '</div>';
 				review += '<div class="title" onclick="showReview('+value.boardKey+')">'+ value.title +'</div>';
 				review += '<div class="rdate">'+ value.rdate +'</div>';
 				review += '</div>';
@@ -99,7 +132,11 @@
 				review += '</div>';
 				review += '</div>';
 			});
-			
+			if(result.length == 0){
+				review += '<div class="one_review">';
+				review += '<p style="font-size:18px; text-align:center">'+ '아직 후기가 없습니다' + '</p>';
+				review += '</div>'
+			}
 			$('.reviews1').html(review);
 			
 			var reviewBtn = '<div class="board_page1">';
@@ -172,6 +209,11 @@
 				question += '</div>';
 			});
 			
+			if(result.length == 0){
+				question += '<div class="one_review">';
+				question += '<p style="font-size:18px; text-align:center">'+ '아직 문의가 없습니다' + '</p>';
+				question += '</div>'
+			}
 			$('.questions').html(question);
 			
 			var questionBtn = '<div class="board_page2">';
@@ -194,23 +236,60 @@
 				
 			$('.board_page2').children().eq(1).addClass('on');
 		})
-			
-			
 		
-
-	});//End of ready(function())
+		
+		//상품 가격 위에 별점 보이는 기능
+		var avgRate = '[[${avgRate}]]';
+		
+		var	template = '<a href="javascript:void(0);" class="mr-2" style="font-size: 20px">'+ avgRate +'</a>';
+		if(avgRate != 0){	
+			for(var i=0; i<avgRate; i++) {
+				template += '<a href="javascript:void(0);"><span class="ion-ios-star" style="font-size: 20px"></span></a>';
+			}
+			if(avgRate != 5){
+				for(var j=0; j<(5-avgRate); j++){
+				template += '<a href="javascript:void(0);"><span class="ion-ios-star-outline" style="font-size: 20px"></span></a>';
+				}
+			}
+		}else if(avgRate == 0 || avgRate == null){
+			for(var k=0; k<5; k++){
+				template += '<a href="javascript:void(0);"><span class="ion-ios-star-outline" style="font-size: 20px"></span></a>';
+			}
+			
+		}
+		$('#starPrint').html(template);
+		
+		
+	});//End of ready(function())////////////////////////////////////////////////////////////////////////////////////////////////
 	
 
 	
+	//상품을 장바구니에 담는 기능
 	function insertCart(item) {
 		var itemKey = item;
 		var cnt = parseInt($('#quantity').val());
+		
+		var sure = confirm('장바구니에 담겠습니까?');
+		if(sure == true){
+			var moving = confirm('장바구니로 이동하시겠습니까?');
+			var goOrNot = 0;
+			if(moving == true){
+				goOrNot = 1;
+				location.href = "/cart/cartInsert?itemKey=" + itemKey + "&cnt=" + cnt + "&goOrNot=" + goOrNot;
+			}else{
+				goOrNot = 3;
+				location.href = "/cart/cartInsert?itemKey=" + itemKey + "&cnt=" + cnt + "&goOrNot=" + goOrNot;
+			}
+		}
 
-		location.href = "/cart/cartInsertToItemList?itemKey=" + itemKey
-				+ "&cnt=" + cnt;
 	};
 	
+	function insertWish(item) {
+		var itemKey = item;
+		var cnt = parseInt($('#quantity').val());
 
+		location.href = "/shoplist/product?itemKey=" + itemKey;
+	};
 	
 	
 	//-----------------------------------------------------------------------------------------------------------------
@@ -246,7 +325,24 @@
 				review += '<div class="one_review">';
 				review += '<div class="boardNum" id="reviewNum'+value.boardKey+'">'+ value.boardKey +'</div>';
 				review += '<div class="custKey" style="display:none">'+ value.custKey +'</div>';
-				review += '<div class="rate">'+ value.rate +'</div>';
+				review += '<div class="rate">';
+					
+					if(value.rate != 0){	
+						for(var i=0; i<value.rate; i++) {
+							review += '<a href="javascript:void(0);"><span class="ion-ios-star"></span></a>';
+						}
+						if(value.rate != 5){
+							for(var j=0; j<(5-value.rate); j++){
+								review += '<a href="javascript:void(0);"><span class="ion-ios-star-outline"></span></a>';
+							}
+						}
+					}else{
+						for(var k=0; k<5; k++){
+							review += '<a href="javascript:void(0);"><span class="ion-ios-star-outline"></span></a>';
+						}
+					}
+				
+				review += '</div>';
 				review += '<div class="title" onclick="showReview('+value.boardKey+')">'+ value.title +'</div>';
 				review += '<div class="rdate">'+ value.rdate +'</div>';
 				review += '</div>';
@@ -258,6 +354,7 @@
 				review += '</div>';
 				
 			});
+
 			
 			$('.reviews1').html(review);
 			
@@ -339,6 +436,7 @@
 				question += '</div>';
 			});
 			
+			
 			$('.questions').html(question);
 			
 			var questionBtn = '<div class="board_page2">';
@@ -414,8 +512,6 @@
 			//javaScript에서 div태그 값은 innerText로 가져온다(value가 아님!!)
 			if($('#reviewNum'+boardKey).text() == boardKey){
 				//TODO boardKey에 해당하는 후기 내용을 ajax로 가져올것
-				//TODO boardKey에 해당하는 후기 내용을 ajax로 가져올것
-				//TODO boardKey에 해당하는 후기 내용을 ajax로 가져올것
 				if($('#reviewNum'+boardKey).next().text() == '[[${custKey}]]'){
 					window.open('[[@{/board/modReview?itemKey=}]]'+itemKey+'&boardKey='+boardKey,'popup','width=640px,height=475px,resizable=no')
 				}else{
@@ -439,8 +535,6 @@
 			//javaScript에서 div태그 값은 innerText로 가져온다(value가 아님!!)
 			if($('#questionNum'+boardKey).text() == boardKey){
 				//TODO boardKey에 해당하는 문의 내용을 ajax로 가져올것
-				//TODO boardKey에 해당하는 문의 내용을 ajax로 가져올것
-				//TODO boardKey에 해당하는 문의 내용을 ajax로 가져올것
 				if($('#questionNum'+boardKey).next().text() == '[[${custKey}]]'){
 					window.open('[[@{/board/modQuestion?itemKey=}]]'+itemKey+'&boardKey='+boardKey,'popup','width=640px,height=475px,resizable=no')
 				}else{
@@ -455,7 +549,6 @@
 	}; 
 	
 </script>
-
 
 
 
@@ -1079,31 +1172,26 @@
 			<div class="col-lg-6 product-details pl-md-5 ftco-animate">
 				<h3 th:text="${item.name}"></h3>
 				<div class="rating d-flex">
-					<p class="text-left mr-4">
-						<a href="#" class="mr-2">5.0</a> <a href="#"><span
-							class="ion-ios-star-outline"></span></a> <a href="#"><span
-							class="ion-ios-star-outline"></span></a> <a href="#"><span
-							class="ion-ios-star-outline"></span></a> <a href="#"><span
-							class="ion-ios-star-outline"></span></a> <a href="#"><span
-							class="ion-ios-star-outline"></span></a>
+					<!-- 평점을 별로 나타내는 p태그 -->
+					<p class="text-left mr-4" id="starPrint">
+						
 					</p>
+					<!-- 후기가 몇개인지 나타내는 p태그 -->
 					<p class="text-left mr-4">
-						<a href="#" class="mr-2" style="color: #000;">100 <span
-							style="color: #bbb;">Rating</span></a>
+						<a href="#" class="mr-2" style="color: #000;"><!-- 후기 개수 --> <span
+							style="color: #bbb;"><!-- 후기 개수 --></span></a>
 					</p>
+					<!-- 이 상품이 몇개 팔렸는지 나타내는 p태그 -->
 					<p class="text-left">
-						<a href="#" class="mr-2" style="color: #000;">500 <span
-							style="color: #bbb;">Sold</span></a>
+						<a href="#" class="mr-2" style="color: #000;"><!-- 팔린 개수 --><span
+							style="color: #bbb;"><!-- 팔린 개수 --></span></a>
 					</p>
 				</div>
 				<p class="price">
-					<span th:text="${item.price}+원"></span>
+					<br>
+					<span th:text="${item.price}+원" style="font-size: 60px"></span>
 				</p>
-				<p>A small river named Duden flows by their place and supplies
-					it with the necessary regelialia. It is a paradisematic country, in
-					which roasted parts of sentences fly into your mouth. Text should
-					turn around and return to its own, safe country. But nothing the
-					copy said could convince her and so it didn’t take long until.</p>
+				<p><!-- 상품 상세페이지, 상품 상세 설명란 --></p>
 				<div class="row mt-4">
 					<div class="col-md-6">
 						<div class="form-group d-flex">
@@ -1148,13 +1236,14 @@
 
 					<div class="w-100"></div>
 					<div class="col-md-12">
-						<p style="color: #000;">600 kg available</p>
+						<p style="color: #000;"><!-- 상품 무게, 상품 크기등의 설명 --></p>
 					</div>
 				</div>
 				<p>
+
 					<a href="#" th:onclick="insertCart([[${item.itemKey}]])"
-						class="btn btn-black py-3 px-5">장바구니</a> <a href="cart.html"
-						class="btn btn-black py-3 px-5">찜</a>
+						class="btn btn-black py-3 px-5">장바구니</a> 
+					<a href="#" th:onclick="insertWish([[${item.itemKey}]])" class="btn btn-black py-3 px-5">찜</a>
 				</p>
 			</div>
 		</div>

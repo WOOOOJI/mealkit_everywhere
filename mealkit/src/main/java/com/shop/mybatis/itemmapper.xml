@@ -21,20 +21,43 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- itemKey 오름차순으로 데이터 모두 조회 (LIMIT-데이터 시작위치[0이 처음]와 시작위치를 기준으로 가져올 데이터의 개수) -->
 	<select id="getItemList" resultType="ItemDTO" parameterType="Criteria">
-		SELECT * FROM item
+		SELECT it.name, it.categoryKey, it.itemKey, it.img1, it.content, it.price, it.sale, it.rdate 
+		FROM item AS it
 		
-		<where>
-		<!-- 	<if test="keyword != null">
-				and name like concat('%' , #{keyword}, '%')
-			</if> -->
-			<if test="categoryKey != 0">
-				and categoryKey = #{categoryKey}
-			</if>
+		
+		<if test="order_cri == 'orD.cnt'">
+			LEFT OUTER JOIN orderDetail AS orD ON orD.itemKey = it.itemKey
 			
-		</where>
+			<if test="categoryKey != 0">
+				<where>
+					it.categoryKey = ${categoryKey}
+					<if test="keyword != null">
+						and it.name like concat('%' , #{keyword}, '%')
+					</if>
+				</where>
+			</if>
+			<if test="categoryKey == 0">
+				<if test="keyword != null">
+				WHERE it.name like concat('%' , #{keyword}, '%')
+				</if>
+			</if>
+			GROUP BY it.itemKey
+			ORDER BY sum(${order_cri}) ${asc_desc}
+		</if>
+	
 		
-		ORDER BY ${order_cri} ${asc_desc}
-		LIMIT #{skip}, #{amount}
+		<if test="order_cri != 'orD.cnt'">
+			<where>
+				<if test="categoryKey != 0">
+					and it.categoryKey = ${categoryKey}
+				</if>
+				<if test="keyword != null">
+					and it.name like concat('%' , #{keyword}, '%')
+				</if>
+			</where>
+			ORDER BY ${order_cri} ${asc_desc}
+		</if>
+		LIMIT ${skip}, ${amount}
 	</select>
 
 	
@@ -55,18 +78,22 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- 모든 상품 데이터 갯수 세기 -->
 	<select id="countItem" resultType="int" parameterType="Criteria">
-		SELECT count(*) FROM item 
-		
+		SELECT count(*) 
+		FROM item  
 		<where>
+			<if test="keyword != null">
+				and name like concat('%' , #{keyword}, '%')
+			</if>
 			<if test="categoryKey != 0">
-				and categoryKey = #{categoryKey}
+				and categoryKey = ${categoryKey}
 			</if>
 		</where>
+			
+		ORDER BY itemKey
 		
-		ORDER BY #{order_cri} 
-			<if test="asc_desc != null">
-				#{asc_desc}
-			</if>
+		<if test="asc_desc != null">
+			${asc_desc}
+		</if>
 	</select>
 
 	

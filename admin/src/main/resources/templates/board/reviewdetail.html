@@ -76,8 +76,10 @@
 
 	<script>
    function reviewDelete(boardKey){
-   	alert("정말 삭제하시겠습니까?");
-   	location.href="/admin/board/reviewDelete?boardKey="+boardKey;
-   }
-   
+	   	var chk = confirm("정말 삭제하시겠습니까?");
+		if(chk){
+	   		location.href="/admin/board/reviewDelete?boardKey="+boardKey;
+		}
+	   }
+	   
    </script>

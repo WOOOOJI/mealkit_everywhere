@@ -23,10 +23,10 @@ public class WishController {
 	WishService service;
 	
 	
-	// Cart의 html을 관리하는 폴더 경로
+	// html을 관리하는 폴더 경로
 		String dir = "wish/";
 		
-		// 카트 페이지로 이동         Move to cart.html Page        ------------------------------------------------------------------------------------------------
+		// 찜 페이지로 이동       
 		@GetMapping("/wish/list")
 		public String wishPage(Model model, HttpServletRequest req) {
 			
@@ -65,17 +65,10 @@ public class WishController {
 			return "main";
 		}	
 		
-		// 카트 페이지로 이동         Move to cart.html Page        ------------------------------------------------------------------------------------------------
-
 		
 		
 		
-		
-		
-		
-		
-		
-		// 찜 아이템 삭제.      Delete item of user's CART        ------------------------------------------------------------------------------------------------
+		// 찜 아이템 삭제.        
 			@ResponseBody
 			@PostMapping("/wish/delete")
 			public int wishList(int custKey) {
@@ -98,13 +91,10 @@ public class WishController {
 				
 				return result;
 			}
-		// 찜 아이템 삭제.      Delete item of user's CART        ------------------------------------------------------------------------------------------------
-			
-			
-			
+	
 			
 
-		// 찜에 상품 담기.     Insert Item on user's CART        ------------------------------------------------------------------------------------------------
+		// 찜에 상품 담기.          
 			@GetMapping("/wish/wishInsertToMain")
 			public String wishInsert(int itemKey,  HttpServletRequest req) {
 				
@@ -130,7 +120,7 @@ public class WishController {
 				return "redirect:/";
 			}
 			
-			// 찜에 상품 담기.  상품 리스트화면 리턴   Insert Item on user's CART        ------------------------------------------------------------------------------------------------
+			// 찜에 상품 담기.  상품 리스트화면 리턴   
 			@GetMapping("/wish/wishInsertToList")
 			public String wishInsertToList(int itemKey,  HttpServletRequest req) {
 				

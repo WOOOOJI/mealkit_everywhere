@@ -4,15 +4,6 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.shop.mapper.BoardMapper">
 	
-	<!-- 나의 문의 내역 리스트  -->
-	<select id="qnaList" parameterType="Integer" resultType="BoardDTO">
-		SELECT b.boardKey AS "boardKey", b.custKey AS "custKey", b.itemKey AS "itemKey", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
-		, c.username AS "username"
-	       FROM board b
-		JOIN customer c ON c.custKey = b.custKey
-		JOIN item i ON i.itemKey = b.itemKey
-		WHERE b.custKey = ${custKey} AND b.ntype = 'q'
-	</select>
 	
 	<!-- 나의 문의 글 상세보기 -->
 	<select id="qnaDetail" parameterType="Integer" resultType="BoardDTO">
@@ -23,18 +14,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		JOIN item i ON i.itemKey = b.itemKey
 		WHERE  b.boardKey = ${boardKey} AND b.ntype='q'
 	</select>
-		
-	<!-- 나의 후기 내역 리스트  -->
-	<select id="reviewList" parameterType="Integer" resultType="BoardDTO">
-		SELECT b.boardKey AS "boardKey", b.custKey AS "custKey", b.itemKey AS "itemKey", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
-		, c.username AS "username"
-	       FROM board b
-		JOIN customer c ON c.custKey = b.custKey
-		JOIN item i ON i.itemKey = b.itemKey
-		WHERE b.custKey = ${custKey} AND b.ntype = 'r'
-	</select>
-	
-		<!-- 나의 후기 글 상세보기 -->
+
+	<!-- 나의 후기 글 상세보기 -->
 	<select id="reviewDetail" parameterType="Integer" resultType="BoardDTO">
 		SELECT b.boardKey AS "boardKey", b.custKey AS "custKey", b.itemKey AS "itemKey", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
 		, c.username AS "username", b.rdate AS "rdate"
@@ -53,30 +34,41 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	
 	<!-- 특정 상품의 후기 갯수 세기 -->
 	<select id="countReviews" resultType="int" parameterType="Criteria">
-		SELECT count(*) FROM board WHERE itemKey = ${itemKey} AND ntype = 'r'
-		
+		SELECT count(*) FROM board b 
+		JOIN customer c ON c.custKey = b.custKey
+		WHERE ntype = 'r' AND b.custKey= ${custKey}
 		ORDER BY boardKey DESC
 	</select>
 
 	<!-- 특정 상품의 문의 갯수 세기 -->
 	<select id="countQuestions" resultType="int" parameterType="Criteria">
-		SELECT count(*) FROM board WHERE itemKey = ${itemKey} AND ntype = 'q'
-		
+		SELECT count(*) FROM board b
+		JOIN customer c ON c.custKey = b.custKey
+		WHERE ntype = 'q'AND b.custKey= ${custKey}
 		ORDER BY boardKey DESC
 	</select>
-	
+
 	<!-- 후기 전체 리스트 -->
 	<select id="getReviewsList" resultType="BoardDTO" parameterType="Criteria">
-		SELECT * FROM board WHERE itemKey = ${itemKey} AND ntype = 'r'
-					
-		ORDER BY boardKey DESC LIMIT #{skip}, #{amount}
+		SELECT b.boardKey AS "boardKey", b.custKey AS "custKey", b.itemKey AS "itemKey", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
+		, c.username AS "username"
+	    FROM board b 
+		JOIN customer c ON c.custKey = b.custKey
+		JOIN item i ON i.itemKey = b.itemKey
+		WHERE b.custKey = ${custKey} AND b.ntype = 'r'			
+		ORDER BY boardKey DESC 
+		LIMIT #{skip}, #{amount}
 	</select>
 
 	<!-- 문의 전체 리스트 -->
 	<select id="getQuestionsList" resultType="BoardDTO" parameterType="Criteria">
-		SELECT * FROM board WHERE itemKey = ${itemKey} AND ntype = 'q'
-					
-		ORDER BY boardKey DESC
+		SELECT b.boardKey AS "boardKey", b.custKey AS "custKey", b.itemKey AS "itemKey", b.ntype AS "ntype", b.title AS "title", b.rdate AS "rdate", b.content AS "content" , b.img AS "img", b.rate AS "rate", i.name AS "name", i.price AS "price"
+		, c.username AS "username"
+	    FROM board b 
+		JOIN customer c ON c.custKey = b.custKey
+		JOIN item i ON i.itemKey = b.itemKey
+		WHERE b.custKey = ${custKey} AND b.ntype = 'q'				
+		ORDER BY boardKey DESC 
 		LIMIT #{skip}, #{amount}
 	</select>
 	
@@ -103,5 +95,21 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SET content = #{content}  
 		WHERE boardKey = ${boardKey}
 	</update>
-
+	
+	<select id="getRate" resultType="Integer" parameterType="Integer">
+		SELECT IFNULL(round(avg(rate)),0) 
+		FROM board WHERE itemKey = ${itemKey} AND ntype = 'r' AND rate;
+	</select>
+	
+	<select id="searchedItemKey" resultType="Integer" parameterType="BoardDTO">
+		SELECT count(ordD.itemKey) 
+		FROM orderDetail AS ordD
+		RIGHT OUTER JOIN totalorder AS totO ON totO.orderKey = ordD.orderKey AND totO.custKey = ${custKey}
+		WHERE ordD.itemKey = ${itemKey};
+	</select>
+	
+	<select id="modifyReview" resultType="BoardDTO" parameterType="BoardDTO">
+		SELECT * FROM board 
+		WHERE custKey = ${custKey} AND itemKey = ${itemKey} AND boardKey = ${boardKey} AND ntype = 'r';
+	</select>
 </mapper>

@@ -533,17 +533,21 @@
 	
 													<label>
 															[  차단된 회원 정렬 
-															<svg onclick="alignBannedAsc()" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+															<svg onclick="alignBannedAsc()" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="24" 
+															height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
 															stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up align-middle me-2">
 															<polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
-															<svg onclick="alignBannedDesc()" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+															<svg onclick="alignBannedDesc()" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="24" 
+															height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
 															stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-down align-middle me-2">
 															<polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline></svg>]
 															[  생년월일 정렬 
-															<svg onclick="alignBthdateAsc()" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+															<svg onclick="alignBthdateAsc()" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="24" 
+															height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
 															stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up align-middle me-2">
 															<polyline points="17 11 12 6 7 11"></polyline><polyline points="17 18 12 13 7 18"></polyline></svg>
-															<svg onclick="alignBthdateDesc()" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+															<svg onclick="alignBthdateDesc()" style="cursor:pointer" xmlns="http://www.w3.org/2000/svg" width="24" 
+															height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" 
 															stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-down align-middle me-2">
 															<polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline></svg>]
 													</label>
@@ -553,9 +557,12 @@
 											<div class="col-sm-12 col-md-6">
 												<div id="datatables-reponsive_filter" class="dataTables_filter">
 													<form name="searchKeyword" action="/admin/customer" method="get">
-														<label>이메일 :<input type="search" name="emailKeyword" class="form-control form-control-sm" placeholder="ex)abc@gmail.com" aria-controls="datatables-reponsive" style="width:140px"></label>
-														<label>이름 :<input type="search" name="nameKeyword" class="form-control form-control-sm" placeholder="ex)홍길동" aria-controls="datatables-reponsive" style="width:85px"></label>
-														<label>전화번호 :<input type="search" name="phNumberKeyword" class="form-control form-control-sm" placeholder="ex)1234-4321" aria-controls="datatables-reponsive" style="width:130px"></label>
+														<label>이메일 :<input type="search" name="emailKeyword" class="form-control form-control-sm" 
+														placeholder="ex)abc@gmail.com" aria-controls="datatables-reponsive" style="width:140px"></label>
+														<label>이름 :<input type="search" name="nameKeyword" class="form-control form-control-sm" 
+														placeholder="ex)홍길동" aria-controls="datatables-reponsive" style="width:85px"></label>
+														<label>전화번호 :<input type="search" name="phNumberKeyword" class="form-control form-control-sm" 
+														placeholder="ex)01012344321" aria-controls="datatables-reponsive" style="width:130px"></label>
 														<input type="submit" style="background-color:#71aade" value="검색">
 													</form>
 												</div>
@@ -563,7 +570,8 @@
 										</div>
 										<div class="row">
 											<div class="col-sm-12">
-												<table id="datatables-reponsive" class="table table-striped dataTable no-footer dtr-inline" style="width: 100%;" aria-describedby="datatables-reponsive_info">
+												<table id="datatables-reponsive" class="table table-striped dataTable no-footer dtr-inline" style="width: 100%;" 
+												aria-describedby="datatables-reponsive_info">
 													<thead>
 													
 														<tr>
@@ -624,10 +632,15 @@
 																th:classappend="${customer.signout == 'Y'} ? 'badge bg-warning' : 'badge bg-success'"
 																th:text="${customer.signout}" style="text-align : center"></span></td>
 															<td>
-																<span th:classappend="${customer.banned == 'Y'} ? '' : 'hide'" th:onclick="changeLocked([[${customer.custKey}]])" style="cursor:pointer" th:id="${customer.custKey}" th:value="${customer.banned}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock align-middle me-2">
+																<span th:classappend="${customer.banned == 'Y'} ? '' : 'hide'" th:onclick="changeLocked([[${customer.custKey}]])" 
+																style="cursor:pointer" th:id="${customer.custKey}" th:value="${customer.banned}">
+																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
+																stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock align-middle me-2">
 																		<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
 																</span>
-																<span th:classappend="${customer.banned == 'N'} ? '' : 'hide'" th:onclick="changeLocked([[${customer.custKey}]])" style="cursor:pointer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-unlock align-middle me-2">
+																<span th:classappend="${customer.banned == 'N'} ? '' : 'hide'" th:onclick="changeLocked([[${customer.custKey}]])" 
+																style="cursor:pointer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
+																stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-unlock align-middle me-2">
 																		<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
 																</span>
 															</td>
@@ -645,15 +658,21 @@
 												<div class="dataTables_paginate paging_simple_numbers" id="datatables-reponsive_paginate">
 													<ul class="pagination">
 														<li class="paginate_button page-item previous" id="datatables-reponsive_previous">
-															<a th:if="${pageMaker.prev == true}" th:href="@{/customer(pageNum = ${pageMaker.pageStart - 1}, ascDesc = ${ascDesc}, orderCri=${orderCri}, amount=${amountCust})}" class="page-link">Prev</a>
+															<a th:if="${pageMaker.prev == true}" th:href="@{/customer(pageNum = ${pageMaker.pageStart - 1}, ascDesc = ${ascDesc}, 
+															orderCri=${orderCri}, amount=${amountCust}, emailKeyword=${emailKeyword}, nameKeyword=${nameKeyword}, 
+															phNumberKeyword=${phNumberKeyword})}" class="page-link">Prev</a>
 														</li>
 														
 														<li class="paginate_button page-item pageList" th:each="pageNum : ${pageNumList}" th:id="'pageNum'+${pageNum}">
-															<a class="page-link" th:href="@{/customer(pageNum = ${pageNum}, ascDesc = ${ascDesc}, orderCri=${orderCri}, amount=${amountCust})}" th:text="${pageNum}"></a>
+															<a class="page-link" th:href="@{/customer(pageNum = ${pageNum}, ascDesc = ${ascDesc}, orderCri=${orderCri}, amount=${amountCust},
+																							emailKeyword=${emailKeyword}, nameKeyword=${nameKeyword}, phNumberKeyword=${phNumberKeyword})}" 
+															th:text="${pageNum}"></a>
 														</li>
 														
 														<li class="paginate_button page-item next" 	id="datatables-reponsive_next">
-															<a th:if="${pageMaker.next == true}" th:href="@{/customer(pageNum = ${pageMaker.pageEnd + 1}, ascDesc = ${ascDesc}, orderCri=${orderCri}, amount=${amountCust})}" class="page-link">Next</a>
+															<a th:if="${pageMaker.next == true}" th:href="@{/customer(pageNum = ${pageMaker.pageEnd + 1}, ascDesc = ${ascDesc}, 
+															orderCri=${orderCri}, amount=${amountCust}, emailKeyword=${emailKeyword}, nameKeyword=${nameKeyword}, 
+															phNumberKeyword=${phNumberKeyword})}" class="page-link">Next</a>
 														</li>
 													</ul>
 												</div>
@@ -686,7 +705,11 @@
 		function changeCnt(amount){
 			var orderCri = '[[${orderCri}]]';
 			var ascDesc = '[[${ascDesc}]]';
-			var amountValue = amount+'&orderCri='+orderCri+'&ascDesc='+ascDesc;
+			var emailKeyword = '[[${emailKeyword}]]';
+			var nameKeyword = '[[${nameKeyword}]]';
+			var phNumberKeyword = '[[${phNumberKeyword}]]';
+			var amountValue = amount+'&orderCri='+orderCri+'&ascDesc='+ascDesc+'&emailKeyword='+emailKeyword
+							+'&nameKeyword='+nameKeyword+'&phNumberKeyword='+phNumberKeyword;
 			location.href='[[@{/customer?amount=}]]'+amountValue;
 		};
 		  
@@ -694,17 +717,24 @@
 		function changeLocked(custKey){
 			var orderCri = '[[${orderCri}]]';
 			var ascDesc = '[[${ascDesc}]]';
+			var emailKeyword = '[[${emailKeyword}]]';
+			var nameKeyword = '[[${nameKeyword}]]';
+			var phNumberKeyword = '[[${phNumberKeyword}]]';
 			var amountValue = '[[${amountCust}]]';
 			let bannedValue = document.getElementById(custKey).getAttribute('value');
 			
 			alert("회원번호가 "+custKey+"번인 회원이 맞습니까?");
 			if(bannedValue == 'N'){
 				if(confirm("정말 차단하시겠습니까?")){
-					location.href='[[@{/customer/locked?custKey=}]]'+custKey+'&banned=Y'+'&orderCri='+orderCri+'&ascDesc='+ascDesc+'&amount='+amountValue;
+					location.href='[[@{/customer/locked?custKey=}]]'+custKey+'&banned=Y'+
+					'&orderCri='+orderCri+'&ascDesc='+ascDesc+'&amount='+amountValue+'&emailKeyword='+emailKeyword
+					+'&nameKeyword='+nameKeyword+'&phNumberKeyword='+phNumberKeyword;
 				}
 			}else if(bannedValue == 'Y'){
 				if(confirm("정말 차단 해제하시겠습니까?")){
-					location.href='[[@{/customer/locked?custKey=}]]'+custKey+'&banned=N'+'&orderCri='+orderCri+'&ascDesc='+ascDesc+'&amount='+amountValue;
+					location.href='[[@{/customer/locked?custKey=}]]'+custKey+'&banned=N'+
+					'&orderCri='+orderCri+'&ascDesc='+ascDesc+'&amount='+amountValue+'&emailKeyword='+emailKeyword
+					+'&nameKeyword='+nameKeyword+'&phNumberKeyword='+phNumberKeyword;
 				}
 			}
 		};
@@ -712,28 +742,44 @@
 		
 		function alignBannedAsc(){
 			var custAmount = '[[${amountCust}]]';
-			var banned = 'banned&ascDesc=Asc&amount='+custAmount;
+			var emailKeyword = '[[${emailKeyword}]]';
+			var nameKeyword = '[[${nameKeyword}]]';
+			var phNumberKeyword = '[[${phNumberKeyword}]]';
+			var banned = 'banned&ascDesc=Asc&amount='+custAmount+'&emailKeyword='+emailKeyword
+						+'&nameKeyword='+nameKeyword+'&phNumberKeyword='+phNumberKeyword;
 			location.href='[[@{/customer?orderCri=}]]'+banned;
 		}
 		
 		
 		function alignBthdateAsc(){
 			var custAmount = '[[${amountCust}]]';
-			var jumin = 'jumin&ascDesc=Asc&amount='+custAmount;
+			var emailKeyword = '[[${emailKeyword}]]';
+			var nameKeyword = '[[${nameKeyword}]]';
+			var phNumberKeyword = '[[${phNumberKeyword}]]';
+			var jumin = 'jumin&ascDesc=Asc&amount='+custAmount+'&emailKeyword='+emailKeyword
+						+'&nameKeyword='+nameKeyword+'&phNumberKeyword='+phNumberKeyword;
 			location.href='[[@{/customer?orderCri=}]]'+jumin;
 		}
 		
 		
 		function alignBannedDesc(){
 			var custAmount = '[[${amountCust}]]';
-			var banned = 'banned&ascDesc=desc&amount='+custAmount;
+			var emailKeyword = '[[${emailKeyword}]]';
+			var nameKeyword = '[[${nameKeyword}]]';
+			var phNumberKeyword = '[[${phNumberKeyword}]]';
+			var banned = 'banned&ascDesc=desc&amount='+custAmount+'&emailKeyword='+emailKeyword
+						+'&nameKeyword='+nameKeyword+'&phNumberKeyword='+phNumberKeyword;
 			location.href='[[@{/customer?orderCri=}]]'+banned;
 		}
 		
 		
 		function alignBthdateDesc(){
 			var custAmount = '[[${amountCust}]]';
-			var jumin = 'jumin&ascDesc=desc&amount='+custAmount;
+			var emailKeyword = '[[${emailKeyword}]]';
+			var nameKeyword = '[[${nameKeyword}]]';
+			var phNumberKeyword = '[[${phNumberKeyword}]]';
+			var jumin = 'jumin&ascDesc=desc&amount='+custAmount+'&emailKeyword='+emailKeyword
+						+'&nameKeyword='+nameKeyword+'&phNumberKeyword='+phNumberKeyword;
 			location.href='[[@{/customer?orderCri=}]]'+jumin;
 		}
 		

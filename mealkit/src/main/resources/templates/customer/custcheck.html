@@ -75,8 +75,8 @@
 						<form id="custcheckForm" th:action="@{/customer/updatePwdForm}" method="post">
 								<div class="form-floating mb-3">
 									<input name="email" type="email" class="form-control"
-										id="email" placeholder="name@example.com"> <label
-										for="email">Email address</label>
+										id="email" th:value="${session.email}" readonly="readonly"> <label
+										for="email"></label>
 								</div>
 								<div class="form-floating mb-3">
 									<input name="userpwd" type="password" class="form-control"

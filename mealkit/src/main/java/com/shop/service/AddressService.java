@@ -115,4 +115,16 @@ public class AddressService implements MyService<Integer, AddressDTO>{
 		}
 	}
 	
+	public void setDefaultAddress(int custKey,int adderKey) {
+		try {
+			if(mapper.checkDefault(custKey)!=null) {
+				mapper.deleteDefAddr(custKey);
+			}
+			mapper.setDefaultAddress(adderKey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+
 }

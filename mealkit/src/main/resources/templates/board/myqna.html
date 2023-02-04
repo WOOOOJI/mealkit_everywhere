@@ -21,6 +21,16 @@
 		background-color:#fefbd8;
 		font-size:130%;
 	}
+	
+	#pageList > .active{
+		background: #82ae46;
+    	color: #fff;
+      	border: 1px solid transparent;
+	}
+	
+	#pageSection{
+		margin-left:400px;
+	}
 </style>
 
 <script>
@@ -90,8 +100,34 @@
 					  </div>
     			</div>
     		</div>
-    		<div class="row justify-content-end">
-
-    		</div>
+				
+				
+				<!-- 페이징 바 -->
+					    	 <div class="row mt-9" id="pageSection">
+					          <div class="col text-center">
+					            <div class="block-27">
+					              <ul style="float:left">
+					                <!-- 이전 버튼 -->
+					                <li class="prevbtn"><a th:if="${pageMaker.prev == true}" th:href="@{/board/qnalist(pageNum = ${pageMaker.pageStart - 1})}">&lt;</a></li>
+										<!-- 페이지 번호 출력 -->
+					                	<li th:each="pageNum : ${pageNumList}" class="page-item" th:id="${pageNum}">
+					                		<!-- class="active" -->
+					                		<a th:id="${pageNum}"  th:href="@{/board/qnalist(pageNum = ${pageNum})}" 
+					                		th:text="${pageNum}"></a>
+					                	</li>
+					                <!-- 다음 버튼 -->
+					                <li class="nextbtn"><a th:if="${pageMaker.next == true}" 
+					                	th:href="@{/board/qnalist(pageNum = ${pageMaker.pageEnd + 1})}">&gt;</a></li>
+					              </ul>
+					            </div>
+					          </div>
+					        </div>
 			</div>
 		</section>
+
+<script>
+	$(document).ready(function(){
+		var pageNum='[[${pageNum}]]';
+        document.getElementById(pageNum).className='active';		
+	});
+</script>

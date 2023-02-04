@@ -18,11 +18,13 @@ public class WebConfig implements WebMvcConfigurer {
       registry.addInterceptor(loginInterceptor)
               .addPathPatterns("/cart/**")
               .addPathPatterns("/wish/**")
-              .addPathPatterns("/order")
+              .addPathPatterns("/order/**")
               .addPathPatterns("/board/writeReview")
               .addPathPatterns("/board/modReview")
               .addPathPatterns("/board/writeQuestion")
               .addPathPatterns("/board/modQuestion")
+              .addPathPatterns("/board/reviewlist", "/board/qnalist")
+              .addPathPatterns("/customer/orderlist" , "/customer/signoutForm", "/customer/custcheckform", "/customer/updatePwdForm")
               .excludePathPatterns("/", "/fonts/**", "/css/**", "/images/**", "/js/**", "/customer/login", "/logincheck.do*");
   }
 }

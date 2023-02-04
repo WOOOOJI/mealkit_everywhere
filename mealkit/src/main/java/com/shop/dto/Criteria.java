@@ -39,6 +39,10 @@ import lombok.ToString;
 	  //상품 번호
 	  private int itemKey;
 	  
+	  
+	  private int custKey;
+	  
+	  
 	  //디폴트값을 설정하는 기본 생성자 
 	  public Criteria() { 
 		 this.pageNum = 1;

@@ -36,8 +36,10 @@ public class CustomerController {
 
 		if(!customerList.isEmpty()) {
 			model.addAttribute("customerList", customerList);
+			
 		}else {
 			model.addAttribute("customerList", "empty");
+			System.out.println("empty로 넘어감");
 		}
 
 		model.addAttribute("pageNumList", pageResponseDTO.getPageNumList());
@@ -47,6 +49,9 @@ public class CustomerController {
 		model.addAttribute("ascDesc", cri.getAscDesc());
 		model.addAttribute("orderCri", cri.getOrderCri());
 		model.addAttribute("amountCust", cri.getAmount());
+		model.addAttribute("emailKeyword", cri.getEmailKeyword());
+		model.addAttribute("nameKeyword", cri.getNameKeyword());
+		model.addAttribute("phNumberKeyword", cri.getPhNumberKeyword());
 		model.addAttribute("criteria", cri);
 
 		model.addAttribute("content", "/customer/customerPage");

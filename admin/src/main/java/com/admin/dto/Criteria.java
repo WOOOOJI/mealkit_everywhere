@@ -50,8 +50,10 @@ import lombok.ToString;
 	  //차순
 	  private String ascDesc = "desc";
 
-	  //디폴트값을 설정하는 기본 생성자
-	  public Criteria() {
+
+
+	  //디폴트값을 설정하는 기본 생성자 
+	  public Criteria() { 
 		 this.pageNum = 1;
 		 this.amount = 12;
 	  }
