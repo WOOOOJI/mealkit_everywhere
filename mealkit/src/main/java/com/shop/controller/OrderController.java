@@ -182,6 +182,21 @@ public class OrderController {
 
 		return "redirect:/order/selectaddr";
 	}
+	
+	// 기본배송지설정
+	@RequestMapping("/setDefaultAddr")
+	public String setDefaultAddr(@RequestParam(value = "addrKey", defaultValue = "0") int addrKey, HttpSession session,
+			Model model) {
+		// 기본배송지 설정에서의 흐름
+		// 1. 폼에서 addrKey를 받아온다
+		// 2. addrKey로 기본배성지로 설정
+		int custKey = (int) session.getAttribute("custKey");
+		
+		addrservice.setDefaultAddress(custKey,addrKey);
+
+		return "redirect:/order/selectaddr";
+	}
+	
 
 	// 결제페이지
 	@RequestMapping("/payment")
@@ -194,7 +209,12 @@ public class OrderController {
 		// 4. item 테이블의 cnt를 주문한 양 만큼 낮추기
 		// 5. 장바구니 내역 삭제
 		// 6. 주문내역 페이지 보여주기
-
+		
+		//주문 내용 없이 실수로 결제페이지 들어왔을 경우 다시 main으로 돌려보냄
+		if(payment==0||addrKey==0) {
+			return "redirect:/";
+		}
+		
 		List<OrderDTO> cartToOrder = null;
 		int orderKey;
 		List<OrderDetailDTO> det = null;

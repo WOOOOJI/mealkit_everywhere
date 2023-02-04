@@ -45,26 +45,7 @@
 
 </style>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script>
 
-function goSubmit() {
-    window.opener.name = "parentPage"; // 부모창의 이름 설정
-    document.addr_form.target = "parentPage"; // 타켓을 부모창으로 설정
-    document.addr_form.action = "[[@{/order}]]";
-    document.addr_form.submit();
-    self.close();
-}
-
-
-function deleteAddr() {
-	if(confirm('배송지를 삭제하시겠습니까?')){
-    document.addr_form.action = "[[@{/order/deleteAddr}]]";
-    document.addr_form.submit();
-	}else{
-		return false;
-	}
-}
-</script>
 
     <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
       <div class="container">
@@ -76,9 +57,36 @@ function deleteAddr() {
     </div>
     
 	<h3 class="mb-4 billing-heading">배송지 선택</h3>
+
+	    				<table style="width:700px !important" class="table">
+						    <thead class="thead-primary">
+						      <tr class="text-center">
+						     	<th style="width:1%">&nbsp;</th>
+						      	<th style="width:4%">받는 분 성함</th>
+						      	<th style="width:5%">전화번호</th>
+						        <th style="width:10%">주소</th>
+						        <th style="width:3%">우편번호</th>
+						        <th style="width:10%">요청사항</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						    <form class="billing-form" name="addr_form" id="addr_form" method="POST">
+						      <tr th:each="ad:${addrlist}" class="text-center">
+						      	<td><input th:if="${ad.def}=='Y'" checked type="radio" name="addrKey" th:value="${ad.addrKey}"><input th:if="${ad.def}=='N'" type="radio" name="addrKey" th:value="${ad.addrKey}"></td>
+						      	<td><input type="text" class="form-control" th:value="${ad.name}" readonly="readonly"></td>
+						      	<td><input type="text" class="form-control" th:value="${ad.tel}" readonly="readonly"></td>
+						      	<td><input type="text" class="form-control" th:value="${ad.addr}+', '+${ad.addrDetail}" readonly="readonly"></td>
+						      	<td><input type="text" class="form-control" th:value="${ad.zipcode}" readonly="readonly"></td>
+						      	<td><input type="text" class="form-control" th:value="${ad.req}" readonly="readonly"></td>
+						      </tr><!-- END TR-->
+</form>
+						    </tbody>
+						  </table>
+<!-- 
 	<form class="billing-form" name="addr_form" id="addr_form" method="POST">
 		<ul th:each="ad:${addrlist}" id="ad">
-			<li><input type="radio" name="addrKey" th:value="${ad.addrKey}"></li>
+			<li><input th:if="${ad.def}=='Y'" checked type="radio" name="addrKey" th:value="${ad.addrKey}"></li>
+			<li><input th:if="${ad.def}=='N'" type="radio" name="addrKey" th:value="${ad.addrKey}"></li>
 			<li><input type="text" class="form-control" th:value="${ad.name}" readonly="readonly"></li>
 			<li><input type="text" class="form-control" th:value="${ad.tel}" readonly="readonly"></li>
 			<li><input type="text" class="form-control" th:value="${ad.addr}+${ad.addrDetail}" readonly="readonly"></li>
@@ -86,9 +94,72 @@ function deleteAddr() {
 			<li><input type="text" class="form-control" th:value="${ad.req}" readonly="readonly"></li>
 		</ul>
 	</form>
+ -->
 	
-
-	<a href="#"class="btn btn-primary py-3 px-4" style="float:right" id="closeAddr" onclick="javascript:window.close()">닫기</a>
-	<a href="#"class="btn btn-primary py-3 px-4" style="float:right" id="deleteAddr" onclick="deleteAddr()">삭제</a>
-	<a th:href="@{/order/addaddr}"class="btn btn-primary py-3 px-4" style="float:right" id="add_addr">추가</a>
+	<a href="#"class="btn btn-primary py-3 px-4" style="float:right; margin-left:8px;" id="closeAddr" onclick="javascript:window.close()">닫기</a>
+	<a href="#"class="btn btn-primary py-3 px-4" style="float:right; margin-left:8px;" id="deleteAddr" onclick="deleteAddr()">삭제</a>
+	<a href="#"class="btn btn-primary py-3 px-4" style="float:right; margin-left:8px;" id="add_addr" onclick="addAddr()">추가</a>
 	<button class="btn btn-primary py-3 px-4" id="select_addr" onclick="goSubmit()">선택</button>
+	<a href="#"class="btn btn-primary py-3 px-4" style="float:right" id="defaultAddr" onclick="defaultAddr()">기본 배송지로 설정</a>
+	<script>
+
+function goSubmit() {
+	var listVar = $('input[name=addrKey]').is(":checked");
+	if(!listVar){
+		alert('배송지를 선택해주세요.');
+		return false
+	}
+	
+    window.opener.name = "parentPage"; // 부모창의 이름 설정
+    document.addr_form.target = "parentPage"; // 타켓을 부모창으로 설정
+    document.addr_form.action = "[[@{/order}]]";
+    document.addr_form.submit();
+    self.close();
+}
+
+
+function deleteAddr() {
+	var listVar = $('input[name=addrKey]').is(":checked");
+	if(!listVar){
+		alert('배송지를 선택해주세요.');
+		return false
+	}
+	
+	if(confirm('배송지를 삭제하시겠습니까?')){
+    document.addr_form.action = "[[@{/order/deleteAddr}]]";
+    document.addr_form.submit();
+	}else{
+		return false;
+	}
+}
+
+function defaultAddr(){
+	var listVar = $('input[name=addrKey]').is(":checked");
+	if(!listVar){
+		alert('배송지를 선택해주세요.');
+		return false
+	}
+	
+	if(confirm('기본 배송지로 설정하시겠습니까?')){
+		   document.addr_form.action ="[[@{/order/setDefaultAddr}]]";
+		   document.addr_form.submit();
+	}else{
+		return false;
+	}	
+}
+
+function addAddr(){
+	if('[[${#lists.size(addrlist)}]]'<3){
+		location.href="[[@{/order/addaddr}]]";
+	}else{
+		alert('배송지는 최대 3개 가능합니다.');
+		return false;
+	}
+}
+</script>
+
+<style>
+tr>td>input{
+	font-size: small !important;
+}
+</style>
