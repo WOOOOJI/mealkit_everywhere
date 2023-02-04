@@ -28,8 +28,6 @@ import com.shop.service.BoardService;
 import com.shop.service.CategoryService;
 import com.shop.service.ItemService;
 
-//log를 찍어보기위한 Annotation
-
 @Controller
 @RequestMapping("/shoplist")
 public class ItemController {
@@ -49,21 +47,21 @@ public class ItemController {
 	@RequestMapping("")
 	public String main(@RequestParam(defaultValue="0", value="categoryKey") int categoryKey,
 					   @RequestParam(defaultValue="1", value="pageNum") int pageNum,
+					   @RequestParam(required = false, value = "keyword") String keyword,
 					   @RequestParam(required = false, defaultValue = "itemKey", value = "order_cri") String order_cri,
 					   @RequestParam(required = false, defaultValue = "desc", value = "asc_desc") String asc_desc,
 					   Model model, Criteria cri) {
 
-		
+		System.out.println(keyword);
 		List<ItemDTO> itemList = new ArrayList<>();
-		//ItemPageResponseDTO(active, pageNumList, content를 묶어주기 위한 DTO) 선언 및 초기화
-		
 		
 		cri.setOrder_cri(order_cri);
+		cri.setKeyword(keyword);
 		cri.setCategoryKey(categoryKey);
 		cri.setAsc_desc(asc_desc);
 		
+		//ItemPageResponseDTO(active, pageNumList, content를 묶어주기 위한 DTO) 선언 및 초기화
 		PageResponseDTO PageResponseDTO = itemService.getItemPageMaker(cri);
-		
 		List<CategoryDTO> categoryDTOList = categoryService.get();
 		
 		itemList = itemService.getItemList(cri);
@@ -96,7 +94,7 @@ public class ItemController {
 	//상품 상세 페이지 매핑
 	@RequestMapping("/product")
 	public String product(@RequestParam(required = true, value="itemKey") int itemKey, 
-						  HttpSession session, Criteria cri, Model model) {
+						  HttpSession session, Model model) {
 		
 		if(session.getAttribute("custKey")!=null) {
 			int custKey = (int) session.getAttribute("custKey");
@@ -104,11 +102,17 @@ public class ItemController {
 			ItemDTO itemDTO = itemService.get(itemKey);
 			model.addAttribute("content", dir+"product");
 			model.addAttribute("item", itemDTO);
-		}else {
+
+			int avgRate = boardService.getRate(itemKey);
+			model.addAttribute("avgRate", avgRate);
 			
+		}else {
 			ItemDTO itemDTO = itemService.get(itemKey);
 			model.addAttribute("content", dir+"product");
 			model.addAttribute("item", itemDTO);
+
+			int avgRate = boardService.getRate(itemKey);
+			model.addAttribute("avgRate", avgRate);
 		}
 		
 		

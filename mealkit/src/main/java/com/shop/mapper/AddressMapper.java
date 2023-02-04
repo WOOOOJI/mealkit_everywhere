@@ -22,6 +22,9 @@ public interface AddressMapper extends MyMapper<Integer, AddressDTO>{
 	public AddressDTO addrKey(int addrKey) throws Exception;
 	//배송지 추가하기
 	public void insertAddress(int custKey,AddressDTO address) throws Exception;
-	//배송지 삭제하기
+	//기본 배송지 설정
+	public void setDefaultAddress(int addrKey) throws Exception;
+	//회원의 기본 배송지 삭제
+	public void deleteDefAddr(int custKey) throws Exception;
 }
 

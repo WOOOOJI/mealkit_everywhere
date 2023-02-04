@@ -206,6 +206,8 @@ public class CartController {
 						service.increaseCart(c.getCartKey(), itemKey, cnt);
 						if(goOrNot == 1) return "redirect:/cart/list";
 						if(goOrNot == 2) return "redirect:/shoplist";
+						//상품상세페이지에서 장바구니에 담고 그대로 머무는 경우
+						if(goOrNot == 3) return "redirect:/shoplist/product?itemKey=" + itemKey;
 						return "redirect:/";
 					}
 				}
@@ -218,6 +220,8 @@ public class CartController {
 			System.out.println(goOrNot);
 			if(goOrNot == 1) return "redirect:/cart/list";
 			if(goOrNot == 2) return "redirect:/shoplist";
+			//상품상세페이지에서 장바구니에 담고 그대로 머무는 경우
+			if(goOrNot == 3) return "redirect:/shoplist/product?itemKey=" + itemKey;
 			
 			
 			return "redirect:/";

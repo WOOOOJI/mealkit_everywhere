@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 				and username like concat('%' , #{nameKeyword}, '%')
 			</if>
 			<if test="phNumberKeyword != null">
-				and tel like concat('%', #{phNumberKeyword}, '%')
+				and tel like replace(#{phNumberKeyword},'-','')
 			</if>
 		</where>
 		
@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 				and username like concat('%' , #{nameKeyword}, '%')
 			</if>
 			<if test="phNumberKeyword != null">
-				and tel like concat('%', #{phNumberKeyword}, '%')
+				and tel like replace(#{phNumberKeyword},'-','')
 			</if>
 		</where>
 		

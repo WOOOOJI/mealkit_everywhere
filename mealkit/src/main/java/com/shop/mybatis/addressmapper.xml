@@ -22,4 +22,12 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<delete id="delete" parameterType="Integer">
 		DELETE FROM address WHERE addrKey=${addrKey}
 	</delete>
+	<!-- 기본 배송지 설정 -->
+	<update id="setDefaultAddress" parameterType="Integer">
+		UPDATE address SET def='Y' where addrKey=${addrKey}
+	</update>
+	<!-- 해당 회원의 기본 배송지 삭제 -->
+	<update id="deleteDefAddr" parameterType="Integer">
+		UPDATE address SET def='N' where custKey=${custKey};
+	</update>
 </mapper>

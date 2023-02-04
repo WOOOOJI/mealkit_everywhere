@@ -289,9 +289,11 @@ if(max > max2){
 								<tr th:each="y, yS : ${yearMthlyList}">
 									<td th:text="${yS.count}"></td>
 									<td th:text="${y.itemName}"></td>
+
 									<td data-th-text="${#numbers.formatInteger(y.price, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
 									<td th:text="${y.totCnt}" class="d-none d-xl-table-cell"></td>
 									<td data-th-text="${#numbers.formatInteger(y.totPrice, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
+
 								</tr>
 							</tbody>
 						</table>
@@ -321,9 +323,11 @@ if(max > max2){
 							<tr th:each="b, yS : ${yearBOT10List}">
 									<td th:text="${yS.count}"></td>
 									<td th:text="${b.itemName}"></td>
+
 									<td data-th-text="${#numbers.formatInteger(b.price, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
 									<td th:text="${b.totCnt}" class="d-none d-xl-table-cell"></td>
 									<td data-th-text="${#numbers.formatInteger(b.totPrice, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
+
 								</tr>
 							</tbody>
 						</table>

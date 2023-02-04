@@ -30,12 +30,9 @@
     
 
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script>
-function submitAddr() {
-    document.addr_form.action = "[[@{/order/submitAddr}]]";
-    document.addr_form.submit();
-}
-</script>
+
+
+
 </head>
 
     <div class="hero-wrap hero-bread" style="background-image: url('/img/home3.jpg');">
@@ -55,13 +52,13 @@ function submitAddr() {
 	          		<div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="name">받는 분 성함</label>
-	                	<input type="text" name="name" class="form-control" placeholder="이름">
+	                	<input type="text" id="username"name="name" class="form-control" placeholder="이름">
 	                </div>
 	              </div>
 	              <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="tel">전화번호</label>
-	                	<input type="text" name="tel" class="form-control" placeholder="01012345678">
+	                	<input type="text" id="tel" name="tel" class="form-control" placeholder="-없이 번호만 입력해주세요 ex)01012345678">
 	                </div>
                 </div>
                 <div class="w-100"></div>
@@ -69,7 +66,9 @@ function submitAddr() {
 	                <div class="form-group">
 	                	<label for="zipcode">배송지 정보</label>
 	                	<input type="text" name="zipcode" class="form-control" id="sample6_postcode"  readonly="readonly" placeholder="우편번호">
-						<input type="button" class="btn btn-primary py-3 px-4" style="float:right" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+	                	<div class="w-100"></div>
+						<input type="button" class="btn btn-primary py-3 px-4" style="float:right; margin-top:15px; margin-bottom:15px;" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+						<div class="w-100"></div>
 						<input type="text" name="addr" class="form-control" id="sample6_address" placeholder="주소" readonly="readonly"><br>
 						<input type="text" name="addrDetail" class="form-control" id="sample6_detailAddress" placeholder="상세주소">
 						<input type="hidden" class="form-control" id="sample6_extraAddress" placeholder="참고항목">
@@ -143,5 +142,33 @@ function submitAddr() {
                 document.getElementById("sample6_detailAddress").focus();
             }
         }).open();
+    }
+    
+    function submitAddr() {
+    	reg = /^[가-힣]{2,7}$/;
+    	if(!reg.test($("#username").val())){ //이름 유효성 검사
+    		alert("이름은 한글 2-7자까지 허용합니다.");
+    		return false;
+    	}
+    	
+    	//주소 선택 검사	
+    	if(!document.getElementById('sample6_address').value){ 
+    		alert('주소를 선택해 주세요');
+    		return false;
+    	}
+    	
+    	if(!document.getElementById('sample6_detailAddress').value){ 
+    		alert('상세주소를 입력해 주세요');
+    		return false;
+    	}
+    	reg = /^[0-9]{2,3}[0-9]{3,4}[0-9]{4}/;
+		if (!reg.test($("#tel").val())) { 	//전화번호 유효성 검사
+			alert("유효하지 않는 전화번호입니다.");
+		    return false;
+	    }
+    	
+
+        document.addr_form.action = "[[@{/order/submitAddr}]]";
+        document.addr_form.submit();
     }
 </script>
