@@ -256,13 +256,4 @@ function correctPwd(){
 }	
 
 
-function samePwd(){
-	let result = chkPwd();
-	if(result == false ) return false;
-	if( $("#userpwd").val() != $("#userpwd2").val() ) { //비밀번호 확인 
-		alert("비밀번호 값이 다릅니다.");
-		return false;
-	}
-}
-
 </script>

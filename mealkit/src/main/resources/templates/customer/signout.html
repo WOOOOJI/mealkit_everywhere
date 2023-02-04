@@ -95,7 +95,7 @@
 							<form onsubmit="return signoutCheck()"  id="signoutForm" th:action="@{/customer/signout}" method="post">
 								<div class="form-floating mb-3">
 									<input name="email" type="email" class="form-control"
-										id="email" placeholder="name@example.com"> <label
+										id="email" placeholder="${email}" th:value="${session.email}" readonly="readonly"> <label
 										for="email">Email address</label>
 								</div>
 								<div class="form-floating mb-3">

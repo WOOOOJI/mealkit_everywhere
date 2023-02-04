@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.shop.dto.response.PageResponseDTO;
+import com.shop.dto.Criteria;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.dto.BoardDTO;
@@ -40,30 +42,34 @@ public class BoardController {
 	@Autowired
 	ItemService itemService;
 	
-	// 나의 문의 목록
-	@RequestMapping("/qnalist") 
-	public String qnalist (Model model, HttpServletRequest req) {
-		
-		HttpSession session = req.getSession();
-		
+	// 나의 문의 목록 + 페이징
+	@RequestMapping("/qnalist")
+	public String qnawlist(Model model, Criteria cri, @RequestParam(defaultValue = "1", value = "pageNum") int pageNum , HttpSession session) {
 		int custKey = (int)session.getAttribute("custKey");
+		cri.setCustKey(custKey);
 		
-		List<BoardDTO> qnaList = new ArrayList<BoardDTO>();
-		try {
-			qnaList = service.qnaList(custKey);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("----------------------------");
-		}
-		                           
-		
-		  model.addAttribute("list", qnaList); 
-		  model.addAttribute("content", "/board/myqna");
-		 
-		
-		return "main";
-}
+		List<BoardDTO> qnaList = new ArrayList<>();
 
+		PageResponseDTO pageResponseDTO = service.getQuestionsPageMaker(cri);
+		
+		qnaList = service.getQuestionsList(cri);
+	
+		if (!qnaList.isEmpty()) {
+			model.addAttribute("list", qnaList);
+		} 
+
+		// model에 변수들 담기
+
+		model.addAttribute("pageNumList", pageResponseDTO.getPageNumList());
+		model.addAttribute("pageMaker", pageResponseDTO.getPageMaker());
+		model.addAttribute("content", "/board/myqna");
+		model.addAttribute("pageNum", pageNum);
+
+		return "main";
+	}
+	
+	
+	
 	
 	// 나의 문의 상세보기 + 문의에 달린 관리자 답변
 	@RequestMapping("/qnadetail")
@@ -97,30 +103,35 @@ public class BoardController {
 
 	}
 	
-	////////////////////////////////////////////////////////////////////////////////////////
-	
-	
-	// 나의 후기 목록 
-	@RequestMapping("/reviewlist") 
-	public String reviewlist(Model model, HttpServletRequest req) {
-		
-		HttpSession session = req.getSession();
-		
+	//나의 후기 리스트 + 페이징
+	@RequestMapping("/reviewlist")
+	public String reviewlist(Model model, Criteria cri, @RequestParam(defaultValue = "1", value = "pageNum") int pageNum , HttpSession session) {
 		int custKey = (int)session.getAttribute("custKey");
+		cri.setCustKey(custKey);
 		
-		List<BoardDTO> reviewList = new ArrayList<BoardDTO>();
-		try {
-			reviewList = service.reviewList(custKey);
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("----------------------------");
-		}
-	             
-		model.addAttribute("list", reviewList);							 
+		List<BoardDTO> reviewList = new ArrayList<>();
+
+		PageResponseDTO pageResponseDTO = service.getReviewsPageMaker(cri);
+		
+		reviewList = service.getReviewsList(cri);
+	
+		if (!reviewList.isEmpty()) {
+			model.addAttribute("list", reviewList);
+		} 
+
+		// model에 변수들 담기
+
+		model.addAttribute("pageNumList", pageResponseDTO.getPageNumList());
+		System.out.println(pageResponseDTO);
+		System.out.println(pageNum);
+		model.addAttribute("pageMaker", pageResponseDTO.getPageMaker());
 		model.addAttribute("content", "/board/myreview");
-		
+		model.addAttribute("pageNum", pageNum);
+
 		return "main";
 	}
+
+	
 	
 	
 	// 나의 후기 상세보기

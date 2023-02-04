@@ -79,7 +79,12 @@ public class BoardService implements MyService<Integer, BoardDTO>{
 		}
 	}
 	
-	//모든 문의 페이지 페이지 메이커
+	//전체 후기 개수 가져오기
+	public int countReviews(Criteria cri) throws Exception{
+		return boardMapper.countReviews(cri);
+	}
+	
+	//문의 페이지 페이지 메이커
 	public PageResponseDTO getQuestionsPageMaker(Criteria cri) {
 		PageDTO pageMaker = null;
 		List<Integer> pageNumList = new ArrayList<>();
@@ -103,7 +108,7 @@ public class BoardService implements MyService<Integer, BoardDTO>{
 	}
 
 	
-	//모든 후기 페이지 페이지 메이커
+	//후기 페이지 페이지 메이커
 	public PageResponseDTO getReviewsPageMaker(Criteria cri) {
 		PageDTO pageMaker = null;
 		List<Integer> pageNumList = new ArrayList<>();
@@ -124,18 +129,6 @@ public class BoardService implements MyService<Integer, BoardDTO>{
 				.build();
 		
 		return reviewsPageResponseDTO;
-	}
-
-
-	// 나의 문의 목록
-	public List<BoardDTO> qnaList(Integer k) throws Exception {
-		return boardMapper.qnaList(k);
-	}
-	
-
-	// 나의 후기 목록
-	public List<BoardDTO> reviewList(Integer k) throws Exception {
-		return boardMapper.reviewList(k);
 	}
 	
 

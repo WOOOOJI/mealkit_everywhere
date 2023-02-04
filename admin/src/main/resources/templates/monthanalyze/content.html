@@ -290,18 +290,18 @@ if(max > max2){
 								<tr>
 									<th>순위</th>
 									<th>상품명</th>
-									<th class="d-none d-xl-table-cell">가격 (원)</th>
+									<th class="d-none d-xl-table-cell">가격</th>
 									<th>판매 수량 (개)</th>
-									<th>총 판매 금액 (원)</th>
+									<th>총 판매 금액</th>
 								</tr>
 							</thead>
 							<tbody >
 								<tr th:each="m, yS : ${monthTOP10List}">
 									<td th:text="${yS.count}"></td>
 									<td th:text="${m.itemName}"></td>
-									<td th:text="${m.price}" class="d-none d-xl-table-cell"></td>
+									<td data-th-text="${#numbers.formatInteger(m.price, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
 									<td th:text="${m.totCnt}" class="d-none d-xl-table-cell"></td>
-									<td th:text="${m.totPrice}" class="d-none d-xl-table-cell"></td>
+									<td data-th-text="${#numbers.formatInteger(m.totPrice, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -323,18 +323,18 @@ if(max > max2){
 								<tr>
 									<th>순위</th>
 									<th>상품명</th>
-									<th class="d-none d-xl-table-cell">가격 (원)</th>
+									<th class="d-none d-xl-table-cell">가격</th>
 									<th>판매 수량 (개)</th>
-									<th>총 판매 금액 (원)</th>
+									<th>총 판매 금액</th>
 								</tr>
 							</thead>
 							<tbody>
 							<tr th:each="b, yS : ${monthBOT10List}">
 									<td th:text="${yS.count}"></td>
 									<td th:text="${b.itemName}"></td>
-									<td th:text="${b.price}" class="d-none d-xl-table-cell"></td>
+									<td data-th-text="${#numbers.formatInteger(b.price, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
 									<td th:text="${b.totCnt}" class="d-none d-xl-table-cell"></td>
-									<td th:text="${b.totPrice}" class="d-none d-xl-table-cell"></td>
+									<td data-th-text="${#numbers.formatInteger(b.totPrice, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
 								</tr>
 							</tbody>
 						</table>

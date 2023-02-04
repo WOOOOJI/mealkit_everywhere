@@ -210,7 +210,12 @@
 				+ "&cnt=" + cnt;
 	};
 	
+	function insertWish(item) {
+		var itemKey = item;
+		var cnt = parseInt($('#quantity').val());
 
+		location.href = "/shoplist/product?itemKey=" + itemKey;
+	};
 	
 	
 	//-----------------------------------------------------------------------------------------------------------------
@@ -1153,7 +1158,8 @@
 				</div>
 				<p>
 					<a href="#" th:onclick="insertCart([[${item.itemKey}]])"
-						class="btn btn-black py-3 px-5">장바구니</a> <a href="cart.html"
+						class="btn btn-black py-3 px-5">장바구니</a> 
+					<a href="#" th:onclick="insertWish([[${item.itemKey}]])" 
 						class="btn btn-black py-3 px-5">찜</a>
 				</p>
 			</div>

@@ -171,8 +171,10 @@
 			},
 			success : function(data) {
 				if (data == 1) {
-					alert("정말 삭제하시겠습니까?");
-					location.reload();
+					var chk = confirm("정말 삭제하시겠습니까?");
+					if(chk){
+				   		location.href="/admin/board/qnalist";
+					}
 				} else {
 					alert("게시글 삭제를 실패하였습니다. 잠시 후 다시 시도해주세요.");
 				}

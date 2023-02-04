@@ -108,8 +108,12 @@
     </section> <!-- .section -->
      <script>
     function qnaDel(boardKey){
-    	location.href="/board/qnaDel?boardKey="+boardKey;
-    }
+       	var chk = confirm("정말 삭제하시겠습니까?");
+    	if(chk){
+       		location.href="/board/qnaDel?boardKey="+boardKey;
+    	}
+       }
+       
     
     </script>
     
