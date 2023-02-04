@@ -1,18 +1,94 @@
 <!-- END nav -->
 
 
+
 <script>
-history.scrollRestoration = "auto";
+function setCookie(cookieName, value, exdays){
+	var exdate = new Date();
+	exdate.setDate(exdate.getDate() + exdays);
+	var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+	document.cookie = cookieName + "=" + cookieValue;
+}
+
+function deleteCookie(cookieName){
+	var expireDate = new Date();
+	expireDate.setDate(expireDate.getDate() - 1);
+	document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+}
+
+function getCookie(cookieName) {
+	cookieName = cookieName + '=';
+	var cookieData = document.cookie;
+	var start = cookieData.indexOf(cookieName);
+	var cookieValue = '';
+	if(start != -1){
+		start += cookieName.length;
+		var end = cookieData.indexOf(';', start);
+		if(end == -1)end = cookieData.length;
+		cookieValue = cookieData.substring(start, end);
+	}
+	return unescape(cookieValue);
+}
+
+
+function setScrollAtCookies(){
+ 	//스크롤 위치 저장
+ 	var scrollPoint = (document.documentElement && document.documentElement.scrollTop) 
+		|| document.body.scrollTop;
+
+	setCookie("category", "mainScrollPoint"); // 쿠키에서 사용할 category에 사용자 정의 카테고리명 세팅
+	setCookie("scrollPoint", scrollPoint); // 쿠키에 스크롤 위치 세팅
+
+
+}
+
+
+function getScroll(){
+	
+	var category = getCookie("category"); //setCookie("category")로 세팅한 category 변수 명
+	var scrollPoint = getCookie("scrollPoint"); //setCookie("scrollPoint")로 세팅한 스크롤 위치
+	var currentCategory = "mainScrollPoint"; //이벤트 발생 후 새로 로드된 현재 페이지의 카테고리 지정
+	
+	if (category != "" && category != 'undefined' 
+		&& category == currentCategory && scrollPoint != "" && scrollPoint != 'undefined') {
+	   
+		window.scroll(0, scrollPoint); 
+		//body.scrollTop(scrollPoint);
+	}
+}
+
 // 장바구니 제품 추가
 
 function insertCart(item){
-	var goOrNot = 0;
-	if(confirm("장바구니에 상품이 담겼습니다. 바로 장바구니로 이동하시겠습니까?")){
-		goOrNot = 1;
-	};
+	/*<![CDATA[*/
+	var email = '[[${session.email}]]';
+	/*]]*/	
+	
+	
+	if(email == 'null' || email == ''){
+		location.href="/customer/loginForm";
+		return false;
+	}
+	
+
+	
+	setScrollAtCookies();	
 	var itemKey = item;
 	var cnt = 1;
-	location.href="/cart/cartInsert?itemKey="+itemKey+"&cnt="+cnt+"&goOrNot="+goOrNot;
+
+	$.ajax({
+		url:"/cart/cartInsert",
+		data:{itemKey:itemKey, cnt:cnt},
+		method:"POST",
+		success: function(data){
+			if(confirm("장바구니에 상품이 담겼습니다. 바로 장바구니로 이동하시겠습니까?")){
+				location.href="/cart/list";
+			}
+			getScroll();
+		}
+		
+	});
+	
 };
 
 function insertWish(item){
@@ -75,7 +151,7 @@ function insertWish(item){
 	            <div class="col-sm-12 ftco-animate text-center">
 	              <h1 class="mb-2">이번주만 최대 70% 할인 !</h1>
 	              <h2 class="subheading mb-4">"MealKit" 회원만을 위한 이벤트</h2>
-	              <p><a th:href="@{shoplist?categoryKey=0&asc_desc=asc&order_cri=price}" class="btn btn-primary">할인상품 보러가기</a></p>
+	              <p><a th:href="@{shoplist?categoryKey=0&asc_desc=asc&order_cri=sale}" class="btn btn-primary">최저가 보러가기</a></p>
 	            </div>
 
 	          </div>
@@ -151,6 +227,51 @@ function insertWish(item){
         </div>
 			</div>
 		</section>
+		
+		
+		<section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(/img/home2.jpg); margin-bottom:8%;">
+    	<div class="container">
+    		<div class="row justify-content-center py-5">
+    			<div class="col-md-9">
+		    		<div class="row">
+		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+		            <div class="block-18 text-center">
+		              <div class="text">
+		                <strong class="number" th:data-number="${sum}" style="font-size:42px" id="totalCnt">0</strong>
+		                <span style="font-size:22px">지금까지 팔린 "MealKit"</span>
+		              </div>
+		            </div>
+		          </div>
+		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+		            <div class="block-18 text-center">
+		              <div class="text">
+		                <strong class="number" data-number="51" style="font-size:42px">0</strong>
+		                <span style="font-size:22px">전국에 있는 매장 수</span>
+		              </div>
+		            </div>
+		          </div>
+		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+		            <div class="block-18 text-center">
+		              <div class="text">
+		                <strong class="number" data-number="5" style="font-size:42px">0</strong>
+		                <span style="font-size:22px">파트너 기업</span>
+		              </div>
+		            </div>
+		          </div>
+		          <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+		            <div class="block-18 text-center">
+		              <div class="text">
+		                <strong class="number" th:data-number="${custSum}" id="totalCust" style="font-size:42px">0</strong>
+		                <span style="font-size:22px">총 회원</span>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+	        </div>
+        </div>
+    	</div>
+    </section>
+		
 
 		<section class="ftco-section ftco-category ftco-no-pt">
 			<div class="container">
@@ -211,19 +332,21 @@ function insertWish(item){
     		<div class="row">
     		
     		<!-- 상품 8개 반복문 -->
-    			<div class="col-md-6 col-lg-3 ftco-animate" th:each="i:${bestList}">
+    			<div class="col-md-6 col-lg-3 ftco-animate" th:each="i, status:${bestList}">
     			<input type="hidden" th:value="${i.itemKey}">
     				<div class="product">
     				<!-- 이미지 -->
-    					<a th:href="@{/shoplist/productSingle(itemKey=${i.itemKey})}" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${i.img1}" alt="Colorlib Template">
+    					<a th:href="@{/shoplist/product(itemKey=${i.itemKey})}" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${i.img1}" alt="Colorlib Template">
     					<!-- 할인률 -->
-    						<span class="status per" th:if="${i.per > 0}" th:text="${i.per}+'% SALE'"></span>
-    						<div class="overlay"></div>
+    							<span class="status per" th:if="${i.per > 0}" th:text="${i.per}+'% SALE'"></span>
+    							<span style="margin-top:90%;" class="status" th:text="${status.count}+'위'"></span>
+    							
+    							
     					</a>
     					<div class="text py-3 pb-4 px-3 text-center">
     					
     					<!-- 상품명 -->
-    						<h3><a href="#" th:text="${i.name}"></a></h3>
+    						<h3 style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;"><a href="#" th:text="${i.name}"></a></h3>
     						<div class="d-flex">
     							<div class="pricing">
     							<!-- 상품 세일가 -->
@@ -262,11 +385,11 @@ function insertWish(item){
     		<div class="row">
     		
     		<!-- 상품 8개 반복문 -->
-    			<div class="col-md-6 col-lg-3 ftco-animate" th:each="i:${newList}">
+    			<div class="col-md-6 col-lg-3 ftco-animate" th:each="i : ${newList}">
     			<input type="hidden" th:value="${i.itemKey}">
     				<div class="product">
     				<!-- 이미지 -->
-    					<a th:href="@{/shoplist/productSingle(itemKey=${i.itemKey})}" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${i.img1}" alt="Colorlib Template">
+    					<a th:href="@{/shoplist/product(itemKey=${i.itemKey})}" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${i.img1}" alt="Colorlib Template">
     					<!-- 할인률 -->
     						<span class="status per" th:if="${i.per > 0}" th:text="${i.per}+'% SALE'"></span>
     						<div class="overlay"></div>
@@ -274,7 +397,7 @@ function insertWish(item){
     					<div class="text py-3 pb-4 px-3 text-center">
     					
     					<!-- 상품명 -->
-    						<h3><a href="#" th:text="${i.name}"></a></h3>
+    						<h3 style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;"><a href="#" th:text="${i.name}"></a></h3>
     						<div class="d-flex">
     							<div class="pricing">
     							<!-- 상품 세일가 -->
@@ -319,4 +442,24 @@ function insertWish(item){
     	</div>
     </section>
 
+
+<script>
+setInterval(() => {
+	// 실시간으로 총 판매된 상품 + 회원수 가져오기.
+	$.ajax({
+		url:"/notice/getLiveData",
+		method:"GET",
+		success: function(data){
+			if($('#totalCnt').text() != data[0]){
+				$('#totalCnt').text(data[0]);				
+			}
+				
+			if($('#totalCust').text() == data[1]){				
+				$('#totalCust').text(data[1]);
+			}
+		}
+	});
+	
+}, 1000);
+</script>
    

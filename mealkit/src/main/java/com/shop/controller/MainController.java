@@ -10,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.shop.dto.CustomerDTO;
 import com.shop.dto.ItemDTO;
 import com.shop.service.CartService;
+import com.shop.service.CustomerService;
 import com.shop.service.ItemService;
+import com.shop.service.NoticeService;
 
 @Controller
 public class MainController {
@@ -22,7 +25,11 @@ public class MainController {
 	@Autowired
 	CartService cService;
 	
+	@Autowired
+	NoticeService noticeService;
 	
+	@Autowired
+	CustomerService customerService;
 	
 	@RequestMapping("/")
 	public String main(Model model, HttpServletRequest req) {
@@ -31,6 +38,31 @@ public class MainController {
 		// 신상품을 담을 리스트                                 				  ArrayList for newItems
 		List<ItemDTO> newList = new ArrayList<ItemDTO>();
 		
+		// 지금까지 팔린 총 상품수
+		int sumCnt = 0;
+		// 지금까지 총 회원수를 구하기 위한 List 객체		
+		List<CustomerDTO> sumCust = null;
+		
+		// 전체 SELECT 한 orderDetailDTO List객체 받아오기
+		sumCnt = noticeService.sumCnt();
+		// 전체 SELECT 한 CustomerDTO List객체 받아오기
+		sumCust = customerService.get();
+		
+		
+		// 총 회원수
+		int custSum = 0;
+		
+		// 위 아래 for문은 각 list에 담긴 객체를 하나씩 꺼내 총합을 구하기 위함임.
+		for(int i=0; i<sumCust.size(); i++) {
+			custSum += 1;
+		}
+		
+		
+		
+		
+		// 	뷰단에 뿌리기 위한 attribute.
+		model.addAttribute("sum", sumCnt);
+		model.addAttribute("custSum", custSum);
 		
 		
 		// 인기상품 ----------------------------------------------------------------------------------------------------------------------

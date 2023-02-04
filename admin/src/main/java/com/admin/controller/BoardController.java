@@ -62,7 +62,7 @@ public class BoardController {
 		int result = 0;
 		for (String boardKey : delList) {
 			result = service.qnaDel(Integer.parseInt(boardKey));
-			;
+
 		}
 		model.addAttribute("content", "/board/qnalist");
 		model.addAttribute("navbar", "/board/navbar");
@@ -119,7 +119,7 @@ public class BoardController {
 		System.out.println(ReviewList);
 		if (!ReviewList.isEmpty()) {
 			model.addAttribute("ReviewList", ReviewList);
-		} 
+		}
 
 		// model에 변수들 담기
 		model.addAttribute("keyword", keyword);
@@ -140,7 +140,7 @@ public class BoardController {
 		int result = 0;
 		for (String boardKey : delList) {
 			result = service.reviewDel(Integer.parseInt(boardKey));
-			;
+
 		}
 		model.addAttribute("content", "/board/reviewlist");
 		model.addAttribute("navbar", "/board/navbar2");

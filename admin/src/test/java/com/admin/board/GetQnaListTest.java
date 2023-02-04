@@ -13,18 +13,18 @@ import com.admin.service.BoardService;
 
 @SpringBootTest
 class GetQnaListTest {
-	
+
 	@Autowired
 	BoardService service;
-	
+
 	@Test
 	void contextLoads() {
 		System.out.println("--------QnA 리스트 가져오기 테스트 시작 ---------");
-		
+
 
 		Criteria cri = new Criteria();
 		List<BoardDTO> boardList = null;
-		
+
 		boardList = service.getQnaList(cri);
 		System.out.println("QnA 리스트 가져오기 성공");
 		if(boardList != null) {

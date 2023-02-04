@@ -61,8 +61,8 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		UPDATE notice SET hit=hit+1 WHERE noticeKey = ${noticeKey}
 	</update>
 	
-	<select id="sumCnt" resultType="OrderDetailDTO">
-		SELECT * FROM orderDetail
+	<select id="sumCnt" resultType="int">
+		SELECT SUM(cnt) FROM orderDetail
 	</select>
 	
 	

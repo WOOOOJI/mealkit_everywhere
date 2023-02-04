@@ -32,14 +32,14 @@ class ageRangeSalesTest {
 		}
 
 		System.out.println("-------- 선택 X:성별 판매량조회 조회 테스트 끝 / 20대,한식 ---------");
-		
+
 		age="20";
 		categoryKey=1;
 		result = as.genderSales(categoryKey, age, startDate, endDate);
 		for (OrderDTO i : result) {
 			System.out.println(i);
 		}
-		
+
 		System.out.println("-------- 20대,한식 선택 성별 판매량조회 조회 테스트 끝 ---------");
 	}
 

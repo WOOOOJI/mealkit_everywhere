@@ -14,10 +14,10 @@ class filterdDataListTest {
 
 	@Autowired
 	AnalyzeService analyzeService;
-	
+
 	@Test
 	void contextLoads() {
-		
+
 		FilterdDTO filterdDTO = new FilterdDTO();
 		filterdDTO.setStartDate("2022-12-01");
 		filterdDTO.setEndDate("2023-01-31");
@@ -26,14 +26,14 @@ class filterdDataListTest {
 		filterdDTO.setGender1("1");
 		filterdDTO.setGender2("3");
 		filterdDTO.setAlign("totPrice");
-		
+
 		List<FilterdDTO> filterdDTOList = analyzeService.filterdData(filterdDTO);
-		
+
 		for(FilterdDTO d : filterdDTOList) {
 			System.out.println(d.getTotPrice());
 		}
 		System.out.println(filterdDTOList.size());
-		
+
 	}
-		
+
 }

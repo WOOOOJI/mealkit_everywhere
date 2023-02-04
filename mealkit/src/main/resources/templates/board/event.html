@@ -45,12 +45,12 @@
                             <div class="card h-100 shadow border-0">
                             
                             	<!-- 썸네일 이미지 img1 -->
-                                <img class="card-img-top" th:src="@{/img/event/}+${e.img1}" alt="..." />
+                                <a class="text-decoration-none link-dark stretched-link" th:href="@{/event/detail?noticeKey=}+${e.noticeKey}"><img class="card-img-top" th:src="@{/img/event/}+${e.img1}" alt="..." /></a>
                                 <div class="card-body p-4">
                                     <div class="badge bg-primary bg-gradient rounded-pill mb-2" style="color:white;">Events</div>
                                     
                                     <!-- 상세 페이지로 이동하기 위한 a태그 -->
-                                    <a class="text-decoration-none link-dark stretched-link" th:href="@{/event/detail?noticeKey=}+${e.noticeKey}"><h5 class="card-title mb-3" th:text="${e.title}"></h5></a>
+                                    <a class="text-decoration-none link-dark stretched-link" th:href="@{/event/detail?noticeKey=}+${e.noticeKey}"><h5 class="card-title mb-3" th:text="${e.title}" style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;"></h5></a>
                                     
                                 </div>
                                 <div class="card-footer p-4 pt-0 bg-transparent border-top-0">

@@ -50,6 +50,6 @@ public interface NoticeMapper extends MyMapper<Integer, NoticeDTO>{
 	
 	
 	// 지금까지 팔린 상품 총갯수 구하기
-	public List<OrderDetailDTO> sumCnt() throws Exception;
+	public int sumCnt() throws Exception;
 	
 }

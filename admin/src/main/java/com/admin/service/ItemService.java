@@ -77,7 +77,7 @@ public class ItemService implements MyService<Integer, ItemDTO> {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List<ItemDTO> getItemList(Criteria cri){
 		try {
 			return itemMapper.getItemList(cri);
@@ -86,7 +86,7 @@ public class ItemService implements MyService<Integer, ItemDTO> {
 			return null;
 		}
 	}
-	
+
 	// 모든 이벤트 페이지 개수 가져오기
 	public int countEvent(Criteria cri) throws Exception{
 		return itemMapper.countItem(cri);

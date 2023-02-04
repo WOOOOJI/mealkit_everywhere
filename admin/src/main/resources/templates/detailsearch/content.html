@@ -351,9 +351,26 @@
 								<tr th:each="f, idx : ${filterdDTOList}">
 									<td th:text="${idx.count}+'위'"></td>
 									<td th:text="${f.name}"></td>
-									<td th:text="${f.totPrice}" class="d-none d-xl-table-cell">365,000원</td>
-									<td><span th:text="${f.salePct}" class="badge bg-success">70%</span></td>
-									<th th:text="${f.sale}" class="d-none d-md-table-cell">28,000원</th>
+									<td data-th-text="${#numbers.formatInteger(f.totPrice, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
+									
+									
+									<!-- 할인율별 색깔 지정 -->
+									<!-- 0~19 info -->
+									<td th:if="${f.salePct} < 20"><span th:text="${f.salePct}+'%'" class="badge bg-info"></span></td>
+									
+									<!-- 20~39 primary -->
+									<td th:if="${f.salePct} < 40 and ${f.salePct} > 19"><span th:text="${f.salePct}+'%'" class="badge bg-primary"></span></td>
+									
+									<!-- 40~59 success -->
+									<td th:if="${f.salePct} < 60 and ${f.salePct} > 39"><span th:text="${f.salePct}+'%'" class="badge bg-success"></span></td>
+									
+									<!-- 60~79 warning -->
+									<td th:if="${f.salePct} < 80 and ${f.salePct} > 59"><span th:text="${f.salePct}+'%'" class="badge bg-warning"></span></td>
+									
+									<!-- 80~99 danger -->
+									<td th:if="${f.salePct} < 100 and ${f.salePct} > 79"><span th:text="${f.salePct}+'%'" class="badge bg-danger"></span></td>
+									
+									<td data-th-text="${#numbers.formatInteger(f.sale, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
 									<td th:text="${f.totCnt}" class="d-none d-xl-table-cell">54개</td>
 								</tr>
 

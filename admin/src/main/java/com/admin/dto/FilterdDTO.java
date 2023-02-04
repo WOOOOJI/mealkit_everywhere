@@ -18,7 +18,7 @@ public class FilterdDTO {
 	private int salePct;
 	private int sale;
 	private int totCnt;
-	
+
 	private String age;
 	private String gender;
 	private String gender1;
@@ -26,5 +26,5 @@ public class FilterdDTO {
 	private String startDate;
 	private String endDate;
 	private String align;
-	
+
 }

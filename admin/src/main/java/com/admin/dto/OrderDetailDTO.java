@@ -9,5 +9,5 @@ public class OrderDetailDTO {
 	private int itemKey;
 	private int price;
 	private int cnt;
-	
+
 }

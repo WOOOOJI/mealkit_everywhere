@@ -15,6 +15,6 @@ import lombok.ToString;
 public class CategoryResponseDTO {
 
 	private List<CategoryDTO> categoryList = new ArrayList<>();
-	
-	
+
+
 }

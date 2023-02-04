@@ -15,7 +15,7 @@ class GetOrderListTest {
 
 	@Autowired
 	OrderService os;
-	
+
 	@Test
 	void contextLoads() {
 		System.out.println("-------- 주문 리스트 가져오기 테스트 시작 ---------");
@@ -24,11 +24,11 @@ class GetOrderListTest {
 		cri.setKeyword("nothing");
 		cri.setOrderBy("DESC");
 		System.out.println("페이징을 위한 데이터 객체 : "+cri);
-		
-		
+
+
 		List<OrderDTO> orderList = null;
-		
-		
+
+
 		orderList = os.getOrderList(cri);
 		System.out.println("DB에서 조회한 결과 : " + orderList);
 		System.out.println("-------- 주문 리스트 가져오기 테스트 끝 ---------");

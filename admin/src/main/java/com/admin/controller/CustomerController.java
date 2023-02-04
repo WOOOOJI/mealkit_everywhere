@@ -16,55 +16,55 @@ import com.admin.service.CustomerService;
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
-	
+
 	@Autowired
 	CustomerService customerService;
-	
+
 	@RequestMapping("")
 	public String main(Model model, Criteria cri) {
-		
-		
+
+
 		if(cri.getOrderCri() == null) {
 			cri.setOrderCri("custKey");
 		}
-		
+
 		List<CustomerDTO> customerList = new ArrayList<>();
-		
+
 		PageResponseDTO pageResponseDTO = customerService.getPageMaker(cri);
-		
+
 		customerList = customerService.getCustList(cri);
-		
+
 		if(!customerList.isEmpty()) {
 			model.addAttribute("customerList", customerList);
 		}else {
 			model.addAttribute("customerList", "empty");
 		}
-		
+
 		model.addAttribute("pageNumList", pageResponseDTO.getPageNumList());
 		model.addAttribute("pageMaker", pageResponseDTO.getPageMaker());
-		
+
 		model.addAttribute("pageNum", cri.getPageNum());
 		model.addAttribute("ascDesc", cri.getAscDesc());
 		model.addAttribute("orderCri", cri.getOrderCri());
 		model.addAttribute("amountCust", cri.getAmount());
 		model.addAttribute("criteria", cri);
-		
+
 		model.addAttribute("content", "/customer/customerPage");
-		
+
 		return "main";
 	}
-	
-	
+
+
 	//회원 차단 설정 메소드
 	@RequestMapping("/locked")
 	public String changeLocked(CustomerDTO customerDTO, Criteria cri, Model model){
-		
+
 		customerService.changeLocked(customerDTO);
 		model.addAttribute("custKey", customerDTO.getCustKey());
 		model.addAttribute("ascDesc", cri.getAscDesc());
 		model.addAttribute("orderCri", cri.getOrderCri());
 		model.addAttribute("amountCust", cri.getAmount());
-		
+
 		return "redirect:/customer";
 	}
 }

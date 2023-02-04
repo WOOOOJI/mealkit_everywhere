@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		"tel", t.req AS "req", t.reason AS "reason", t.trackingNum AS
 		"trackingNum" FROM totalOrder t
 		JOIN customer c ON c.custKey = t.custKey
-		<if test="keyword != 'nothing'">
+		<if test="!keyword.equals('nothing')">
 			<if test="'t.addr'.equals(type)">
 				WHERE t.addr LIKE CONCAT('%', #{keyword}, '%') OR
 				t.addrDetail LIKE CONCAT('%', #{keyword}, '%') 

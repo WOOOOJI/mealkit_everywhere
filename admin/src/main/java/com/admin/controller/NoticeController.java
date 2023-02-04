@@ -23,15 +23,15 @@ import com.admin.service.NoticeService;
 @Controller
 @RequestMapping("/notice")
 public class NoticeController {
-	
+
 	@Autowired
 	NoticeService noticeService;
-	
+
 	@Value("${noticedir}")
 	String noticedir;
 
 	String dir = "notice/";
-	
+
 	@RequestMapping("")
 	public String main(@RequestParam(defaultValue = "1", value = "pageNum") int pageNum,
 			@RequestParam(defaultValue = "none", value = "ntype") String ntype,
@@ -41,10 +41,10 @@ public class NoticeController {
 			@RequestParam(defaultValue = "name", value = "type") String type,
 			Model model, HttpSession session,  Criteria cri) {
 
-		
+
 		List<NoticeDTO> noticeList = null;
-		
-		
+
+
 		cri.setAscDesc(ascDesc);
 		cri.setOrderCri(orderCri);
 		cri.setNtype(ntype);
@@ -52,7 +52,7 @@ public class NoticeController {
 		cri.setType(type);
 		PageResponseDTO pageResponseDTO = noticeService.getNoticePageMaker(cri);
 		noticeList = noticeService.getNoticeList(cri);
-		
+
 		// 페이징 관련 변수들 모두 담아주기.
 		model.addAttribute("type", type);
 		model.addAttribute("ntype", ntype);
@@ -65,18 +65,18 @@ public class NoticeController {
 		model.addAttribute("content", dir + "noticelist");
 		return "main";
 	}
-	
+
 	@RequestMapping("/registerform")
 	public String register(Model model, HttpSession session) {
 		int adminKey=(int)session.getAttribute("adminKey");
 		String name=(String)session.getAttribute("name");
-		
+
 		model.addAttribute("adminKey",adminKey);
 		model.addAttribute("name",name);
 		model.addAttribute("content", dir + "registerform");
 		return "main";
 	}
-	
+
 	@RequestMapping("/register")
 	public String register(NoticeDTO notice, Model model, HttpSession session) {
 		// view에서 받아온 item의 img의 이름들을 저장
@@ -120,7 +120,7 @@ public class NoticeController {
 		int adminKey=(int)session.getAttribute("adminKey");
 		String name=(String)session.getAttribute("name");
 		System.out.println(notice);
-		
+
 		model.addAttribute("noticedir", noticedir);
 		model.addAttribute("adminKey",adminKey);
 		model.addAttribute("name",name);
@@ -140,7 +140,7 @@ public class NoticeController {
 		}else {
 			img1 = notice.getImgFile1().getOriginalFilename();
 		}
-		
+
 		if(notice.getImgFile2()==null) {
 			img2 = notice.getImg2();
 		}else {
@@ -166,7 +166,7 @@ public class NoticeController {
 				notice.getImgFile2().transferTo(saveFile2);
 			}
 
-			
+
 
 			noticeService.modify(notice);
 			model.addAttribute("content", dir + "registerok");

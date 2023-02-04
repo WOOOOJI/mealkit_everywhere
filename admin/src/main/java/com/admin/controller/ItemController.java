@@ -54,7 +54,7 @@ public class ItemController {
 		cri.setType(type);
 		// ItemPageResponseDTO(active, pageNumList, content를 묶어주기 위한 DTO) 선언 및 초기화
 		PageResponseDTO pageResponseDTO = itemService.getItemPageMaker(cri);
-		
+
 		itemList = itemService.getItemList(cri);
 		// 페이징 관련 변수들 모두 담아주기.
 		model.addAttribute("type", type);

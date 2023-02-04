@@ -13,18 +13,18 @@ import com.admin.service.BoardService;
 
 @SpringBootTest
 class GetReviewListTest {
-	
+
 	@Autowired
 	BoardService service;
-	
+
 	@Test
 	void contextLoads() {
 		System.out.println("--------Review 리스트 가져오기 테스트 시작 ---------");
-		
+
 
 		Criteria cri = new Criteria();
 		List<BoardDTO> boardList = null;
-		
+
 		boardList = service.getReviewList(cri);
 		System.out.println("Review 리스트 가져오기 성공");
 		if(boardList != null) {

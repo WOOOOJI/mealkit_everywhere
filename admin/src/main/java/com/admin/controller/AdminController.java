@@ -13,42 +13,42 @@ import com.admin.service.AdminService;
 
 @Controller
 public class AdminController {
-	
-	
+
+
 	@Autowired
 	AdminService service;
-	
+
 	@RequestMapping("/loginForm")
 	public String loginForm() {
 		return "login/loginForm";
 	}
-	
-	
+
+
 	@PostMapping("/login")
 	public String login(String adminId, String adminPwd, Model model, HttpSession session) {
 		AdminDTO dto = null;
 		int result = 2;
-		
+
 		dto	= service.login(adminId, adminPwd);
-		
+
 		if(dto == null) {
 			result = 1;
 			model.addAttribute("result", result);
 			return "login/loginForm";
 		}
-		
+
 			model.addAttribute("result", result);
 			session.setAttribute("adminId", dto.getAdminId());
 			session.setAttribute("name", dto.getName());
 			session.setAttribute("adminKey", dto.getAdminKey());
-		
+
 		return "main";
 	}
-	
+
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		
+
 		return "login/loginForm";
 	}
 }

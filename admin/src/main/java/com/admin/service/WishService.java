@@ -18,19 +18,19 @@ public class WishService implements MyService<Integer, WishDTO>{
 	@Override
 	public void register(WishDTO v) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void remove(Integer k) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void modify(WishDTO v) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

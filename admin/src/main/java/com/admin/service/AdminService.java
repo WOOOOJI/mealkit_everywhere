@@ -14,23 +14,23 @@ public class AdminService implements MyService<Integer, AdminDTO>{
 
 	@Autowired
 	AdminMapper mapper;
-	
+
 	@Override
 	public void register(AdminDTO v) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void remove(Integer k) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void modify(AdminDTO v) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -44,20 +44,20 @@ public class AdminService implements MyService<Integer, AdminDTO>{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
+
 	public AdminDTO login(String adminId, String adminPwd) {
 		AdminDTO dto = null;
-		
-		try {			
+
+		try {
 			dto = mapper.login(adminId, adminPwd);
 			System.out.println("mapper"+ dto);
 		}catch(Exception e) {
 			System.out.println("Error Caused by at AdminService row 57 Line");
 			e.printStackTrace();
 		}
-		
-		
+
+
 		return dto;
 	}
 

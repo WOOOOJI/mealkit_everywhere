@@ -102,10 +102,10 @@
 						    <thead class="thead-primary">
 						      <tr class="text-center">
 						        <th>삭제</th>
-						        <th>상품 사진</th>
+						        <th style="width:13%;">상품 사진</th>
 						        <th>상품명</th>
 						        <th>할인가</th>
-						        <th>수량</th>
+						        <th style="width:3%;">수량</th>
 						        <th>총 가격</th>
 						      </tr>
 						    </thead>
@@ -117,7 +117,7 @@
 						      	<!-- 삭제 버튼 -->
 						        <td class="product-remove"><a href="#" th:onclick="del([[${c.cartKey}]])"><span class="ion-ios-close"></span></a></td>
 						        <!-- 상품이미지 -->
-						        <td class="image-prod"><a class="itemhover" th:href="@{/shoplist/product(itemKey=${c.itemKey})}"><img style="width:50%" th:src="@{/img/product/}+${c.img}"></a></td>
+						        <td class="image-prod"><a class="itemhover" th:href="@{/shoplist/product(itemKey=${c.itemKey})}"><img style="width:100%;" th:src="@{/img/product/}+${c.img}"></a></td>
 						        
 						        <td class="product-name">
 						        	<!-- 상품명 -->
@@ -130,9 +130,9 @@
 						        
 						        <!-- 장바구니 수량 -->
 						        <td class="quantity">
-						        	<div class="input-group mb-3">
+						        	<div class="input-group mb-1">
 						        	<form>
-					             		<input type="number" name="quantity" class="quantity form-control input-number" th:value=${c.cnt} th:onchange="changeCnt(this)" th:id="${c.cartKey}" min="1" max="100">
+					             		<input style="height:50%;" type="number" name="quantity" class="quantity form-control input-number" th:value=${c.cnt} th:onchange="changeCnt(this)" th:id="${c.cartKey}" min="1" max="100">
 					             	</form>
 					          	</div>
 					          </td>
@@ -171,7 +171,7 @@
     						<span th:text="${finalPrice}+원"></span>
     					</p>
     				</div>
-    				<p><a th:onclick="check('[[${totalPrice}]]')" class="btn btn-primary py-3 px-4">지금바로 주문하기 !</a></p>
+    				<p><a th:onclick="check('[[${totalPrice}]]')" class="btn btn-primary py-3 px-4" style="color:white">지금바로 주문하기 !</a></p>
     			</div>
     		</div>
 			</div>

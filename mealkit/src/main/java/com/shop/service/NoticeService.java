@@ -209,8 +209,8 @@ public class NoticeService implements MyService<Integer, NoticeDTO>{
 		
 		
 	// 지금까지 팔린 상품 총갯수 구하기
-	public List<OrderDetailDTO> sumCnt(){
-		List<OrderDetailDTO> sum = null;		
+	public int sumCnt(){
+		int sum = 0;		
 
 		try {
 			sum = noticeMapper.sumCnt();

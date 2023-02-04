@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.admin.dto.Criteria;
-import com.admin.dto.ItemDTO;
 import com.admin.dto.NoticeDTO;
 import com.admin.dto.PageDTO;
 import com.admin.dto.response.PageResponseDTO;
@@ -24,7 +23,7 @@ public class NoticeService implements MyService<Integer, NoticeDTO>{
 	@Override
 	public void register(NoticeDTO v) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -62,8 +61,8 @@ public class NoticeService implements MyService<Integer, NoticeDTO>{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
+
 	public List<NoticeDTO> getNoticeList(Criteria cri){
 		try {
 			return noticeMapper.getNoticeList(cri);
@@ -72,7 +71,7 @@ public class NoticeService implements MyService<Integer, NoticeDTO>{
 			return null;
 		}
 	}
-	
+
 	// 모든 이벤트 페이지 개수 가져오기
 	public int countNotice(Criteria cri) throws Exception{
 		return noticeMapper.countNotice(cri);
@@ -114,5 +113,5 @@ public class NoticeService implements MyService<Integer, NoticeDTO>{
 			e.printStackTrace();
 		}
 	}
-	
+
 }

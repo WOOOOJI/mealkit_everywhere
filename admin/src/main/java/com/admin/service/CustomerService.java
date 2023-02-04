@@ -53,7 +53,7 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 			return null;
 		}
 	}
-	
+
 	//회원 리스트 뽑기
 	public List<CustomerDTO> getCustList(Criteria cri){
 		try {
@@ -63,7 +63,7 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 			return null;
 		}
 	}
-	
+
 	//모든 회원 수 세기
 	public int countCust(Criteria cri){
 		try {
@@ -73,34 +73,34 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 			return 0;
 		}
 	}
-	
+
 	//모든 상품 페이지 메이커
 	public PageResponseDTO getPageMaker(Criteria cri) {
 		PageDTO pageMaker = null;
 		List<Integer> pageNumList = new ArrayList<>();
-		
+
 		try {
 			pageMaker = new PageDTO(cri, customerMapper.countCust(cri));
-			
+
 			for(int i=pageMaker.getPageStart(); i<=pageMaker.getPageEnd(); i++) {
 				pageNumList.add(i);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-			
-			
+
+
 		PageResponseDTO pageResponseDTO = PageResponseDTO.builder()
 					.pageMaker(pageMaker)
 					.pageNumList(pageNumList)
 					.build();
-			
-			
+
+
 		return pageResponseDTO;
-	}	
-	
-	
-	
+	}
+
+
+
 	//회원 차단 설정
 	public void changeLocked(CustomerDTO customerDTO) {
 		try {
@@ -109,10 +109,10 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 			e.printStackTrace();
 		}
 	}
-	
+
 	//회원 주민 앞6자리에 19, 20 작업
 	public String custJumin(int custKey) {
-		
+
 		CustomerDTO customerDTO = new CustomerDTO();
 		String juminStr = "";
 		try {
@@ -127,7 +127,7 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 		return juminStr;
 	}
 

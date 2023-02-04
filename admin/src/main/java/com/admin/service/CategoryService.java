@@ -14,24 +14,24 @@ public class CategoryService implements MyService<Integer, CategoryDTO>{
 
 	@Autowired
 	CategoryMapper mapper;
-	
-	
+
+
 	@Override
 	public void register(CategoryDTO v) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void remove(Integer k) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void modify(CategoryDTO v) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -46,6 +46,6 @@ public class CategoryService implements MyService<Integer, CategoryDTO>{
 		return null;
 	}
 
-	
+
 
 }

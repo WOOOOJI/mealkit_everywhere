@@ -11,22 +11,22 @@ import com.admin.service.RealTimeAnalyzeService;
 
 @SpringBootTest
 class RealTimeAgeRangeSalesTest {
-	
-	
+
+
 	@Autowired
 	RealTimeAnalyzeService as;
-	
+
 	@Test
 	void contextLoads() {
 		System.out.println("-------- 실시간 나이별 판매량 조회 테스트 시작 ---------");
-		
+
 		List<OrderDTO> result=null;
 
 		result=as.realTimeAgeRangeSales();
 		for(OrderDTO i:result) {
 			System.out.println(i);
 		}
-		
+
 		System.out.println("-------- 실시간 나이별 판매량 조회 테스트 끝 ---------");
 	}
 

@@ -17,17 +17,17 @@ public class OrderDetailService implements MyService<Integer, OrderDetailDTO>{
 
 	@Override
 	public void register(OrderDetailDTO v) throws Exception {
-		
+
 	}
 
 	@Override
 	public void remove(Integer k) throws Exception {
-		
+
 	}
 
 	@Override
 	public void modify(OrderDetailDTO v) throws Exception {
-		
+
 	}
 
 	@Override
@@ -39,5 +39,5 @@ public class OrderDetailService implements MyService<Integer, OrderDetailDTO>{
 	public List<OrderDetailDTO> get() throws Exception {
 		return mapper.selectall();
 	}
-	
+
 }

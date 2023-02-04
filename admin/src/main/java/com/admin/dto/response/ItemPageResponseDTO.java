@@ -16,7 +16,7 @@ import lombok.ToString;
 public class ItemPageResponseDTO {
 
 	private PageDTO pageMaker;
-	
+
 	private List<Integer> pageNumList = new ArrayList<>();
 
 	private int active;

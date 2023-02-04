@@ -15,10 +15,10 @@ public class BoardDTO {
 	private String content;
 	private String img;
 	private int rate;
-	
+
 	private MultipartFile imgfile;
-	
-	//문의 내역 보기 
+
+	//문의 내역 보기
 	private String username;
 	private String name;
 	private int price;

@@ -18,32 +18,32 @@ import com.admin.service.RealTimeAnalyzeService;
 
 @RestController
 public class RealTimeAnalyzeController {
-	
+
 	@Autowired
 	RealTimeAnalyzeService service;
-	
-	
+
+
 	@RequestMapping("/getRealTimeData")
 	public JSONObject getRealTimeData() {
-		
+
 		// 주문건당 통계
 		OrderAVG orderavg = new OrderAVG();
-		
+
 		// 나이 차트
-		List<OrderDTO> ageList = new ArrayList<OrderDTO>();
+		List<OrderDTO> ageList = new ArrayList<>();
 		// 성별 차트
-		List<OrderDTO> genderList = new ArrayList<OrderDTO>();
+		List<OrderDTO> genderList = new ArrayList<>();
 		// 시간별 차트
-		List<OrderDTO> chartList = new ArrayList<OrderDTO>();
+		List<OrderDTO> chartList = new ArrayList<>();
 		// 판매순위 리스트
 		List<FilterdDTO> productList = new ArrayList<>();
 		// 어제 매출 차트
 		List<OrderDTO> lastDayChart = new ArrayList<>();
-		
+
 		// 대쉬보드 차트
 		DashBoardDTO nowDash = new DashBoardDTO();
 		DashBoardDTO totalDash = new DashBoardDTO();
-		
+
 		nowDash = service.realTimeDashBoard();
 		totalDash = service.totalTimeDashBoard();
 		//주문당 평균 판매량/판매금액
@@ -60,17 +60,17 @@ public class RealTimeAnalyzeController {
 			arr[i]=o.getTotalSales();
 			i++;
 		}
-		
+
 		productList = service.RealTimefilterdData();
 		lastDayChart = service.lastDayChart();
 		int[] arr2 = new int[24];
 		int i2 = 0;
-		
+
 		for(OrderDTO o : lastDayChart) {
 			arr2[i2] = o.getTotalSales();
 			i2++;
 		}
-		
+
 		//성별 통계 JSONArray로 전달
 		JSONArray genderArray=new JSONArray();
 		int maleSales=0; int femaleSales=0;
@@ -82,7 +82,7 @@ public class RealTimeAnalyzeController {
 		genderObj.put("male", maleSales);
 		genderObj.put("female", femaleSales);
 		genderArray.add(genderObj);
-		
+
 		//나이별 통계 JSONArray로 전달
 		JSONArray ageArray=new JSONArray();
 		int age10Sales=0; int age20Sales=0; int age30Sales=0; int age40Sales=0; int age50Sales=0; int age60Sales=0;
@@ -106,9 +106,9 @@ public class RealTimeAnalyzeController {
 		ageArray.add(ageObj);
 		// 뷰로 보낼 JSONObjcet 생성
 		JSONObject json = new JSONObject();
-		
-		
-		
+
+
+
 		// json에 담아주기 (객체)
 		json.put("nowDash", nowDash);
 		json.put("totalDash", totalDash);
@@ -116,11 +116,11 @@ public class RealTimeAnalyzeController {
 		json.put("chart", arr);
 		json.put("ageData",ageArray);
 		json.put("genderData",genderArray);
-		
+
 		json.put("productList", productList);
 		json.put("lastDayChart", arr2);
-		
+
 		return json;
 	}
-	
+
 }

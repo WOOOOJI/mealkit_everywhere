@@ -14,7 +14,7 @@ public class CartService implements MyService<Integer, CartDTO>{
 
 	@Autowired
 	CartMapper mapper;
-	
+
 	@Override
 	public void register(CartDTO v) throws Exception {
 		mapper.insert(v);
@@ -39,7 +39,7 @@ public class CartService implements MyService<Integer, CartDTO>{
 	public List<CartDTO> get() throws Exception {
 		return mapper.selectall();
 	}
-	
+
 
 }
 

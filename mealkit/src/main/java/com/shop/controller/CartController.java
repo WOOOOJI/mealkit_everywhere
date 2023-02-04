@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.dto.CartDTO;
@@ -183,8 +184,11 @@ public class CartController {
 		
 
 	// 장바구니에 상품 담기.     Insert Item on user's CART        ------------------------------------------------------------------------------------------------
-		@GetMapping("/cart/cartInsert")
-		public String cartInsert(int itemKey, int cnt, int goOrNot, HttpServletRequest req) {
+		@PostMapping("/cart/cartInsert")
+		@ResponseBody
+		public String cartInsert(int itemKey, int cnt, HttpServletRequest req) {
+			
+			int doubleCheck = 0;
 			
 			// 세션값을 먼저 구해서 해당 사용자의 고유 번호를 가져와서 담아준다.                                      get session (custKey) from user's Session
 			HttpSession session = req.getSession();
@@ -204,23 +208,20 @@ public class CartController {
 						
 						// 존재한다면 해당 장바구니 아이템의 개수를 1증가시킨다.
 						service.increaseCart(c.getCartKey(), itemKey, cnt);
-						if(goOrNot == 1) return "redirect:/cart/list";
-						if(goOrNot == 2) return "redirect:/shoplist";
-						return "redirect:/";
+						doubleCheck = 1;
 					}
 				}
 				
 				// 없다면 장바구니에 새로 추가해준다.
-				service.insertCart(custKey, itemKey, cnt);
+				if(doubleCheck == 0) {					
+					service.insertCart(custKey, itemKey, cnt);
+				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println(goOrNot);
-			if(goOrNot == 1) return "redirect:/cart/list";
-			if(goOrNot == 2) return "redirect:/shoplist";
 			
-			
-			return "redirect:/";
+			return "1";
 		}
 	
 	// 상품리스트에서 장바구니에 상품담고 다시 상품리스트로 가기

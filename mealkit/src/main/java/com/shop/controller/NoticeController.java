@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.shop.dto.Criteria;
 import com.shop.dto.CustomerDTO;
@@ -38,8 +39,8 @@ public class NoticeController {
 	@RequestMapping("/about")
 	public String aboutPage(Model model) {
 		
-		// 지금까지 팔린 총 상품수를 구하기 위한 List 객체
-		List<OrderDetailDTO> sumCnt = null;
+		// 지금까지 팔린 총 상품수
+		int sumCnt = 0;
 		// 지금까지 총 회원수를 구하기 위한 List 객체		
 		List<CustomerDTO> sumCust = null;
 		
@@ -49,17 +50,9 @@ public class NoticeController {
 		sumCust = customerService.get();
 		
 		
-		
-		// 총 팔린 상품수
-		int sum = 0;
-		
 		// 총 회원수
 		int custSum = 0;
 		
-		
-		for(OrderDetailDTO d : sumCnt) {
-			sum += d.getCnt();
-		}
 		// 위 아래 for문은 각 list에 담긴 객체를 하나씩 꺼내 총합을 구하기 위함임.
 		for(int i=0; i<sumCust.size(); i++) {
 			custSum += 1;
@@ -70,10 +63,41 @@ public class NoticeController {
 		
 		// 	뷰단에 뿌리기 위한 attribute.
 		model.addAttribute("content", "board/about");
-		model.addAttribute("sum", sum);
+		model.addAttribute("sum", sumCnt);
 		model.addAttribute("custSum", custSum);
 		return "main";
 	}	
+	
+	
+	@RequestMapping("/notice/getLiveData")
+	@ResponseBody
+	public int[] getLiveData() {
+		int[] arr = new int[2];
+		
+		// 지금까지 팔린 총 상품수
+		int sumCnt = 0;
+		// 지금까지 총 회원수를 구하기 위한 List 객체		
+		List<CustomerDTO> sumCust = null;
+				
+		// 전체 SELECT 한 orderDetailDTO List객체 받아오기
+		sumCnt = noticeService.sumCnt();
+		// 전체 SELECT 한 CustomerDTO List객체 받아오기
+		sumCust = customerService.get();
+				
+				
+		// 총 회원수
+		int custSum = 0;
+				
+		// 위 아래 for문은 각 list에 담긴 객체를 하나씩 꺼내 총합을 구하기 위함임.
+		for(int i=0; i<sumCust.size(); i++) {
+			custSum += 1;
+		}
+				
+		arr[0] = sumCnt;
+		arr[1] = custSum;
+		
+		return arr;
+	}
 
 	
 	// 이벤트 페이지로 이동

@@ -15,7 +15,7 @@ public class NoticeDTO {
 	private String img2;
 	private String rdate;
 	private int hit;
-	
+
 	private MultipartFile imgFile1;
 	private MultipartFile imgFile2;
 }

@@ -22,10 +22,10 @@ public class OrderDTO {
 	private int itemCnt;
 	private String itemName;
 	private String itemImg;
-	
+
 	//추가 변수
 	private String custName;
-	
+
 	//기간별 TOP10, BOT10, 매출데이터를 위한 변수
 	private int totCnt;
 	private int totPrice;
@@ -39,7 +39,7 @@ public class OrderDTO {
 	private int totalSales;
 
 	private String refund;
-	
+
 	//나이대별 분석에 필요한 변수
 	private String ageRange;
 

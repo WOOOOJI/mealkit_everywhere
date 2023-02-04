@@ -18,15 +18,15 @@ class RealTimeDataListTest {
 
 	@Test
 	void contextLoads() {
-		
+
 		List<FilterdDTO> filterdDTOList = new ArrayList<>();
 		filterdDTOList = RealTimeAnalyzeService.RealTimefilterdData();
-		
+
 		for(FilterdDTO d : filterdDTOList) {
 			System.out.println(d.getName().toString());
 		}
 		System.out.println(filterdDTOList.toString());
-		
+
 	}
 
 }

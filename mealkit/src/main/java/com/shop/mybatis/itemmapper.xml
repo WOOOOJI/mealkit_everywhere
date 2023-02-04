@@ -9,10 +9,6 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	WHERE itemKey=(SELECT itemKey FROM orderDetail WHERE orderDetKey=${orderDetKey});
 	</update>
 
-	<select id="bestItem" resultType="ItemDTO">
-		SELECT * FROM item ORDER BY RAND() Limit 8;
-	</select>
-	
 	<!-- itemKey에 해당하는 데이터 조회 -->
 	<select id="select" parameterType="Integer" resultType="ItemDTO">
 		SELECT * FROM item WHERE itemKey=#{itemKey}
@@ -77,4 +73,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="newItem" resultType="ItemDTO">
 		SELECT * FROM item ORDER BY itemKey desc limit 8;
 	</select>
+	
+	<select id="bestItem" resultType="ItemDTO">	
+	SELECT SUM(od.cnt) AS "totalPrice", i.itemKey AS "itemKey", i.name AS "name", i.categoryKey AS "categoryKey", i.img1 AS "img1", i.price AS "price", i.sale AS "sale" FROM item i
+	JOIN orderDetail od ON od.itemKey = i.itemKey
+	GROUP BY i.itemKey
+	ORDER BY totalPrice DESC
+	LIMIT 8;
+	</select>
+	
 </mapper>
