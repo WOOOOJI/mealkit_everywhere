@@ -121,6 +121,33 @@ public class WishController {
 			}
 			
 			// 찜에 상품 담기.  상품 리스트화면 리턴   
+			@GetMapping("/wish/wishInsertToItem")
+			public String wishInsertToItem(int itemKey,  HttpServletRequest req) {
+				
+				HttpSession session = req.getSession();
+				int custKey = (int)session.getAttribute("custKey");
+				
+				
+				List<WishDTO> dto = new ArrayList<WishDTO>();
+				try {
+					dto = service.WishList(custKey);
+					for(WishDTO c : dto) {
+						if(c.getItemKey()==itemKey) {
+						//	service.increaseWish(c.getwisthKey(), itemKey);
+							return "redirect:/shoplist/product?itemKey="+itemKey;
+						}
+					}
+					
+					
+					service.insertWish(custKey, itemKey);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				return "redirect:/shoplist/product?itemKey="+itemKey;
+			}
+			
+			
 			@GetMapping("/wish/wishInsertToList")
 			public String wishInsertToList(int itemKey,  HttpServletRequest req) {
 				
@@ -134,7 +161,7 @@ public class WishController {
 					for(WishDTO c : dto) {
 						if(c.getItemKey()==itemKey) {
 						//	service.increaseWish(c.getwisthKey(), itemKey);
-							return "redirect:/";
+							return "redirect:/shoplist";
 						}
 					}
 					
@@ -145,8 +172,7 @@ public class WishController {
 				}
 				
 				return "redirect:/shoplist";
-			}			
-			
+			}
 			
 	
 

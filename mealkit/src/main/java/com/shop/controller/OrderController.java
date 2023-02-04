@@ -152,6 +152,9 @@ public class OrderController {
 		int custKey = (int) session.getAttribute("custKey");
 
 		addrlist = addrservice.userAddr(custKey);
+		if(addrlist.size()>=3) {
+			return "redirect:/order/selectaddr";
+		}
 		model.addAttribute("addrlist", addrlist);
 
 		return "order/addaddr";
