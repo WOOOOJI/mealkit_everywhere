@@ -31,7 +31,7 @@ public interface CustomerMapper extends MyMapper<Integer, CustomerDTO>{
 	public int findCustKey(String email);
 	
 	// 사용자 비밀번호 재설정
-	public int resetPwd(String pwd1, String pwd2, int custKey);
+	public int resetPwd(String pwd1, int custKey);
 	
 	//회원탈퇴
 	public int signOut(CustomerDTO dto);
@@ -41,5 +41,8 @@ public interface CustomerMapper extends MyMapper<Integer, CustomerDTO>{
 	
 	//마이페이지 비밀번호 변경
 	public CustomerDTO updatePwdForm(CustomerDTO dto);
+	
+	//로그인 시 입력된 id로 비밀번호 가져오기
+	public String getPwd(String email) throws Exception;
 }
 	 

@@ -10,6 +10,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="selectall" resultType="CustomerDTO">
 		SELECT * FROM customer
 	</select>
+	
+	<select id="select">
+		SELECT * FROM customer WHERE custKey=${custKey}
+	</select>
  	
  	<!-- 아이디 중복확인 -->
  	<select id="isEmailExist" parameterType="CustomerDTO" resultType="int">
@@ -72,6 +76,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
     	SELECT * FROM customer
     	WHERE email=#{email} AND userpwd=#{userpwd}
     </select> 
+    
+    <!-- 로그인 시 입력된 이메일로 비밀번호 가져오기 -->
+	<select id="getPwd" resultType="String" parameterType="String">
+		SELECT userpwd FROM customer WHERE email=#{email}
+	</select>
 </mapper>
 
 

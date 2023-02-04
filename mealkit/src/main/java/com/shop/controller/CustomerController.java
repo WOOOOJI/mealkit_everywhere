@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -32,6 +33,8 @@ public class CustomerController {
 	String dir="customer/";
 	
 	
+	@Autowired
+	private PasswordEncoder pwdEncoder;
 	
 	@Autowired
 	CustomerService service;
@@ -53,6 +56,7 @@ public class CustomerController {
 	@PostMapping("/memberForm")
 	public String addMember(CustomerDTO dto, Model model) {
 		// System.out.println(dto.toString());
+		dto.setUserpwd(pwdEncoder.encode(dto.getUserpwd()));
 		int result = service.addMember(dto);
 		model.addAttribute("result", result);
 		return "customer/login";
@@ -77,8 +81,15 @@ public class CustomerController {
 	public String login(CustomerDTO dto, Model model, HttpServletRequest req) throws Exception {
 		// System.out.println(dto.toString());
 		HttpSession session = req.getSession();
+		//1. email로 유저 pwd 가져오기 - 기능 없음
+		//2. 암호화 되는거랑 match되나 확인해보기 (폼에서 준거)
+		//3. 암호화된 비밀번호로 pw 변경 후 로그인
+		String encodedPwd=service.getPwd(dto.getEmail());
+		if(pwdEncoder.matches(dto.getUserpwd(), encodedPwd)) {
+			dto.setUserpwd(encodedPwd);
+		}
 		CustomerDTO customerDTO = service.loginCheck(dto);
-		System.out.println(customerDTO);
+		
 		if (customerDTO != null) {
 			session.setAttribute("custKey", customerDTO.getCustKey());
 			session.setAttribute("email", customerDTO.getEmail());
@@ -156,11 +167,13 @@ public class CustomerController {
 
 	// 비밀번호 재설정
 	@PostMapping("/resetPwd")
-	public String resetPwd(String pwd1, String pwd2, int custKey, Model model) {
+	public String resetPwd(String pwd1, int custKey, Model model) {
 		int result = 0;
-
+		
 		try {
-			result = service.resetPwd(pwd1, pwd2, custKey);
+			pwd1=pwdEncoder.encode(pwd1);
+			System.out.println(pwd1);
+			result = service.resetPwd(pwd1,custKey);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -187,8 +200,15 @@ public class CustomerController {
 	// 마이페이지 비밀번호 변경전 회원정보 확인하기
 	@PostMapping("/custcheck")
 	public String custCheck(CustomerDTO dto, Model model, HttpServletRequest req) throws Exception {
-		// System.out.println(dto.toString());
+		//1. 이메일이용해서 비밀번호 가져오기
+		//2. 가져온 비밀번호랑 encodepwd 맞는지 확인
+		String encodePwd = service.getPwd(dto.getEmail());
+		if(pwdEncoder.matches(dto.getUserpwd(), encodePwd)) {
+			dto.setUserpwd(encodePwd);
+		}
+		
 		HttpSession session = req.getSession();
+		
 		CustomerDTO customerDTO = service.custCheck(dto);
 		System.out.println(customerDTO);
 		if (customerDTO != null) {
@@ -200,7 +220,7 @@ public class CustomerController {
 			System.out.println(session);
 			return "trash";
 		} else {
-			model.addAttribute("loginResult", "fail"); // 로그인 실패시 '아이디와 비밀번호를 확인하세요.' 메세지
+			model.addAttribute("loginResult", "fail"); 
 			model.addAttribute("content", "customer/custcheck");
 			return "customer/custcheck";
 		}
@@ -209,6 +229,15 @@ public class CustomerController {
 	// 마이페이지 - 비밀번호 변경하기
 	@PostMapping("/updatePwdForm")
 	public String updatePwdForm(CustomerDTO dto, Model model) {
+		//1. 이메일 이용해서 비밀번호 가져오기
+		String encodePwd = service.getPwd(dto.getEmail());
+		//2. 입력한 비밀번호와 encodepwd랑 맞는지 비교
+		if(pwdEncoder.matches(dto.getUserpwd(), encodePwd)) {
+			dto.setUserpwd(encodePwd);
+		}
+		
+		
+		
 		CustomerDTO d = null;
 		try {
 			d = service.updatePwdForm(dto);
@@ -221,8 +250,8 @@ public class CustomerController {
 			model.addAttribute("custKey", d.getCustKey());
 			return "customer/updatepwd";
 		}
-		model.addAttribute("num", 10);
-		return "customer/custcheck"; //
+		
+		return "customer/custcheckfail"; //
 	}
 //----------------------------------------------------------------------------------------------
 	@RequestMapping("/orderlist")
@@ -271,7 +300,17 @@ public class CustomerController {
 	// 회원탈퇴
 	@PostMapping("/signout")
 	public String signOut(Model model, HttpSession session, CustomerDTO dto) {
+		//1. email로 유저 pwd 가져오기
+		//2. 가져온 비밀번호가 입력받은거랑 매치되는지 확인
+		//3. 같으면 탈퇴
+		
+		String encodePwd = service.getPwd(dto.getEmail());
+		if(pwdEncoder.matches(dto.getUserpwd(), encodePwd)) {
+			dto.setUserpwd(encodePwd);
+		}
+		
 		int custKey = (int)session.getAttribute("custKey");
+		
 		dto.setCustKey(custKey);
 		int result = service.signOut(dto);
 		if(result==1) {

@@ -23,7 +23,7 @@ class ResetPwdTests {
 		
 		int result=0;
 		try {
-			result = service.resetPwd("aaaaa12", "aaaaa12", 27);
+			result = service.resetPwd("aaaaa12", 27);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

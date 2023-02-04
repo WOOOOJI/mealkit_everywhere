@@ -95,8 +95,8 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 		return mapper.resetPwdForm(dto);
 	}
 	
-	public int resetPwd(String pwd1, String pwd2, int custKey) throws Exception{
-		return mapper.resetPwd(pwd1, pwd2, custKey);
+	public int resetPwd(String pwd1, int custKey) throws Exception{
+		return mapper.resetPwd(pwd1, custKey);
 	}
 	
 	//회원탈퇴
@@ -115,6 +115,19 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 	//마이페이지 비밀번호 변경 
 	public CustomerDTO updatePwdForm(CustomerDTO dto) throws Exception{	
 		return mapper.updatePwdForm(dto);
+	}
+	
+	//로그인 시 사용되는 이메일로 비밀번호 가져오기
+	public String getPwd(String email) {
+		String result="";
+		
+		try {
+			result=mapper.getPwd(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }
 
