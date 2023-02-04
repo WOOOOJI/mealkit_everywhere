@@ -103,5 +103,21 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SET content = #{content}  
 		WHERE boardKey = ${boardKey}
 	</update>
-
+	
+	<select id="getRate" resultType="Integer" parameterType="Integer">
+		SELECT IFNULL(round(avg(rate)),0) 
+		FROM board WHERE itemKey = ${itemKey} AND ntype = 'r' AND rate;
+	</select>
+	
+	<select id="searchedItemKey" resultType="Integer" parameterType="BoardDTO">
+		SELECT count(ordD.itemKey) 
+		FROM orderDetail AS ordD
+		RIGHT OUTER JOIN totalorder AS totO ON totO.orderKey = ordD.orderKey AND totO.custKey = ${custKey}
+		WHERE ordD.itemKey = ${itemKey};
+	</select>
+	
+	<select id="modifyReview" resultType="BoardDTO" parameterType="BoardDTO">
+		SELECT * FROM board 
+		WHERE custKey = ${custKey} AND itemKey = ${itemKey} AND boardKey = ${boardKey} AND ntype = 'r';
+	</select>
 </mapper>

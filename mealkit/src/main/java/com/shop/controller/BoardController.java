@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.dto.BoardDTO;
 import com.shop.dto.CommentsDTO;
+import com.shop.dto.Criteria;
 import com.shop.service.BoardService;
 import com.shop.service.CommentsService;
 import com.shop.service.ItemService;
@@ -78,8 +82,6 @@ public class BoardController {
 		BoardDTO dto = null; //초기값 세팅
 		CommentsDTO cdto = null; 
 		try {
-			System.out.println("결과값 " + service.get(boardKey));
-			System.out.println("결과값 " + cservice.getreply(boardKey));
 			 dto = service.get(boardKey);
 			 cdto = cservice.getreply(boardKey);
 		} catch (Exception e) {
@@ -135,10 +137,7 @@ public class BoardController {
 		}		
 		BoardDTO dto = null; //초기값 세팅
 		try {
-			System.out.println("결과값 " + service.reviewDetail(boardKey));
-			
 			 dto = service.reviewDetail(boardKey);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -165,13 +164,42 @@ public class BoardController {
 	public String writeReview(BoardDTO boardDTO, HttpSession session , Model model) {
 		
 		int custKey = (int) session.getAttribute("custKey");
+		System.out.println();
 
 		boardDTO.setCustKey(custKey);
-		System.out.println(boardDTO.toString());
 		
 		model.addAttribute("boardDTO",boardDTO);
 		return "board/writereview";
 	}
+	
+	@RequestMapping("/reviewJudge")
+	@ResponseBody
+	public Object reviewJudge(@RequestBody String judgeJSON,  HttpServletResponse response, 
+							HttpSession session) {
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		JSONObject obj = new JSONObject();
+		ObjectMapper mapper = new ObjectMapper();
+		
+		int custKey = (int) session.getAttribute("custKey");
+		
+		BoardDTO boardDTO = new BoardDTO();
+		
+		try {
+			boardDTO = (BoardDTO) mapper.readValue(judgeJSON, new TypeReference<BoardDTO>() {});
+			boardDTO.setCustKey(custKey);
+			boolean flag = service.searchedItemKey(boardDTO);
+			obj.put("flag", flag);
+		} catch (Exception e) {
+			e.printStackTrace();
+			obj.put("res", "error");
+		}
+		
+		
+		return obj;
+	}
+	
 	
 	//후기 작성 폼에서 후기 등록하는 메소드 
 	@RequestMapping("/registerReview")
@@ -189,7 +217,7 @@ public class BoardController {
 		try {
 			boardDTO = (BoardDTO)mapper.readValue(reviewJSON, new TypeReference<BoardDTO>() {});
 			
-			System.out.println(boardDTO.toString());
+			//System.out.println(boardDTO.toString());
 			service.register(boardDTO);
 			
 			result = 1;
@@ -209,9 +237,12 @@ public class BoardController {
 		
 		int custKey = (int) session.getAttribute("custKey");
 
+		
 		boardDTO.setCustKey(custKey);
+		boardDTO = service.modifyReview(boardDTO);
 		System.out.println(boardDTO.toString());
-			
+		
+		//model에 담고 html파일명을 return하면 model의 데이터도 이동한다
 		model.addAttribute("boardDTO",boardDTO);
 		return "board/modreview";
 	}

@@ -171,4 +171,45 @@ public class BoardService implements MyService<Integer, BoardDTO>{
 		return result;
 	}
 	
+	//상품 평균 평점 가져오기
+	public int getRate(int itemKey) {
+		
+		int rate = 0;
+		try {
+			rate = boardMapper.getRate(itemKey);
+			return rate;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	
+	//후기 작성시 구매한 상품인지 확인하기
+	public boolean searchedItemKey(BoardDTO boardDTO) {
+		try {
+			int payJudge = boardMapper.searchedItemKey(boardDTO);
+			if(payJudge == 0) {
+				return false;
+			}else {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
+	//후기 수정시 작성했던 내용 가져오기
+	public BoardDTO modifyReview(BoardDTO boardDTO) {
+		BoardDTO boardDataDTO = new BoardDTO();
+		try {
+			boardDataDTO = boardMapper.modifyReview(boardDTO);
+			return boardDataDTO;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 }

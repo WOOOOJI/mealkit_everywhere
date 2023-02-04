@@ -30,7 +30,7 @@ public interface BoardMapper extends MyMapper<Integer, BoardDTO>{
 	public BoardDTO reviewDetail(int boardKey) throws Exception;
 	
 	//후기글 삭제하기
-	public int reviewDelete(int boardKey) throws Exception;	
+	public int reviewDelete(int boardKey) throws Exception;
 	
 	//--------------페이징-------------------------------------------------
 	

@@ -1,6 +1,8 @@
 package com.admin.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -187,7 +189,12 @@ public class OrderService implements MyService<Integer, OrderDTO> {
 	// 연도별 TOP10, BOT10, 매출 차트데이터 ======================================
 	// 연도별 TOP10 리스트
 	public List<OrderDTO> getYearTOP10List(String year){
-		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+		String nowDate = sdf.format(date);
+		if(year == null) {
+			year = nowDate;		
+		}
 		try {
 			return orderMapper.getYearTOP10List(year);
 		} catch (Exception e) {
@@ -198,7 +205,12 @@ public class OrderService implements MyService<Integer, OrderDTO> {
 	
 	// 연도별 BOT10 리스트
 	public List<OrderDTO> getYearBOT10List(String year){
-		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+		String nowDate = sdf.format(date);
+		if(year == null) {
+			year = nowDate;		
+		}
 		try {
 			return orderMapper.getYearBOT10List(year);
 		} catch (Exception e) {
@@ -209,8 +221,17 @@ public class OrderService implements MyService<Integer, OrderDTO> {
 	
 	// 월별 TOP10, BOT10, 매출 차트데이터 ======================================
 	// 월별 TOP10 리스트
-	public List<OrderDTO> getMonthTOP10List(String month){
+	public List<OrderDTO> getMonthTOP10List(String year, String month){
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+		String nowDate = sdf.format(date);
+		String[] dateArr = nowDate.split("-");
 		
+		
+		if(year == null && month == null) {
+			year = dateArr[0];
+			month = dateArr[1];
+		}
 		try {
 			return orderMapper.getMonthTOP10List(month);
 		} catch (Exception e) {
@@ -220,8 +241,17 @@ public class OrderService implements MyService<Integer, OrderDTO> {
 	}
 	
 	// 월별 BOT10 리스트
-	public List<OrderDTO> getMonthBOT10List(String month){
+	public List<OrderDTO> getMonthBOT10List(String year, String month){
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+		String nowDate = sdf.format(date);
+		String[] dateArr = nowDate.split("-");
 		
+		
+		if(year == null && month == null) {
+			year = dateArr[0];
+			month = dateArr[1];
+		}
 		try {
 			return orderMapper.getMonthBOT10List(month);
 		} catch (Exception e) {
@@ -232,8 +262,18 @@ public class OrderService implements MyService<Integer, OrderDTO> {
 	
 	// 일별 TOP10, BOT10, 매출 차트데이터 ======================================
 	// 일별 TOP10 리스트
-	public List<OrderDTO> getDayTOP10List(String day){
+	public List<OrderDTO> getDayTOP10List(String year, String month, String day){
+		Date datee = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String nowDate = sdf.format(datee);
+		String[] dateArrr = nowDate.split("-");
 		
+		
+		if(day == null) {
+			year = dateArrr[0];
+			month = dateArrr[1];
+			day = dateArrr[2];
+		}
 		try {
 			return orderMapper.getDayTOP10List(day);
 		} catch (Exception e) {
@@ -243,8 +283,18 @@ public class OrderService implements MyService<Integer, OrderDTO> {
 	}
 	
 	// 일별 BOT10 리스트
-	public List<OrderDTO> getDayBOT10List(String day){
+	public List<OrderDTO> getDayBOT10List(String year, String month, String day){
+		Date datee = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String nowDate = sdf.format(datee);
+		String[] dateArrr = nowDate.split("-");
 		
+		
+		if(day == null) {
+			year = dateArrr[0];
+			month = dateArrr[1];
+			day = dateArrr[2];
+		}
 		try {
 			return orderMapper.getDayBOT10List(day);
 		} catch (Exception e) {

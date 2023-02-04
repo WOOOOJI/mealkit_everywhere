@@ -289,9 +289,9 @@ if(max > max2){
 								<tr th:each="y, yS : ${yearMthlyList}">
 									<td th:text="${yS.count}"></td>
 									<td th:text="${y.itemName}"></td>
-									<td th:text="${y.price}" class="d-none d-xl-table-cell"></td>
-									<td th:text="${y.totCnt}" class="d-none d-xl-table-cell"></td>
-									<td th:text="${y.totPrice}" class="d-none d-xl-table-cell"></td>
+									<td th:text="${y.price}" class="d-none d-xl-table-cell" id="topPrice"></td>
+									<td th:text="${y.totCnt}" class="d-none d-xl-table-cell" id="topTotCnt"></td>
+									<td th:text="${y.totPrice}" class="d-none d-xl-table-cell" id="topTotPrice"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -321,9 +321,9 @@ if(max > max2){
 							<tr th:each="b, yS : ${yearBOT10List}">
 									<td th:text="${yS.count}"></td>
 									<td th:text="${b.itemName}"></td>
-									<td th:text="${b.price}" class="d-none d-xl-table-cell"></td>
-									<td th:text="${b.totCnt}" class="d-none d-xl-table-cell"></td>
-									<td th:text="${b.totPrice}" class="d-none d-xl-table-cell"></td>
+									<td th:text="${b.price}" class="d-none d-xl-table-cell" id="botPrice"></td>
+									<td th:text="${b.totCnt}" class="d-none d-xl-table-cell" id="botTotCnt"></td>
+									<td th:text="${b.totPrice}" class="d-none d-xl-table-cell" id="botTotPrice"></td>
 								</tr>
 							</tbody>
 						</table>

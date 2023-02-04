@@ -10,12 +10,21 @@
 			var pageNum='[[${pageNum}]]';
 			document.getElementById('pageNum'+pageNum).className='active';
 			
+			//밑에서 보면 categoryList에 담겨있는 category안의 categoryKey이지만,
+			//자바스크립트에서 부를 때는 categoryKey라고만 해서 불러야한다
+			//category.categoryKey로 부르면 타임리프 문법 에러발생...
 			var category='[[${categoryKey}]]';
 			document.getElementById('categoryNum'+category).className='active';
 
 			var order_cri='[[${order_cri}]]';
 			document.getElementById(order_cri).className='active';
 			
+			/* var itemKey = '[[${itemKey}]]';
+			if($('#forStatus'+itemKey).text()=='0'){
+				alert($('.status').text());
+			}else{
+				$('#forStatus'+itemKey).css('display','none');				
+			} */
 		});
 
 		
@@ -23,7 +32,6 @@
 			var itemKey = item;
 			location.href="/wish/wishInsertToList?itemKey="+itemKey;
 		};
-		
 		
  	</script>
  	
@@ -40,6 +48,11 @@
 		
 		alert(goOrNot);
 		location.href="/cart/cartInsert?itemKey="+itemKey+"&cnt="+cnt+"&goOrNot="+goOrNot;
+	};
+	
+	function searchFunction(){
+		alert($('input[name=keyword]').val());
+		$('#searchingId').submit();
 	};
 	</script>
 
@@ -95,6 +108,8 @@
     					<!-- 정렬 순서 선택 -->
     					<!-- 최신 등록순 -->
     					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, asc_desc = 'desc', order_cri='itemKey')}" id="itemKey">최신 등록순</a></li>
+						<!-- 판매량순 -->
+    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, asc_desc = 'desc', order_cri='orD.cnt')}" id="orD.cnt">판매량 순</a></li>
     					<!-- 이름순 -->
     					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, asc_desc = 'asc', order_cri='name')}" id="name">이름순</a></li>
     					<!-- 낮은 가격순 -->
@@ -115,7 +130,10 @@
 		    				<!-- 상품 썸네일 -->
 		    				<a th:href="@{/shoplist/product(itemKey = ${item.itemKey})}" class="img-prod"><img class="img-fluid" th:src="@{/img/product/}+${item.img1}" alt="No image">
 		    					<!-- 썸네일 위에 표시 되는 할인율 -->
-		    					<!-- span class="status">30%</span> -->
+		    					<!-- Thymeleaf의 $ 사인을 쓰고나서 그 안에 또 ${}를 쓰면 에러발생.. -->
+		    					<!-- ((item.price-item.sale)/item.price)*100 으로 하면 0이 나오고 -->
+		    					<!-- ((item.price-item.sale)*100/item.price) 으로 해야 값이 제대로 나온다 -->
+		    					<span th:id="'forStatus'+${item.itemKey}" class="status" th:text="${#numbers.formatDecimal(((item.price-item.sale)*100/item.price),0,0)+'%'}"></span>
 		    					<div class="overlay"></div>
 		    				</a>
 		    				<div class="text py-3 pb-4 px-3 text-center">
@@ -180,6 +198,25 @@
 		        </div>
 	        
     	</div>
+    	
+    	<section class="ftco-section ftco-no-pt ftco-no-pb py-5">
+	      <div class="container py-9">
+	        <div class="row d-flex justify-content-center py-5">
+	          <div class="col-md-6">
+	          	<h2 style="font-size: 22px;" class="mb-0"></h2>
+	          	<span></span>
+	          </div>
+	          <div class="col-md-6 d-flex align-items-center">
+	            <form action="/shoplist" class="subscribe-form" method="get" id="searchingId">
+	              <div class="form-group d-flex">
+	                <input type="text" name="keyword" class="form-control" placeholder="상품명으로 검색해주세요" style="border: 2px solid #82AE46;">
+	                <input type="button" onclick="searchFunction();" value="검색" class="submit px-3">
+	              </div>
+	            </form>
+	          </div>
+	        </div>
+	      </div>
+	    </section>
     </section>
 
 	
