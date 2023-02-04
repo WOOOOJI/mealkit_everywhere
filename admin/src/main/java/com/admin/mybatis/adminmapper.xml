@@ -6,4 +6,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="login" resultType="AdminDTO">
 		SELECT * FROM admin WHERE adminId LIKE #{adminId} AND adminPwd LIKE #{adminPwd}
 	</select>
+	<insert id="createId" parameterType="String">
+		INSERT INTO admin(adminId, adminPwd,name) VALUES(#{adminId},#{adminPwd},#{name});
+	</insert>
+	<update id="updatePwd">
+		UPDATE admin SET adminPwd=#{adminPwd} WHERE adminId=#{adminId}
+	</update>
+	<select id="getPwd" parameterType="String" resultType="String">
+		SELECT adminPwd FROM admin WHERE adminId=#{adminId}
+	</select>
 </mapper>
