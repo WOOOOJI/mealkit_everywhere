@@ -45,6 +45,6 @@ public class WebConfig implements WebMvcConfigurer {
               .addPathPatterns("/dayanalyze")
               .addPathPatterns("/detailSearch")
               .addPathPatterns("/reviewJudge")
-              .excludePathPatterns("/loginForm", "/fonts/**", "/css/**", "/images/**", "/js/**", "/login", "/logincheck.do*");
+              .excludePathPatterns("/logout","/loginForm", "/fonts/**", "/css/**", "/images/**", "/js/**", "/login", "/logincheck.do*");
   }
 }

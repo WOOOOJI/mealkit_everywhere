@@ -116,6 +116,19 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 	public CustomerDTO updatePwdForm(CustomerDTO dto) throws Exception{	
 		return mapper.updatePwdForm(dto);
 	}
+	
+	//로그인 시 사용되는 이메일로 비밀번호 가져오기
+	public String getPwd(String email) {
+		String result="";
+		
+		try {
+			result=mapper.getPwd(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }
 
 

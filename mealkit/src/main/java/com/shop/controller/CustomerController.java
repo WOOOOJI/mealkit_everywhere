@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -32,6 +33,8 @@ public class CustomerController {
 	String dir="customer/";
 	
 	
+	@Autowired
+	private PasswordEncoder pwdEncoder;
 	
 	@Autowired
 	CustomerService service;
@@ -53,6 +56,7 @@ public class CustomerController {
 	@PostMapping("/memberForm")
 	public String addMember(CustomerDTO dto, Model model) {
 		// System.out.println(dto.toString());
+		dto.setUserpwd(pwdEncoder.encode(dto.getUserpwd()));
 		int result = service.addMember(dto);
 		model.addAttribute("result", result);
 		return "customer/login";
@@ -77,8 +81,15 @@ public class CustomerController {
 	public String login(CustomerDTO dto, Model model, HttpServletRequest req) throws Exception {
 		// System.out.println(dto.toString());
 		HttpSession session = req.getSession();
+		//1. email로 유저 pwd 가져오기 - 기능 없음
+		//2. 암호화 되는거랑 match되나 확인해보기 (폼에서 준거)
+		//3. 암호화된 비밀번호로 pw 변경 후 로그인
+		String encodedPwd=service.getPwd(dto.getEmail());
+		if(pwdEncoder.matches(dto.getUserpwd(), encodedPwd)) {
+			dto.setUserpwd(encodedPwd);
+		}
 		CustomerDTO customerDTO = service.loginCheck(dto);
-		System.out.println(customerDTO);
+		
 		if (customerDTO != null) {
 			session.setAttribute("custKey", customerDTO.getCustKey());
 			session.setAttribute("email", customerDTO.getEmail());

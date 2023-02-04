@@ -41,5 +41,8 @@ public interface CustomerMapper extends MyMapper<Integer, CustomerDTO>{
 	
 	//마이페이지 비밀번호 변경
 	public CustomerDTO updatePwdForm(CustomerDTO dto);
+	
+	//로그인 시 입력된 id로 비밀번호 가져오기
+	public String getPwd(String email) throws Exception;
 }
 	 

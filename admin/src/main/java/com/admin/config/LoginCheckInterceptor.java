@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LoginCheckInterceptor implements HandlerInterceptor {
 
-    @Override
+    
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("LoginInterceptor - {}", "호출완료");
         System.out.println("----------------------------------------------------------------------");

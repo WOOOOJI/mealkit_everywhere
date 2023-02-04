@@ -60,6 +60,37 @@ public class AdminService implements MyService<Integer, AdminDTO>{
 
 		return dto;
 	}
-
+	
+	//관리자 아이디 생성
+	public int createId(String adminId, String adminPwd, String name) {
+		int result=0;
+		try {
+			result=mapper.createId(adminId, adminPwd, name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	//관리자 비밀번호 변경
+	public int updatePwd(String adminId, String adminPwd) {
+		int result=0;
+		try {
+			result=mapper.updatePwd(adminId, adminPwd);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	//관리자 ID 이용해서 해당 ID의 pwd 불러오기
+	public String getPwd(String adminId) {
+		String result="";
+		try {
+			result=mapper.getPwd(adminId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 }
