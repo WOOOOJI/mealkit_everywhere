@@ -613,9 +613,9 @@
 														
 													</thead>
 													<tbody>
-														<tr class="odd" th:if="customerList != 'empty'" th:each="customer : ${customerList}">
+														<tr class="odd" th:if="${customerList} != 'empty'" th:each="customer : ${customerList}">
 															<td class="dtr-control sorting_1" tabindex="0">
-																<span th:classappend="${customer.banned == 'Y'} ? 'badge bg-danger' : (${customer.signout == 'Y'} ? 'badge bg-warning' : '')"
+																<span th:classappend="${#strings.equals(customer.banned,'Y')} ? 'badge bg-danger' : (${#strings.equals(customer.signout,'Y')} ? 'badge bg-warning' : '')"
 																th:text="${customer.email}"></span></td>
 															<td class="d-none d-xl-table-cell" th:text="${customer.custKey}"></td>
 															<td class="d-none d-xl-table-cell" th:text="${customer.username}"></td>
@@ -626,19 +626,19 @@
 															<td class="d-none d-xl-table-cell" th:if="${customer.gender} == '4'"><span>여자</span></td>
 															<th class="d-none d-md-table-cell" th:text="${customer.tel}"></th>
 															<td><span class="" 
-																th:classappend="${customer.banned == 'Y'} ? 'badge bg-danger' : 'badge bg-success'"
+																th:classappend="${#strings.equals(customer.banned,'Y')} ? 'badge bg-danger' : 'badge bg-success'"
 																th:text="${customer.banned}" style="text-align : center"></span></td>
 															<td><span class=""
-																th:classappend="${customer.signout == 'Y'} ? 'badge bg-warning' : 'badge bg-success'"
+																th:classappend="${#strings.equals(customer.signout,'Y')} ? 'badge bg-warning' : 'badge bg-success'"
 																th:text="${customer.signout}" style="text-align : center"></span></td>
 															<td>
-																<span th:classappend="${customer.banned == 'Y'} ? '' : 'hide'" th:onclick="changeLocked([[${customer.custKey}]])" 
+																<span th:classappend="${#strings.equals(customer.banned,'Y')} ? '' : 'hide'" th:onclick="changeLocked([[${customer.custKey}]])" 
 																style="cursor:pointer" th:id="${customer.custKey}" th:value="${customer.banned}">
 																<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
 																stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock align-middle me-2">
 																		<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
 																</span>
-																<span th:classappend="${customer.banned == 'N'} ? '' : 'hide'" th:onclick="changeLocked([[${customer.custKey}]])" 
+																<span th:classappend="${#strings.equals(customer.banned,'N')} ? '' : 'hide'" th:onclick="changeLocked([[${customer.custKey}]])" 
 																style="cursor:pointer"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" 
 																stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-unlock align-middle me-2">
 																		<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
@@ -664,8 +664,8 @@
 														</li>
 														
 														<li class="paginate_button page-item pageList" th:each="pageNum : ${pageNumList}" th:id="'pageNum'+${pageNum}">
-															<a class="page-link" th:href="@{/customer(pageNum = ${pageNum}, ascDesc = ${ascDesc}, orderCri=${orderCri}, amount=${amountCust},
-																							emailKeyword=${emailKeyword}, nameKeyword=${nameKeyword}, phNumberKeyword=${phNumberKeyword})}" 
+															<a class="page-link" th:href="@{/customer(pageNum = ${pageNum}, ascDesc = ${ascDesc}, orderCri=${orderCri},
+															 amount=${amountCust}, emailKeyword=${emailKeyword}, nameKeyword=${nameKeyword}, phNumberKeyword=${phNumberKeyword})}" 
 															th:text="${pageNum}"></a>
 														</li>
 														

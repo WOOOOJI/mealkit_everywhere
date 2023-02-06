@@ -84,6 +84,10 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		ORDER BY ageRange ASC
 	</select>
 	
+	
+	
+	
+	
 	<!-- 성별 판매량 구하기 -->
 	<select id="realTimeGenderSales" resultType="OrderDTO">
 		SELECT SUM(od.cnt) AS totalSales, (if(c.gender='1' or

@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
 <style>
 	#coupang{
 		margin-top:20px;
@@ -48,12 +50,12 @@
           	<span>궁금하신점을 오른쪽 바에 적어서 제출해주세요! 챗봇으로 연결이 됩니다.</span>
           </div>
           <div class="col-md-6 d-flex align-items-center">
-            <form action="#" class="subscribe-form">
+            <form action="#" class="subscribe-form" onsubmit="return false">
               <div class="form-group d-flex">
-                <input type="text" class="form-control" placeholder="문의내용">
-                <input type="submit" value="문의하기" class="submit px-3">
+                <input type="text" class="form-control" placeholder="문의내용" id="chatBotLog">
+                <input type="button" value="문의하기" class="submit px-3 connect">
               </div>
-            </form>
+            </form>              
           </div>
         </div>
       </div>
@@ -126,6 +128,10 @@
           </div>
         </div>
       </div>
+      
+
+	 
+      
     </footer>
     
   
@@ -133,6 +139,19 @@
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
+<script>
+
+	$('#chatScroll').click(function(){
+
+		$(window).scroll(function(){
+
+			$('#chatBot').css('top',$(window).scrollTop()+50);
+
+		});
+
+	});
+
+</script>
 
 
  <script th:src="@{/js/jquery.min.js}"></script>

@@ -21,6 +21,8 @@ class RealTimeDashBoardTests {
 
 		LocalDateTime now = LocalDateTime.now();
 
+		
+		
 		// 현재날짜 nowDate
 		String NOWDATE = now.toString().substring(0,10);
 		System.out.println(NOWDATE);

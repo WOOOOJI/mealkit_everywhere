@@ -1,6 +1,64 @@
+<style>
+#me {
+	width: 400px;
+	height: 600px;
+	overflow: auto;
+	
+}
+</style>
+
+
+
+
+
+
+
+
+
+
 <div id="header" th:include="header"></div>
 <div id="content" th:include="${content} ? ${content} : content"></div>
 <div id="footer" th:include="footer"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ChatBot 기능은 어떤 페이지에서도 사용가능해야 함. -->
+<div style="position: fixed; right: 0; bottom: 30px; height:760px;">
+  <div class="container py-5 sr-only" id="chatBot">
+
+    <div class="row d-flex">
+      <div class="col-md-12 col-lg-12 col-xl-12">
+
+		<!-- 채팅의 결과값들을 append 할 태그 -->
+        <div class="card" id="me" style="padding-left:10px; padding-right:10px;">
+          <div class="card-header d-flex justify-content-between align-items-center p-3">
+            <h5 class="mb-0">"Mealkit 문의하기"</h5>
+            <button type="button" class="btn btn-primary btn-sm" data-mdb-ripple-color="dark" id="disconnect">문의 종료하기</button>
+          </div>      
+        </div>
+          <div class="card-footer text-muted d-flex justify-content-start align-items-center p-1">
+            <input type="text" id="metext" class="form-control form-control-lg" style="height:30px;" 
+              placeholder="MealBot에 메시지 보내기">
+			<button class="btn btn-success" id="sendme"><i class="bi bi-arrow-return-left"></i></button>
+          </div>
+
+      </div>
+    </div>
+
+  </div>
+ </div>
 
 
 
@@ -15,9 +73,15 @@ function loginSuccess(){
 }
 
 loginSuccess();
-
-
 </script>
+
+
+
+<script th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
+<script th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
+
+
+
 
 
 <!-- 로그인 성공시 -->
@@ -28,3 +92,170 @@ loginSuccess();
 /*]]>*/
 </script>
 
+
+
+
+
+
+
+<!-- 챗봇기능 -->
+<script>
+var stompClient = null;
+const id = '[[${session.email}]]';
+
+
+function connect() {
+
+	
+	// 입력한 문자가 없을때의 경우 처리하기
+	if(document.getElementById('chatBotLog').value != ''){
+		document.getElementById('metext').value = document.getElementById('chatBotLog').value;
+	}
+	
+	if(id != ''){
+	
+		
+	// 안보기에 했던 class 제거
+	$('#chatBot').removeClass("sr-only sr-only-focusable");
+	
+	
+	
+	// 웹소켓에 연결하기 (어드민)
+	var socket = new SockJS('http://127.0.0.1:8080/admin/chbot');
+	stompClient = Stomp.over(socket);
+
+	
+	// 연결 완료시에 실행될 메세지 전송 함수
+	stompClient.connect({}, function(frame) { 
+		setConnected(true);
+		
+		
+		stompClient.subscribe('/send/'+id, function(msg) {
+		
+			
+			
+			// 리턴되는 JSON의 형식에 따라 나눠지는 태그생성 방식
+			$("#me").append(
+		            "<div class='d-flex flex-row justify-content-end' style='margin-top:30px;'>"
+		             +'<div>'+
+		                '<p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">'						
+						+	JSON.parse(msg.body).content2 +
+		                '</p>'+
+		             '</div>'+
+		              "<img src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp'alt='avatar 1' style='width: 35px; height: 35px;'>"
+		            +'</div>'	
+			)	
+
+			
+			
+			
+			var result="오류가 발생하였습니다. 다시 입력해주세요.";
+			
+			 if(JSON.parse(JSON.parse(msg.body).content1).hasOwnProperty('cover')){	
+				 		result=JSON.parse(JSON.parse(msg.body).content1).cover.data.description+'</p>'
+				 	
+						for(i=0;i<JSON.parse(JSON.parse(msg.body).content1).contentTable.length;i++){
+							result+='<p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">';
+							result+='<a style="color:white" href="'+ JSON.parse(JSON.parse(msg.body).content1).contentTable[i][0].data.data.action.data.url +'">'+JSON.parse(JSON.parse(msg.body).content1).contentTable[i][0].data.title+'</a>';
+							result+='</p>';
+						}
+				 
+						}else{
+							result=JSON.parse(JSON.parse(msg.body).content1).description+'</p>';
+						}
+						
+			
+			$("#me").append(
+		            "<div class='d-flex flex-row justify-content-start' style='margin-top:30px;'>"
+		              +"<img src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp'alt='avatar 1' style='width: 35px; height: 35px;'>"+
+		             '<div>'+
+		                '<p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">'
+						+result
+		                
+		              +'</div>'
+		            +'</div>'
+			)
+			
+			var chatBotDiv = document.getElementById('me');
+	  		chatBotDiv.scrollTop = chatBotDiv.scrollHeight;
+	  		
+	  		
+	  		document.getElementById('metext').value = null;
+		});		
+	});
+	
+	// 로그인이 안되어있으면 전송이 불가능하다.
+	}else{
+		alert("로그인 후 이용해주세요.")
+		return false;
+	}
+}
+
+
+// 챗봇 연결 종료하기
+function disconnect() {
+	if (stompClient !== null) {
+		stompClient.disconnect();
+	}
+	setConnected(false);
+	console.log("Disconnected");
+	
+	// 챗봇화면 안보이게 하는 class추가
+	$('#chatBot').addClass("sr-only sr-only-focusable");
+
+}
+
+function setConnected(connected) {
+	if (connected) {
+		$("#status").text("Connected");
+	} else {
+		$("#status").text("Disconnected");
+	}
+	
+}
+
+
+// 챗봇은 나에게만 보내기로 구현이 가능하다.
+function sendMe() {
+	var msg = JSON.stringify({
+		'sendid' : id,
+		'content1' : $('#metext').val()
+	});
+	
+	if(document.getElementById('metext').value == ''){
+		alert("문의내용을 입력해주세요");
+		return false;
+	}
+	
+	$('#metext').empty();
+	stompClient.send("/chatbotme", {}, msg);
+	
+}
+
+$(document).ready(function() {
+	$(".connect").click(function() {
+		connect();
+	});
+	$("#disconnect").click(function() {
+		disconnect();
+	});
+	
+	$("#sendme").click(function() {
+		sendMe();
+	});
+	
+});
+</script>
+
+
+<!-- 엔터키 입력 발생시 메시지를 전송하는 함수 -->
+<script>
+    var input = document.getElementById("metext");
+
+    input.addEventListener("keypress", function (event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("sendme").click();
+      }
+    });
+</script>

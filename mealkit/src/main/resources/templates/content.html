@@ -1,7 +1,26 @@
+<style>
+
+#chat2 .form-control {
+border-color: transparent;
+}
+
+#chat2 .form-control:focus {
+border-color: transparent;
+box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+</style>
+
+
+
 <!-- END nav -->
-
-
-
 <script>
 function setCookie(cookieName, value, exdays){
 	var exdate = new Date();
@@ -350,7 +369,7 @@ function insertWish(item){
     						<div class="d-flex">
     							<div class="pricing">
     							<!-- 상품 세일가 -->
-		    						<p class="price"><span class="mr-2 price-dc" th:text="${i.price}+원"></span><span class="price-sale" th:text="${i.sale}+원"></span></p>
+		    						<p class="price"><span class="mr-2 price-dc" th:if="${i.price != i.sale}" th:text="${i.price}+원"></span><span class="price-sale" th:text="${i.sale}+원"></span></p>
 		    					</div>
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">
@@ -401,7 +420,7 @@ function insertWish(item){
     						<div class="d-flex">
     							<div class="pricing">
     							<!-- 상품 세일가 -->
-		    						<p class="price"><span class="mr-2 price-dc" th:text="${i.price}+원"></span><span class="price-sale" th:text="${i.sale}+원"></span></p>
+		    						<p class="price"><span class="mr-2 price-dc" th:if="${i.price != i.sale}" th:text="${i.price}+원"></span><span class="price-sale" th:text="${i.sale}+원"></span></p>
 		    					</div>
 	    					</div>
 	    					<div class="bottom-area d-flex px-3">
@@ -443,6 +462,8 @@ function insertWish(item){
     </section>
 
 
+
+
 <script>
 setInterval(() => {
 	// 실시간으로 총 판매된 상품 + 회원수 가져오기.
@@ -462,4 +483,5 @@ setInterval(() => {
 	
 }, 1000);
 </script>
+   
    

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.admin.dto.Criteria;
 import com.admin.dto.CustomerDTO;
@@ -27,13 +28,26 @@ public class CustomerController {
 		if(cri.getOrderCri() == null) {
 			cri.setOrderCri("custKey");
 		}
+		
+		if(cri.getEmailKeyword().isEmpty()) {
+			cri.setEmailKeyword(null);
+		}
+		if(cri.getNameKeyword().isEmpty()) {
+			cri.setNameKeyword(null);
+		}
+		if(cri.getPhNumberKeyword().isEmpty()) {
+			cri.setPhNumberKeyword(null);
+		}
 
 		List<CustomerDTO> customerList = new ArrayList<>();
 
 		PageResponseDTO pageResponseDTO = customerService.getPageMaker(cri);
 
+		System.out.println(cri.toString());
 		customerList = customerService.getCustList(cri);
-
+		System.out.println(cri.toString());
+		System.out.println(customerList.toString());
+		System.out.println(customerList.size());
 		if(!customerList.isEmpty()) {
 			model.addAttribute("customerList", customerList);
 			

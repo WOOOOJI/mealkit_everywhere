@@ -49,6 +49,7 @@ import lombok.ToString;
 
 	  //차순
 	  private String ascDesc = "desc";
+	  //???
 
 
 
@@ -56,6 +57,9 @@ import lombok.ToString;
 	  public Criteria() { 
 		 this.pageNum = 1;
 		 this.amount = 12;
+		 this.emailKeyword = null;
+		 this.nameKeyword = null;
+		 this.phNumberKeyword = null;
 	  }
 
 

@@ -133,7 +133,7 @@
 		    					<!-- Thymeleaf의 $ 사인을 쓰고나서 그 안에 또 ${}를 쓰면 에러발생.. -->
 		    					<!-- ((item.price-item.sale)/item.price)*100 으로 하면 0이 나오고 -->
 		    					<!-- ((item.price-item.sale)*100/item.price) 으로 해야 값이 제대로 나온다 -->
-		    					<span th:id="'forStatus'+${item.itemKey}" class="status" th:text="${#numbers.formatDecimal(((item.price-item.sale)*100/item.price),0,0)+'%'}"></span>
+		    					<span th:id="'forStatus'+${item.itemKey}" class="status" th:if="${(item.price-item.sale)*100/item.price > 0}" th:text="${#numbers.formatDecimal(((item.price-item.sale)*100/item.price),0,0)+'% SALE'}"></span>
 		    					<div class="overlay"></div>
 		    				</a>
 		    				<div class="text py-3 pb-4 px-3 text-center">
@@ -141,7 +141,7 @@
 		    					<h3><a th:href="@{/shoplist/product(itemKey = ${item.itemKey})}"><span th:text="${item.name}"></span></a></h3>
 		    					<div class="d-flex">
 		    						<div class="pricing">
-				    					<p class="price"><span class="mr-2 price-dc" th:text="${item.price}"></span><span class="price-sale" th:text="${item.sale}"></span></p>
+				    					<p class="price"><span class="mr-2 price-dc" th:if="${item.price != item.sale}" th:text="${item.price}"></span><span class="price-sale" th:text="${item.sale}"></span></p>
 				    				</div>
 			    				</div>
 			    				<!-- 상품상세, 장바구니, 찜하기 버튼 -->

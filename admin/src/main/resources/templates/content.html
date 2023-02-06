@@ -1,7 +1,34 @@
+<script>
+
+$(document).ready(function(){
+
+	function nowDate(){
+		
+	 	var now = new Date();
+	 	var year = now.getFullYear();
+	 	var month = now.getMonth();
+	 	var day = now.getDay();
+	 	var hours = now.getHours();
+	 	var min = now.getMinutes();
+	 	var seconds = now.getSeconds();
+	 	
+	 	var startDate = "현재시간: "+year+"년 "+month+"월 "+day+"일 "+hours+"시 "+min+"분 "+seconds+"초";
+	 	
+		$('#nowDate').text(startDate);
+	}
+		
+	nowDate();
+	
+	setInterval(() => {
+		nowDate();		
+	}, 1000);
+});
+</script>
+
 	<main class="content">
 		<div class="container-fluid p-0">
 				
-			<span class="text-muted" style="font-size:30px;">2023-02-23</span>
+			<span class="text-muted" style="font-size:30px;" id="nowDate"></span>
 			<h1 class="h3 mb-3">
 				<strong>실시간</strong> 현재 매출 현황
 			</h1>
@@ -391,7 +418,39 @@ var age50Sales;
 var age60Sales;
 var lastDayChart;
 
-function getRealTimeData(){	
+function dashBoardDatas(data){
+	var nowShip = priceToString(data.nowDash.totalShip);
+	var totalShip = priceToString(data.totalDash.totalShip);
+	var nowItemCnt = priceToString(data.nowDash.totalItemCnt);
+	var totalItemCnt = priceToString(data.totalDash.totalItemCnt);
+	var nowPrice = priceToString(data.nowDash.totalPrice);
+	var totalPrice = priceToString(data.totalDash.totalPrice);
+	
+	
+	
+	$('#nowShip').text(nowShip+'건');
+	$('#totalShip').text(totalShip+'건');
+	
+	$('#newItemCnt').text(nowItemCnt+'개');
+	$('#totalItemCnt').text(totalItemCnt+'개');	
+	
+	$('#nowTotalPrice').text(nowPrice+'원');
+	$('#totalTotalPrice').text(totalPrice+'원');
+	
+	$('#nowConfirm').text(data.nowDash.confirmation+'%');
+	$('#totalConfirm').text(data.totalDash.confirmation+'%');
+	
+	//주문건당 평균판매개수/판매금액
+	$('#stackedCnt').text(data.orderavg.stackedCnt+'개');
+	$('#stackedPrice').text(priceToString(data.orderavg.stackedPrice)+'원');
+	$('#realtimeCnt').text(data.orderavg.realtimeCnt+'개');
+	$('#realtimePrice').text(priceToString(data.orderavg.realtimePrice)+'원');
+
+}
+
+
+function getRealTimeData(){
+	
 	$.ajax({
 		url:'/admin/getRealTimeData',
 		method:'GET',
@@ -399,32 +458,6 @@ function getRealTimeData(){
 		dataType:'JSON',
 		success: function(data){
 			
-			var nowShip = priceToString(data.nowDash.totalShip);
-			var totalShip = priceToString(data.totalDash.totalShip);
-			var nowItemCnt = priceToString(data.nowDash.totalItemCnt);
-			var totalItemCnt = priceToString(data.totalDash.totalItemCnt);
-			var nowPrice = priceToString(data.nowDash.totalPrice);
-			var totalPrice = priceToString(data.totalDash.totalPrice);
-			
-			
-			
-			$('#nowShip').text(nowShip+'건');
-			$('#totalShip').text(totalShip+'건');
-			
-			$('#newItemCnt').text(nowItemCnt+'개');
-			$('#totalItemCnt').text(totalItemCnt+'개');	
-			
-			$('#nowTotalPrice').text(nowPrice+'원');
-			$('#totalTotalPrice').text(totalPrice+'원');
-			
-			$('#nowConfirm').text(data.nowDash.confirmation+'%');
-			$('#totalConfirm').text(data.totalDash.confirmation+'%');
-			
-			//주문건당 평균판매개수/판매금액
-			$('#stackedCnt').text(data.orderavg.stackedCnt+'개');
-			$('#stackedPrice').text(priceToString(data.orderavg.stackedPrice)+'원');
-			$('#realtimeCnt').text(data.orderavg.realtimeCnt+'개');
-			$('#realtimePrice').text(priceToString(data.orderavg.realtimePrice)+'원');
 
 			//매출차트
 			chart=data.chart;
@@ -494,7 +527,24 @@ function getRealTimeData(){
 }
 
 
+
+function getRealTimeDashBoard(){
+	
+	$.ajax({
+		url:'/admin/getRealTimeData',
+		method:'GET',
+		async:false,
+		dataType:'JSON',
+		success: function(data){
+			dashBoardDatas(data);
+		}
+	});
+}
+
+
+
 $(document).ready(function(){
+	getRealTimeDashBoard();
 	getRealTimeData();
 	llchart();
 	genderChart();
@@ -502,7 +552,6 @@ $(document).ready(function(){
 	lastChart();
 	
 	setInterval(function (){
-		getRealTimeData();
 		$('#chartjs-dashboard-line').remove();
 		$('#chartjs-dashboard-pie').remove();
 		$('#chartjs-dashboard-pie2').remove();
@@ -517,6 +566,11 @@ $(document).ready(function(){
 		llchart();
 		lastChart();
 	}, 10000);
+	
+	
+	setInterval(() => {
+		getRealTimeDashBoard();
+	}, 1000);
 	
 });
 
