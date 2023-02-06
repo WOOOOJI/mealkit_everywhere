@@ -21,7 +21,7 @@ public class ChatBotUtil {
 	private static String apiUrl = "https://aqshmquekl.apigw.ntruss.com/custom/v1/9260/2314155fd8345119666a2eb1e4a2dd85b8c37e4865ece00c7ef63b2fcf8a5c23";
 
 	
-	
+	// NCP의 Chatbot api에 사용자가 입력한 txt를 던져 결과값 받기.
 	public static String chat(String txt) throws IOException {
 		URL url = new URL(apiUrl);
 		String chatMessage = "";
@@ -59,7 +59,7 @@ public class ChatBotUtil {
 		
 			JSONParser jsonparser = new JSONParser();
 			try {
-
+				// JSON 형태로 받아 문자열로 형변환 하여 뷰에 뿌린다.
 				JSONObject json = (JSONObject)jsonparser.parse(jsonString);
 				JSONArray bubblesArray = (JSONArray)json.get("bubbles");
 				JSONObject bubbles = (JSONObject)bubblesArray.get(0);

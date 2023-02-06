@@ -19,6 +19,7 @@ public class ChatbotController {
 	SimpMessagingTemplate template;
 	
 	
+	// chatbot은 나에게로만 전송하여 결과값을 받는다.
 	@MessageMapping("/chatbotme") // 나에게만 전송 ex)Chatbot
 	public void receiveme(Msg msg, SimpMessageHeaderAccessor headerAccessor) {
 		String id = msg.getSendid();
