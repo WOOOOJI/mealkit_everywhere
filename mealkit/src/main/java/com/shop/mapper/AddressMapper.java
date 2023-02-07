@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.shop.dto.AddressDTO;
 import com.shop.frame.MyMapper;
 
-import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
-
 @Repository
 @Mapper
 public interface AddressMapper extends MyMapper<Integer, AddressDTO>{

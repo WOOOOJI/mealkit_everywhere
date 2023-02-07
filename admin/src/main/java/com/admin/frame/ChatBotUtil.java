@@ -43,7 +43,7 @@ public class ChatBotUtil {
 		int responseCode = con.getResponseCode();
 		
 
-		BufferedReader br;
+		
 
 		if(responseCode==200) { // 정상 호출
 
@@ -64,6 +64,7 @@ public class ChatBotUtil {
 				JSONArray bubblesArray = (JSONArray)json.get("bubbles");
 				JSONObject bubbles = (JSONObject)bubblesArray.get(0);
 				JSONObject data = (JSONObject)bubbles.get("data");
+				@SuppressWarnings("unused")
 				String description = "";
 				description = (String)data.get("description");
 				chatMessage = data.toJSONString();
@@ -86,6 +87,7 @@ public class ChatBotUtil {
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	public static String getReqMessage(String voiceMessage) {
 
 		String requestBody = "";

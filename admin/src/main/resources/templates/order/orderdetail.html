@@ -1,9 +1,3 @@
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous">
-
 
 <section class="content">
 	<div class="container-fluid">
@@ -162,7 +156,7 @@
 								<div class="card-body">
 									<div>
 										<label for="trackingNum">송장번호</label> <input
-											type="text" class="form-control" id="trackingNum"
+											type="text" class="form-control" id="trackingNum" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 											placeholder="-를 제외한 송장번호를 입력해주세요.">
 									</div>
 								</div>

@@ -1,8 +1,5 @@
 package com.shop.customer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.junit.jupiter.api.Test;
@@ -17,6 +14,7 @@ class FindIdTests {
 	@Inject
 	CustomerService service;
 	
+	@SuppressWarnings("null")
 	@Test
 	void contextLoads() {
 		System.out.println("아이디 찾기 테스트 시작---------------------------------------------------");

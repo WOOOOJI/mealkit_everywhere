@@ -23,6 +23,7 @@ public class RealTimeAnalyzeController {
 	RealTimeAnalyzeService service;
 
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/getRealTimeData")
 	public JSONObject getRealTimeData() {
 

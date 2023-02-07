@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shop.dto.CommentsDTO;
-import com.shop.dto.Criteria;
 import com.shop.frame.MyService;
 import com.shop.mapper.CommentsMapper;
 

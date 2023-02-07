@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.shop.dto.Criteria;
 import com.shop.dto.CustomerDTO;
 import com.shop.dto.NoticeDTO;
-import com.shop.dto.OrderDetailDTO;
 import com.shop.dto.response.PageResponseDTO;
 import com.shop.service.CustomerService;
 import com.shop.service.NoticeService;

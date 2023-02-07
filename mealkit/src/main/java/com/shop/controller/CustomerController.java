@@ -275,7 +275,7 @@ public class CustomerController {
 		List<OrderDetailDTO> odlist=null;
 		OrderDTO order=null;
 		
-		int custKey=(int)session.getAttribute("custKey");
+		
 		
 		
 		odlist=orderDetailService.getOrderDetailByOrderkey(orderKey);

@@ -119,6 +119,7 @@ public class ItemController {
 		return "main";
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/review")
 	@ResponseBody
 	public Object reviewAjax(@RequestBody String reviewJSON, 
@@ -171,6 +172,7 @@ public class ItemController {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/question")
 	@ResponseBody
 	public Object questionAjax(@RequestBody String questionJSON, 

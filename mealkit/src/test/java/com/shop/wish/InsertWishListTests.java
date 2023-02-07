@@ -8,9 +8,7 @@ import javax.inject.Inject;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.shop.dto.CustomerDTO;
 import com.shop.dto.WishDTO;
-import com.shop.service.CustomerService;
 import com.shop.service.WishService;
 
 @SpringBootTest

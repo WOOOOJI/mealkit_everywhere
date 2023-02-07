@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.shop.dto.Criteria;
 import com.shop.dto.NoticeDTO;
-import com.shop.dto.OrderDetailDTO;
 import com.shop.frame.MyMapper;
 
 @Repository

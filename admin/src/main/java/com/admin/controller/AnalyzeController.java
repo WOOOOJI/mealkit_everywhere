@@ -19,9 +19,7 @@ import com.admin.service.AnalyzeService;
 import com.admin.service.CustomerService;
 import com.admin.service.OrderService;
 
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 public class AnalyzeController {
 	@Autowired
@@ -69,11 +67,12 @@ public class AnalyzeController {
 		monthSalesChart=analyzeService.monthSalesChart(year, month);
 		lastMonthSalesChart=analyzeService.lastMonthSalesChart(year, month);
 
-		ArrayList<Integer> arr=new ArrayList<>();
+		ArrayList<Integer> arr=new ArrayList<Integer>();
 		for(OrderDTO o:monthSalesChart) {
 			arr.add(o.getTotalSales());
 		}
-		ArrayList arr2=new ArrayList();
+		
+		ArrayList<Integer> arr2=new ArrayList<Integer>();
 		for(OrderDTO o:lastMonthSalesChart) {
 			arr2.add(o.getTotalSales());
 		}
@@ -132,11 +131,13 @@ public class AnalyzeController {
 		yearSalesChart=analyzeService.yearSalesChart(year);
 		lastYearSalesChart=analyzeService.lastYearSalesChart(year);
 
-		ArrayList arr=new ArrayList();
+		
+		ArrayList<Integer> arr=new ArrayList<Integer>();
 		for(OrderDTO o:yearSalesChart) {
 			arr.add(o.getTotalSales());
 		}
-		ArrayList arr2=new ArrayList();
+
+		ArrayList<Integer> arr2=new ArrayList<Integer>();
 		for(OrderDTO o:lastYearSalesChart) {
 			arr2.add(o.getTotalSales());
 		}
@@ -192,11 +193,11 @@ public class AnalyzeController {
 		daySalesChart=analyzeService.daySalesChart(year,month,day);
 		lastDaySalesChart=analyzeService.lastDaySalesChart(year,month,day);
 
-		ArrayList arr=new ArrayList();
+		ArrayList<Integer> arr=new ArrayList<Integer>();
 		for(OrderDTO o:daySalesChart) {
 			arr.add(o.getTotalSales());
 		}
-		ArrayList arr2=new ArrayList();
+		ArrayList<Integer> arr2=new ArrayList<Integer>();
 		for(OrderDTO o:lastDaySalesChart) {
 			arr2.add(o.getTotalSales());
 		}

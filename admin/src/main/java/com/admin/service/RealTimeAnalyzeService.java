@@ -39,6 +39,9 @@ public class RealTimeAnalyzeService {
 
     // 현재시간 nowTime
     final static String NOWTIME = NOW.toString().substring(11,13);
+    
+    
+   
 
     public List<OrderDTO> realTimeSalesChart(){
     	List<OrderDTO> result=null;
@@ -110,6 +113,8 @@ public class RealTimeAnalyzeService {
  		} catch (Exception e) {
  			e.printStackTrace();
  		}
+ 		
+ 		
 
  		int thisNotRefund = Integer.parseInt(od.getStatus());
  		int thisRefund = Integer.parseInt(od.getRefund());
@@ -191,13 +196,8 @@ public class RealTimeAnalyzeService {
  		public List<OrderDTO> lastDayChart(){
  			List<OrderDTO> lastDaySalesChart = new ArrayList<>();
  			lastDaySalesChart = analyzeService.lastDaySalesChart(NOWYEAR,NOWMONTH,NOWDAY);
-
- 			ArrayList arr2=new ArrayList();
- 			for(OrderDTO o:lastDaySalesChart) {
- 				arr2.add(o.getTotalSales());
- 			}
  			return lastDaySalesChart;
  		}
 
-
+ 		
 }

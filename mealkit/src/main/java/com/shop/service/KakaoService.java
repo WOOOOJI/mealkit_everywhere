@@ -60,7 +60,9 @@ public class KakaoService {
 			System.out.println("response body : " + result);
 
 			// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+			@SuppressWarnings("deprecation")
 			JsonParser parser = new JsonParser();
+			@SuppressWarnings("deprecation")
 			JsonElement element = parser.parse(result);
 			access_Token = element.getAsJsonObject().get("access_token").getAsString();
 			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
@@ -97,7 +99,9 @@ public class KakaoService {
 
 			System.out.println("response body : " + result);
 			
+			@SuppressWarnings("deprecation")
 			JsonParser parser = new JsonParser();
+			@SuppressWarnings("deprecation")
 			JsonElement element = parser.parse(result);
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();

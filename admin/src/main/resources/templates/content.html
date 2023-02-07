@@ -399,7 +399,7 @@ $(document).ready(function(){
 
 
 
-<script th:src="@{/js/app.js}"></script>
+
 <script>
 
 function priceToString(price) {
@@ -551,7 +551,8 @@ $(document).ready(function(){
 	ageChart();
 	lastChart();
 	
-	setInterval(function (){
+	setInterval(() => {
+		getRealTimeData();
 		$('#chartjs-dashboard-line').remove();
 		$('#chartjs-dashboard-pie').remove();
 		$('#chartjs-dashboard-pie2').remove();
@@ -566,7 +567,6 @@ $(document).ready(function(){
 		llchart();
 		lastChart();
 	}, 10000);
-	
 	
 	setInterval(() => {
 		getRealTimeDashBoard();

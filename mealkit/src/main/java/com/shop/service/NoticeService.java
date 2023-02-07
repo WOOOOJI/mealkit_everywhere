@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.shop.dto.Criteria;
 import com.shop.dto.NoticeDTO;
-import com.shop.dto.OrderDetailDTO;
 import com.shop.dto.PageDTO;
 import com.shop.dto.response.PageResponseDTO;
 import com.shop.frame.MyService;

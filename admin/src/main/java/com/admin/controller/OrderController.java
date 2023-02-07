@@ -34,11 +34,11 @@ public class OrderController {
 	@RequestMapping("")
 	public String orderManage(Model model, Criteria cri, @RequestParam(defaultValue="1", value="pageNum") int pageNum, String keyword, String type, @RequestParam(defaultValue="DESC", value="orderBy")String orderBy) {
 
-		System.out.println(cri);
+
 		if(keyword == null || keyword == "") keyword = "nothing";
 		
 		
-		System.out.println("키워드:"+keyword);
+
 		cri.setKeyword(keyword);
 		cri.setOrderBy(orderBy);
 		cri.setType(type);
@@ -65,7 +65,7 @@ public class OrderController {
 		model.addAttribute("type", type);
 		model.addAttribute("orderBy", orderBy);
 
-		System.out.println(orderList);
+
 
 		return "main";
 	}
@@ -128,7 +128,6 @@ public class OrderController {
 	@RequestMapping("/orderTracking")
 	public String orderTracking(String trackingNum, Model model) {
 		model.addAttribute("trackingNum", trackingNum);
-		System.out.println(trackingNum);
 		return "order/tracking";
 	}
 

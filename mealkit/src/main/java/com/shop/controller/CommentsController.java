@@ -24,6 +24,7 @@ public class CommentsController {
 	@Autowired
 	CommentsService commentsService;
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/adminCmt")
 	@ResponseBody
 	public Object adminCmtAjax(@RequestBody String commentsJSON, 

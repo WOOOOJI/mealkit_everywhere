@@ -1,8 +1,5 @@
 package com.shop.customer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.junit.jupiter.api.Test;

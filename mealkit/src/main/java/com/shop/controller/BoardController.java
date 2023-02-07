@@ -179,6 +179,7 @@ public class BoardController {
 		return "board/writereview";
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/reviewJudge")
 	@ResponseBody
 	public Object reviewJudge(@RequestBody String judgeJSON,  HttpServletResponse response, 

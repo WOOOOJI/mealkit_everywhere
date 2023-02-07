@@ -10,11 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.shop.dto.BoardDTO;
 import com.shop.dto.Criteria;
-import com.shop.dto.CustomerDTO;
-import com.shop.dto.WishDTO;
 import com.shop.service.BoardService;
-import com.shop.service.CustomerService;
-import com.shop.service.WishService;
 
 @SpringBootTest
 class GetReviewListTests {
