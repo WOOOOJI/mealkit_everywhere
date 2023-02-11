@@ -79,6 +79,28 @@ public class BoardService implements MyService<Integer, BoardDTO>{
 		}
 	}
 	
+	
+	//후기 전체 리스트
+		public List<BoardDTO> myReviewList(Criteria cri) {
+			try {
+				return boardMapper.myReviewList(cri);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		//문의 전체 리스트
+		public List<BoardDTO> myQnaList(Criteria cri) {
+			try {
+				return boardMapper.myQnaList(cri);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+	
 	//전체 후기 개수 가져오기
 	public int countReviews(Criteria cri) throws Exception{
 		return boardMapper.countReviews(cri);
@@ -155,7 +177,7 @@ public class BoardService implements MyService<Integer, BoardDTO>{
 		try {			
 			result = boardMapper.boardEdit(boardKey, content);
 		}catch(Exception e) {
-			System.out.println("Error Caused by at BoardService row 84 line");
+		//	System.out.println("Error Caused by at BoardService row 84 line");
 			e.printStackTrace();
 		}
 
@@ -205,4 +227,21 @@ public class BoardService implements MyService<Integer, BoardDTO>{
 		}
 		
 	}
+	
+	
+	
+	
+	//문의 수정시 작성했던 내용 가져오기
+		public BoardDTO modifyQuestion(BoardDTO boardDTO) {
+			BoardDTO boardDataDTO = new BoardDTO();
+			try {
+				boardDataDTO = boardMapper.modifyQuestion(boardDTO);
+				return boardDataDTO;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+			
+		}
+	
 }

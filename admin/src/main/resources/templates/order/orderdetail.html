@@ -195,7 +195,7 @@
 					<script>
 						// 배송조회
 						function trackingNum(num) {
-							location.href = '/admin/order/orderTracking?trackingNum='+num;
+							location.href='[[@{/order/orderTracking}]]'+'?trackingNum='+num;
 						}
 					</script>
 
@@ -205,7 +205,7 @@
 						function refundOk(orderKey) {
 							if (confirm("정말 환불처리 하시겠습니까?")) {
 									$.ajax({
-											url : "/admin/order/refundOk",
+											url : "[[@{/order/refundOk}]]",
 											data : {
 												status : "F",
 												orderKey : orderKey
@@ -249,7 +249,7 @@
 								return false;
 							}else{
 								$.ajax({
-									url:"/admin/order/insertTrackingNum",
+									url:"[[@{/order/insertTrackingNum}]]",
 									data:{trackingNum : trackingNum, orderKey : orderKey},
 									method: "GET",
 									success: function(data){

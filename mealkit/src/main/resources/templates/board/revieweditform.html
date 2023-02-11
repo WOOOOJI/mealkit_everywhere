@@ -17,50 +17,45 @@
     </div>
 
 						      	
-
-    <section class="ftco-section ftco-degree-bg">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 ftco-animate">
-          	<tr> 
-			 <div> 글제목<td><h2 class="mb-3" th:text="${board.title}" ></h2></td></div>
-			<div  th:text="${board.username}"> </div>
-			<button type="button" class="btn btn-sm btn-primary" id="btnList" style="float:right; margin-left:10px" th:onclick="boardDel([[${board.boardKey}]])">글 삭제</button>
-			<div  th:text="${board.rdate}"> </div> 
-			
-			
-			
-			 </tr>	
-			<hr>
-
-			<div class="card">
-				
-				<div class="card-body">
-					<textarea id="boardContent" class="form-control" rows="10" placeholder="수정할 글을 입력해주세요." th:text="${board.content}" th:value="${board.content}"></textarea>
+	<!-- 후기글 수정 폼 -->
+<section class="ftco-section ftco-degree-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 ftco-animate">
+				<tr>
+					<div>
+						글제목
+						<td><h2 class="mb-3" th:text="${board.title}"></h2></td>
+					</div>
+					<div th:text="${board.username}"></div>
+					<div th:text="${board.rdate}"></div>
+				</tr>
+				<hr>
+				<div class="card">
+					<div class="card-body">
+						<textarea id="boardContent" class="form-control" rows="10"
+							placeholder="수정할 글을 입력해주세요." th:text="${board.content}"
+							th:value="${board.content}">
+						</textarea>
+					</div>
 				</div>
-			</div>
-			<div style="margin-top : 20px">
+				<div style="margin-top: 20px">
 
-				<br><br><br>
-			</div>	
-            <hr>
-              <button type="button" class="btn btn-sm btn-primary" id="btnList" th:onclick="boardEditOk([[${board.boardKey}]])">수정하기</button>
-              
-              <!-- END comment-list -->
-            </div>
-               
-                  
-                                </div>
-                             
-          </div> <!-- .col-md-8 -->
-          <div class="col-lg-4 sidebar ftco-animate">
-            <div class="sidebar-box">
-           
-            </div>
-        
-        </div>
-      </div>
-    </section> <!-- .section -->
+					<br> <br> <br>
+				</div>
+				<hr>
+				<button type="button" class="btn btn-sm btn-primary" id="btnList"
+					th:onclick="boardEditOk([[${board.boardKey}]])">수정하기</button>
+			</div>
+		</div>
+	</div>
+	<!-- .col-md-8 -->
+	<div class="col-lg-4 sidebar ftco-animate">
+		<div class="sidebar-box"></div>
+	</div>
+	</div>
+</section>
+<!-- .section -->
 
     <script>
     function boardDel(boardKey){
@@ -91,20 +86,14 @@
     							location.href="/board/reviewdetail?boardKey="+boardKey;
     						}else{
     							alert("글 수정을 실패하였습니다. 잠시 후 다시 시도해주세요.");
-    						}
-    						
-    					}
-    					
-    				});
-    				
-    				
+    						}			
+    					}		
+    				});		
     			}else{
     				alert("수정할 글 내용을 입력해주세요.");
     				return false;
-    			}
-    			
-    		}
-    		
+    			}			
+    		}		
     		return false;
     	}
     </script>

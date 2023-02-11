@@ -108,7 +108,7 @@ public class NoticeController {
 			System.out.println(e);
 			model.addAttribute("content", dir + "registerfail");
 		}
-		System.out.println(notice);
+		
 		return "main";
 	}
 
@@ -119,7 +119,6 @@ public class NoticeController {
 		notice = noticeService.get(noticeKey);
 		int adminKey=(int)session.getAttribute("adminKey");
 		String name=(String)session.getAttribute("name");
-		System.out.println(notice);
 
 		model.addAttribute("noticedir", noticedir);
 		model.addAttribute("adminKey",adminKey);

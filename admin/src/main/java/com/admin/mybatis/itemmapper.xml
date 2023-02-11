@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	</select>
 
 	<update id="update">
-		UPDATE ITEM SET name=#{name}, content=#{content},
+		UPDATE item SET name=#{name}, content=#{content},
 		categoryKey=${categoryKey}, price=${price}, sale=${sale},
 		cnt=${cnt},
 		img1=#{img1}, img2=#{img2}, img3=#{img3}, img4=#{img4}, img5=#{img5}

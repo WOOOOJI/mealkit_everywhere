@@ -74,8 +74,8 @@
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">7조의 "MealKit"</h2>
               <p>대표팀장 : 김기태 <br>
-              사업자등록번호 : 104-81-53114 <br>
-              통신판매신고번호 : 제2016-서울강남-00515호 <br>
+              우리의 YES걸 : 이상아 <br>
+              해피아버지 : 한승우 <br>
               개인정보관리 최고책임자 : 연우진</p>
               <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                 <li class="ftco-animate"><a href="#"><span class="icon-youtube"></span></a></li>
@@ -89,8 +89,8 @@
               <h2 class="ftco-heading-2">Menu</h2>
               <ul class="list-unstyled">
                 <li><a th:href="@{/shoplist}" class="py-2 d-block">전체상품 보기</a></li>
-                <li><a href="#" class="py-2 d-block">인기상품 보기</a></li>
-                <li><a href="#" class="py-2 d-block">신상품 보기</a></li>
+                <li><a th:href="@{/shoplist(categoryKey = 0, ascDesc = 'desc', orderCri='orD.cnt')}" class="py-2 d-block">인기상품 보기</a></li>
+                <li><a th:href="@{/shoplist(categoryKey = 0, ascDesc = 'desc', orderCri='itemKey')}" class="py-2 d-block">신상품 보기</a></li>
                 <li><a th:href="@{/about}" class="py-2 d-block">회사소개</a></li>
               </ul>
             </div>

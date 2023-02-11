@@ -68,7 +68,7 @@
 						    </thead>
 						    <tbody>
 						    
-						    <!-- 장바구니 리스트 for문 -->
+						    <!-- 후기 리스트 for문 -->
 						      <tr class="text-center" th:each="b:${list}">
 						      	
 						      	<!-- 글번호 -->
@@ -112,7 +112,7 @@
 					                <!-- 이전 버튼 -->
 					                <li class="prevbtn"><a th:if="${pageMaker.prev == true}" th:href="@{/board/reviewlist(pageNum = ${pageMaker.pageStart - 1})}">&lt;</a></li>
 										<!-- 페이지 번호 출력 -->
-					                	<li th:each="pageNum : ${pageNumList}" class="page-item">
+					                	<li th:each="pageNum : ${pageNumList}" class="page-item" th:id="${pageNum}">
 					                		<!-- class="active" -->
 					                		<a th:id="${pageNum}"  th:href="@{/board/reviewlist(pageNum = ${pageNum})}" 
 					                		th:text="${pageNum}"></a>
@@ -127,17 +127,7 @@
  
 			</div>
 		</section>
-
-		<script>
-		if('[[${result==1}]]'){
-			return false;
-		}else if('[[${result==0}]]'){
-			alert("삭제를 실패하였습니다. 잠시후 다시 시도해주세요.");
-			history.back();
-		}
 		
-		
-		</script>
 		
 <script>
 	$(document).ready(function(){

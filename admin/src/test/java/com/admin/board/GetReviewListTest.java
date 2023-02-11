@@ -32,6 +32,7 @@ class GetReviewListTest {
 				System.out.println(b);
 			}
 		}
+		
 		if(boardList == null) System.out.println("Review 리스트 가져오기 실패");
 		System.out.println("--------테스트 끝 ---------");
 	}

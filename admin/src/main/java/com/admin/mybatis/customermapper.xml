@@ -21,11 +21,22 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 				and username like concat('%' , #{nameKeyword}, '%')
 			</if>
 			<if test="phNumberKeyword != null">
-				and tel like replace(#{phNumberKeyword},'-','')
+				and tel like concat('%',replace(#{phNumberKeyword},'-',''),'%')
 			</if>
 		</where>
 		
-		ORDER BY ${orderCri} ${ascDesc}
+		ORDER BY 
+		<if test="orderCri != null">
+			<choose>
+				<when test="orderCri == 'jumin'">
+					(if(gender='1'or gender='2',19000000,20000000)+left(jumin,6))
+				</when>
+				<otherwise>
+					${orderCri} 
+				</otherwise>
+			</choose>
+		</if>
+		${ascDesc}
 	</select>
 	
 	<select id="getCustList" resultType="CustomerDTO" parameterType="Criteria">
@@ -39,11 +50,22 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 				and username like concat('%' , #{nameKeyword}, '%')
 			</if>
 			<if test="phNumberKeyword != null">
-				and tel like replace(#{phNumberKeyword},'-','')
+				and tel like concat('%',replace(#{phNumberKeyword},'-',''),'%')
 			</if>
 		</where>
 		
-		ORDER BY ${orderCri} ${ascDesc}
+		ORDER BY 
+		<if test="orderCri != null">
+			<choose>
+				<when test="orderCri == 'jumin'">
+					(if(gender='1'or gender='2',19000000,20000000)+left(jumin,6))
+				</when>
+				<otherwise>
+					${orderCri} 
+				</otherwise>
+			</choose>
+		</if>
+		${ascDesc}
 		LIMIT ${skip}, ${amount}
 	</select>
 	

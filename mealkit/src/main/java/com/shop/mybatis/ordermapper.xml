@@ -26,13 +26,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 	<!-- total_order를 주문 내용으로 UPDATE하기 -->
 	<update id="orderUpdate">
-	    UPDATE totalOrder SET price=(select sum(price*cnt) from orderDetail where orderKey=${orderKey}),
-	    name=(select name from address where addrKey=${addrKey}),
-    	zipcode=(select zipcode from address where addrKey=${addrKey}),
-	    addr=(select addr from address where addrKey=${addrKey}),
-	    addrDetail=(select addrDetail from address where addrKey=${addrKey}),
-	    tel=(select tel from address where addrKey=${addrKey}),
-	    req=(select req from address where addrKey=${addrKey}),
+	    UPDATE totalOrder SET price=${payment},
+	    name=#{addressDTO.name},
+    	zipcode=#{addressDTO.zipcode},
+	    addr=#{addressDTO.addr},
+	    addrDetail=#{addressDTO.addrDetail},
+	    tel=#{addressDTO.tel},
+	    req=#{addressDTO.req},
 	    itemCnt=(SELECT COUNT(cnt) FROM orderDetail WHERE orderKey=${orderKey}),
 	    itemName=(SELECT i.name FROM item i INNER JOIN orderDetail od ON od.itemKey=i.itemKey WHERE orderKey=${orderKey} LIMIT 1),
 	    itemImg=(SELECT i.img1 FROM item i INNER JOIN orderDetail od ON od.itemKey=i.itemKey WHERE orderKey=${orderKey} LIMIT 1)

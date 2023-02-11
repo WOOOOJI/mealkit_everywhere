@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		FROM orderDetail AS ordDet, 
 		item,
 		customer AS cust
-		RIGHT OUTER JOIN totalorder totOrd
+		RIGHT OUTER JOIN totalOrder totOrd
 		ON (totOrd.rdate BETWEEN date(#{startDate}) AND date_add(#{endDate}, INTERVAL 1 DAY)) AND
 		status NOT LIKE 'F'
 		<where>
@@ -105,11 +105,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<select id="stackedOrderAvg" resultType="OrderDTO">
 		select ROUND((SUM(distinct t.price)/COUNT(distinct t.orderKey))) AS avgPrice, ROUND((SUM(od.cnt)/COUNT(distinct t.orderKey)),1) AS avgCnt FROM totalOrder t
 		INNER JOIN orderDetail od ON od.orderKey=t.orderKey
-		WHERE t.rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59'
+		WHERE (t.rdate BETWEEN '${NOWDATE} 00:00:00' AND '${NOWDATE} 23:59:59') AND (t.status NOT LIKE 'F')
 	</select>
 	<select id="realTimeOrderAvg" resultType="OrderDTO">
 		select ROUND((SUM(distinct t.price)/COUNT(distinct t.orderKey))) AS avgPrice, ROUND((SUM(od.cnt)/COUNT(distinct t.orderKey)),1) AS avgCnt FROM totalOrder t
 		INNER JOIN orderDetail od ON od.orderKey=t.orderKey
-		WHERE t.rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} 23:59:59'
+		WHERE (t.rdate BETWEEN '${NOWDATE} ${NOWTIME}:00:00' AND '${NOWDATE} 23:59:59') AND (t.status NOT LIKE 'F')
 	</select>
 </mapper>

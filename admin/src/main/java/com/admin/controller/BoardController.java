@@ -75,7 +75,7 @@ public class BoardController {
 		BoardDTO dto = null; // 초기값 세팅
 		CommentsDTO cdto = null;
 		try {
-			System.out.println("결과값 " + service.qnaDetail(boardKey));
+			//System.out.println("결과값 " + service.qnaDetail(boardKey));
 
 			dto = service.qnaDetail(boardKey);
 			cdto = cservice.getreply(boardKey);
@@ -83,8 +83,8 @@ public class BoardController {
 			e.printStackTrace();
 		}
 
-		System.out.println("확인용:" + dto);
-		System.out.println("cdto확인용:" + cdto);
+		//System.out.println("확인용:" + dto);
+		//System.out.println("cdto확인용:" + cdto);
 
 		model.addAttribute("board", dto); // 문의
 		model.addAttribute("replyboard", cdto); // 답변
@@ -116,7 +116,7 @@ public class BoardController {
 		ItemPageResponseDTO itemPageResponseDTO = service.getReviewPageMaker(cri);
 
 		ReviewList = service.getReviewList(cri);
-		System.out.println(ReviewList);
+		//System.out.println(ReviewList);
 		if (!ReviewList.isEmpty()) {
 			model.addAttribute("ReviewList", ReviewList);
 		}
@@ -126,7 +126,7 @@ public class BoardController {
 		model.addAttribute("type", type);
 		model.addAttribute("pageNumList", itemPageResponseDTO.getPageNumList());
 		model.addAttribute("pageMaker", itemPageResponseDTO.getPageMaker());
-		model.addAttribute("content", "/board/Reviewlist");
+		model.addAttribute("content", "/board/reviewlist");
 		model.addAttribute("navbar", "/board/navbar2");
 		model.addAttribute("pageNum", pageNum);
 
@@ -153,7 +153,7 @@ public class BoardController {
 		BoardDTO dto = null; // 초기값 세팅
 
 		try {
-			System.out.println("결과값 " + service.reviewDetail(boardKey));
+			//System.out.println("결과값 " + service.reviewDetail(boardKey));
 
 			dto = service.reviewDetail(boardKey);
 
@@ -161,10 +161,9 @@ public class BoardController {
 			e.printStackTrace();
 		}
 
-		System.out.println("확인용:" + dto);
+		//System.out.println("확인용:" + dto);
 
 		model.addAttribute("board", dto); // 문의
-
 		model.addAttribute("content", "/board/reviewdetail");
 		model.addAttribute("navbar", "/board/navbar2");
 		return "main";

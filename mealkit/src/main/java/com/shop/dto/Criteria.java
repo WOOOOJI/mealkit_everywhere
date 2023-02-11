@@ -6,9 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
   
-  @Setter
-  @Getter
-  @ToString
+@Setter
+@Getter
+@ToString
   //페이지 번호, 개수, 스킵을 세팅하기 위한 클래스
   public class Criteria {
   
@@ -28,10 +28,10 @@ import lombok.ToString;
 	  private String type;
 
 	  //정렬 기준
-	  private String order_cri;
+	  private String orderCri;
 	  
 	  //차순
-	  private String asc_desc;
+	  private String ascDesc;
 	  
 	  //카테고리 번호
 	  private int categoryKey;

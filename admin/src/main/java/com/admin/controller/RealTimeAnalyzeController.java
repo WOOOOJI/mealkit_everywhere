@@ -75,10 +75,12 @@ public class RealTimeAnalyzeController {
 		//성별 통계 JSONArray로 전달
 		JSONArray genderArray=new JSONArray();
 		int maleSales=0; int femaleSales=0;
-		for(OrderDTO o:genderList) {
-			if(o.getGender().equals("male")) maleSales=o.getTotalSales();
-			if(o.getGender().equals("female")) femaleSales=o.getTotalSales();
-		}
+	      for(OrderDTO o:genderList) {
+	         switch(o.getGender()) {
+	         case("male"): maleSales+=o.getTotalSales(); break;
+	         case("female"): femaleSales+=o.getTotalSales(); break;
+	         }
+	      }
 		JSONObject genderObj=new JSONObject();
 		genderObj.put("male", maleSales);
 		genderObj.put("female", femaleSales);

@@ -42,7 +42,7 @@ public class CommentsController {
 			cmtDTO = (CommentsDTO)mapper.readValue(commentsJSON, new TypeReference<CommentsDTO>() {});
 			
 			cmtDTO = commentsService.getComment(cmtDTO);
-			System.out.println(cmtDTO.toString());
+		//	System.out.println(cmtDTO.toString());
 			
 			obj.put("cmtDTO", cmtDTO);
 			

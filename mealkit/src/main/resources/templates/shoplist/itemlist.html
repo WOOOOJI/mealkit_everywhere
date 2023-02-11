@@ -16,8 +16,8 @@
 			var category='[[${categoryKey}]]';
 			document.getElementById('categoryNum'+category).className='active';
 
-			var order_cri='[[${order_cri}]]';
-			document.getElementById(order_cri).className='active';
+			var orderCri='[[${orderCri}]]';
+			document.getElementById(orderCri).className='active';
 			
 			/* var itemKey = '[[${itemKey}]]';
 			if($('#forStatus'+itemKey).text()=='0'){
@@ -29,8 +29,9 @@
 
 		
 		function insertWish(item){
+			alert("찜 목록에 추가되었습니다");
 			var itemKey = item;
-			location.href="/wish/wishInsertToList?itemKey="+itemKey;
+			location.href="[[@{/wish/wishInsertToList?itemKey=}]]"+itemKey;
 		};
 		
  	</script>
@@ -101,7 +102,7 @@ function insertCart(item){
 	
 	
 	if(email == 'null' || email == ''){
-		location.href="/customer/loginForm";
+		location.href="[[@{/customer/loginForm}]]";
 		return false;
 	}
 	
@@ -112,12 +113,12 @@ function insertCart(item){
 	var cnt = 1;
 
 	$.ajax({
-		url:"/cart/cartInsert",
+		url:"[[@{/cart/cartInsert}]]",
 		data:{itemKey:itemKey, cnt:cnt},
 		method:"POST",
 		success: function(data){
 			if(confirm("장바구니에 상품이 담겼습니다. 바로 장바구니로 이동하시겠습니까?")){
-				location.href="/cart/list";
+				location.href="[[@{/cart/list}]]";
 			}
 			getScroll();
 		}
@@ -125,6 +126,12 @@ function insertCart(item){
 	});
 	
 };
+
+
+	function searchFunction(){
+	    $('#searchingId').submit();
+	 };
+
 	</script>
 
 
@@ -178,13 +185,13 @@ function insertCart(item){
     				<ul class="product-category">
     					<!-- 정렬 순서 선택 -->
     					<!-- 최신 등록순 -->
-    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, asc_desc = 'desc', order_cri='itemKey')}" id="itemKey">최신 등록순</a></li>
+    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, ascDesc = 'desc', orderCri='itemKey')}" id="itemKey">최신 등록순</a></li>
 						<!-- 판매량순 -->
-    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, asc_desc = 'desc', order_cri='orD.cnt')}" id="orD.cnt">판매량 순</a></li>
+    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, ascDesc = 'desc', orderCri='orD.cnt')}" id="orD.cnt">판매량 순</a></li>
     					<!-- 이름순 -->
-    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, asc_desc = 'asc', order_cri='name')}" id="name">이름순</a></li>
+    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, ascDesc = 'asc', orderCri='name')}" id="name">이름순</a></li>
     					<!-- 낮은 가격순 -->
-    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, asc_desc = 'asc', order_cri='sale')}" id="sale">낮은 가격순</a></li>
+    					<li class="alignList"><a th:href="@{/shoplist(categoryKey = ${categoryKey}, ascDesc = 'asc', orderCri='sale')}" id="sale">낮은 가격순</a></li>
     				</ul>
     			</div>
     		</div>
@@ -212,7 +219,7 @@ function insertCart(item){
 		    					<h3><a th:href="@{/shoplist/product(itemKey = ${item.itemKey})}"><span th:text="${item.name}"></span></a></h3>
 		    					<div class="d-flex">
 		    						<div class="pricing">
-				    					<p class="price"><span class="mr-2 price-dc" th:if="${item.price != item.sale}" th:text="${item.price}"></span><span class="price-sale" th:text="${item.sale}"></span></p>
+				    					<p class="price"><span class="mr-2 price-dc" th:if="${item.price != item.sale}" th:text="${item.price}+'원'"></span><span class="price-sale" th:text="${item.sale}+'원'"></span></p>
 				    				</div>
 			    				</div>
 			    				<!-- 상품상세, 장바구니, 찜하기 버튼 -->
@@ -256,13 +263,13 @@ function insertCart(item){
 	                	<!-- 타임리프로 클래스 설정시 문자열이 아닌 값으로 넘긴다 -->
 
 		                <!-- 이전 버튼; categoryKey를 안줘도 페이지가 작동된다? -->
-		                <li class="prevbtn"><a th:if="${pageMaker.prev == true}" th:href="@{/shoplist(categoryKey = ${categoryKey}, pageNum = ${pageMaker.pageStart - 1}, asc_desc = ${asc_desc}, order_cri=${order_cri})}">&lt;</a></li>
+		                <li class="prevbtn"><a th:if="${pageMaker.prev == true}" th:href="@{/shoplist(categoryKey = ${categoryKey}, pageNum = ${pageMaker.pageStart - 1}, ascDesc = ${ascDesc}, orderCri=${orderCri})}">&lt;</a></li>
 							<!-- 페이지 번호 출력 -->
 		                	<li class="pageList" th:each="pageNum : ${pageNumList}">
-		                		<a th:href="@{/shoplist(categoryKey = ${categoryKey}, pageNum = ${pageNum}, asc_desc = ${asc_desc}, order_cri=${order_cri})}" th:id="'pageNum'+${pageNum}" th:text="${pageNum}"></a>
+		                		<a th:href="@{/shoplist(categoryKey = ${categoryKey}, pageNum = ${pageNum}, ascDesc = ${ascDesc}, orderCri=${orderCri})}" th:id="'pageNum'+${pageNum}" th:text="${pageNum}"></a>
 		                	</li>
 		                <!-- 다음 버튼; categoryKey를 안줘도 페이지가 작동된다? -->
-		                <li class="nextbtn"><a th:if="${pageMaker.next == true}" th:href="@{/shoplist(categoryKey = ${categoryKey}, pageNum = ${pageMaker.pageEnd + 1}, asc_desc = ${asc_desc}, order_cri=${order_cri})}">&gt;</a></li>
+		                <li class="nextbtn"><a th:if="${pageMaker.next == true}" th:href="@{/shoplist(categoryKey = ${categoryKey}, pageNum = ${pageMaker.pageEnd + 1}, ascDesc = ${ascDesc}, orderCri=${orderCri})}">&gt;</a></li>
 		              </ul>
 		            </div>
 		          </div>

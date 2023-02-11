@@ -49,7 +49,6 @@ import lombok.ToString;
 
 	  //차순
 	  private String ascDesc = "desc";
-	  //???
 
 
 

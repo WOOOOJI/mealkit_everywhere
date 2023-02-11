@@ -45,7 +45,7 @@ public class CustomerService implements MyService<Integer, CustomerDTO> {
 		try {
 			list = mapper.selectall();
 		} catch (Exception e) {
-			System.out.println("Error Caused By at CustomerService Row 45 line");
+		//System.out.println("Error Caused By at CustomerService Row 45 line");
 			e.getMessage();
 		}
 		

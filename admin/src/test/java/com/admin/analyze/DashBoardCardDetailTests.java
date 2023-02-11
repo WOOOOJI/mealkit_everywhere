@@ -40,7 +40,7 @@ class DashBoardCardDetailTests {
 
 		result=as.dashBoardCardDetail(startDate, endDate, gender,gender1, gender2, age, categoryKey);
 		System.out.println(result);
-		System.out.println("-------- 30대 한식 남자 조회 테스트 끝 ");
+		System.out.println("-------- 20대 한식 여자 조회 테스트 끝 ");
 	}
 
 }

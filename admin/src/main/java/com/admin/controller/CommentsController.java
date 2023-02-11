@@ -95,7 +95,7 @@ public class CommentsController {
 	@RequestMapping("/replyBoardDelete")
 	public String replyDelete(int boardKey, int commentsKey, Model model) {
 		int result = cservice.deleteComments(commentsKey);
-		System.out.println(commentsKey);
+		//System.out.println(commentsKey);
 		model.addAttribute("comments", result);
 		model.addAttribute("content", "/board/qnadetail");
 		model.addAttribute("navbar", "/board/navbar");

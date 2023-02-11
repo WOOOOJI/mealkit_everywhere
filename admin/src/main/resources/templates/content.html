@@ -1,29 +1,3 @@
-<script>
-
-$(document).ready(function(){
-
-	function nowDate(){
-		
-	 	var now = new Date();
-	 	var year = now.getFullYear();
-	 	var month = now.getMonth();
-	 	var day = now.getDay();
-	 	var hours = now.getHours();
-	 	var min = now.getMinutes();
-	 	var seconds = now.getSeconds();
-	 	
-	 	var startDate = "현재시간: "+year+"년 "+month+"월 "+day+"일 "+hours+"시 "+min+"분 "+seconds+"초";
-	 	
-		$('#nowDate').text(startDate);
-	}
-		
-	nowDate();
-	
-	setInterval(() => {
-		nowDate();		
-	}, 1000);
-});
-</script>
 
 	<main class="content">
 		<div class="container-fluid p-0">
@@ -145,7 +119,7 @@ $(document).ready(function(){
 										</div>
 										<h1 class="mt-1 mb-3" id="realtimeCnt"></h1>
 										<div class="mb-0">
-										<span class="text-muted">금일 누적</span>
+										<span class="text-muted">평균 누적</span>
 											<span class="text-success" id="stackedCnt"> <i
 												class="mdi mdi-arrow-bottom-right"></i> 
 											</span> 
@@ -167,7 +141,7 @@ $(document).ready(function(){
 										</div>
 										<h1 class="mt-1 mb-3" id="realtimePrice"></h1>
 										<div class="mb-0">
-										<span class="text-muted">금일 누적</span>
+										<span class="text-muted">평균 누적</span>
 											<span class="text-success" id="stackedPrice"> <i
 												class="mdi mdi-arrow-bottom-right"></i>
 											</span> 
@@ -240,29 +214,29 @@ $(document).ready(function(){
 
 							<h5 class="card-title mb-0" style="font-size:17px; font-weight:500;">인기 판매 상품 TOP 10</h5>
 						</div>
-						<table class="table table-hover my-0">
-							<thead>
-								<tr>
-									<th>순위</th>
-									<th>상품명</th>
-									<th class="d-none d-xl-table-cell">누적 금액</th>
-									<th>할인률</th>
-									<th class="d-none d-md-table-cell">상품가격</th>
-									<th class="d-none d-xl-table-cell">현재까지 판매된 개수</th>
-								</tr>
-							</thead>
-							
-							<!-- 상품 리스트 -->
-							<tbody id="belowList">
-								<!-- <tr th:each="product : ${productList}" id="productTable">
-									<td th:text=${product.name}>둘이 먹다 죽어도 모르는 한식 세트</td>
-									<td th:text=${product.totPrice} class="d-none d-xl-table-cell">365,000원</td>
-									<td th:text=${product.salePct}><span class="badge bg-success">70%</span></td>
-									<th th:text=${product.sale} class="d-none d-md-table-cell">28,000원</th>
-									<td th:text=${product.totCnt} class="d-none d-xl-table-cell">54개</td>
-								</tr> -->
-							</tbody>
-						</table>
+						<table class="table table-hover my-0" style="width:100%">
+                     <thead>
+                        <tr>
+                           <th style="width:5%">순위</th>
+                           <th style="width:50%">상품명</th>
+                           <th class="d-none d-xl-table-cell" style="width:10%">누적 금액</th>
+                           <th style="width:7%">할인률</th>
+                           <th class="d-none d-md-table-cell" style="width:10%">상품가격</th>
+                           <th class="d-none d-xl-table-cell" style="width:18%">현재까지 판매된 개수</th>
+                        </tr>
+                     </thead>
+                     
+                     <!-- 상품 리스트 -->
+                     <tbody id="belowList">
+                        <!-- <tr th:each="product : ${productList}" id="productTable">
+                           <td th:text=${product.name}>둘이 먹다 죽어도 모르는 한식 세트</td>
+                           <td th:text=${product.totPrice} class="d-none d-xl-table-cell">365,000원</td>
+                           <td th:text=${product.salePct}><span class="badge bg-success">70%</span></td>
+                           <th th:text=${product.sale} class="d-none d-md-table-cell">28,000원</th>
+                           <td th:text=${product.totCnt} class="d-none d-xl-table-cell">54개</td>
+                        </tr> -->
+                     </tbody>
+                  </table>
 						
 						
 					</div>
@@ -391,8 +365,7 @@ $(document).ready(function(){
 
 		</div>
 	</main>
-</div>
-</div>
+
 
 
 
@@ -427,6 +400,19 @@ function dashBoardDatas(data){
 	var totalPrice = priceToString(data.totalDash.totalPrice);
 	
 	
+	var year = data.nowDash.arr[0];
+	var month = data.nowDash.arr[1];
+	var day = data.nowDash.arr[2];
+	
+	var now = new Date();
+ 	var hours = now.getHours();
+ 	var min = now.getMinutes();
+ 	var seconds = now.getSeconds();
+ 	
+ 	var startDate = "현재시간: "+year+"년 "+month+"월 "+day+"일 "+hours+"시 "+min+"분 "+seconds+"초";
+	
+	$('#nowDate').text(startDate);
+	
 	
 	$('#nowShip').text(nowShip+'건');
 	$('#totalShip').text(totalShip+'건');
@@ -452,7 +438,7 @@ function dashBoardDatas(data){
 function getRealTimeData(){
 	
 	$.ajax({
-		url:'/admin/getRealTimeData',
+		url:'[[@{/getRealTimeData}]]',
 		method:'GET',
 		async:false,
 		dataType:'JSON',
@@ -531,7 +517,7 @@ function getRealTimeData(){
 function getRealTimeDashBoard(){
 	
 	$.ajax({
-		url:'/admin/getRealTimeData',
+		url:'[[@{/getRealTimeData}]]',
 		method:'GET',
 		async:false,
 		dataType:'JSON',
@@ -568,6 +554,7 @@ $(document).ready(function(){
 		lastChart();
 	}, 10000);
 	
+
 	setInterval(() => {
 		getRealTimeDashBoard();
 	}, 1000);
@@ -674,7 +661,7 @@ function llchart(){
 					yAxes : [ {
 						ticks : {
 							stepSize : parseInt(max/3/1000)*1000,
-							
+							min:0
 						},
 						display : true,
 						borderDash : [ 3, 3 ],
@@ -697,25 +684,25 @@ function lastChart(){
 					"11:00", "12:00", "13:00", "14:00", "15:00", "16:00",
 					"17:00", "18:00", "19:00", "20:00", "21:00", "22:00",
 					"23:00", "24:00" ],
-				datasets : [ {
-					label : "어제",
-					backgroundColor : "#dee2e6",
-					borderColor : "#dee2e6",
-					hoverBackgroundColor : "#dee2e6",
-					hoverBorderColor : "#dee2e6",
-					data : lastDayChart,
-					barPercentage : .75,
-					categoryPercentage : .5
-				}, {
-					label : "오늘",
-					backgroundColor : window.theme.primary,
-					borderColor : window.theme.primary,
-					hoverBackgroundColor : window.theme.primary,
-					hoverBorderColor : window.theme.primary,
-					data : chart,
-					barPercentage : .75,
-					categoryPercentage : .5
-				} ]
+					datasets : [ {
+	                    label : "어제",
+	                    backgroundColor : "#dee2e6",
+	                    borderColor : "#dee2e6",
+	                    hoverBackgroundColor : "#dee2e6",
+	                    hoverBorderColor : "#dee2e6",
+	                    data : lastDayChart,
+	                    barPercentage : .75,
+	                    categoryPercentage : .5
+	                }, {
+	                    label : "오늘",
+	                    backgroundColor : window.theme.primary,
+	                    borderColor : window.theme.primary,
+	                    hoverBackgroundColor : window.theme.primary,
+	                    hoverBorderColor : window.theme.primary,
+	                    data : chart,
+	                    barPercentage : .75,
+	                    categoryPercentage : .5
+	                } ]
 			},
 			options : {
 				maintainAspectRatio : false,
@@ -723,7 +710,11 @@ function lastChart(){
 					display : false
 				},
 				scales : {
-					yAxes : [ {
+					yAxes : [ { 
+						ticks : {
+							stepSize : parseInt(max/3/1000)*1000,
+							min:0
+						},
 						gridLines : {
 							display : false
 						},

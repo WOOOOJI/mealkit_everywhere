@@ -52,7 +52,7 @@ public class BoardController {
 
 		PageResponseDTO pageResponseDTO = service.getQuestionsPageMaker(cri);
 		
-		qnaList = service.getQuestionsList(cri);
+		qnaList = service.myQnaList(cri);
 	
 		if (!qnaList.isEmpty()) {
 			model.addAttribute("list", qnaList);
@@ -90,8 +90,6 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		
-		System.out.println("확인용:"+dto);
-		
 		model.addAttribute("replyboard", cdto); //답변
 		
 		
@@ -111,7 +109,7 @@ public class BoardController {
 
 		PageResponseDTO pageResponseDTO = service.getReviewsPageMaker(cri);
 		
-		reviewList = service.getReviewsList(cri);
+		reviewList = service.myReviewList(cri);
 	
 		if (!reviewList.isEmpty()) {
 			model.addAttribute("list", reviewList);
@@ -120,8 +118,8 @@ public class BoardController {
 		// model에 변수들 담기
 
 		model.addAttribute("pageNumList", pageResponseDTO.getPageNumList());
-		System.out.println(pageResponseDTO);
-		System.out.println(pageNum);
+		//System.out.println(pageResponseDTO);
+		//System.out.println(pageNum);
 		model.addAttribute("pageMaker", pageResponseDTO.getPageMaker());
 		model.addAttribute("content", "/board/myreview");
 		model.addAttribute("pageNum", pageNum);
@@ -158,28 +156,31 @@ public class BoardController {
 	
 	
 	// 후기글 삭제
-	@RequestMapping("/boardDel")
-    public String boardDel(int boardKey, Model model) throws Exception {
+	@RequestMapping("/reviewDel")
+    public String reviewDel(int boardKey, Model model) throws Exception {
         int result = service.reviewDel(boardKey);
         model.addAttribute("result", result);
         return "redirect:/board/reviewlist";
     }
 
+	// -----------------------------------------------------------------------------------------------------------------------------------------------
 	
 	//후기 작성 폼으로 넘어가는 메소드
 	@RequestMapping("/writeReview")
 	public String writeReview(BoardDTO boardDTO, HttpSession session , Model model) {
 		
 		int custKey = (int) session.getAttribute("custKey");
-		System.out.println();
+		//System.out.println();
 
 		boardDTO.setCustKey(custKey);
 		
 		model.addAttribute("boardDTO",boardDTO);
 		return "board/writereview";
-	}
-	
+	}	
 	@SuppressWarnings("unchecked")
+
+	//후기 작성시 구매한 상품인지 확인하기
+
 	@RequestMapping("/reviewJudge")
 	@ResponseBody
 	public Object reviewJudge(@RequestBody String judgeJSON,  HttpServletResponse response, 
@@ -230,8 +231,8 @@ public class BoardController {
 			
 			result = 1;
 		} catch (Exception e) {
-			System.out.println("후기 등록 실패");
-			System.out.println(e.toString());
+			//System.out.println("후기 등록 실패");
+			//System.out.println(e.toString());
 		}
 		
 		
@@ -248,7 +249,7 @@ public class BoardController {
 		
 		boardDTO.setCustKey(custKey);
 		boardDTO = service.modifyReview(boardDTO);
-		System.out.println(boardDTO.toString());
+		//System.out.println(boardDTO.toString());
 		
 		//model에 담고 html파일명을 return하면 model의 데이터도 이동한다
 		model.addAttribute("boardDTO",boardDTO);
@@ -271,13 +272,13 @@ public class BoardController {
 		try {
 			boardDTO = (BoardDTO)mapper.readValue(reviewJSON, new TypeReference<BoardDTO>() {});
 				
-			System.out.println(boardDTO.toString());
+			//System.out.println(boardDTO.toString());
 			service.modify(boardDTO);
 				
 			result = 1;
 		} catch (Exception e) {
-			System.out.println("후기 등록 실패");
-			System.out.println(e.toString());
+			//System.out.println("후기 등록 실패");
+			//System.out.println(e.toString());
 		}
 			
 		return result;
@@ -290,7 +291,7 @@ public class BoardController {
 		int custKey = (int) session.getAttribute("custKey");
 
 		boardDTO.setCustKey(custKey);
-		System.out.println(boardDTO.toString());
+		//System.out.println(boardDTO.toString());
 			
 		model.addAttribute("boardDTO",boardDTO);
 		return "board/writequestion";
@@ -313,31 +314,19 @@ public class BoardController {
 		try {
 			boardDTO = (BoardDTO)mapper.readValue(questionJSON, new TypeReference<BoardDTO>() {});
 				
-			System.out.println(boardDTO.toString());
+			//System.out.println(boardDTO.toString());
 			service.register(boardDTO);
 				
 			result = 1;
 		} catch (Exception e) {
-			System.out.println("문의 등록 실패");
-			System.out.println(e.toString());
+			//System.out.println("문의 등록 실패");
+			//System.out.println(e.toString());
 		}
 			
 			
 		return result;
 	}
 	
-	//문의 수정 폼으로 넘어가는 메소드
-	@RequestMapping("/modQuestion")
-	public String modQuestion(BoardDTO boardDTO, HttpSession session , Model model) {
-			
-		int custKey = (int) session.getAttribute("custKey");
-
-		boardDTO.setCustKey(custKey);
-		System.out.println("boardController, 302th line, At modQuestion " + boardDTO.toString());
-				
-		model.addAttribute("boardDTO",boardDTO);
-		return "board/modquestion";
-	}
 			
 	//후기 수정 폼에서 후기 업데이트하는 메소드 
 	@RequestMapping("/updateQuestion")
@@ -355,17 +344,22 @@ public class BoardController {
 		try {
 			boardDTO = (BoardDTO)mapper.readValue(questionJSON, new TypeReference<BoardDTO>() {});
 					
-			System.out.println("boardController, 324th line, At updateQuestion " + boardDTO.toString());
+			//System.out.println("boardController, 324th line, At updateQuestion " + boardDTO.toString());
 			service.modify(boardDTO);
 					
 			result = 1;
 		} catch (Exception e) {
-			System.out.println("후기 등록 실패");
-			System.out.println(e.toString());
+		//	System.out.println("후기 등록 실패");
+		//	System.out.println(e.toString());
 		}
 				
 		return result;
 	}
+	
+	
+	// -----------------------------------------------------------------------------------------------------------------------------------
+	
+	
 	//문의글 삭제 + 답변 삭제 (DDL문에서 on delete cascade추가해서 답변까지 함께 지울 수 있도록 함) 
 	@RequestMapping("/qnaDel")
 	public String qnaDel(int boardKey, Model model) throws Exception{
@@ -386,7 +380,7 @@ public class BoardController {
 		try {
 			dto = service.reviewDetail(boardKey);
 		} catch (Exception e) {
-			System.out.println("Error Caused by BoardController at row 171");
+			//System.out.println("Error Caused by BoardController at row 171");
 			e.printStackTrace();
 		}
 		
@@ -421,7 +415,7 @@ public class BoardController {
 		try {
 			dto = service.get(boardKey);
 		} catch (Exception e) {
-			System.out.println("Error Caused by BoardController at row 208");
+			//System.out.println("Error Caused by BoardController at row 208");
 			e.printStackTrace();
 		}
 		
@@ -447,5 +441,19 @@ public class BoardController {
 		return result;
 	}
 	
+	//문의 수정 폼으로 넘어가는 메소드
+	   @RequestMapping("/modQuestion")
+	   public String modQuestion(BoardDTO boardDTO, HttpSession session , Model model) {
+	         
+	      int custKey = (int) session.getAttribute("custKey");
 
+	      boardDTO.setCustKey(custKey);
+	      boardDTO = service.modifyQuestion(boardDTO);
+	      
+	      //System.out.println("boardController, 302th line, At modQuestion " + boardDTO.toString());
+	            
+	      model.addAttribute("boardDTO",boardDTO);
+	      return "board/modquestion";
+	   }
+	
 }

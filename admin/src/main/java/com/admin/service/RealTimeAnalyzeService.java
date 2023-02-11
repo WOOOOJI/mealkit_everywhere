@@ -2,7 +2,9 @@ package com.admin.service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,65 +24,84 @@ public class RealTimeAnalyzeService {
     @Autowired
 	AnalyzeService analyzeService;
 
-	// 현재날짜, 시간
-    final static LocalDateTime NOW = LocalDateTime.now();
+    public Map<String,String> getTime(){
+    	HashMap<String, String> result=new HashMap<String,String>();
+    	// 현재날짜, 시간
+        LocalDateTime now = LocalDateTime.now();
 
-    // 현재년도 nowYear
-    final static String NOWYEAR = NOW.toString().substring(2,4);
+        // 현재년도 nowYear
+        String nowYear = now.toString().substring(0,4);
 
-    // 현재월 nowMonth
-    final static String NOWMONTH = NOW.toString().substring(5,7);
+        // 현재월 nowMonth
+        String nowMonth = now.toString().substring(5,7);
 
-    // 현재일 nowDay
-    final static String NOWDAY = NOW.toString().substring(8,10);
+        // 현재일 nowDay
+        String nowDay = now.toString().substring(8,10);
 
-    // 현재날짜 nowDate
-    final static String NOWDATE = NOW.toString().substring(0,10);
+        // 현재날짜 nowDate
+        String nowDate = now.toString().substring(0,10);
 
-    // 현재시간 nowTime
-    final static String NOWTIME = NOW.toString().substring(11,13);
+        // 현재시간 nowTime
+        String nowTime = now.toString().substring(11,13);
+        
+        result.put("nowYear", nowYear);
+        result.put("nowMonth", nowMonth);
+        result.put("nowDay", nowDay);
+        result.put("nowDate", nowDate);
+        result.put("nowTime", nowTime);
+        
+        return result;
+    }
+
     
     
    
-
+    //실시간 차트
     public List<OrderDTO> realTimeSalesChart(){
+    	Map<String, String> now=getTime();
     	List<OrderDTO> result=null;
     	try {
-			result=mapper.realTimeSalesChart(NOWDATE);
+			result=mapper.realTimeSalesChart(now.get("nowDate"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	return result;
     }
-
+    
+    //나이대별 판매
     public List<OrderDTO> realTimeAgeRangeSales(){
+    	Map<String, String> now=getTime();
     	List<OrderDTO> result=null;
     	try {
-			result=mapper.realTimeAgeRangeSales(NOWDATE);
+			result=mapper.realTimeAgeRangeSales(now.get("nowDate"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	return result;
     }
-
+    
+    //성별 판매
     public List<OrderDTO> realTimeGenderSales(){
+    	Map<String, String> now=getTime();
     	List<OrderDTO> result=null;
     	try {
-			result=mapper.realTimeGenderSales(NOWDATE);
+			result=mapper.realTimeGenderSales(now.get("nowDate"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	return result;
     }
-
+    
+    //평균 구매액, 개수
     public OrderAVG realTimeOrderAvg() {
     	OrderAVG result=new OrderAVG();
     	OrderDTO realtime=new OrderDTO();
     	OrderDTO stacked=new OrderDTO();
+    	Map<String, String> now=getTime();
 
     	try {
-			realtime=mapper.realTimeOrderAvg(NOWDATE, NOWTIME);
-			stacked=mapper.stackedOrderAvg(NOWDATE);
+			realtime=mapper.realTimeOrderAvg(now.get("nowDate"), now.get("nowTime"));
+			stacked=mapper.stackedOrderAvg(now.get("nowDate"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -98,18 +119,18 @@ public class RealTimeAnalyzeService {
     		result.setStackedCnt("0");
     		result.setStackedPrice("0");
     	}
+    	
+    	System.out.println(now.get("nowTime"));
     	return result;
     }
-
  // 실시간 대쉬보드 현황
  	public DashBoardDTO realTimeDashBoard() {
  		DashBoardDTO dash = new DashBoardDTO();
  		OrderDTO od = new OrderDTO();
-
-
-
+ 		Map<String, String> now=getTime();
+ 		
  		try {
- 			od = mapper.realTimeDashBoard(NOWDATE, NOWTIME);
+ 			od = mapper.realTimeDashBoard(now.get("nowDate"), now.get("nowTime"));
  		} catch (Exception e) {
  			e.printStackTrace();
  		}
@@ -130,7 +151,14 @@ public class RealTimeAnalyzeService {
 
  		//실시간 구매확정율
  		dash.setConfirmation(Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0);
-
+ 		
+ 		String[] dateArr = new String[4];
+ 		dateArr[0] = now.get("nowYear");
+ 		dateArr[1] = now.get("nowMonth");
+ 		dateArr[2] = now.get("nowDay");
+ 		dateArr[3] = now.get("nowTime");
+ 		
+ 		dash.setArr(dateArr);
 
  		return dash;
  	}
@@ -140,11 +168,11 @@ public class RealTimeAnalyzeService {
  	public DashBoardDTO totalTimeDashBoard() {
  		DashBoardDTO dash = new DashBoardDTO();
  		OrderDTO od = new OrderDTO();
-
+ 		Map<String, String> now=getTime();
 
 
  		try {
- 			od = mapper.totalTimeDashBoard(NOWDATE);
+ 			od = mapper.totalTimeDashBoard(now.get("nowDate"));
  		} catch (Exception e) {
  			e.printStackTrace();
  		}
@@ -175,10 +203,11 @@ public class RealTimeAnalyzeService {
  			FilterdDTO filterdDTO = new FilterdDTO();
  			String gender = "noGender";
  			String align = "totPrice";
+ 			Map<String, String> now=getTime();
  			filterdDTO.setAlign(align);
  			filterdDTO.setGender(gender);
- 			filterdDTO.setStartDate(NOWDATE);
- 			filterdDTO.setEndDate(NOWDATE + " " + NOWTIME);
+ 			filterdDTO.setStartDate(now.get("nowDate"));
+ 			filterdDTO.setEndDate(now.get("nowDate") + " " + now.get("nowTime"));
 
  			List<FilterdDTO> filterdDTOList = new ArrayList<>();
 
@@ -195,7 +224,8 @@ public class RealTimeAnalyzeService {
  		// 하루전 매출 차트
  		public List<OrderDTO> lastDayChart(){
  			List<OrderDTO> lastDaySalesChart = new ArrayList<>();
- 			lastDaySalesChart = analyzeService.lastDaySalesChart(NOWYEAR,NOWMONTH,NOWDAY);
+ 			Map<String, String> now = getTime();
+ 			lastDaySalesChart = analyzeService.lastDaySalesChart(now.get("nowYear"),now.get("nowMonth"),now.get("nowDay"));
  			return lastDaySalesChart;
  		}
 

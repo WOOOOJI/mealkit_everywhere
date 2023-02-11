@@ -40,17 +40,14 @@ public class AdminController {
 		String encodedPwd=service.getPwd(adminId);
 		if(pwdEncoder.matches(adminPwd, encodedPwd)) {
 			adminPwd=encodedPwd;
+			dto	= service.login(adminId, adminPwd);
 		}
-
-
-		dto	= service.login(adminId, adminPwd);
-
+	
 		if(dto == null) {
 			result = 1;
 			model.addAttribute("result", result);
 			return "login/loginForm";
 		}
-
 			model.addAttribute("result", result);
 			session.setAttribute("adminId", dto.getAdminId());
 			session.setAttribute("name", dto.getName());

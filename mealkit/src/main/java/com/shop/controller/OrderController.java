@@ -170,6 +170,11 @@ public class OrderController {
 
 		// 세션에 저장된 유저의 key를 갖고온다.
 		int custKey = (int) session.getAttribute("custKey");
+		
+	      if(address.getReq().equals("")||address.getReq()==null) {
+	          address.setReq("조심히 안전하게 와주세요");
+	       }
+		
 		addrservice.insertAddress(custKey, address);
 		return "redirect:/order/selectaddr";
 	}
@@ -203,7 +208,7 @@ public class OrderController {
 
 	// 결제페이지
 	@RequestMapping("/payment")
-	public String payment(@RequestParam(value = "addrKey", defaultValue = "0") int addrKey,
+	public String payment(@RequestParam(value = "addrKey", defaultValue = "0") int addrKey, AddressDTO addressDTO,
 			@RequestParam(value = "payment", defaultValue = "0") int payment, HttpSession session, Model model) {
 		// 결제하기 페이지
 		// 1. 빈 주문 테이블 만들어주기
@@ -239,7 +244,7 @@ public class OrderController {
 		// 방금 추가한 주문 번호를 가져와서 UPDATE 준비
 		orderKey = orderservice.getOrderkey(custKey);
 		// 주문상세를 이용하여 주문 테이블 UPDATE하기
-		orderservice.orderUpdate(addrKey, orderKey, payment);
+		orderservice.orderUpdate(addressDTO, orderKey, payment);
 		// item 테이블의 cnt를 주문한 양 만큼 낮추기
 		// 1) orderKey의 주문상세에서 item key와 cnt를 불러와서 저장
 		det = orderdetailservice.getOrderDetailByOrderkey(orderKey);

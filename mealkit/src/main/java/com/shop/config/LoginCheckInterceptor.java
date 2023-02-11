@@ -16,8 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginCheckInterceptor implements HandlerInterceptor {
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("LoginInterceptor - {}", "호출완료");
-        System.out.println("----------------------------------------------------------------------");
+       // log.info("LoginInterceptor - {}", "호출완료");
+       // System.out.println("----------------------------------------------------------------------");
 
         HttpSession session = request.getSession();
         String email = (String)session.getAttribute("email");

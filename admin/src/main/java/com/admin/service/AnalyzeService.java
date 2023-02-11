@@ -151,43 +151,53 @@ public class AnalyzeService {
 	}
 
 	// 작월의 매출차트 데이터 가져오기(일 별)
-			public List<OrderDTO> lastMonthSalesChart(String year, String month){
-				Date date = new Date();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-				String nowDate = sdf.format(date);
-				String[] dateArr = nowDate.split("-");
+	public List<OrderDTO> lastMonthSalesChart(String year, String month){
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+		String nowDate = sdf.format(date);
+		String[] dateArr = nowDate.split("-");
 
-				if(year == null && month == null) {
-					year = dateArr[0];
-					month = dateArr[1];
+		if(year == null && month == null) {
+			year = dateArr[0];
+			month = dateArr[1];
 
-					int lastMonthNum = Integer.valueOf(month) - 1;
+			int lastMonthNum = Integer.valueOf(month) - 1;
 
-					if(lastMonthNum == 0) {
-						lastMonthNum = 12;
-						year = String.valueOf(Integer.parseInt(year)-1);
-					}
-					month = String.valueOf(lastMonthNum);
-
-				}else {
-					int lastMonthNum = Integer.valueOf(month) - 1;
-
-					if(lastMonthNum == 0) {
-						lastMonthNum = 12;
-						year = String.valueOf(Integer.parseInt(year)-1);
-					}
-					month = String.valueOf(lastMonthNum);
-				}
-
-				List<OrderDTO> result = null;
-
-				try {
-					result=mapper.monthSalesChart(year,month);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return result;
+			if(lastMonthNum == 0) {
+				lastMonthNum = 12;
+				year = String.valueOf(Integer.parseInt(year)-1);
 			}
+			
+			if(lastMonthNum<10) {
+				month = "0"+String.valueOf(lastMonthNum);
+			}else {
+				month = String.valueOf(lastMonthNum);
+			}
+
+		}else {
+			int lastMonthNum = Integer.valueOf(month) - 1;
+
+			if(lastMonthNum == 0) {
+				lastMonthNum = 12;
+				year = String.valueOf(Integer.parseInt(year)-1);
+			}
+
+			if(lastMonthNum<10) {
+				month = "0"+String.valueOf(lastMonthNum);
+			}else {
+				month = String.valueOf(lastMonthNum);
+			}
+		}
+
+		List<OrderDTO> result = null;
+
+		try {
+			result=mapper.monthSalesChart(year,month);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			return result;
+	}
 
 	// 특정 년도의 매출차트 데이터 가져오기(월 별)
 	public List<OrderDTO> daySalesChart(String year, String month, String day){
@@ -224,35 +234,44 @@ public class AnalyzeService {
 				month = dateArrr[1];
 				day = dateArrr[2];
 
-				int lastMonthNum = Integer.valueOf(month) - 1;
 				int lastDayNum = Integer.valueOf(day) - 1;
-
+					
 				if(lastDayNum == 0) {
 					lastDayNum = 31;
+					int lastMonthNum = Integer.valueOf(month) - 1;
 					if(lastMonthNum == 0) {
 						lastMonthNum = 12;
+						year = String.valueOf(Integer.parseInt(year)-1);
+					}
+					if(lastMonthNum<10) {
+						month = "0"+String.valueOf(lastMonthNum);
+					}else {
 						month = String.valueOf(lastMonthNum);
 					}
 				}
-				month = String.valueOf(lastMonthNum);
-				day = String.valueOf(lastDayNum);
+				if(lastDayNum<10) {
+					day = "0"+ String.valueOf(lastDayNum);
+				}else {
+					day = String.valueOf(lastDayNum);
+				}
 
 			}else {
-				int lastMonthNum = Integer.valueOf(month) - 1;
 				int lastDayNum = Integer.valueOf(day) - 1;
 
 				if(lastDayNum == 0) {
 					lastDayNum = 31;
+					int lastMonthNum = Integer.valueOf(month) - 1;
 					if(lastMonthNum == 0) {
 						lastMonthNum = 12;
+						year = String.valueOf(Integer.parseInt(year)-1);
+					}
+					if(lastMonthNum<10) {
+						month = "0"+String.valueOf(lastMonthNum);
+					}else {
+						month = String.valueOf(lastMonthNum);
 					}
 				}
 
-				if(lastMonthNum<10) {
-					month = "0"+String.valueOf(lastMonthNum);
-				}else {
-					month = String.valueOf(lastMonthNum);
-				}
 				if(lastDayNum<10) {
 					day = "0"+ String.valueOf(lastDayNum);
 				}else {
@@ -321,25 +340,26 @@ public class AnalyzeService {
 			dash.setConfirmation(Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0);
 
 			//올해와 작년 판매액 증가율
-			double tempSell = Math.round((thisY.getPrice() - lastY.getPrice()) / (float)lastY.getPrice() * 100)*100/100.0;
+			double tempSell = (thisY.getPrice() - lastY.getPrice()) / (float)lastY.getPrice() * 100*100/100.0;
 			if( tempSell == -1.0) tempSell = 0.0;
 			String tempSellS = String.format("%.2f", tempSell);
 			dash.setSellIncrease(tempSellS);
 
 			//올해와 작년 판매개수 증가율
-			double tempCnt = Math.round((thisY.getTotalSales() - lastY.getTotalSales()) / (float)lastY.getTotalSales() * 100)*100/100.0;
+			double tempCnt = (thisY.getTotalSales() - lastY.getTotalSales()) / (float)lastY.getTotalSales() * 100 *100/100.0;
 			if( tempCnt == -1.0) tempCnt = 0.0;
 			String tempCntS = String.format("%.2f", tempCnt);
 			dash.setItemCntIncrease(tempCntS);
 
 			//올해와 작년 배송량 증가율
-			double tempShip = Math.round((thisY.getItemCnt() - lastY.getItemCnt()) / (float)lastY.getItemCnt() * 100)*100/100.0;
+			double tempShip = (thisY.getItemCnt() - lastY.getItemCnt()) / (float)lastY.getItemCnt() * 100*100/100.0;
+			if(lastY.getItemCnt()==0) tempShip = 100.00;
 			if(tempShip == -1.0) tempShip = 0.0;
 			String tempShipS = String.format("%.2f", tempShip);
 			dash.setShipIncrease(tempShipS);
 
 			//올해와 작년 구매확정 증가율
-			double tempConfirm = Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0 - Math.round((lastNotRefund/(double)(lastNotRefund+lastRefund)*100)*100)/100.0;
+			double tempConfirm = (thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100/100.0 - (lastNotRefund/(double)(lastNotRefund+lastRefund)*100)*100/100.0;
 			if(tempConfirm == -1.0) tempConfirm = 0.0;
 			String tempConfirmS = String.format("%.2f", tempConfirm);
 			dash.setConfirmationIncrease(tempConfirmS);
@@ -372,8 +392,8 @@ public class AnalyzeService {
 			
 			
 			int lastMonth = Integer.parseInt(month)-1;
-
-
+			
+			
 			try {
 				thisM = mapper.dashBoardCardMonth(year, month);
 				if(lastMonth < 10) {
@@ -382,16 +402,16 @@ public class AnalyzeService {
 						lastYear = String.valueOf(Integer.parseInt(year)-1);
 						lastM = mapper.dashBoardCardMonth(lastYear, String.valueOf(lastMonth));
 					}else {
-						lastM = mapper.dashBoardCardMonth(lastYear, "0"+String.valueOf(lastMonth));
+						lastM = mapper.dashBoardCardMonth(year, "0"+lastMonth);
 					}
 				}else {
-					lastM = mapper.dashBoardCardMonth(lastYear, String.valueOf(lastMonth));
+					lastM = mapper.dashBoardCardMonth(year, String.valueOf(lastMonth));
 				}
 			}catch(Exception e){
 				e.printStackTrace();
 			}
 
-
+			
 
 			int thisNotRefund = Integer.parseInt(thisM.getStatus());
 			int thisRefund = Integer.parseInt(thisM.getRefund());
@@ -411,34 +431,34 @@ public class AnalyzeService {
 			dash.setConfirmation(Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0);
 
 			//이번달과 저번달 판매액 증가율
-			double tempSell = Math.round((thisM.getPrice() - lastM.getPrice()) / (float)lastM.getPrice() * 100)*100/100.0;
+			double tempSell = (thisM.getPrice() - lastM.getPrice()) / (float)lastM.getPrice() * 100*100/100.0;
 			if( tempSell == -1.0) tempSell = 0.0;
 			String tempSellS = String.format("%.2f", tempSell);
 			dash.setSellIncrease(tempSellS);
 
 			//올해와 작년 판매개수 증가율
-			double tempCnt = Math.round((thisM.getTotalSales() - lastM.getTotalSales()) / (float)lastM.getTotalSales() * 100)*100/100.0;
+			double tempCnt = (thisM.getTotalSales() - lastM.getTotalSales()) / (float)lastM.getTotalSales() * 100*100/100.0;
 			if( tempCnt == -1.0) tempCnt = 0.0;
 			String tempCntS = String.format("%.2f", tempCnt);
 			dash.setItemCntIncrease(tempCntS);
 
 
 			//이번달과 저번달 배송량 증가율
-			double tempShip = Math.round((thisM.getItemCnt() - lastM.getItemCnt()) / (float)lastM.getItemCnt() * 100)*100/100.0;
+			double tempShip = (thisM.getItemCnt() - lastM.getItemCnt()) / (float)lastM.getItemCnt() * 100*100/100.0;
+			if(lastM.getItemCnt()==0) tempShip = 100.00;
 			if(tempShip == -1.0) tempShip = 0.0;
 			String tempShipS = String.format("%.2f", tempShip);
 			dash.setShipIncrease(tempShipS);
 
 			//이번달과 저번달 구매확정 증가율
-			double tempConfirm = Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0 - Math.round((lastNotRefund/(double)(lastNotRefund+lastRefund)*100)*100)/100.0;
+			double tempConfirm = (thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100/100.0 - (lastNotRefund/(double)(lastNotRefund+lastRefund)*100)*100/100.0;
 			if(tempConfirm == -1.0) tempConfirm = 0.0;
 			String tempConfirmS = String.format("%.2f", tempConfirm);
 			dash.setConfirmationIncrease(tempConfirmS);
 
 			dash.setNowYear(year);
 			dash.setNowMonth(month);
-			System.out.println(thisM);
-			
+
 
 			return dash;
 		}
@@ -496,7 +516,7 @@ public class AnalyzeService {
 
 							// 문자를 -를 기준으로 짤라서 년, 월, 일을 구해서 서버에 전송
 							String[] dateArr = lastDate.split("-");
-							System.out.println("년도: "+dateArr[0]+" 월: "+dateArr[1]+" 일: "+dateArr[2].substring(0,2));
+
 
 							String lastYear = dateArr[0];
 							String lastMonth = dateArr[1];
@@ -521,6 +541,9 @@ public class AnalyzeService {
 			int thisRefund = Integer.parseInt(thisD.getRefund());
 			int lastNotRefund = Integer.parseInt(lastD.getStatus());
 			int lastRefund = Integer.parseInt(lastD.getRefund());
+						
+			if(thisRefund == 0) thisRefund = 0;
+			if(lastRefund == 0) lastRefund = 0;
 
 			//오늘 총 매출액
 			dash.setTotalPrice(String.format("%,d", thisD.getPrice()));
@@ -535,26 +558,28 @@ public class AnalyzeService {
 			dash.setConfirmation(Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0);
 
 			//오늘과 어제 판매액 증가율
-			double tempSell = Math.round((thisD.getPrice() - lastD.getPrice()) / (float)lastD.getPrice() * 100)*100/100.0;
+			double tempSell = (thisD.getPrice() - lastD.getPrice()) / (float)lastD.getPrice() * 100*100/100.0;
 			if( tempSell == -1.0) tempSell = 0.0;
 			String tempSellS = String.format("%.2f", tempSell);
 			dash.setSellIncrease(tempSellS);
 
 			//올해와 작년 판매개수 증가율
-			double tempCnt = Math.round((thisD.getTotalSales() - lastD.getTotalSales()) / (float)lastD.getTotalSales() * 100)*100/100.0;
+			double tempCnt = (thisD.getTotalSales() - lastD.getTotalSales()) / (float)lastD.getTotalSales() * 100*100/100.0;
 			if( tempCnt == -1.0) tempCnt = 0.0;
 			String tempCntS = String.format("%.2f", tempCnt);
 			dash.setItemCntIncrease(tempCntS);
 
 			//오늘과 어제 배송량 증가율
-			double tempShip = Math.round((thisD.getItemCnt() - lastD.getItemCnt()) / (float)lastD.getItemCnt() * 100)*100/100.0;
+			double tempShip = (thisD.getItemCnt() - lastD.getItemCnt()) / (float)lastD.getItemCnt() * 100*100/100.0;
+			if(lastD.getItemCnt()==0) tempShip = 100.00;
 			if(tempShip == -1.0) tempShip = 0.0;
 			String tempShipS = String.format("%.2f", tempShip);
 			dash.setShipIncrease(tempShipS);
 
 			//오늘과 어제 구매확정 증가율
-			double tempConfirm = Math.round((thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100)/100.0 - Math.round((lastNotRefund/(double)(lastNotRefund+lastRefund)*100)*100)/100.0;
-			if(tempConfirm == -1.0) tempConfirm = 0.0;
+			double tempConfirm = (thisNotRefund/(double)(thisNotRefund+thisRefund)*100)*100/100.0 - (lastNotRefund/(double)(lastNotRefund+lastRefund)*100*100)/100.0;
+			if(tempConfirm==0) tempConfirm = -1.0;
+			if(tempConfirm == -1.0) tempConfirm = 0.00;
 			String tempConfirmS = String.format("%.2f", tempConfirm);
 			dash.setConfirmationIncrease(tempConfirmS);
 
@@ -585,7 +610,6 @@ public class AnalyzeService {
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			System.out.println(totalSales);
 
 			thisNotRefund = totalSales.getTotalSales();
 			thisRefund = refund;

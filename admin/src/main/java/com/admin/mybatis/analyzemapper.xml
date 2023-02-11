@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT i.categoryKey, sum(od.price*od.cnt) AS salesSum,
 		SUM(od.cnt) AS
 		salesCnt
-		FROM orderDetaiL od
+		FROM orderDetail od
 		INNER JOIN item i ON i.itemKey=od.itemKey
 		INNER JOIN totalOrder o ON o.orderKey=od.orderKey WHERE
 		<![CDATA[
@@ -89,7 +89,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT i.categoryKey, sum(od.price*od.cnt) AS salesSum,
 		SUM(od.cnt) AS
 		salesCnt
-		FROM orderDetaiL od
+		FROM orderDetail od
 		INNER JOIN item i ON i.itemKey=od.itemKey
 		INNER JOIN totalOrder o ON o.orderKey=od.orderKey WHERE
 		DATE_FORMAT(o.rdate, '%Y-%m-%d') BETWEEN '${year}-${month}-01' AND '${year}-${month}-31'
@@ -105,7 +105,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		SELECT i.categoryKey, sum(od.price*od.cnt) AS salesSum,
 		SUM(od.cnt) AS
 		salesCnt
-		FROM orderDetaiL od
+		FROM orderDetail od
 		INNER JOIN item i ON i.itemKey=od.itemKey
 		INNER JOIN totalOrder o ON o.orderKey=od.orderKey WHERE
 		<![CDATA[
@@ -116,7 +116,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		ORDER BY categoryKey
 		ASC
 	</select>
-
+	
+	
+	<!-- 시간별 매출차트  -->
 	<select id="yearSalesChart" parameterType="String"
 		resultType="OrderDTO">
 		SELECT *
@@ -290,6 +292,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		GROUP BY gender;
 	</select>
 
+
+
+
+
+
 	<select id="filterdData" resultType="FilterdDTO"
 		parameterType="FilterdDTO">
 		SELECT
@@ -301,9 +308,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		FROM orderDetail AS ordDet, 
 		item,
 		customer AS cust
-		RIGHT OUTER JOIN totalorder totOrd
-		ON (totOrd.rdate BETWEEN date(#{startDate}) AND date_add(#{endDate}, INTERVAL 1 DAY)) AND
-		status NOT LIKE 'F'
+		RIGHT OUTER JOIN totalOrder totOrd
+		ON (totOrd.rdate BETWEEN date(#{startDate}) AND date_add(#{endDate}, INTERVAL 1 DAY))
+		AND totOrd.status NOT LIKE 'F'	
 		<where>
 			<if test="startDate != null">
 				AND ordDet.orderKey = totOrd.orderKey AND ordDet.itemKey
@@ -318,7 +325,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			<if test="gender != 'noGender'">
                 AND (cust.gender = ${gender1} OR cust.gender = ${gender2})
             </if>
-		</where>
+        </where>
 		GROUP BY ordDet.itemKey
 		ORDER BY ${align} DESC
 		LIMIT 0, 10

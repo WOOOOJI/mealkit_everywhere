@@ -28,31 +28,31 @@ public class CustomerController {
 			cri.setOrderCri("custKey");
 		}
 		
-		if(cri.getEmailKeyword().isEmpty()) {
-			cri.setEmailKeyword(null);
-		}
-		if(cri.getNameKeyword().isEmpty()) {
-			cri.setNameKeyword(null);
-		}
-		if(cri.getPhNumberKeyword().isEmpty()) {
-			cri.setPhNumberKeyword(null);
+		if(cri.getEmailKeyword() != null 
+				&& cri.getNameKeyword() != null 
+				&& cri.getPhNumberKeyword() != null) {
+			
+			if(cri.getEmailKeyword().isEmpty()) {
+				cri.setEmailKeyword(null);
+			}
+			if(cri.getNameKeyword().isEmpty()) {
+				cri.setNameKeyword(null);
+			}
+			if(cri.getPhNumberKeyword().isEmpty()) {
+				cri.setPhNumberKeyword(null);
+			}
 		}
 
 		List<CustomerDTO> customerList = new ArrayList<>();
 
 		PageResponseDTO pageResponseDTO = customerService.getPageMaker(cri);
 
-		System.out.println(cri.toString());
 		customerList = customerService.getCustList(cri);
-		System.out.println(cri.toString());
-		System.out.println(customerList.toString());
-		System.out.println(customerList.size());
 		if(!customerList.isEmpty()) {
 			model.addAttribute("customerList", customerList);
 			
 		}else {
 			model.addAttribute("customerList", "empty");
-			System.out.println("empty로 넘어감");
 		}
 
 		model.addAttribute("pageNumList", pageResponseDTO.getPageNumList());

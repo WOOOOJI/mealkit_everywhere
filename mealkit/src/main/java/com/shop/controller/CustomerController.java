@@ -50,9 +50,8 @@ public class CustomerController {
 	}
 
 	// 회원가입
-	@PostMapping("/memberForm")
+	@PostMapping("/addMember")
 	public String addMember(CustomerDTO dto, Model model) {
-		// System.out.println(dto.toString());
 		dto.setUserpwd(pwdEncoder.encode(dto.getUserpwd()));
 		int result = service.addMember(dto);
 		model.addAttribute("result", result);
@@ -82,9 +81,15 @@ public class CustomerController {
 		//2. 암호화 되는거랑 match되나 확인해보기 (폼에서 준거)
 		//3. 암호화된 비밀번호로 pw 변경 후 로그인
 		String encodedPwd=service.getPwd(dto.getEmail());
+
 		if(pwdEncoder.matches(dto.getUserpwd(), encodedPwd)) {
 			dto.setUserpwd(encodedPwd);
+		}else {
+			model.addAttribute("loginResult", "fail"); // 로그인 실패시 '아이디와 비밀번호를 확인하세요.' 메세지
+			model.addAttribute("content", "customer/login");
+			return "customer/login";
 		}
+		
 		CustomerDTO customerDTO = service.loginCheck(dto);
 		
 		if (customerDTO != null) {
@@ -93,7 +98,7 @@ public class CustomerController {
 			session.setAttribute("username", customerDTO.getUsername());
 			model.addAttribute("loginResult", "success");
 			model.addAttribute("username", customerDTO.getUsername()); // 로그인 성공시 메인에서 '___님 환영합니다' 메세지
-			System.out.println(session);
+
 			return "trash";
 		} else {
 			model.addAttribute("loginResult", "fail"); // 로그인 실패시 '아이디와 비밀번호를 확인하세요.' 메세지
@@ -169,7 +174,7 @@ public class CustomerController {
 		
 		try {
 			pwd1=pwdEncoder.encode(pwd1);
-			System.out.println(pwd1);
+
 			result = service.resetPwd(pwd1,custKey);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -202,19 +207,17 @@ public class CustomerController {
 		String encodePwd = service.getPwd(dto.getEmail());
 		if(pwdEncoder.matches(dto.getUserpwd(), encodePwd)) {
 			dto.setUserpwd(encodePwd);
+		}else {
+			model.addAttribute("loginResult", "fail"); 
+			model.addAttribute("content", "customer/custcheck");
+			return "customer/custcheck";
 		}
 		
 		HttpSession session = req.getSession();
 		
 		CustomerDTO customerDTO = service.custCheck(dto);
-		System.out.println(customerDTO);
+
 		if (customerDTO != null) {
-			session.setAttribute("custKey", customerDTO.getCustKey());
-			session.setAttribute("email", customerDTO.getEmail());
-			session.setAttribute("username", customerDTO.getUsername());
-			model.addAttribute("loginResult", "success");
-			model.addAttribute("username", customerDTO.getUsername()); 
-			System.out.println(session);
 			return "trash";
 		} else {
 			model.addAttribute("loginResult", "fail"); 
@@ -231,9 +234,9 @@ public class CustomerController {
 		//2. 입력한 비밀번호와 encodepwd랑 맞는지 비교
 		if(pwdEncoder.matches(dto.getUserpwd(), encodePwd)) {
 			dto.setUserpwd(encodePwd);
+		}else {
+			return "customer/custcheckfail";
 		}
-		
-		
 		
 		CustomerDTO d = null;
 		try {
@@ -300,17 +303,19 @@ public class CustomerController {
 		//1. email로 유저 pwd 가져오기
 		//2. 가져온 비밀번호가 입력받은거랑 매치되는지 확인
 		//3. 같으면 탈퇴
-		
+		int encode=0;
 		String encodePwd = service.getPwd(dto.getEmail());
 		if(pwdEncoder.matches(dto.getUserpwd(), encodePwd)) {
 			dto.setUserpwd(encodePwd);
+		}else {
+			encode=-1;
 		}
 		
 		int custKey = (int)session.getAttribute("custKey");
 		
 		dto.setCustKey(custKey);
 		int result = service.signOut(dto);
-		if(result==1) {
+		if(result==1&&encode==0) {
 			session.invalidate();
 		}else{
 			result=2;

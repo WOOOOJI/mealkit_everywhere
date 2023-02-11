@@ -69,9 +69,13 @@ console.log(max);
 										</div>
 										<h1 class="mt-6 mb-3" th:text="${dash.totalShip}+'건'"></h1>
 										<div class="mb-0">
-											<span class="text-danger" th:text="${dash.shipIncrease}+'%'"> <i
-												class="mdi mdi-arrow-bottom-right" ></i>
-											</span> <span class="text-muted">전일 대비</span>
+											<span th:if="${dash.shipIncrease} < 0" class="text-danger" th:text="${dash.shipIncrease}+'%'"> <i
+												class="mdi mdi-arrow-bottom-right"></i>
+											</span>
+											<span th:unless="${dash.shipIncrease}< 0" class="text-primary" th:text="${dash.shipIncrease}+'%'"> <i
+												class="mdi mdi-arrow-bottom-right"></i>
+											</span> 
+											<span class="text-muted">전일 대비</span>
 										</div>
 									</div>
 								</div>
@@ -90,9 +94,13 @@ console.log(max);
 										</div>
 										<h1 class="mt-6 mb-3" th:text="${dash.totalItemCnt}+'개'"></h1>
 										<div class="mb-0">
-											<span class="text-success" th:text="${dash.itemCntIncrease}"> <i
+											<span th:if="${dash.itemCntIncrease} < 0"class="text-danger" th:text="${dash.itemCntIncrease}+'%'"> <i
 												class="mdi mdi-arrow-bottom-right" ></i>
-											</span> <span class="text-muted">전일 대비</span>
+											</span> 
+											<span th:unless="${dash.itemCntIncrease} < 0"class="text-primary" th:text="${dash.itemCntIncrease}+'%'"> <i
+												class="mdi mdi-arrow-bottom-right" ></i>
+											</span> 
+											<span class="text-muted">전일 대비</span>
 										</div>
 									</div>
 								</div>
@@ -113,9 +121,13 @@ console.log(max);
 										</div>
 										<h1 class="mt-6 mb-3" th:text="${dash.totalPrice}+'원'"></h1>
 										<div class="mb-0">
-											<span class="text-success" th:text="${dash.sellIncrease}+'%'"> <i
+											<span th:if="${dash.sellIncrease} < 0" class="text-danger" th:text="${dash.sellIncrease}+'%'"> <i
 												class="mdi mdi-arrow-bottom-right"></i>
-											</span> <span class="text-muted">전일 대비</span>
+											</span>
+											<span th:unless="${dash.sellIncrease}< 0" class="text-primary" th:text="${dash.sellIncrease}+'%'"> <i
+												class="mdi mdi-arrow-bottom-right"></i>
+											</span> 
+											<span class="text-muted">전일 대비</span>
 										</div>
 									</div>
 								</div>
@@ -134,9 +146,13 @@ console.log(max);
 										</div>
 										<h1 class="mt-6 mb-3" th:text="${dash.confirmation}+'%'" ></h1>
 										<div class="mb-0">
-											<span class="text-danger" th:text="${dash.confirmationIncrease}+'%'"> <i
+											<span th:if="${dash.confirmationIncrease} < 0" class="text-danger" th:text="${dash.confirmationIncrease}+'%'"> <i
 												class="mdi mdi-arrow-bottom-right"></i>
-											</span> <span class="text-muted">전일 대비</span>
+											</span>
+											<span th:unless="${dash.confirmationIncrease} < 0" class="text-primary" th:text="${dash.confirmationIncrease}+'%'"> <i
+												class="mdi mdi-arrow-bottom-right"></i>
+											</span> 
+											<span class="text-muted">전일 대비</span>
 										</div>
 									</div>
 								</div>
@@ -293,22 +309,22 @@ console.log(max);
 
 							<h5 class="card-title mb-0">판매순위 BEST 10</h5>
 						</div>
-						<table class="table table-hover my-0">
-							<thead>
-									<tr>
-									<th>순위</th>
-									<th>상품명</th>
-									<th class="d-none d-xl-table-cell">가격</th>
-									<th>판매 수량 (개)</th>
-									<th>총 판매 금액</th>
-								</tr>
-							</thead>
-							<tbody >
+						<table class="table table-hover my-0" style="width:100%">
+		                     <thead>
+		                        <tr>
+		                           <th style="width:8%">순위</th>
+		                           <th style="width:55%">상품명</th>
+		                           <th class="d-none d-xl-table-cell" style="width:10%">가격</th>
+		                           <th style="width:10%">판매 수량</th>
+		                           <th style="width:17%">총 판매 금액</th>
+		                        </tr>
+		                     </thead>
+							<tbody>
 								<tr th:each="d, yS : ${dayTOP10List}">
 									<td th:text="${yS.count}"></td>
 									<td th:text="${d.itemName}"></td>
 									<td data-th-text="${#numbers.formatInteger(d.price, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
-									<td th:text="${d.totCnt}" class="d-none d-xl-table-cell"></td>
+									<td th:text="${d.totCnt}+'개'" class="d-none d-xl-table-cell"></td>
 									<td data-th-text="${#numbers.formatInteger(d.totPrice, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
 								</tr>
 							</tbody>
@@ -331,7 +347,7 @@ console.log(max);
 									<th>순위</th>
 									<th>상품명</th>
 									<th class="d-none d-xl-table-cell">가격</th>
-									<th>판매 수량 (개)</th>
+									<th>판매 수량</th>
 									<th>총 판매 금액</th>
 								</tr>
 							</thead>
@@ -340,7 +356,7 @@ console.log(max);
 									<td th:text="${yS.count}"></td>
 									<td th:text="${b.itemName}"></td>
 									<td data-th-text="${#numbers.formatInteger(b.price, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
-									<td th:text="${b.totCnt}" class="d-none d-xl-table-cell"></td>
+									<td th:text="${b.totCnt}+'개'" class="d-none d-xl-table-cell"></td>
 									<td data-th-text="${#numbers.formatInteger(b.totPrice, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
 								</tr>
 							</tbody>
@@ -481,21 +497,21 @@ console.log(max);
 					"17:00", "18:00", "19:00", "20:00", "21:00", "22:00",
 					"23:00"],
 				datasets : [ {
-					label : "당일 판매금액 (원) ",
-					backgroundColor : window.theme.primary,
-					borderColor : window.theme.primary,
-					hoverBackgroundColor : window.theme.primary,
-					hoverBorderColor : window.theme.primary,
-					data : array,
-					barPercentage : .75,
-					categoryPercentage : .5
-				}, {
 					label : "전일 판매금액 (원) ",
 					backgroundColor : "#dee2e6",
 					borderColor : "#dee2e6",
 					hoverBackgroundColor : "#dee2e6",
 					hoverBorderColor : "#dee2e6",
 					data : array2,
+					barPercentage : .75,
+					categoryPercentage : .5
+				}, {
+					label : "당일 판매금액 (원) ",
+					backgroundColor : window.theme.primary,
+					borderColor : window.theme.primary,
+					hoverBackgroundColor : window.theme.primary,
+					hoverBorderColor : window.theme.primary,
+					data : array,
 					barPercentage : .75,
 					categoryPercentage : .5
 				} ]

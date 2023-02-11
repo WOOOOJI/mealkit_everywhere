@@ -122,7 +122,7 @@
 
 						</tbody>
 					</table>
-					<div th:if="${order.status != 'O'} AND ${order.status != 'R'}">
+					<div th:if="${order.status == 'S'} OR ${order.status == 'D'}">
 						<td>
 							<button th:onclick="trackingNum([[${order.trackingNum}]])"
 								class="btn btn-primary py-3 px-4"
@@ -144,6 +144,6 @@ $('#refund').click(function(){
 
 <script>
 	function trackingNum(num){
-		location.href='/order/orderTracking?trackingNum='+num;
+		location.href='[[@{/order/orderTracking}]]'+'?trackingNum='+num;
 	}
 </script>

@@ -51,9 +51,9 @@ public class AdminService implements MyService<Integer, AdminDTO>{
 
 		try {
 			dto = mapper.login(adminId, adminPwd);
-			System.out.println("mapper"+ dto);
+			//System.out.println("mapper"+ dto);
 		}catch(Exception e) {
-			System.out.println("Error Caused by at AdminService row 57 Line");
+			//System.out.println("Error Caused by at AdminService row 57 Line");
 			e.printStackTrace();
 		}
 

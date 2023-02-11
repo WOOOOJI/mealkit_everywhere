@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
-
+import com.shop.dto.AddressDTO;
 import com.shop.dto.OrderDTO;
 import com.shop.frame.MyMapper;
 
@@ -20,7 +20,7 @@ public interface OrderMapper extends MyMapper<Integer, OrderDTO>{
 	//orderKey의 정보 갖고오기
 	public int getOrderkey(int custKey) throws Exception;
 	//total_order를 주문 내용으로 UPDATE하기
-	public void orderUpdate(int addrKey, int orderKey, int payment) throws Exception;
+	public void orderUpdate(AddressDTO addressDTO, int orderKey, int payment) throws Exception;
 	//orderKey 이용해서 order 갖고오기
 	public OrderDTO getOrderByOrderKey(int orderKey) throws Exception;
 	//orderKey이용해서 상품 이미지,이름, 주문상품개수를 포함한 정보 가져오기

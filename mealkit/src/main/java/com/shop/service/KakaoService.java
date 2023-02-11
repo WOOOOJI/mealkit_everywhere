@@ -41,14 +41,14 @@ public class KakaoService {
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=2da5604aafb77a1238399f8f21ba80e8"); // 본인이 발급받은 key
-			sb.append("&redirect_uri=http://127.0.0.1/oauth/kakao"); // 본인이 설정한 redirect uri
+			sb.append("&redirect_uri=http://27.96.135.109/oauth/kakao"); // 본인이 설정한 redirect uri
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
 			bw.flush();
 
 			// 결과 코드가 200이면 성공
 			int responseCode = conn.getResponseCode();
-			System.out.println("responseCode : " + responseCode);
+			//System.out.println("responseCode : " + responseCode);
 
 			// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -57,7 +57,7 @@ public class KakaoService {
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
-			System.out.println("response body : " + result);
+		//	System.out.println("response body : " + result);
 
 			// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
 			@SuppressWarnings("deprecation")
@@ -66,8 +66,8 @@ public class KakaoService {
 			JsonElement element = parser.parse(result);
 			access_Token = element.getAsJsonObject().get("access_token").getAsString();
 			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-			System.out.println("access_token : " + access_Token);
-			System.out.println("refresh_token : " + refresh_Token);
+		//	System.out.println("access_token : " + access_Token);
+		//	System.out.println("refresh_token : " + refresh_Token);
 			br.close();
 			bw.close();
 		} catch (IOException e) {
@@ -89,7 +89,7 @@ public class KakaoService {
 			// 요청에 필요한 Header에 포함될 내용
 			conn.setRequestProperty("Authorization", "Bearer " + access_Token);
 			int responseCode = conn.getResponseCode();
-			System.out.println("responseCode : " + responseCode);
+		//	System.out.println("responseCode : " + responseCode);
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			String line = "";
 			String result = "";
@@ -97,7 +97,7 @@ public class KakaoService {
 				result += line;
 			}
 
-			System.out.println("response body : " + result);
+		//	System.out.println("response body : " + result);
 			
 			@SuppressWarnings("deprecation")
 			JsonParser parser = new JsonParser();

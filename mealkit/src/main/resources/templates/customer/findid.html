@@ -57,6 +57,8 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" href="css/style.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<title>7조의 밀키트: 아이디 찾기</title>
+
 
 
 <!-- <div class="full">
@@ -116,7 +118,7 @@
 								<div class="form-floating mb-3">
 									<input name="text" type="text" class="form-control"
 										id="inputTel" placeholder="Password"> <label
-										for="userpwd">전화번호</label>
+										for="userpwd" maxlength="11">전화번호</label>
 								</div>
 					             
 
@@ -160,9 +162,8 @@
 		 tel : $("#inputTel").val()}, 
 		 
 		 function(data) {
-		 console.log(data);
+		// console.log(data);
 		 alert(data)		 
 		 }) 
 	};
 </script>
-

@@ -27,4 +27,6 @@ public class DashBoardDTO {
     private String itemCntIncrease;
     private String shipIncrease;
     private String confirmationIncrease;
+    
+    private String[] arr;
 }

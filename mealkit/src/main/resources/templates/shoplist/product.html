@@ -42,18 +42,17 @@
 			goingObj.itemKey = '[[${item.itemKey}]]';
 
 			$.ajax({
-				url: "/board/reviewJudge",
+				url: "[[@{/board/reviewJudge}]]",
 				type: "POST",
 				contentType: "application/json; charset=UTF-8",
 				data: JSON.stringify(goingObj),
 				dataType: 'JSON',
 				success: function(data){
-					alert(data);
 					if(data.flag == true){
-						window.open('[[@{/board/writeReview?itemKey=}]]'+goingObj.itemKey,'popup','width=640px,height=475px,left=800px,top=200px,resizable=yes')
+						window.open('[[@{/board/writeReview?itemKey=}]]'+goingObj.itemKey,'popup','width=640px,height=475px,left=800px,top=200px,resizable=no')
 					}else{
 						alert("구매한 회원만 후기를 작성할수있습니다");
-						location.href="/shoplist/product?itemKey=" + goingObj.itemKey;
+						location.href="[[@{/shoplist/product?itemKey=}]]" + goingObj.itemKey;
 					}
 				},
 				error: function(){alert("실패")},
@@ -82,7 +81,7 @@
 		
 		
 		$.ajax({
-			url: "/shoplist/review",
+			url: "[[@{/shoplist/review}]]",
 			type: "POST",
 			contentType: "application/json; charset=UTF-8",
 			data: JSON.stringify(submitObj),
@@ -174,7 +173,7 @@
 		
 		
 		$.ajax({
-			url: "/shoplist/question",
+			url: "[[@{/shoplist/question}]]",
 			type: "POST",
 			contentType: "application/json; charset=UTF-8",
 			data: JSON.stringify(submitObj2),
@@ -327,7 +326,7 @@ function insertCart(item){
 	
 	
 	if(email == 'null' || email == ''){
-		location.href="/customer/loginForm";
+		location.href="[[@{/customer/loginForm}]]";
 		return false;
 	}
 	
@@ -335,7 +334,7 @@ function insertCart(item){
 	
 	setScrollAtCookies();	
 	var itemKey = item;
-	var cnt = 1;
+	var cnt = document.getElementById('quantity').value;
 
 	$.ajax({
 		url:"/cart/cartInsert",
@@ -353,10 +352,11 @@ function insertCart(item){
 };
 	
 	function insertWish(item) {
+		alert("찜 목록에 추가되었습니다");
 		var itemKey = item;
 		var cnt = parseInt($('#quantity').val());
 
-		location.href = "/wish/wishInsertToItem?itemKey=" + itemKey;
+		location.href = "[[@{/wish/wishInsertToItem?itemKey=}]]" + itemKey;
 		
 
 	};
@@ -373,7 +373,7 @@ function insertCart(item){
 		
 		
 		$.ajax({
-			url: "/shoplist/review",
+			url: "[[@{/shoplist/review}]]",
 			type: "POST",
 			contentType: "application/json;charset=UTF-8",
 			data: JSON.stringify(submitObj),
@@ -471,7 +471,7 @@ function insertCart(item){
 		submitObj2.pageNum = pageNo;
 	
 		$.ajax({
-			url: "/shoplist/question",
+			url: "[[@{/shoplist/question}]]",
 			type: "POST",
 			contentType: "application/json; charset=UTF-8",
 			data: JSON.stringify(submitObj2),
@@ -544,7 +544,7 @@ function insertCart(item){
 		cmtObj.boardKey = boardKey;
 	
 		$.ajax({
-			url: "/comments/adminCmt",
+			url: "[[@{/comments/adminCmt}]]",
 			type: "POST",
 			contentType: "application/json; charset=UTF-8",
 			data: JSON.stringify(cmtObj),
@@ -1258,10 +1258,14 @@ function insertCart(item){
 					</p>
 				</div>
 				<p class="price">
-					<br>
-					<span th:text="${item.price}+원" style="font-size: 60px"></span>
+					<span th:if="${item.price != item.sale}" th:text="'정가 : '+${item.price}+'원'" 
+					style="color: #6c757d; text-decoration:line-through; font-size: 20px;"></span>
 				</p>
-				<p><!-- 상품 상세페이지, 상품 상세 설명란 --></p>
+				<p class="price">
+					<span th:text="${item.sale}+원" style="font-size: 60px"></span>
+					<br>
+				</p>
+				<p><span th:if="${item.content} != null" th:text="${item.content}"></span></p>
 				<div class="row mt-4">
 					<div class="col-md-6">
 						<div class="form-group d-flex">
@@ -1330,11 +1334,11 @@ function insertCart(item){
 			
 			
 			 
-			<img src="/img/deliveryrefund/cookingbox.jpg">
-			<img src="/img/deliveryrefund/Cap 2023-01-19 01-40-10-907.png"> 
-			<img src="/img/deliveryrefund/about_mychef_01_120136.jpg"> 
-			<img src="/img/deliveryrefund/about_mychef_02_120033.jpg"> 
-			<img src="/img/deliveryrefund/about_mychef_03_120048.jpg">
+			<img th:src="@{/img/deliveryrefund/cookingbox.jpg}">
+			<img th:src="@{/img/deliveryrefund/Cap 2023-01-19 01-40-10-907.png}"> 
+			<img th:src="@{/img/deliveryrefund/about_mychef_01_120136.jpg}"> 
+			<img th:src="@{/img/deliveryrefund/about_mychef_02_120033.jpg}"> 
+			<img th:src="@{/img/deliveryrefund/about_mychef_03_120048.jpg}">
 	</div>
 </section>
 

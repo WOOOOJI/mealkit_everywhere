@@ -10,8 +10,7 @@
 				<h5 class="card-title mb-0" style="font-size: 30px;">문의 내역</h5>
 
 
-				<div class="hero-wrap hero-bread"
-					style="background-image: url('/img/home3.jpg');">
+				<div class="hero-wrap hero-bread">
 					<div class="container">
 						<div
 							class="row no-gutters slider-text align-items-center justify-content-center">
@@ -139,7 +138,7 @@
    		url: '/comments/getCommentList' ,
    		data: {boardKey},
    		success: function(result){
-   			console.log(result);
+   			//console.log(result);
    			for(var i=0; i<result.length; i++){
    				var str = "<div class=\"comment\">"
    				str += result[i].content+"</div></hr>"
@@ -156,18 +155,19 @@
    
    
    </script>
-		<script>
-   function qnaDelete(boardKey){
+
+<script>
+  function qnaDelete(boardKey){
    	var chk = confirm("정말 삭제하시겠습니까?");
 	if(chk){
    		location.href="/admin/board/qnaDelete?boardKey="+boardKey;
 	}
    }
    
-   </script>
+</script>
 
 
-		<script>
+<script>
 function replyDelete(commentsKey, boardKey){
 	
 	var chk = confirm("정말 삭제하시겠습니까?");
@@ -178,7 +178,7 @@ function replyDelete(commentsKey, boardKey){
 }
 </script>
 
-		<script>
+<script>
 function replyEditForm(commentsKey, boardKey){
 	document.getElementById('editform').className='dkdkdd';
 	location.href="/admin/comments/replyBoardEditForm?commentsKey="+commentsKey+"&boardKey="+boardKey;	

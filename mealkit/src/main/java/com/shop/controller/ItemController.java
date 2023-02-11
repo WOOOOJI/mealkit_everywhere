@@ -48,17 +48,16 @@ public class ItemController {
 	public String main(@RequestParam(defaultValue="0", value="categoryKey") int categoryKey,
 					   @RequestParam(defaultValue="1", value="pageNum") int pageNum,
 					   @RequestParam(required = false, value = "keyword") String keyword,
-					   @RequestParam(required = false, defaultValue = "itemKey", value = "order_cri") String order_cri,
-					   @RequestParam(required = false, defaultValue = "desc", value = "asc_desc") String asc_desc,
+					   @RequestParam(required = false, defaultValue = "itemKey", value = "orderCri") String orderCri,
+					   @RequestParam(required = false, defaultValue = "desc", value = "ascDesc") String ascDesc,
 					   Model model, Criteria cri) {
 
-		System.out.println(keyword);
 		List<ItemDTO> itemList = new ArrayList<>();
 		
-		cri.setOrder_cri(order_cri);
+		cri.setOrderCri(orderCri);
 		cri.setKeyword(keyword);
 		cri.setCategoryKey(categoryKey);
-		cri.setAsc_desc(asc_desc);
+		cri.setAscDesc(ascDesc);
 		
 		//ItemPageResponseDTO(active, pageNumList, content를 묶어주기 위한 DTO) 선언 및 초기화
 		PageResponseDTO PageResponseDTO = itemService.getItemPageMaker(cri);
@@ -83,8 +82,8 @@ public class ItemController {
 		
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("categoryKey", categoryKey);
-		model.addAttribute("asc_desc", asc_desc);
-		model.addAttribute("order_cri", order_cri);
+		model.addAttribute("ascDesc", ascDesc);
+		model.addAttribute("orderCri", orderCri);
 		
 		
 		//model에 html 파일경로를 value로 담으면 브라우저 url창에선 감춰져 보인다

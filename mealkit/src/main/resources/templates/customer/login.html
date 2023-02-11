@@ -74,6 +74,7 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="css/style.css">
+<title>7조의 밀키트: 로그인</title>
 
 
 <meta charset="UTF-8">
@@ -92,7 +93,7 @@
 									<!-- 카카오 로그인 -->
 									<div class="login_sns" > 
 										<a
-											href="https://kauth.kakao.com/oauth/authorize?client_id=2da5604aafb77a1238399f8f21ba80e8&redirect_uri=http://127.0.0.1/oauth/kakao&response_type=code">
+											href="https://kauth.kakao.com/oauth/authorize?client_id=2da5604aafb77a1238399f8f21ba80e8&redirect_uri=http://27.96.135.109/oauth/kakao&response_type=code">
 											<img id="kakao" th:src="@{/img/kakao.png}"  >
 										</a>
 									</div>
@@ -113,12 +114,12 @@
 								
 					               <div  class="d-sm-flex mb-5 align-items-center" >
 					                	
-					                  <a href="#" id="sign"class="forgot-pass" onclick="location.href='memberForm'">회원가입</a>
+					                  <a href="#" id="sign"class="forgot-pass" th:onclick="'location.href=\''+ @{/customer/memberForm} + '\''">회원가입</a>
 					               
 					             
-					                  <a href="#" id="forgotid"class="forgot-pass" onclick="location.href='findid'">아이디 찾기</a>
+					                  <a href="#" id="forgotid"class="forgot-pass" th:onclick="'location.href=\''+ @{/customer/findid} + '\''">아이디 찾기</a>
 					         		 	  
-					                  <a href="#" id="forgotpwd" class="forgot-pass" onclick="location.href='findpwd'">비밀번호 찾기</a> 
+					                  <a href="#" id="forgotpwd" class="forgot-pass" th:onclick="'location.href=\''+ @{/customer/findpwd} + '\''">비밀번호 찾기</a> 
 					          		   
 					               </div>
 								

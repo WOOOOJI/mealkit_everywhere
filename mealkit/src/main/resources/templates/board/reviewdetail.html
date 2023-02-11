@@ -17,7 +17,7 @@
     </div>
 
 						      	
-
+	<!-- 후기글 폼 -->
     <section class="ftco-section ftco-degree-bg">
       <div class="container">
         <div class="row">
@@ -25,7 +25,7 @@
           	<tr> 
 			 <div> 글제목<td><h2 class="mb-3" th:text="${board.title}" ></h2></td></div>
 			<div  th:text="${board.username}"> </div>
-			<button type="button" class="btn btn-sm btn-primary" id="btnList" style="float:right; margin-left:10px" th:onclick="boardDel([[${board.boardKey}]])">글 삭제</button>
+			<button type="button" class="btn btn-sm btn-primary" id="btnList" style="float:right; margin-left:10px" th:onclick="reviewDel([[${board.boardKey}]])">글 삭제</button>
 			<button type="button" class="btn btn-sm btn-primary" id="btnList" style="float:right;" th:onclick="boardEdit([[${board.boardKey}]])">글 수정</button>
 			<div  th:text="${board.rdate}"> </div> 
 			
@@ -45,7 +45,7 @@
             <hr>
               <button type="button" class="btn btn-sm btn-primary" id="btnList" th:onclick="'location.href=\''+ @{/board/reviewlist} + '\''">글 리스트 보기</button>
               
-              <!-- END comment-list -->
+        
             </div>
                
                   
@@ -59,10 +59,10 @@
         
         </div>
       </div>
-    </section> <!-- .section -->
+    </section>
 
     <script>
-    function boardDel(boardKey){
+    function reviewDel(boardKey){
        	var chk = confirm("정말 삭제하시겠습니까?");
     	if(chk){
        		location.href="/board/reviewDel?boardKey="+boardKey;

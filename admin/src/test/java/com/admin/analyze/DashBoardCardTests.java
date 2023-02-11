@@ -1,6 +1,7 @@
 package com.admin.analyze;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,6 +24,29 @@ class DashBoardCardTests {
 	@Test
 	@SuppressWarnings("unused")
 	void contextLoads() {
+		
+		
+		// 현재날짜, 시간
+	    LocalDateTime NOW = LocalDateTime.now();
+
+	    // 현재년도 nowYear
+	    String NOWYEAR = NOW.toString().substring(0,4);
+
+	    // 현재월 nowMonth
+	    String NOWMONTH = NOW.toString().substring(5,7);
+
+	    // 현재일 nowDay
+	    String NOWDAY = NOW.toString().substring(8,10);
+
+	    // 현재날짜 nowDate
+	     String NOWDATE = NOW.toString().substring(0,10);
+
+	    // 현재시간 nowTime
+	     String NOWTIME = NOW.toString().substring(11,13);
+	    
+	     System.out.println(NOWDATE);
+	    
+	  
 		// 년도를 보낼시 저장될 통계 데이터를 담을 객체
 		OrderDTO thisY = null;
 		OrderDTO lastY = null;
@@ -31,12 +55,11 @@ class DashBoardCardTests {
 		OrderDTO thisD = null;
 		OrderDTO lastD = null;
 		String year = "2023";
-		String month = "01";
+		String month = "02";
 		String day = "11";
 
 
-		service.dashBoardCardDay(year, month, day);
-        service.dashBoardCardMonth(year, month);
+		
         service.dashBoardCardYear(year);
 
 
@@ -65,6 +88,24 @@ class DashBoardCardTests {
 			System.out.println("구매확정 제품 수: "+thisY.getStatus());
 			System.out.println("환불된 제품 수: "+thisY.getRefund());
 			System.out.println("-------------------------------------");
+			
+			
+			double tempCnt = (thisY.getTotalSales() - lastY.getTotalSales()) / (float)lastY.getTotalSales() * 100 *100/100.0;
+			if( tempCnt == -1.0) tempCnt = 0.0;
+			String tempCntS = String.format("%.2f", tempCnt);
+			System.out.println(tempCntS);
+			
+			
+			System.out.println(thisY.getItemCnt());
+			System.out.println(lastY.getItemCnt());
+			double tempShip = (thisY.getItemCnt() - lastY.getItemCnt()) / (float)lastY.getItemCnt() * 100/100.0;
+			
+			if(lastY.getItemCnt()==0) tempShip = 100.00;
+			
+			System.out.println(tempShip);
+			if(tempShip == -1.0) tempShip = 0.0;
+			String tempShipS = String.format("%.2f", tempShip);
+			System.out.println(tempShipS);
 
 			System.out.println();System.out.println();System.out.println();System.out.println();
 
@@ -141,7 +182,7 @@ class DashBoardCardTests {
 		}
 
 
-		// 월별 통계로 조회시
+		// 일별 통계로 조회시
 		if(month != null && day != null) {
 
 			int lastDay = Integer.parseInt(day)-1;
@@ -192,6 +233,8 @@ class DashBoardCardTests {
 
 			System.out.println();System.out.println();System.out.println();System.out.println();
 
+			
+			
 
 			if(thisD != null && lastD != null) {
 				System.out.println("------------선택한 오늘 데이터-------------");
@@ -221,6 +264,12 @@ class DashBoardCardTests {
 				int lastNotRefund = Integer.parseInt(lastD.getStatus());
 				int lastRefund = Integer.parseInt(lastD.getRefund());
 
+				
+				System.out.println(thisNotRefund);
+				System.out.println(thisRefund);
+				System.out.println(lastNotRefund);
+				System.out.println(lastRefund);
+				
 
 
 				System.out.println(); System.out.println(); System.out.println(); System.out.println();

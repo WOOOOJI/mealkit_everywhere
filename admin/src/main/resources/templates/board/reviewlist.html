@@ -83,7 +83,7 @@
 						<!-- 이전 버튼 -->
 						<div th:if="${keyword != null}">
 							<a th:if="${pageMaker.prev == true}"
-								th:href="@{/board/reviewList(pageNum = ${pageMaker.pageStart - 1}, keyword = ${keyword}, type = ${type})}"
+								th:href="@{/board/reviewlist(pageNum = ${pageMaker.pageStart - 1}, keyword = ${keyword}, type = ${type})}"
 								class="page-link" href="#" aria-label="Previous"> <span
 								aria-hidden="true">&laquo;</span></a>
 						</div>

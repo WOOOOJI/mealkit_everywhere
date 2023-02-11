@@ -74,11 +74,12 @@
     </section> <!-- .section -->
 
     <script>
-	    function reviewDel(boardKey){
-	    	if(confirm("정말 삭제하시겠습니까?")){
-		    	location.href="/board/boardDel?boardKey="+boardKey;
-    		}
-	    }
+  //후기 삭제
+		    function reviewDel(boardKey){
+		       if(confirm("정말 삭제하시겠습니까?")){
+		          location.href="/board/reviewDel?boardKey="+boardKey;
+		       }
+		    }
     
     	function modReview(boardKey){
     		

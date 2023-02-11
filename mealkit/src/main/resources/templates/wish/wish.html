@@ -67,7 +67,7 @@
 						    <thead class="thead-primary">
 						      <tr class="text-center">
 						        <th>삭제</th>
-						        <th>&nbsp;</th>
+						        <th style="width:13%;">상품사진</th>
 						        <th>상품명</th>
 						        <th>할인가</th>
 						      </tr>
@@ -80,7 +80,7 @@
 						      	<!-- 삭제 버튼 -->
 						        <td class="product-remove"><a href="#" th:onclick="del([[${w.wishKey}]])"><span class="ion-ios-close"></span></a></td>
 						        <!-- 상품이미지 -->
-						        <td class="image-prod"><a class="itemhover" th:href="@{/shoplist/product(itemKey=${w.itemKey})}"><img th:src="@{/img/product/}+${w.img1}" style="width:30%;"></a></td>
+						        <td class="image-prod"><a class="itemhover" th:href="@{/shoplist/product(itemKey=${w.itemKey})}"><img th:src="@{/img/product/}+${w.img1}" style="width:100%;"></a></td>
 						        
 						        <td class="product-name">
 						        	<!-- 상품명 -->

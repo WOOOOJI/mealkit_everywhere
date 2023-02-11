@@ -84,15 +84,6 @@ loginSuccess();
 
 
 
-<!-- 로그인 성공시 -->
-<script th:inline="javascript">
-/*<![CDATA[*/
-    var username = /*[[${username}]]*/ '';
-    if( username != '' && username != null ) alert(username + '님 환영합니다!')
-/*]]>*/
-</script>
-
-
 
 
 
@@ -121,7 +112,7 @@ function connect() {
 	
 	
 	// 웹소켓에 연결하기 (어드민)
-	var socket = new SockJS('http://127.0.0.1:8080/admin/chbot');
+	var socket = new SockJS('http://27.96.135.109/admin/chbot');
 	stompClient = Stomp.over(socket);
 
 	
@@ -259,3 +250,19 @@ $(document).ready(function() {
       }
     });
 </script>
+
+
+
+
+<script>
+$(document).ready(function(){
+	var checkName = '[[${username}]]';
+	if(checkName != ''){
+		location.href='[[@{/}]]';
+	}
+})
+</script>
+
+
+
+

@@ -19,9 +19,9 @@ public class CreateAdminId {
 	void contextLoads() {
 		System.out.println("-------- 관리자 생성 테스트 시작 ---------");
 
-		String adminId="admin01";
-		String adminPwd="1541";
-		String name="HSW";
+		String adminId="mealkit";
+		String adminPwd="1111";
+		String name="mealkit";
 		
 		String encodedPwd=pwdEncoder.encode(adminPwd);
 		

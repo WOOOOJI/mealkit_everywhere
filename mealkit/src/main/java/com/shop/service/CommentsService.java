@@ -55,9 +55,9 @@ public class CommentsService implements MyService<Integer, CommentsDTO>{
 		CommentsDTO cmtDTO = new CommentsDTO();
 		
 		try {
-			System.out.println("메소드 실행 전 "+commentDTO);
+		//	System.out.println("메소드 실행 전 "+commentDTO);
 			cmtDTO = commentsMapper.getComment(commentDTO);
-			System.out.println("메소드 실행 후 "+cmtDTO);
+		//	System.out.println("메소드 실행 후 "+cmtDTO);
 			return cmtDTO;
 		} catch (Exception e) {
 			e.printStackTrace();

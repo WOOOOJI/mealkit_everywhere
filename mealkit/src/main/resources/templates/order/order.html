@@ -34,7 +34,7 @@ float:left;
 	$(document).ready(function(){
 		
 		$('#selectAddr').click(function(){
-			window.open('[[@{/order/selectaddr}]]','popup','width=1000,height=800,resizable=no')
+			window.open('[[@{/order/selectaddr}]]','popup','width=800,height=800,resizable=no')
 		}); 
 		
 		$('#requestPay').click(function(){
@@ -108,15 +108,15 @@ float:left;
 	          		<div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="name">받는 분 성함</label>
-	                  <input th:if="${def==null}" id="orderName" type="text" class="form-control" readonly="readonly" placeholder="">
-	                  <input th:if="${def!=null}" id="orderName" th:value="${def.name}" type="text" readonly="readonly" class="form-control" placeholder="">
+	                  <input th:if="${def==null}" name="name" id="orderName" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" name="name" id="orderName" th:value="${def.name}" type="text" readonly="readonly" class="form-control" placeholder="">
 	                </div>
 	              </div>
 	              <div class="col-md-6">
 	                <div class="form-group">
 	                	<label for="tel">전화번호</label>
-	                  <input th:if="${def==null}" id="orderTel" type="text" class="form-control" readonly="readonly" placeholder="">
-	                  <input th:if="${def!=null}" id="orderTel" th:value="${def.tel}" type="text" class="form-control" readonly="readonly"  placeholder="">
+	                  <input th:if="${def==null}" name="tel" id="orderTel" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" name="tel" id="orderTel" th:value="${def.tel}" type="text" class="form-control" readonly="readonly"  placeholder="">
 	                </div>
                 </div>
                 <div class="w-100"></div>
@@ -125,20 +125,22 @@ float:left;
 	                	<label for="addr">주소</label>
 	                  <input th:if="${def==null}" id="orderAddr" type="text" class="form-control" readonly="readonly" placeholder="">
 	                  <input th:if="${def!=null}" id="orderAddr" th:value="${def.addr}+', '+${def.addrDetail}" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" type="hidden" name="addr" th:value="${def.addr}">
+	                  <input th:if="${def!=null}" type="hidden" name="addrDetail" th:value="${def.addrDetail}">
 	                </div>
 	              </div>
 	              <div class="col-md-4">
 	                <div class="form-group">
 	                	<label for="zipcode">우편번호</label>
-	                  <input th:if="${def==null}" id="orderZipcode" type="text" class="form-control" readonly="readonly" placeholder="">
-	                  <input th:if="${def!=null}" id="orderZipcode" th:value="${def.zipcode}"type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def==null}" name="zipcode" id="orderZipcode" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" name="zipcode" id="orderZipcode" th:value="${def.zipcode}"type="text" class="form-control" readonly="readonly" placeholder="">
 	                </div>
                 </div>
                  <div class="col-md-12">
 	                <div class="form-group">
 	                	<label for="req">배송 시 요청사항</label>
-	                  <input th:if="${def==null}" type="text" class="form-control" readonly="readonly" placeholder="">
-	                  <input th:if="${def!=null}" th:value="${def.req}"type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def==null}" name="req" type="text" class="form-control" readonly="readonly" placeholder="">
+	                  <input th:if="${def!=null}" name="req" th:value="${def.req}"type="text" class="form-control"  placeholder="">
 	                </div>
                 </div>
                 

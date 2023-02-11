@@ -117,10 +117,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- 연도별 TOP10 상품의 상품명, 가격, 누적주문량, 누적판매액 리스트 -->
 	<select id="getYearTOP10List" resultType="OrderDTO" parameterType="String">
 		SELECT item.name AS itemName, item.price, sum(ordDet.cnt) AS totCnt, sum(ordDet.price * ordDet.cnt) AS totPrice 
-		FROM orderDetail AS ordDet, totalorder AS totOrd, item 
+		FROM orderDetail AS ordDet, totalOrder AS totOrd, item 
 		WHERE ordDet.orderKey = totOrd.orderKey 
 		AND DATE_FORMAT(totOrd.rdate, '%Y') = #{rdate} 
 		AND item.itemKey = ordDet.itemKey 
+		AND totOrd.status NOT LIKE 'F'
 		GROUP BY item.itemKey ORDER BY totPrice DESC
 		LIMIT 10;
 	</select>
@@ -128,10 +129,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- 연도별 BOT10 상품의 상품명, 가격, 누적주문량, 누적판매액 리스트 -->
 	<select id="getYearBOT10List" resultType="OrderDTO" parameterType="String">
 		SELECT item.name AS itemName, item.price, sum(ordDet.cnt) AS totCnt, sum(ordDet.price * ordDet.cnt) AS totPrice 
-		FROM orderDetail AS ordDet, totalorder AS totOrd, item 
+		FROM orderDetail AS ordDet, totalOrder AS totOrd, item 
 		WHERE ordDet.orderKey = totOrd.orderKey 
 		AND DATE_FORMAT(totOrd.rdate, '%Y') = #{rdate} 
 		AND item.itemKey = ordDet.itemKey 
+		AND totOrd.status NOT LIKE 'F'
 		GROUP BY item.itemKey ORDER BY totPrice ASC
 		LIMIT 10;
 	</select>
@@ -140,10 +142,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- 월별 TOP10 상품 상품명, 가격, 누적주문량, 누적판매액 리스트 -->
 	<select id="getMonthTOP10List" resultType="OrderDTO" parameterType="String">
 		SELECT item.name AS itemName, item.price, sum(ordDet.cnt) AS totCnt, sum(ordDet.price * ordDet.cnt) AS totPrice 
-		FROM orderDetail AS ordDet, totalorder AS totOrd, item 
+		FROM orderDetail AS ordDet, totalOrder AS totOrd, item 
 		WHERE ordDet.orderKey = totOrd.orderKey 
 		AND DATE_FORMAT(totOrd.rdate, '%m') = #{rdate} 
 		AND item.itemKey = ordDet.itemKey 
+		AND totOrd.status NOT LIKE 'F'
 		GROUP BY item.itemKey ORDER BY totPrice DESC
 		LIMIT 10;
 	</select>
@@ -151,10 +154,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- 월별 BOT10 상품 상품명, 가격, 누적주문량, 누적판매액 리스트 상품 리스트 -->
 	<select id="getMonthBOT10List" resultType="OrderDTO" parameterType="String">
 		SELECT item.name AS itemName, item.price, sum(ordDet.cnt) AS totCnt, sum(ordDet.price * ordDet.cnt) AS totPrice 
-		FROM orderDetail AS ordDet, totalorder AS totOrd, item 
+		FROM orderDetail AS ordDet, totalOrder AS totOrd, item 
 		WHERE ordDet.orderKey = totOrd.orderKey 
 		AND DATE_FORMAT(totOrd.rdate, '%m') = #{rdate} 
 		AND item.itemKey = ordDet.itemKey 
+		AND totOrd.status NOT LIKE 'F'
 		GROUP BY item.itemKey ORDER BY totPrice ASC
 		LIMIT 10;
 	</select>
@@ -162,10 +166,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- 일별 TOP10 상품 상품명, 가격, 누적주문량, 누적판매액 리스트 -->
 	<select id="getDayTOP10List" resultType="OrderDTO" parameterType="String">
 		SELECT item.name AS itemName, item.price, sum(ordDet.cnt) AS totCnt, sum(ordDet.price * ordDet.cnt) AS totPrice 
-		FROM orderDetail AS ordDet, totalorder AS totOrd, item 
+		FROM orderDetail AS ordDet, totalOrder AS totOrd, item 
 		WHERE ordDet.orderKey = totOrd.orderKey 
 		AND DATE_FORMAT(totOrd.rdate, '%d') = #{rdate} 
 		AND item.itemKey = ordDet.itemKey 
+		AND totOrd.status NOT LIKE 'F'
 		GROUP BY item.itemKey ORDER BY totPrice DESC
 		LIMIT 10;
 	</select>
@@ -173,10 +178,11 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	<!-- 일별 TOP10 상품 상품명, 가격, 누적주문량, 누적판매액 리스트 -->
 	<select id="getDayBOT10List" resultType="OrderDTO" parameterType="String">
 		SELECT item.name AS itemName, item.price, sum(ordDet.cnt) AS totCnt, sum(ordDet.price * ordDet.cnt) AS totPrice 
-		FROM orderDetail AS ordDet, totalorder AS totOrd, item 
+		FROM orderDetail AS ordDet, totalOrder AS totOrd, item 
 		WHERE ordDet.orderKey = totOrd.orderKey 
 		AND DATE_FORMAT(totOrd.rdate, '%d') = #{rdate} 
 		AND item.itemKey = ordDet.itemKey 
+		AND totOrd.status NOT LIKE 'F'
 		GROUP BY item.itemKey ORDER BY totPrice ASC
 		LIMIT 10;
 	</select>

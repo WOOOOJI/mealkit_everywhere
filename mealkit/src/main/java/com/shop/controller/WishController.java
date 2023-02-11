@@ -34,7 +34,7 @@ public class WishController {
 			
 
 			int custKey = (int)session.getAttribute("custKey");
-			System.out.println(custKey);
+		//	System.out.println(custKey);
 
 			
 			// 세션값이 없으면 로그인이 안되있는 상태 이므로 애초에 찜리스트 페이지로 못온다.     
@@ -49,7 +49,7 @@ public class WishController {
 					wishList = service.WishList(custKey);
 				} catch (Exception e) {
 					e.printStackTrace();
-					System.out.println("----------------------------");
+				//	System.out.println("----------------------------");
 				}
 				
 				
@@ -73,7 +73,7 @@ public class WishController {
 			@PostMapping("/wish/delete")
 			public int wishList(int custKey) {
 				int result=0;
-				System.out.println(custKey);
+			//	System.out.println(custKey);
 				
 				
 				
@@ -85,7 +85,7 @@ public class WishController {
 					service.remove(custKey);
 					result=1;
 				} catch (Exception e) {
-					System.out.println("찜리스트 삭제 실패--------------------------");
+				//	System.out.println("찜리스트 삭제 실패--------------------------");
 					e.printStackTrace();
 				}
 				

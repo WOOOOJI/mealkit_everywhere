@@ -25,37 +25,37 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 		FROM item AS it
 		
 		
-		<if test="order_cri == 'orD.cnt'">
+		<if test="orderCri == 'orD.cnt'">
 			LEFT OUTER JOIN orderDetail AS orD ON orD.itemKey = it.itemKey
 			
 			<if test="categoryKey != 0">
-				<where>
-					it.categoryKey = ${categoryKey}
+				WHERE it.deleted LIKE 'N'
+					and it.categoryKey = ${categoryKey}
 					<if test="keyword != null">
 						and it.name like concat('%' , #{keyword}, '%')
 					</if>
-				</where>
 			</if>
 			<if test="categoryKey == 0">
+			WHERE it.deleted LIKE 'N'
 				<if test="keyword != null">
-				WHERE it.name like concat('%' , #{keyword}, '%')
+				AND it.name like concat('%' , #{keyword}, '%')
 				</if>
 			</if>
 			GROUP BY it.itemKey
-			ORDER BY sum(${order_cri}) ${asc_desc}
+			ORDER BY sum(${orderCri}) ${ascDesc}
 		</if>
 	
 		
-		<if test="order_cri != 'orD.cnt'">
-			<where>
+		<if test="orderCri != 'orD.cnt'">
+			WHERE it.deleted LIKE 'N'
 				<if test="categoryKey != 0">
 					and it.categoryKey = ${categoryKey}
 				</if>
 				<if test="keyword != null">
 					and it.name like concat('%' , #{keyword}, '%')
 				</if>
-			</where>
-			ORDER BY ${order_cri} ${asc_desc}
+			
+			ORDER BY ${orderCri} ${ascDesc}
 		</if>
 		LIMIT ${skip}, ${amount}
 	</select>
@@ -91,19 +91,20 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 			
 		ORDER BY itemKey
 		
-		<if test="asc_desc != null">
-			${asc_desc}
+		<if test="ascDesc != null">
+			${ascDesc}
 		</if>
 	</select>
 
 	
 	<select id="newItem" resultType="ItemDTO">
-		SELECT * FROM item ORDER BY itemKey desc limit 8;
+		SELECT * FROM item WHERE deleted LIKE 'N' ORDER BY itemKey desc limit 8;
 	</select>
 	
 	<select id="bestItem" resultType="ItemDTO">	
 	SELECT SUM(od.cnt) AS "totalPrice", i.itemKey AS "itemKey", i.name AS "name", i.categoryKey AS "categoryKey", i.img1 AS "img1", i.price AS "price", i.sale AS "sale" FROM item i
 	JOIN orderDetail od ON od.itemKey = i.itemKey
+	WHERE deleted LIKE 'N'
 	GROUP BY i.itemKey
 	ORDER BY totalPrice DESC
 	LIMIT 8;

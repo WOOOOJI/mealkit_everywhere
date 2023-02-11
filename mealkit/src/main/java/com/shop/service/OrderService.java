@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.shop.dto.AddressDTO;
 import com.shop.dto.OrderDTO;
 import com.shop.frame.MyService;
 import com.shop.mapper.OrderMapper;
@@ -105,9 +106,9 @@ public class OrderService implements MyService<Integer, OrderDTO>{
 
 	}
 	
-	public void orderUpdate(int addrKey, int orderKey, int payment) {
+	public void orderUpdate(AddressDTO addressDTO, int orderKey, int payment) {
 		try {
-			mapper.orderUpdate(addrKey, orderKey, payment);
+			mapper.orderUpdate(addressDTO, orderKey, payment);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

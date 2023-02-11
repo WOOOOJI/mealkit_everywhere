@@ -32,10 +32,10 @@ public class KakaoController {
     	String access_Token = service.getAccessToken(code); 
     	HashMap<String, Object> userInfo = service.getUserInfo(access_Token);
     	
-    	System.out.println(userInfo);
-    	System.out.println("#access_Token : " + access_Token);
-		System.out.println("#nickname: " + userInfo.get("nickname"));
-		System.out.println("#email : " + userInfo.get("email"));
+    //	System.out.println(userInfo);
+    //	System.out.println("#access_Token : " + access_Token);
+	//	System.out.println("#nickname: " + userInfo.get("nickname"));
+	//	System.out.println("#email : " + userInfo.get("email"));
 		
 		Object nickname = userInfo.get("nickname"); 
 		String cname = String.valueOf(nickname); // Object를 String으로 변환
@@ -46,12 +46,12 @@ public class KakaoController {
 		
 		CustomerDTO dto = new CustomerDTO();
 		//System.out.println("데이터연결안했다"+dto);
-		System.out.println("#"+kemail);
-		System.out.println("#"+nickname);
+	//	System.out.println("#"+kemail);
+	//	System.out.println("#"+nickname);
 		dto.setEmail(kemail2);
 		dto.setUsername(cname);
 		
-		System.out.println(cService.isEmailExist(dto));
+	//	System.out.println(cService.isEmailExist(dto));
 		
 		// db 중복 저장 막기. 1보다 작으면 중복 없음(신규 회원 가입)
 		 if(cService.isEmailExist(dto)<1) {
@@ -62,8 +62,9 @@ public class KakaoController {
 		 
 		session.setAttribute("email", dto.getEmail());
 		session.setAttribute("custKey", custKey);
+		session.setAttribute("username", dto.getUsername());
 				model.addAttribute("loginResult", "success");
-				model.addAttribute("username", dto.getUsername());
+				model.addAttribute("username", dto.getUsername()+"check");
 		
 		return "main";
     }

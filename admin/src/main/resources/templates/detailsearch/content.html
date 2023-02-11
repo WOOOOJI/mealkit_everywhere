@@ -367,7 +367,7 @@
 									<td th:if="${f.salePct} < 100 and ${f.salePct} > 79"><span th:text="${f.salePct}+'%'" class="badge bg-danger"></span></td>
 									
 									<td data-th-text="${#numbers.formatInteger(f.sale, 3, 'COMMA') + '원'}" class="d-none d-xl-table-cell"></td>
-									<td th:text="${f.totCnt}" class="d-none d-xl-table-cell">54개</td>
+									<td th:text="${f.totCnt}+'개'" class="d-none d-xl-table-cell">54개</td>
 								</tr>
 
 							</tbody>
@@ -488,15 +488,15 @@ function submitSelectedGroup(){
 	var endDate = $('#endDate').val();
 	var align = $('#selectGroupOrderBy').val();
 	
-	if(gender == null){			
+	if(gender == 'noGender'){			
 		gender = '[[${gender}]]';
 	}
 	
-	if(age == null){		
+	if(age == 'noAge'){		
 		age = '[[${age}]]';
 	}
 	
-	if(categoryKey == null){		
+	if(categoryKey == -1){		
 		categoryKey = '[[${categoryKey}]]';
 	}
 	

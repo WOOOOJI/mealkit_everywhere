@@ -13,6 +13,8 @@ import com.shop.frame.MyMapper;
 @Mapper
 public interface BoardMapper extends MyMapper<Integer, BoardDTO>{
 	
+	
+	
 	//문의글 상세보기
 	public BoardDTO qnaDetail(int boardKey) throws Exception;
 	
@@ -28,12 +30,18 @@ public interface BoardMapper extends MyMapper<Integer, BoardDTO>{
 	//문의 갯수 카운트
 	public int countQuestions(Criteria cri) throws Exception;
 	
-	//후기 전체 리스트
+	//상품 상세 후기 전체 리스트
 	public List<BoardDTO> getReviewsList(Criteria cri) throws Exception;
 
-	//문의 전체 리스트
+	//상품 상세 문의 전체 리스트
 	public List<BoardDTO> getQuestionsList(Criteria cri) throws Exception;
+	
+	//마이페이지 후기 전체 리스트
+	public List<BoardDTO> myReviewList(Criteria cri) throws Exception;
 
+	//마이페이지 문의 전체 리스트
+	public List<BoardDTO> myQnaList(Criteria cri) throws Exception;
+	
 	//문의글 삭제하기
 	public int qnaDel(int boardKey) throws Exception;
 	
@@ -48,4 +56,8 @@ public interface BoardMapper extends MyMapper<Integer, BoardDTO>{
 	
 	//후기글 수정시 작성했던 내용 가져오기
 	public BoardDTO modifyReview(BoardDTO boardDTO) throws Exception;
+	
+	//문의글 수정시 작성했던 내용 가져오기
+	public BoardDTO modifyQuestion(BoardDTO boardDTO) throws Exception;
+
 }

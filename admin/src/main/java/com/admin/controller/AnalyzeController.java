@@ -242,7 +242,7 @@ public class AnalyzeController {
 		startDate = sdf.format(cal.getTime());
 		endDate = sdf.format(cal.getTime());
 		}
-		System.out.println(startDate+endDate);
+
 		//성별 처리
 		String gender1=""; String gender2="";
 		if(!gender.equals("noGender")) {
@@ -256,27 +256,40 @@ public class AnalyzeController {
 		ageRangeSales=analyzeService.ageRangeSales(categoryKey, gender, gender1, gender2, startDate, endDate);
 
 		//나이대별 판매량 조회한 것을 나이대에 맞게 addAttribute 수행
-		for(OrderDTO o:ageRangeSales) {
-			switch(o.getAgeRange()) {
-			case("10"):case("10.0"): model.addAttribute("age10Sales", o.getTotalSales()); break;
-			case("20"):case("20.0"): model.addAttribute("age20Sales", o.getTotalSales()); break;
-			case("30"):case("30.0"): model.addAttribute("age30Sales", o.getTotalSales()); break;
-			case("40"):case("40.0"): model.addAttribute("age40Sales", o.getTotalSales()); break;
-			case("50"):case("50.0"): model.addAttribute("age50Sales", o.getTotalSales()); break;
-			case("60"):case("60.0"): model.addAttribute("age60Sales", o.getTotalSales()); break;
-			}
-		}
+		  int age10Sales=0,age20Sales=0,age30Sales=0,age40Sales=0,age50Sales=0,age60Sales=0;
+	      for(OrderDTO o:ageRangeSales) {
+	         switch(o.getAgeRange()) {
+	         case("10"):case("10.0"): age10Sales+=o.getTotalSales(); break;
+	         case("20"):case("20.0"): age20Sales+=o.getTotalSales(); break;
+	         case("30"):case("30.0"): age30Sales+=o.getTotalSales(); break;
+	         case("40"):case("40.0"): age40Sales+=o.getTotalSales(); break;
+	         case("50"):case("50.0"): age50Sales+=o.getTotalSales(); break;
+	         case("60"):case("60.0"): age60Sales+=o.getTotalSales(); break;
+	         case("70"):case("70.0"): age60Sales+=o.getTotalSales(); break;
+	         case("80"):case("80.0"): age60Sales+=o.getTotalSales(); break;
+	         }
+	      }
+	      
+	      model.addAttribute("age10Sales", age10Sales);
+	      model.addAttribute("age20Sales", age20Sales);
+	      model.addAttribute("age30Sales", age30Sales);
+	      model.addAttribute("age40Sales", age40Sales);
+	      model.addAttribute("age50Sales", age50Sales);
+	      model.addAttribute("age60Sales", age60Sales);
 
 
 		// 성별 판매량 조회 =========================================
 		genderSales=analyzeService.genderSales(categoryKey, age, startDate, endDate);
 
-		for(OrderDTO o:genderSales) {
-			switch(o.getGender()) {
-			case("male"): model.addAttribute("maleSales", o.getTotalSales()); break;
-			case("female"): model.addAttribute("femaleSales", o.getTotalSales()); break;
-			}
-		}
+		 int maleSales=0; int femaleSales=0;
+	      for(OrderDTO o:genderSales) {
+	         switch(o.getGender()) {
+	         case("male"): maleSales+=o.getTotalSales(); break;
+	         case("female"): femaleSales+=o.getTotalSales(); break;
+	         }
+	      }
+	      model.addAttribute("maleSales", maleSales);
+	      model.addAttribute("femaleSales", femaleSales);
 
 		switch(categoryKey) {
 			case(1):model.addAttribute("categoryName", "한식"); break;

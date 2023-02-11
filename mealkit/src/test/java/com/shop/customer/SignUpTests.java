@@ -23,7 +23,7 @@ class SignUpTests {
 		dto.setUserpwd("Abcde123!");
 		dto.setUsername("이상아");
 		dto.setTel("01011111111");
-		dto.setJumin(111111);
+		dto.setJumin("111111");
 		dto.setGender(2);
 		
 		System.out.println("회원가입시 필요한 데이터 = " + dto);
