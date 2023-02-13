@@ -184,8 +184,9 @@ Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 
 
 **2) 회원 관리**  
-- ㅇㅇㅇ
-- 
+![회원관리-min](https://user-images.githubusercontent.com/114971312/218416472-07d821de-5bb6-467d-b2e7-2129f09fb9c2.gif)
+
+
 
 
 **3) 이벤트/공지사항 관리**  
