@@ -172,7 +172,7 @@ Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 - 필터 / 정렬 중복 구현  
 - 정가와 할인가가 다른 경우, 할인율 및 가격 표시  
 - 페이지네이션 및 검색 기능 구현  
-![1](https://user-images.githubusercontent.com/114971312/218421360-91e3f108-a655-4d64-97cd-488d36df6b75.JPG)
+![1](https://user-images.githubusercontent.com/114971312/218422029-547948fc-be82-43bc-8dbd-6faf8aacc77b.JPG)
 ![2](https://user-images.githubusercontent.com/114971312/218421397-feb5f483-1866-41ea-8c4b-1c01dd2d4dfc.JPG)
 
 
