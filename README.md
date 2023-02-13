@@ -69,10 +69,10 @@ Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 - 내용ㅇ
 - 
 **2) 주문/결제(I'm port)**  
-- 내용내용내용
-→
-→
-→
+- 기본배송지가 있을 시 해당 배송지 정보를 바로 사용할 수 있게 표시
+- 장바구니의 데이터를 가져와서 주문할 정보 생성
+- I'mport(아임포트) API를 이용하여 카드결제, 카카오결제 등 실제 결제 가능
+
 
 **3) sns로그인(kakao) **  
 - SNS계정으로 처음 로그인을 하는 경우, 카카오 서버는 redirect url로 인증코드를 전달   
@@ -102,8 +102,10 @@ Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 - 내용내용 
 
 
-**6) 다음 우편번호 API**  
-
+**6) 우편번호 검색 (다음 주소 API)**  
+- 다음 주소 API를 이용하여 실제 주소를 사용할 수 있도록 구현  
+  → API에서 가져온 결과를 필요한 양식으로 form 안에 들어가게 하여 DB에 저장
+![daum_zipcode_api](https://user-images.githubusercontent.com/117332944/218469125-531cbb81-c9dc-40c2-b6b0-2de81232866a.gif)
 
 ✨**관리자 페이지**
 **1) 실시간 통계**  
@@ -126,8 +128,11 @@ Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 
 
 **2) 암호화(Bcrypt)**  
--내용내용
--내용내용
+- Bcrypt 암호화를 통해 사용자의 비밀번호를 암호화하여 DB에 저장 
+![Bcrypt](https://user-images.githubusercontent.com/117332944/218469822-ab092b85-7b05-46d5-8e48-383963fbd8f3.png)  
+![bcrypt_db_sql](https://user-images.githubusercontent.com/117332944/218470004-facf7933-fb91-47bd-b6ef-8849f71656c0.png)  
+- 사용자가 입력한 비밀번호를 Bcrypt hash algorithm 적용 후 DB에 저장된 암호와 match하여 확인  
+- Bcrypt hash algorithm 적용 시 임의의 salt를 생성하기 때문에 같은 입력값에 대해서 매번 다른 결과를 반환하여 강력한 보안 가능  
 
 
 **3) 인터셉터(Interceptor)**  
