@@ -87,8 +87,7 @@ Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 **4) 상품 상세**  
 - 상품에 해당하는 전체 후기의 평균 평점 출력 / 장바구니와 찜 기능  
 - AJAX를 활용한 후기 게시판 (구매자만 작성 가능, CRUD, 관리자 댓글 조회)  
-- AJAX를 활용한 문의 게시판 (CRUD, 관리자 댓글 조회)  
-- 
+- AJAX를 활용한 문의 게시판 (CRUD, 관리자 댓글 조회)   
 ![2](https://user-images.githubusercontent.com/114971312/218420140-1a125f97-4c76-419a-910f-8c8ca350edaa.JPG)
 ![1](https://user-images.githubusercontent.com/114971312/218420151-7d59a6c8-c2db-4473-826a-d1c7a2eb5304.JPG)
 ![3](https://user-images.githubusercontent.com/114971312/218420177-53d978dd-73ec-44e6-9e9b-c39edbc7b613.JPG)
@@ -170,6 +169,11 @@ Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 
 
 **4)  상품리스트**  
+- 필터 / 정렬 중복 구현  
+- 정가와 할인가가 다른 경우, 할인율 및 가격 표시  
+- 페이지네이션 및 검색 기능 구현  
+![1](https://user-images.githubusercontent.com/114971312/218421360-91e3f108-a655-4d64-97cd-488d36df6b75.JPG)
+![2](https://user-images.githubusercontent.com/114971312/218421397-feb5f483-1866-41ea-8c4b-1c01dd2d4dfc.JPG)
 
 
 
