@@ -318,7 +318,10 @@
 
 
 ### 7) 공지/이벤트/회사소개
+<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218750797-11f3d0e2-0962-4e3b-b345-f6ff33112b1b.gif">
 - 회사소개 페이지에서 총 회원수와 팔린 제품 수를 AJAX통신을 통해 실시간으로 보여줌.
+
+<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218751070-09fa802c-4885-4f4a-a416-ee65fdde0541.gif">
 - 공지/이벤트 페이지를 통해 관리자가 편하게 내용을 전달할 수 있음.
 
 
