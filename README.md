@@ -1,5 +1,6 @@
 # Mealkit-Everywhere🍲
-팀장: 김기태  팀원: 연우진, 이상아, 한승우  
+팀장: 김기태  <br>
+팀원: 연우진, 이상아, 한승우  
 기간: 2023.01.06~2023.02.17  
 🔗[웹 페이지 시연영상](https://youtu.be/zLp9kFtKYJY)  
 🔗[노션 링크](https://www.notion.so/246758c62a5b4e728cd50f89d021ba07?v=78f471175d4a49ea93b0195f26fa602a&pvs=4)
@@ -11,15 +12,15 @@
 매출 분석 통계 기능과 Chatbot을 활용한 Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 
 - #### 기획의도  
-1. 통계 기능을 통해 판매 동향 파악 및 분석 가능
-2. 반응형 웹 서비스와 네이버 AI Chat Bot Service, 카카오 및 다양한 api를 활용하며 기존의 사이트와 차별화
+1. 통계 기능을 통해 판매 동향 파악 및 분석하여 기존의 사이트와 차별화  
+2. 반응형 웹 서비스와 네이버 AI Chat Bot Service, 카카오 및 다양한 api를 활용
 3. 소비자 페이지와 관리자 페이지 별도 개발 및 페이지 간 적절히 연동
 4. 사용자의 편의를 고려한 화면구성과 기능 구현
 
 
 <br><br>
 
-# 2. 프로젝트 수행 방법 및 도구 
+# 2. 프로젝트 개요
 ✨**프로젝트 계획도**  
 <img width="989" alt="프로젝트 계획도" src="https://user-images.githubusercontent.com/117332944/218390432-91c94118-fad4-4998-9cf3-554b3b8a4df5.png">  
 ✨**USER-FLOW**  
@@ -42,9 +43,8 @@
 <br><br>
 
 # ✨개발 환경 및 수행 도구
-|개발도구|협업도구|언어|DB|프레임워크|API|SERVER|
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|Eclipse 2020-12<br>JDK 11.0.17|Github<br>Zoom<br>ERD Cloud<br>Google Docs|Java<br>JavaScript<br>HTML5<br>CSS3<br>SQL<br>AJAX|MySQL 8.0|Spring Boot 2.77<br>MyBatis 3.5.11<br>Thymeleaf 3.0.15|카카오 로그인<br>스마트 택배<br>아임포트(I'mport)<br>카카오 우편번호<br>Naver Chatbot|Tomcat 9.0<br>NCP(Naver Cloud Platform)|
+![도구](https://user-images.githubusercontent.com/110235270/218677946-98c1cd8b-a008-41ee-a4a0-783dda5d7f3e.png)
+
 
 
 <br><br>
@@ -55,8 +55,8 @@
 |이름|역할|
 |--|--| 
 |김기태|상품 리스트 페이지 구현<br>게시판 페이지네이션 구현<br>상품 상세 페이지 구현<br>문의 - 후기 게시판(CRUD) 구현<br>챗봇 API 및 WebSocket을 이용한 문의 처리 구현<br>관리자 회원관리 게시판 구현<br>관리자 통계 기능 구현(전일 대비 판매 차트, TOP-WORST10 상품 리스트)|  
-|연우진|NCP에 서비스 전개 및 배포.<br>NCP에 MySQL Replication (Replica, Master) 진행. <br> AI ChatBot(CLOVA), WebSocket을 활용한 사용자 문의처리 및 간편이용 시스템 개발.<br>관리자 페이지에서의 실시간 차트 및 통계 차트 관련 기능 개발(상단 쉬보드 통계표).<br>사용자의 주문내역 관리 시스템 개발 <br> 사용자 페이지에서의 장바구니 기능 구현 <br> 배송API(스마트 택배)를 활용한 배송조회 및 환불처리 기능 구현 <br> 관리자, 사용자 메인화면(View) 설계.<br>사용자측 공지사항/이벤트/회사소개 페이지, 기능 구현.|
-|이상아|회원가입 및 로그인 관련 기능 구현<br>카카오 API를 이용한 소셜로그인 구현<br>인터셉터(Interceptor) 구현<br>마이페이지 구현<br>Spring Security를 이용한 Bcrypt 암호화 작업<br>관리자 페이지 문의/후기/답변 관리 구현<br>관리자 페이지 통계 기능 구현<br>(년도/월/일별 통계-화면 구성, 상세검색-배송량, 판매액, 판매된 제품 수, 구매확정)|
+|연우진|NCP에 서비스 전개 및 배포.<br>NCP에 MySQL Replication (Replica, Master) 진행. <br> AI ChatBot(CLOVA), WebSocket을 활용한 사용자 문의처리 및 간편이용 시스템 개발.<br>관리자 페이지에서의 실시간 차트 및 통계 차트 관련 기능 개발(상단 대쉬보드 통계표).<br>사용자의 주문내역 관리 시스템 개발 <br> 사용자 페이지에서의 장바구니 기능 구현 <br> 배송API(스마트 택배)를 활용한 배송조회 및 환불처리 기능 구현 <br> 관리자, 사용자 메인화면(View) 설계.<br>사용자측 공지사항/이벤트/회사소개 페이지, 기능 구현.|
+|이상아|회원가입 및 로그인 관련 기능 구현<br>카카오 API를 이용한 소셜로그인 구현<br>로그인 인터셉터(Interceptor) 구현<br>사용자 마이페이지 구현<br>Spring Security를 이용한 Bcrypt 암호화 작업<br>관리자 페이지 문의/후기/답변 관리 구현<br>관리자 페이지 통계 기능 구현<br>(년도/월/일별 통계-화면 구성, 상세검색-배송량, 판매액, 판매된 제품 수, 구매확정)|
 |한승우|아임포트(I'mport)을 활용한 결제 기능 구현<br>주문 관련 기능 구현<br>카카오 우편번호 API를 이용한 검색 기능 구현<br>사용자 배송지 선택,생성,삭제 및 기본배송지 설정 구현<br>장바구니, 배송지와 주문 연동 구현<br>Spring Security를 이용한 Bcrypt 암호화 작업<br>나의 주문리스트 페이지 구현<br>주문 상세 페이지 구현<br>관리자 페이지 상품,공지/이벤트 관리(CRUD) 및 이미지 파일 관련 기능 구현<br>관리자 페이지 실시간 통계 기능 구현<br>(매출차트,내아디별/성별 판매비율, 카테고리별 판매비율,주문당 평균)|
   
 
@@ -84,6 +84,8 @@
 
 ### 2) 주문/결제(I'm port)
 - 기본배송지가 있을 시 해당 배송지 정보를 바로 사용할 수 있게 표시
+![KakaoTalk_20230214_171948660](https://user-images.githubusercontent.com/110235270/218678776-b8563429-e718-4448-b771-d0a430e3c887.png)
+
 - 장바구니의 데이터를 가져와서 주문할 정보 생성
 - I'mport(아임포트) API를 이용하여 카드결제, 카카오결제 등 실제 결제 가능   
 ![import_api-min](https://user-images.githubusercontent.com/117332944/218477489-658a1227-6b80-4580-8e55-d6dba3911172.gif)
@@ -110,7 +112,7 @@
 - 상품에 해당하는 전체 후기의 평균 평점 출력 / 장바구니와 찜 기능  
 - AJAX를 활용한 후기 및 문의 게시판 (후기는 구매자만 작성 가능, CRUD, 관리자 댓글 조회)     
   
-![2](https://user-images.githubusercontent.com/114971312/218420140-1a125f97-4c76-419a-910f-8c8ca350edaa.JPG)
+![상품상세](https://user-images.githubusercontent.com/110235270/218684829-d83985fc-407a-4901-b596-d6c05bb57df1.png)
 ![삭제2](https://user-images.githubusercontent.com/114971312/218670960-1c9ad0d9-6054-411e-9847-a707af6ab094.JPG)
 ![3](https://user-images.githubusercontent.com/114971312/218420177-53d978dd-73ec-44e6-9e9b-c39edbc7b613.JPG)
 
@@ -139,9 +141,9 @@
 
 # ✨관리자 페이지
 ### 1) 실시간 통계
-- 실시간 데이터와 누적 데이터 표시
-- Jquery, AJAX, JS의 SET INTERVAL 함수를 활용하여 실시간 통계 구현
-- JAVA의 Date로 현재 기준 시간 설정, 데이터는 컨트롤러와 JSON형태로 전달
+- 당일 시간대별 실시간 데이터와 누적 데이터 표시
+- Jquery를 활용한 AJAX 통신과, JS의 SET INTERVAL 함수를 활용하여 실시간 통계 구현
+- JAVA의 Date 객체를 활용하여 서버 기준 현재 시간으로 설정, 데이터는 JSON형태로 전달받아 처리 
 - 실시간 배송량, 판매량, 판매액, 구매확정률, 평균 판매 개수, 평균 판매 금액 데이터 표시
 - 실시간 시간별 매출 차트, 전일 대비 매출차트, 인기 상품 TOP 10, 나이대 별 - 남녀 성별 판매 비율 데이터 표시
 
@@ -161,9 +163,12 @@
 
 ### 2) 년도/월/일별 통계
 - 시간별 배송량, 판매액, 판매수, 구매확정률, 인기 상품, 매출 차트 등 정보 확인 가능
-- 정규식을 이용하여 3자리 마다 컴마(,)를 통해 관리자가 쉽게 파악
-- 날짜 tag 에 ‘selected’ class가 추가된 tag를 확인해 선택한 날짜를 전달
+- 정규식을 이용하여 금액 3자리 마다 컴마(,)를 통해 관리자가 쉽게 파악
+- 날짜를 선택하여 조회버튼 클릭시...........머라고요..? 
+날짜 tag 에 ‘selected’ class가 추가된 tag를 확인해 선택한 날짜를 전달
 - 1일, 31일/1월, 12월 등 월 또는 년도가 바뀌는 시기에는 그에 맞춰 날짜가 변경되게 구현
+![년월일상세](https://user-images.githubusercontent.com/110235270/218685092-d6b29b19-3ca3-4927-a9ae-a6cc2c1f9d44.gif)
+
 
 ***
 <br><br>
@@ -201,7 +206,7 @@
 <br><br>
 
 
-### 3) 인터셉터(Interceptor)
+### 3) 로그인 인터셉터(Interceptor)
 - 로그인한 사용자만 볼 수 있도록 일부 페이지들에 대한 접근을 막음   
 - 세션을 통해 로그인 여부를 체크해서 로그인하지 않은 회원은 로그인 폼으로 보냄 
 ![image](https://user-images.githubusercontent.com/110235270/218664894-b87fa846-3b1b-432a-bb68-8bfc58a72977.png)
@@ -230,7 +235,7 @@
 
 
 ### ✨사용자 페이지
-<img width="187" alt="ufav" src="https://user-images.githubusercontent.com/111713782/207254283-b01c1f9c-d3ac-4953-acb9-c0c8ffc0ef82.PNG">
+
 
 ### 1) 메인페이지
 - 상단 메뉴바와 하단 푸터를 통한 접근성 향상
@@ -242,7 +247,7 @@
 
 
 ### 2) 로그인/회원가입
-- 회원 가입 시 jQuery를 활용해 ID 중복 여부 체크 
+- 회원 가입 시 AJAX를 활용해 ID 중복 여부 체크 
 - 회원 가입 form의 모든 항목에 대해 유효성 검사 실시
 - 비밀번호 찾기 & 아이디 찾기 구현
  → 아이디 찾기 시 아이디(email)의 일부만 보여주도록 함   
@@ -341,7 +346,6 @@
 
 ### 3) 공지/이벤트 관리
 - 필터와 정렬을 중복으로 적용하여 공지/이벤트 조회 가능
-- 작성자는 session에서 로그인 정보를 불러와 고정
 - 중복된 파일명이 있을 경우 뒤에 숫자를 계속하여 추가하는 식으로 재귀함수로 구현 (ex: (1), (2), (3))
 <img width="100%" alt="boardmanage" src="https://user-images.githubusercontent.com/117332944/218490427-2e2e4f9a-0800-4c98-942f-335ac4cdaf40.gif"> 
 
