@@ -3,6 +3,7 @@
 기간: 2023.01.06~2023.02.17  
 🔗[웹 페이지 시연영상](https://youtu.be/zLp9kFtKYJY)  
 🔗[노션 링크](https://www.notion.so/246758c62a5b4e728cd50f89d021ba07?v=78f471175d4a49ea93b0195f26fa602a&pvs=4)
+🔗[PPT 링크](https://drive.google.com/file/d/1xJ3Hczz7z2KZciRIrn7HMTZZHoQDTfAc/view?usp=share_link)
 
 ## 1. 프로젝트 주제 및 기획의도
 - **주제**:
