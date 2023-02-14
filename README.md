@@ -44,7 +44,7 @@
 ✨**개발 환경 및 수행 도구**  
 |개발도구|협업도구|언어|DB|프레임워크|API|SERVER|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|Eclipse 2020-12|Github<br>Zoom<br>ERD Cloud<br>Google Docs|Java<br>JavaScript<br>HTML5<br>CSS3<br>SQL<br>AJAX|MySQL 8.0|Spring Boot 2.77<br>MyBatis<br>Thymeleaf|카카오 로그인<br>스마트 택배<br>아임포트(I'mport)<br>카카오 우편번호<br>Naver Chatbot|Tomcat 9.0<br>NCP(Naver Cloud Platform)|
+|Eclipse 2020-12<br>JDK 11.0.17|Github<br>Zoom<br>ERD Cloud<br>Google Docs|Java<br>JavaScript<br>HTML5<br>CSS3<br>SQL<br>AJAX|MySQL 8.0|Spring Boot 2.77<br>MyBatis 3.5.11<br>Thymeleaf 3.0.15|카카오 로그인<br>스마트 택배<br>아임포트(I'mport)<br>카카오 우편번호<br>Naver Chatbot|Tomcat 9.0<br>NCP(Naver Cloud Platform)|
 
 
 <br><br>
@@ -55,7 +55,7 @@
 |이름|역할|
 |--|--| 
 |김기태|상품 리스트 페이지 구현<br>게시판 페이지네이션 구현<br>상품 상세 페이지 구현<br>문의 - 후기 게시판(CRUD) 구현<br>챗봇 API 및 WebSocket을 이용한 문의 처리 구현<br>관리자 회원관리 게시판(조회, 차단 설정) 구현<br>관리자 통계 기능 구현(전일 대비 판매 차트 구현, TOP-WORST10 상품리스트 구현)|  
-|연우진|NCP에 서비스 전개 및 배포.<br>NCP에 MySQL Replication (Replica, Master) 진행<br><AI ChatBot(CLOVA), WebSocket을 활용한 사용자 문의처리 및 간편이용 시스템 개발.<br>관리자 페이지에서의 실시간 차트 및 통계 차트 관련 기능 개발(상단 데쉬보드 통계표).<br>사용자의 주문내역 관리 시스템 개발<br>사용자 페이지에서의 장바구니 기능 및 배송API(스마트 택배)를 활용한 배송조회 및 환불처리 기능 구현.<br>관리자, 사용자 메인화면(View) 설계.<br>사용자측 공지사항/이벤트/회사소개 페이지, 기능 구현.<br> 	|
+|연우진|NCP에 서비스 전개 및 배포.<br>NCP에 MySQL Replication (Replica, Master) 진행<br>AI ChatBot(CLOVA), WebSocket을 활용한 사용자 문의처리 및 간편이용 시스템 개발.<br>관리자 페이지에서의 실시간 차트 및 통계 차트 관련 기능 개발(상단 데쉬보드 통계표).<br>사용자의 주문내역 관리 시스템 개발 <br> 사용자 페이지에서의 장바구니 기능 구현 <br> 배송API(스마트 택배)를 활용한 배송조회 및 환불처리 기능 구현 <br> 관리자, 사용자 메인화면(View) 설계.<br>사용자측 공지사항/이벤트/회사소개 페이지, 기능 구현.|
 |이상아|회원가입 및 로그인 관련 기능 구현<br>카카오 API를 이용한 소셜로그인 구현<br>인터셉터(Interceptor) 구현<br>마이페이지 구현<br>Spring Security를 이용한 Bcrypt 암호화 작업<br>관리자 페이지 문의/후기/답변 관리 구현<br>관리자 페이지 통계 기능 구현<br>(년도/월/일별 통계-화면 구성, 상세검색-배송량, 판매액, 판매된 제품 수, 구매확정)|
 |한승우|아임포트(I'mport)을 활용한 결제 기능 구현<br>주문 관련 기능 구현<br>카카오 우편번호 API를 이용한 검색 기능 구현<br>사용자 배송지 선택,생성,삭제 및 기본배송지 설정 구현<br>장바구니, 배송지와 주문 연동 구현<br>Spring Security를 이용한 Bcrypt 암호화 작업<br>나의 주문리스트 페이지 구현<br>주문 상세 페이지 구현<br>관리자 페이지 상품,공지/이벤트 관리(CRUD) 및 이미지 파일 관련 기능 구현<br>관리자 페이지 실시간 통계 기능 구현<br>(매출차트,내아디별/성별 판매비율, 카테고리별 판매비율,주문당 평균)|
   
