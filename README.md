@@ -54,7 +54,7 @@
 
 ## 4. 프로젝트 구현 기능
 
-✨####**핵심 기능**  
+✨ #### **핵심 기능**  
 
 <img width="187" alt="ufav" src="https://user-images.githubusercontent.com/111713782/207254283-b01c1f9c-d3ac-4953-acb9-c0c8ffc0ef82.PNG">
 
