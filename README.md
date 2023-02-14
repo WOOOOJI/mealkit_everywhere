@@ -205,6 +205,8 @@
 ### 3) 인터셉터(Interceptor)
 - 로그인한 사용자만 볼 수 있도록 일부 페이지들에 대한 접근을 막음   
 - 세션을 통해 로그인 여부를 체크해서 로그인하지 않은 회원은 로그인 폼으로 보냄 
+![image](https://user-images.githubusercontent.com/110235270/218664894-b87fa846-3b1b-432a-bb68-8bfc58a72977.png)
+ 
 
 ***
 <br><br>
