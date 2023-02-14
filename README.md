@@ -6,7 +6,7 @@
 
 <br><br>
 
-## 1. 프로젝트 주제 및 기획의도
+# 1. 프로젝트 주제 및 기획의도
 - **주제**  
 매출 분석 통계 기능과 Chatbot을 활용한 Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 
@@ -19,7 +19,7 @@
 
 <br><br>
 
-## 2. 프로젝트 수행 방법 및 도구 
+# 2. 프로젝트 수행 방법 및 도구 
 ✨**프로젝트 계획도**  
 <img width="989" alt="프로젝트 계획도" src="https://user-images.githubusercontent.com/117332944/218390432-91c94118-fad4-4998-9cf3-554b3b8a4df5.png">  
 ✨**USER-FLOW**  
@@ -41,7 +41,7 @@
 
 <br><br>
 
-✨**개발 환경 및 수행 도구**  
+# ✨개발 환경 및 수행 도구
 |개발도구|협업도구|언어|DB|프레임워크|API|SERVER|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |Eclipse 2020-12<br>JDK 11.0.17|Github<br>Zoom<br>ERD Cloud<br>Google Docs|Java<br>JavaScript<br>HTML5<br>CSS3<br>SQL<br>AJAX|MySQL 8.0|Spring Boot 2.77<br>MyBatis 3.5.11<br>Thymeleaf 3.0.15|카카오 로그인<br>스마트 택배<br>아임포트(I'mport)<br>카카오 우편번호<br>Naver Chatbot|Tomcat 9.0<br>NCP(Naver Cloud Platform)|
@@ -50,7 +50,7 @@
 <br><br>
 
 
-## 3. 프로젝트 역할분담
+# 3. 프로젝트 역할분담
 
 |이름|역할|
 |--|--| 
@@ -62,9 +62,9 @@
 
 <br><br>
 
-## 4. 프로젝트 구현 기능
+# 4. 프로젝트 구현 기능
 
-### ✨ 핵심 기능
+## ✨ 핵심 기능
 
 ✨**사용자 페이지**  
 ### 1) 챗봇(Chatbot) 
@@ -136,7 +136,7 @@
 <br><br>
 
 
-✨**관리자 페이지**  
+# ✨관리자 페이지
 ### 1) 실시간 통계
 - 실시간 데이터와 누적 데이터 표시
 - Jquery, AJAX, JS의 SET INTERVAL 함수를 활용하여 실시간 통계 구현
@@ -223,7 +223,7 @@
 
 
 
-## ✨**일반 기능**  
+# ✨**일반 기능**  
 
 
 ### ✨사용자 페이지
@@ -302,7 +302,7 @@
 <br><br>
 
 
-## ✨관리자 페이지  
+# ✨관리자 페이지  
 
 
 ### 1) 상품 관리  
