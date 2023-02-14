@@ -26,7 +26,7 @@ Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 ![밀키트_admin_flow](https://user-images.githubusercontent.com/117332944/218390592-3a0826d6-6212-4bc6-9ad4-2b79a6a3355a.JPG)  
 
 ✨**DB 설계**  
-![밀키트 쇼핑몰](https://user-images.githubusercontent.com/117332944/218390373-5adad535-a5d4-4bc9-b045-55fd67321956.png)  
+![밀키트 쇼핑몰](https://user-images.githubusercontent.com/117332944/218619937-f4350539-3c01-48bc-966e-7930759e1389.png)
 
 ✨**WBS**  
 **🔗[WBS 보러가기](https://docs.google.com/spreadsheets/d/189ZZKjUHNqMd7KinS7MKgbGLZvjOy8vEU_ur2jmIbVE/edit?usp=sharing)**  
@@ -140,10 +140,12 @@ Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 
 **3) 통계 상세 검색**  
 - 음식카테고리별/나이대별/성별/날짜등의 조건을 중복으로 선택하여 데이터 상세 검색 가능
-- 선택한 조건에 CSS 가 추가되게 하여 관리자가 쉽게 파악할 수 있도록 구현
+- 선택한 조건에 CSS 가 추가되게 하여 관리자가 쉽게 파악할 수 있도록 구현  
 
 
-✨**기타 **  
+
+✨**기타**  
+
 **1) 로드밸런서**  
 -내용내용
 -내용내용
