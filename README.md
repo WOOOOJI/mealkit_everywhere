@@ -256,10 +256,8 @@
 
 
 ![중복체크](https://user-images.githubusercontent.com/110235270/218476271-c228cde0-0fcd-4256-908b-41b731c498e1.gif)
-<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/110235270/218728076-0dfe5a86-10bc-49f7-bf6b-a5c920c01c1f.gif"> 
+<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/110235270/218756372-4b773b35-a4ff-4136-9469-fbb55ecb8352.gif"> 
 <img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/110235270/218728083-8801d773-c50a-4b25-bf3c-de33999515a6.gif"> 
-
-
 ***
 <br><br>
 
@@ -370,9 +368,10 @@
 - 검색 기능을 통해 해당 키워드에 맞는 글을 가져오도록 구현 
 - 일부 선택 or 전체 선택하여 삭제 
 - 문의글의 경우, 관리자가 답변을 쓸 수 있도록 댓글 입력/수정/삭제 기능 구현
-
+<img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/110235270/218756207-acc460dc-eb3e-4f9e-a539-b98299fe6459.gif">  
 ***
 <br><br>
+
 
 
 ### 5) 주문 관리
