@@ -37,7 +37,7 @@
 ✨**개발 환경 및 수행 도구**  
 |개발도구|협업도구|언어|DB|프레임워크|API|SERVER|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|Eclipse 2020-12<br>JDK 11.0.17|Github<br>Zoom<br>ERD Cloud<br>Google Docs|Java<br>JavaScript<br>HTML5<br>CSS3<br>SQL<br>AJAX|MySQL 8.0|Spring Boot 2.77<br>MyBatis 3.5.11<br>Thymeleaf 3.0.15|카카오 로그인<br>스마트 택배<br>아임포트(I'mport)<br>카카오 우편번호<br>Naver Chatbot|Tomcat 9.0<br>NCP(Naver Cloud Platform)|
+|Eclipse 2020-12|Github<br>Zoom<br>ERD Cloud<br>Google Docs|Java<br>JavaScript<br>HTML5<br>CSS3<br>SQL<br>AJAX|MySQL 8.0|Spring Boot 2.77<br>MyBatis<br>Thymeleaf|카카오 로그인<br>스마트 택배<br>아임포트(I'mport)<br>카카오 우편번호<br>Naver Chatbot|Tomcat 9.0<br>NCP(Naver Cloud Platform)|
 
 
 
@@ -47,21 +47,21 @@
 |이름|역할|
 |--|--| 
 |김기태|상품 리스트 페이지 구현<br>게시판 페이지네이션 구현<br>상품 상세 페이지 구현<br>문의 - 후기 게시판(CRUD) 구현<br>챗봇 API 및 WebSocket을 이용한 문의 처리 구현<br>관리자 회원관리 게시판(조회, 차단 설정) 구현<br>관리자 통계 기능 구현(전일 대비 판매 차트 구현, TOP-WORST10 상품리스트 구현)|  
-|연우진|NCP에 서비스 전개 및 배포.<br>NCP에 MySQL Replication (Replica, Master) 진행<br>AI ChatBot(CLOVA), WebSocket을 활용한 사용자 문의처리 및 간편이용 시스템 개발.<br>관리자 페이지에서의 실시간 차트 및 통계 차트 관련 기능 개발(상단 데쉬보드 통계표).<br>사용자의 주문내역 관리 시스템 개발<br>사용자 페이지에서의 장바구니 기능 및 배송API(스마트 택배)를 <br> 활용한 배송조회 및 환불처리 기능 구현.<br>관리자, 사용자 메인화면(View) 설계.<br>사용자측 공지사항/이벤트/회사소개 페이지, 기능 구현.|
+|연우진|NCP에 서비스 전개 및 배포.<br>NCP에 MySQL Replication (Replica, Master) 진행<br><AI ChatBot(CLOVA), WebSocket을 활용한 사용자 문의처리 및 간편이용 시스템 개발.<br>관리자 페이지에서의 실시간 차트 및 통계 차트 관련 기능 개발(상단 데쉬보드 통계표).<br>사용자의 주문내역 관리 시스템 개발<br>사용자 페이지에서의 장바구니 기능 및 배송API(스마트 택배)를 활용한 배송조회 및 환불처리 기능 구현.<br>관리자, 사용자 메인화면(View) 설계.<br>사용자측 공지사항/이벤트/회사소개 페이지, 기능 구현.<br> 	|
 |이상아|회원가입 및 로그인 관련 기능 구현<br>카카오 API를 이용한 소셜로그인 구현<br>인터셉터(Interceptor) 구현<br>마이페이지 구현<br>Spring Security를 이용한 Bcrypt 암호화 작업<br>관리자 페이지 문의/후기/답변 관리 구현<br>관리자 페이지 통계 기능 구현<br>(년도/월/일별 통계-화면 구성, 상세검색-배송량, 판매액, 판매된 제품 수, 구매확정)|
 |한승우|아임포트(I'mport)을 활용한 결제 기능 구현<br>주문 관련 기능 구현<br>카카오 우편번호 API를 이용한 검색 기능 구현<br>사용자 배송지 선택,생성,삭제 및 기본배송지 설정 구현<br>장바구니, 배송지와 주문 연동 구현<br>Spring Security를 이용한 Bcrypt 암호화 작업<br>나의 주문리스트 페이지 구현<br>주문 상세 페이지 구현<br>관리자 페이지 상품,공지/이벤트 관리(CRUD) 및 이미지 파일 관련 기능 구현<br>관리자 페이지 실시간 통계 기능 구현<br>(매출차트,내아디별/성별 판매비율, 카테고리별 판매비율,주문당 평균)|
   
 
 ## 4. 프로젝트 구현 기능
 
-✨**핵심 기능**  
+✨####**핵심 기능**  
 
 <img width="187" alt="ufav" src="https://user-images.githubusercontent.com/111713782/207254283-b01c1f9c-d3ac-4953-acb9-c0c8ffc0ef82.PNG">
 
 
 
 ✨**사용자 페이지**  
-**1) 챗봇(Chatbot)**  
+####**1) 챗봇(Chatbot)**  
 - NAVER CLOVA Chatbot API를 활용하여 1:1 문의 등을 처리  
 - 딥러닝 학습을 하여 가르치지 않은 대화도 가능
 - 링크 답변을 통해 고객에게 직관적인 사이트 이용 경험을 전달  
@@ -70,14 +70,17 @@
 ![FINAL 시연 영상 - 4K mov_000279333-min](https://user-images.githubusercontent.com/114971312/218620626-d9855862-8de3-4535-af29-3ccf397d5224.gif)
 ![FINAL 시연 영상 - 4K mov_000294966](https://user-images.githubusercontent.com/114971312/218620635-8f4133c4-4c6f-4282-8c4b-0545f7a138ff.gif)
 
+***
 
-**2) 주문/결제(I'm port)**  
+####**2) 주문/결제(I'm port)**  
 - 기본배송지가 있을 시 해당 배송지 정보를 바로 사용할 수 있게 표시
 - 장바구니의 데이터를 가져와서 주문할 정보 생성
 - I'mport(아임포트) API를 이용하여 카드결제, 카카오결제 등 실제 결제 가능   
 ![import_api-min](https://user-images.githubusercontent.com/117332944/218477489-658a1227-6b80-4580-8e55-d6dba3911172.gif)
 
-**3) sns로그인(kakao)** 
+***
+
+####**3) sns로그인(kakao)** 
 - 카카오 로그인 API를 이용하여 소셜 로그인 구현
   →  SNS계정으로 처음 로그인을 하는 경우, 카카오 서버는 redirect url로 인증코드를 전달   
   → 클라이언트(Web)쪽에서 인증코드를 이용하여  access_token발급받은 후 서버로 전송   
@@ -90,7 +93,9 @@
 
 <br>
 
-**4) 상품 상세**  
+***
+
+####**4) 상품 상세**  
 - 상품에 해당하는 전체 후기의 평균 평점 출력 / 장바구니와 찜 기능  
 - AJAX를 활용한 후기 게시판 (구매자만 작성 가능, CRUD, 관리자 댓글 조회)  
 - AJAX를 활용한 문의 게시판 (CRUD, 관리자 댓글 조회)   
@@ -100,20 +105,24 @@
 ![3](https://user-images.githubusercontent.com/114971312/218420177-53d978dd-73ec-44e6-9e9b-c39edbc7b613.JPG)
 
 
+***
 
 
-
-**5) 배송 조회 (스마트택배 API)**  
-- 내용내용  
+####**5) 배송 조회 (스마트택배 API)** 
+![다운로드 (1)](https://user-images.githubusercontent.com/115512265/218648416-29daf2da-2974-42c2-9509-c0e5d2021b6b.png)
+- 스마트택배 API를 활용한 배송조회 기능
+- 사용자의 주문리스트에 운송장번호를 hidden으로 넣어놔서 조회버튼을 누름과 동시에 운송장번호를 가지고 자동으로 조회가능.  
 
 ![FINAL 시연 영상 - 4K mov_000269666](https://user-images.githubusercontent.com/114971312/218614121-be281a12-920e-4300-a1c0-787884ab4116.gif)
 
+***
 
-
-**6) 우편번호 검색 (다음 주소 API)**  
+####**6) 우편번호 검색 (다음 주소 API)**  
 - 다음 주소 API를 이용하여 실제 주소를 사용할 수 있도록 구현  
   → API에서 가져온 결과를 필요한 양식으로 form 안에 들어가게 하여 DB에 저장
 ![daum_zipcode_api](https://user-images.githubusercontent.com/117332944/218469125-531cbb81-c9dc-40c2-b6b0-2de81232866a.gif)
+
+***
 
 ✨**관리자 페이지**  
 **1) 실시간 통계**  
@@ -133,19 +142,21 @@
 ![FINAL 시연 영상 - 4K mov_000525566](https://user-images.githubusercontent.com/114971312/218614386-5025d45c-2e61-4ab3-b125-4c9647923c8f.gif)
 
 
+***
+
 **2) 년도/월/일별 통계**  
 - 시간별 배송량, 판매액, 판매수, 구매확정률, 인기 상품, 매출 차트 등 정보 확인 가능
 - 정규식을 이용하여 3자리 마다 컴마(,)를 통해 관리자가 쉽게 파악
 - 날짜 tag 에 ‘selected’ class가 추가된 tag를 확인해 선택한 날짜를 전달
 - 1일, 31일/1월, 12월 등 월 또는 년도가 바뀌는 시기에는 그에 맞춰 날짜가 변경되게 구현
 
-
+***
 
 **3) 통계 상세 검색**  
 - 음식카테고리별/나이대별/성별/날짜등의 조건을 중복으로 선택하여 데이터 상세 검색 가능
 - 선택한 조건에 CSS 가 추가되게 하여 관리자가 쉽게 파악할 수 있도록 구현  
 
-
+***
 
 ✨**기타**  
 
@@ -153,6 +164,7 @@
 -내용내용
 -내용내용
 
+***
 
 **2) 암호화(Bcrypt)**  
 - Bcrypt 암호화를 통해 사용자의 비밀번호를 암호화하여 DB에 저장 
@@ -161,20 +173,25 @@
 - 사용자가 입력한 비밀번호를 Bcrypt hash algorithm 적용 후 DB에 저장된 암호와 match하여 확인  
 - Bcrypt hash algorithm 적용 시 임의의 salt를 생성하기 때문에 같은 입력값에 대해서 매번 다른 결과를 반환하여 강력한 보안 가능  
 
+***
 
 **3) 인터셉터(Interceptor)**  
 - 로그인한 사용자만 볼 수 있도록 일부 페이지들에 대한 접근을 막음   
 - 세션을 통해 로그인 여부를 체크해서 로그인하지 않은 회원은 로그인 폼으로 보냄 
 
+***
+
 **4) 레플리케이션(Replication)**  
 - Replica DBMS에서 Master DBMS로 부터 전달받은 Binary log를 자동으로 데이터로 반영(백업).
 - DB서버의 이중화(Master, Replica) 를 통해 부하 및 장애 방지.
+- ![다운로드 (1)](https://user-images.githubusercontent.com/115512265/218648416-29daf2da-2974-42c2-9509-c0e5d2021b6b.png)
 
 
 
 
 
 
+***
 
 
 
@@ -190,7 +207,7 @@
 - 인기상품, 신상품 노출
 - 메인화면에 실시간으로 현재 팔린 제품 수와 회원수를 AJAX를 통해 노출
 
-
+***
 
 **2) 로그인/회원가입**  
 - 회원 가입 시 jQuery를 활용해 ID 중복 여부 체크 
@@ -200,7 +217,7 @@
 
 ![중복체크](https://user-images.githubusercontent.com/110235270/218476271-c228cde0-0fcd-4256-908b-41b731c498e1.gif)
  
-
+***
 
 **3)  마이페이지**  
 - 비밀번호 변경, 찜 내역, 나의 주문/후기/문의 내역, 회원 탈퇴 기능
@@ -208,6 +225,7 @@
 - 회원 탈퇴 시 회원 테이블의 signout 컬럼을 'N' -> ' Y'로 변경
  → 해당 아이디로 로그인 및 가입 불가
 
+***
 
 **4)  상품리스트**  
 - 필터 / 정렬 중복 구현  
@@ -216,13 +234,18 @@
 ![1](https://user-images.githubusercontent.com/114971312/218422029-547948fc-be82-43bc-8dbd-6faf8aacc77b.JPG)
 ![2](https://user-images.githubusercontent.com/114971312/218421397-feb5f483-1866-41ea-8c4b-1c01dd2d4dfc.JPG)
 
-
+***
 
 **5) 장바구니**  
 - AJAX를 활용한 비동기식 요청으로 장바구니에 제품 추가 및 수정, 삭제 기능 구현
 - 기존에 추가되있는 제품이면, 수량 증가
 - 수량 추가 및 감소 버튼을 통해서 조절이 가능하며 직접 입력하여서 가능함.
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/115512265/218653614-2b6e0b50-fe45-4974-a3b8-f51fcbbf142a.gif)
+![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/115512265/218653642-f96cbbd5-44ca-4289-96d4-32e1a0981e91.gif)
+![ezgif com-video-to-gif (2)](https://user-images.githubusercontent.com/115512265/218653657-10ad8486-a6ff-4da5-ba6a-3c01b5aff79d.gif)
+![ezgif com-video-to-gif (3)](https://user-images.githubusercontent.com/115512265/218653664-1283d62a-8a64-40cf-89c5-c3df6e91ab5c.gif)
 
+***
 
 **6) 배송지 관리**  
 - 팝업창을 띄워 배송지를 관리할 수 있게 구현 (배송지 선택, 기본 배송지 설정, 생성, 삭제)  
@@ -230,13 +253,14 @@
 - controller에서 전달받은 배송지 리스트를 이용해 해당 사용자가 등록한 배송지가 3개 이상일 시 배송지 추가 불가능
 ![addresspop](https://user-images.githubusercontent.com/117332944/218482602-13dddfe2-57f9-4f64-a630-e19ed021647c.png)  
 
+***
 
 **7) 공지/이벤트/회사소개**  
 - 회사소개 페이지에서 총 회원수와 팔린 제품 수를 AJAX통신을 통해 실시간으로 보여줌.
 - 공지/이벤트 페이지를 통해 관리자가 편하게 내용을 전달할 수 있음.
 
 
-
+***
 
 
 ✨**관리자 페이지**  
@@ -252,6 +276,8 @@
 
 - 상품 삭제 시 실제로 데이터를 삭제하면 여러 문제가 발생할 수 있기 때문에 테이블의 'deleted' 필드를 'Y'으로 변경하게 구현
 
+***
+
 **2) 회원 관리**  
 - 차단된 회원 / 생년월일 순 정렬 기능  
 - 이메일 / 이름 / 전화번호 검색 기능
@@ -259,24 +285,33 @@
 ![회원관리-min](https://user-images.githubusercontent.com/114971312/218416472-07d821de-5bb6-467d-b2e7-2129f09fb9c2.gif)
 
 
+***
+
 **3) 공지/이벤트 관리** 
 - 필터와 정렬을 중복으로 적용하여 공지/이벤트 조회 가능
 - 작성자는 session에서 로그인 정보를 불러와 고정
 - 중복된 파일명이 있을 경우 뒤에 숫자를 계속하여 추가하는 식으로 재귀함수로 구현 (ex: (1), (2), (3))
 <img width="100%" alt="boardmanage" src="https://user-images.githubusercontent.com/117332944/218490427-2e2e4f9a-0800-4c98-942f-335ac4cdaf40.gif"> 
 
+***
+
 **4) 후기/문의 관리** 
 - 검색 기능을 통해 해당 키워드에 맞는 글을 가져오도록 구현 
 - 일부 선택 or 전체 선택하여 삭제 
 - 문의글의 경우, 관리자가 답변을 쓸 수 있도록 댓글 입력/수정/삭제 기능 구현
 
-**5) 주문 관리**  
+***
+
+**5) 주문 관리**
+![ezgif com-video-to-gif (4)](https://user-images.githubusercontent.com/115512265/218656591-688fa477-1085-41c5-b595-779b48230eda.gif)
 - 체크박스를 통해 상품을 원하는 만큼 선택해서 상태를 변경할 수 있음.
 - 검색기능을 통해 원하는 주문내역을 볼 수 있음.
 - 상세보기를 들어가면 운송장번호를 업데이트 할 수 있음 또한 관리자측에서도 배송조회는 가능.
 - 사용자의 환불요청 내용을 보고 처리할 수 있음.
 
-## 5. Troubleshooting
+***
+
+## 6. Troubleshooting
 
 |&nbsp;&nbsp;Name&nbsp;&nbsp;|Issues|Problem solving|
 |:--:|--|--|
