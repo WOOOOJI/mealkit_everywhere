@@ -253,8 +253,13 @@
 - 비밀번호 찾기 & 아이디 찾기 구현
  → 아이디 찾기 시 아이디(email)의 일부만 보여주도록 함   
 
+
+
 ![중복체크](https://user-images.githubusercontent.com/110235270/218476271-c228cde0-0fcd-4256-908b-41b731c498e1.gif)
- 
+<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/110235270/218728076-0dfe5a86-10bc-49f7-bf6b-a5c920c01c1f.gif"> 
+<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/110235270/218728083-8801d773-c50a-4b25-bf3c-de33999515a6.gif"> 
+
+
 ***
 <br><br>
 
@@ -264,6 +269,9 @@
 - 후기 및 문의 조회/수정/삭제 가능 
 - 회원 탈퇴 시 회원 테이블의 signout 컬럼을 'N' -> ' Y'로 변경
  → 해당 아이디로 로그인 및 가입 불가
+<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/110235270/218730073-6f85346b-5702-442e-ae1c-bc268d0c7f07.gif"> 
+<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/110235270/218730078-40374225-dff5-4607-8a1a-98ae84c0869f.gif"> 
+
 
 ***
 <br><br>
