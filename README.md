@@ -278,10 +278,16 @@
 - AJAX를 활용한 비동기식 요청으로 장바구니에 제품 추가 및 수정, 삭제 기능 구현
 - 기존에 추가되있는 제품이면, 수량 증가
 - 수량 추가 및 감소 버튼을 통해서 조절이 가능하며 직접 입력하여서 가능함.
-![ezgif com-video-to-gif](https://user-images.githubusercontent.com/115512265/218653614-2b6e0b50-fe45-4974-a3b8-f51fcbbf142a.gif)
-![ezgif com-video-to-gif (1)](https://user-images.githubusercontent.com/115512265/218653642-f96cbbd5-44ca-4289-96d4-32e1a0981e91.gif)
-![ezgif com-video-to-gif (2)](https://user-images.githubusercontent.com/115512265/218653657-10ad8486-a6ff-4da5-ba6a-3c01b5aff79d.gif)
-![ezgif com-video-to-gif (3)](https://user-images.githubusercontent.com/115512265/218653664-1283d62a-8a64-40cf-89c5-c3df6e91ab5c.gif)
+
+<img width="100%" alt="cart1" src="https://user-images.githubusercontent.com/115512265/218653614-2b6e0b50-fe45-4974-a3b8-f51fcbbf142a.gif"> 
+
+<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218653642-f96cbbd5-44ca-4289-96d4-32e1a0981e91.gif"> 
+
+<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218653657-10ad8486-a6ff-4da5-ba6a-3c01b5aff79d.gif"> 
+
+<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218653664-1283d62a-8a64-40cf-89c5-c3df6e91ab5c.gif"> 
+
+
 
 ***
 <br><br>
@@ -354,7 +360,9 @@
 
 
 ### 5) 주문 관리
-![ezgif com-video-to-gif (4)](https://user-images.githubusercontent.com/115512265/218656591-688fa477-1085-41c5-b595-779b48230eda.gif)
+
+<img width="100%" alt="orderManage" src="https://user-images.githubusercontent.com/115512265/218656591-688fa477-1085-41c5-b595-779b48230eda.gif">
+
 - 체크박스를 통해 상품을 원하는 만큼 선택해서 상태를 변경할 수 있음.
 - 검색기능을 통해 원하는 주문내역을 볼 수 있음.
 - 상세보기를 들어가면 운송장번호를 업데이트 할 수 있음 또한 관리자측에서도 배송조회는 가능.
