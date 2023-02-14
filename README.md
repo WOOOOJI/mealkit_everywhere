@@ -2,7 +2,7 @@
 팀장: 김기태  <br>
 팀원: 연우진, 이상아, 한승우  
 기간: 2023.01.06~2023.02.17  
-🔗[웹 페이지 시연영상](https://youtu.be/zLp9kFtKYJY](https://youtu.be/oRULA-Fp-iE)  
+🔗[웹 페이지 시연영상]([https://youtu.be/zLp9kFtKYJY](https://youtu.be/oRULA-Fp-iE])  
 🔗[노션 링크](https://www.notion.so/246758c62a5b4e728cd50f89d021ba07?v=78f471175d4a49ea93b0195f26fa602a&pvs=4)
 
 <br><br>
