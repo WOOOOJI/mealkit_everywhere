@@ -311,7 +311,7 @@
 - 팝업창을 띄워 배송지를 관리할 수 있게 구현 (배송지 선택, 기본 배송지 설정, 생성, 삭제)  
 - 배송지 선택 클릭 시 부모창으로 배송지 주소를 submit하고 자식창은 닫히게 구현  
 - controller에서 전달받은 배송지 리스트를 이용해 해당 사용자가 등록한 배송지가 3개 이상일 시 배송지 추가 불가능
-![addresspop](https://user-images.githubusercontent.com/117332944/218482602-13dddfe2-57f9-4f64-a630-e19ed021647c.png)  
+<img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/117332944/218748211-9bfc643a-54f2-460c-b11a-1139b9c68c14.gif"> 
 
 ***
 <br><br>
