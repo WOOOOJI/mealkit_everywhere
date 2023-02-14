@@ -2,9 +2,8 @@
 팀장: 김기태  <br>
 팀원: 연우진, 이상아, 한승우  
 기간: 2023.01.06~2023.02.17  
-🔗[웹 페이지 시연영상](https://youtu.be/oRULA-Fp-iE)
-
-🔗[노션 링크](https://www.notion.so/246758c62a5b4e728cd50f89d021ba07?v=78f471175d4a49ea93b0195f26fa602a&pvs=4)
+🔗[웹 페이지 시연영상](https://youtu.be/oRULA-Fp-iE)  
+🔗[노션 링크](https://www.notion.so/246758c62a5b4e728cd50f89d021ba07?v=78f471175d4a49ea93b0195f26fa602a&pvs=4)  
 
 <br><br>
 
@@ -311,7 +310,7 @@
 - 팝업창을 띄워 배송지를 관리할 수 있게 구현 (배송지 선택, 기본 배송지 설정, 생성, 삭제)  
 - 배송지 선택 클릭 시 부모창으로 배송지 주소를 submit하고 자식창은 닫히게 구현  
 - controller에서 전달받은 배송지 리스트를 이용해 해당 사용자가 등록한 배송지가 3개 이상일 시 배송지 추가 불가능
-<img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/117332944/218748211-9bfc643a-54f2-460c-b11a-1139b9c68c14.gif"> 
+<img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/117332944/218751565-6492c3fd-c0f1-4b34-aafd-d690312a517f.gif">  
 
 ***
 <br><br>
