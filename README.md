@@ -91,6 +91,7 @@ Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 - 상품에 해당하는 전체 후기의 평균 평점 출력 / 장바구니와 찜 기능  
 - AJAX를 활용한 후기 게시판 (구매자만 작성 가능, CRUD, 관리자 댓글 조회)  
 - AJAX를 활용한 문의 게시판 (CRUD, 관리자 댓글 조회)   
+  
 ![2](https://user-images.githubusercontent.com/114971312/218420140-1a125f97-4c76-419a-910f-8c8ca350edaa.JPG)
 ![1](https://user-images.githubusercontent.com/114971312/218420151-7d59a6c8-c2db-4473-826a-d1c7a2eb5304.JPG)
 ![3](https://user-images.githubusercontent.com/114971312/218420177-53d978dd-73ec-44e6-9e9b-c39edbc7b613.JPG)
@@ -100,9 +101,10 @@ Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 
 
 **5) 배송 조회 (스마트택배 API)**  
-- 내용내용 
-- 내용내용 
-- 내용내용 
+- 내용내용  
+
+![FINAL 시연 영상 - 4K mov_000269666](https://user-images.githubusercontent.com/114971312/218614121-be281a12-920e-4300-a1c0-787884ab4116.gif)
+
 
 
 **6) 우편번호 검색 (다음 주소 API)**  
@@ -112,7 +114,20 @@ Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 
 ✨**관리자 페이지**  
 **1) 실시간 통계**  
+- 실시간 데이터와 누적 데이터 표시
+- Jquery, AJAX, JS의 SET INTERVAL 함수를 활용하여 실시간 통계 구현
+- JAVA의 Date로 현재 기준 시간 설정, 데이터는 컨트롤러와 JSON형태로 전달
+- 실시간 배송량, 판매량, 판매액, 구매확정률, 평균 판매 개수, 평균 판매 금액 데이터 표시
+- 실시간 시간별 매출 차트, 전일 대비 매출차트, 인기 상품 TOP 10, 나이대 별 - 남녀 성별 판매 비율 데이터 표시
 
+![FINAL 시연 영상 - 4K mov_000422100](https://user-images.githubusercontent.com/114971312/218614171-e06267c3-d579-4c7c-a4ba-3aab5a6bce21.gif)
+![FINAL 시연 영상 - 4K mov_000541233](https://user-images.githubusercontent.com/114971312/218614241-9ca92892-de03-4421-b1c6-e3f89b65f000.gif)
+  
+![FINAL 시연 영상 - 4K mov_000483466](https://user-images.githubusercontent.com/114971312/218614207-61b9949d-1d25-4a4d-9faf-4affef00f508.gif)
+![FINAL 시연 영상 - 4K mov_000500633](https://user-images.githubusercontent.com/114971312/218614211-80f8002d-b070-4445-9f45-7d10cb748b14.gif)
+  
+![FINAL 시연 영상 - 4K mov_000516266](https://user-images.githubusercontent.com/114971312/218614364-9a7946b1-1fb3-4b19-a05d-41758728c578.gif)
+![FINAL 시연 영상 - 4K mov_000525566](https://user-images.githubusercontent.com/114971312/218614386-5025d45c-2e61-4ab3-b125-4c9647923c8f.gif)
 
 
 **2) 년도/월/일별 통계**  
@@ -228,7 +243,7 @@ Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 **2) 회원 관리**  
 - 차단된 회원 / 생년월일 순 정렬 기능  
 - 이메일 / 이름 / 전화번호 검색 기능
-- 차단 / 탈퇴 여부와 차단 설정 
+- 차단 / 탈퇴 여부와 차단 설정  
 ![회원관리-min](https://user-images.githubusercontent.com/114971312/218416472-07d821de-5bb6-467d-b2e7-2129f09fb9c2.gif)
 
 
