@@ -339,6 +339,7 @@
 - 이메일 / 이름 / 전화번호 검색 기능
 - 차단 / 탈퇴 여부와 차단 설정  
 ![회원관리-min](https://user-images.githubusercontent.com/114971312/218416472-07d821de-5bb6-467d-b2e7-2129f09fb9c2.gif)
+![차단된 회원](https://user-images.githubusercontent.com/114971312/218690751-bf6a5f65-456a-4fec-9c49-88dfad5f8f80.JPG)
 
 
 ***
