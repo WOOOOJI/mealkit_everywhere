@@ -44,7 +44,8 @@
   
   
 ### ✨로드밸런싱 구성도
-![스크린샷 2023-02-15 오후 2 55 01](https://user-images.githubusercontent.com/115512265/218944556-b0da1d0b-fc1a-4823-a440-dc4bbccc567f.png)
+![스크린샷 2023-02-15 오후 2 57 32](https://user-images.githubusercontent.com/115512265/218944883-b72bdf5f-9547-41a9-825e-41b089673117.png)
+
 
 
 
@@ -200,10 +201,11 @@
 ### 1) 로드밸런서
 
 - NCP 로드밸런서를 활용한 트래픽 분산 시스템 구축
-- 총 3대의 서버를 증설하여 로드밸런서를 통해 트래픽 부하 분산 처리
+- 총 3대의 서버를 증설하여 로드밸런서를 통해 (Round Robin) 트래픽 부하 분산 처리
 
-![스크린샷 2023-02-15 오후 2 41 22](https://user-images.githubusercontent.com/115512265/218942568-608c9bd4-0e77-4a93-8771-e11f80ddd9da.png)
-![스크린샷 2023-02-15 오후 2 55 01](https://user-images.githubusercontent.com/115512265/218944556-b0da1d0b-fc1a-4823-a440-dc4bbccc567f.png)
+![스크린샷 2023-02-15 오후 2 56 21](https://user-images.githubusercontent.com/115512265/218944745-56ef97c0-c34f-41da-9cb3-26eb5eed6db9.png)
+![스크린샷 2023-02-15 오후 2 57 32](https://user-images.githubusercontent.com/115512265/218944883-b72bdf5f-9547-41a9-825e-41b089673117.png)
+
 
 
 ***
