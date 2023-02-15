@@ -178,6 +178,8 @@
 ### 3) 통계 상세 검색  
 - 음식카테고리별/나이대별/성별/날짜등의 조건을 중복으로 선택하여 데이터 상세 검색 가능
 - 선택한 조건에 CSS 가 추가되게 하여 관리자가 쉽게 파악할 수 있도록 구현  
+<img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/110235270/218916333-366ba6c8-aa8f-4677-be97-fa5bb16706cd.gif">  
+
 
 ***
 <br><br>
