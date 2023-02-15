@@ -195,9 +195,11 @@
 ## ✨ 기타   
 
 ### 1) 로드밸런서
-![140634974-ff0038af-e9b6-48ef-a565-1d454f32377c](https://user-images.githubusercontent.com/115512265/218662290-2866f275-76eb-4dba-b291-c049729b83f4.png)
+![스크린샷 2023-02-15 오후 2 41 22](https://user-images.githubusercontent.com/115512265/218942568-608c9bd4-0e77-4a93-8771-e11f80ddd9da.png)
+
 
 - NCP 로드밸런서를 활용한 트래픽 분산 시스템 구축
+- 총 3대의 서버를 증설하여 로드밸런서를 통해 트래픽 부하 분산 처리
 
 ***
 <br><br>
