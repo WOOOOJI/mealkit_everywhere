@@ -406,12 +406,14 @@
 
 ### 5) 주문 관리
 
-<img width="100%" alt="orderManage" src="https://user-images.githubusercontent.com/115512265/218656591-688fa477-1085-41c5-b595-779b48230eda.gif">
 
 - 체크박스를 통해 상품을 원하는 만큼 선택해서 상태를 변경할 수 있음.
 - 검색기능을 통해 원하는 주문내역을 볼 수 있음.
 - 상세보기를 들어가면 운송장번호를 업데이트 할 수 있음 또한 관리자측에서도 배송조회는 가능.
 - 사용자의 환불요청 내용을 보고 처리할 수 있음.
+
+<img width="100%" alt="orderManage" src="https://user-images.githubusercontent.com/115512265/218656591-688fa477-1085-41c5-b595-779b48230eda.gif">
+
 
 
 ***
