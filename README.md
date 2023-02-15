@@ -31,17 +31,8 @@
 ### ✨ADMIN-FLOW
 ![밀키트_admin_flow](https://user-images.githubusercontent.com/117332944/218390592-3a0826d6-6212-4bc6-9ad4-2b79a6a3355a.JPG)  
 
-### ✨DB 설계
-![밀키트 쇼핑몰](https://user-images.githubusercontent.com/117332944/218619937-f4350539-3c01-48bc-966e-7930759e1389.png)
-
-### ✨WBS
-**🔗[WBS 보러가기](https://docs.google.com/spreadsheets/d/189ZZKjUHNqMd7KinS7MKgbGLZvjOy8vEU_ur2jmIbVE/edit?usp=sharing)**  
-![WBS 전체](https://user-images.githubusercontent.com/117332944/218392819-b108f8a0-4beb-405a-ba30-4071181179bb.png)  
-<br>
 ### ✨시스템 구성도
 ![시스템구성도](https://user-images.githubusercontent.com/117332944/218389295-69752ce4-0cea-41aa-8719-5280226453c6.png)  
-
-  
   
 ### ✨로드밸런싱 구성도
 ![스크린샷 2023-02-15 오후 2 57 32](https://user-images.githubusercontent.com/115512265/218944883-b72bdf5f-9547-41a9-825e-41b089673117.png)
@@ -50,6 +41,13 @@
 
 
 <br><br>
+
+### ✨DB 설계
+![밀키트 쇼핑몰](https://user-images.githubusercontent.com/117332944/218619937-f4350539-3c01-48bc-966e-7930759e1389.png)
+
+### ✨WBS
+**🔗[WBS 보러가기](https://docs.google.com/spreadsheets/d/189ZZKjUHNqMd7KinS7MKgbGLZvjOy8vEU_ur2jmIbVE/edit?usp=sharing)**  
+![WBS 전체](https://user-images.githubusercontent.com/117332944/218392819-b108f8a0-4beb-405a-ba30-4071181179bb.png)  
 
 ### ✨개발 환경 및 수행 도구
 ![도구](https://user-images.githubusercontent.com/110235270/218677946-98c1cd8b-a008-41ee-a4a0-783dda5d7f3e.png)
