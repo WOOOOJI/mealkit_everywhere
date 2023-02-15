@@ -44,7 +44,8 @@
   
   
 ### ✨로드밸런싱 구성도
-![스크린샷 2023-02-15 오후 2 41 22](https://user-images.githubusercontent.com/115512265/218942568-608c9bd4-0e77-4a93-8771-e11f80ddd9da.png)
+![스크린샷 2023-02-15 오후 2 55 01](https://user-images.githubusercontent.com/115512265/218944556-b0da1d0b-fc1a-4823-a440-dc4bbccc567f.png)
+
 
 
 <br><br>
@@ -202,7 +203,8 @@
 - 총 3대의 서버를 증설하여 로드밸런서를 통해 트래픽 부하 분산 처리
 
 ![스크린샷 2023-02-15 오후 2 41 22](https://user-images.githubusercontent.com/115512265/218942568-608c9bd4-0e77-4a93-8771-e11f80ddd9da.png)
-![스크린샷 2023-02-15 오후 2 43 35](https://user-images.githubusercontent.com/115512265/218942926-2e8649da-cbb9-4221-a3fa-ac0c9b157e35.png)
+![스크린샷 2023-02-15 오후 2 55 01](https://user-images.githubusercontent.com/115512265/218944556-b0da1d0b-fc1a-4823-a440-dc4bbccc567f.png)
+
 
 ***
 <br><br>
