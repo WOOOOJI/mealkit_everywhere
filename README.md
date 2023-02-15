@@ -23,10 +23,12 @@
 # 2. 프로젝트 개요
 ### ✨프로젝트 계획도  
 <img width="989" alt="프로젝트 계획도" src="https://user-images.githubusercontent.com/117332944/218390432-91c94118-fad4-4998-9cf3-554b3b8a4df5.png">  
+
+
 ### ✨USER-FLOW
 ![밀키트_user_flow](https://user-images.githubusercontent.com/117332944/218390528-75983d08-d9a3-41ad-9954-17bef1dcfb92.jpg)  
 
-### ✨ADMIN-FLOW  
+### ✨ADMIN-FLOW
 ![밀키트_admin_flow](https://user-images.githubusercontent.com/117332944/218390592-3a0826d6-6212-4bc6-9ad4-2b79a6a3355a.JPG)  
 
 ### ✨DB 설계
