@@ -42,7 +42,8 @@
   
   
 ### ✨로드밸런싱 구성도
-![로드밸런싱 다이어그램](https://user-images.githubusercontent.com/115512265/218941855-ba9f1abd-fa2a-47b9-84c1-599a4285cecb.png)
+![스크린샷 2023-02-15 오후 2 41 22](https://user-images.githubusercontent.com/115512265/218942568-608c9bd4-0e77-4a93-8771-e11f80ddd9da.png)
+
 
 <br><br>
 
