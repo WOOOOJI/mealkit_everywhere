@@ -190,7 +190,8 @@ DEV : 이상아, 한승우
 - 정규식을 이용하여 금액 3자리 마다 컴마(,)를 통해 관리자가 쉽게 파악
 - 날짜를 선택하여 조회버튼 클릭시 태그 value값에 선택 날짜가 문자열로 들어가게 되며 해당 태그 class에 ‘selected’가 추가됨으로써 'selected' 클래스를 가진 태그의 value값을 서버로 전송 
 - 1일, 31일/1월, 12월 등 월 또는 년도가 바뀌는 시기에는 그에 맞춰 날짜가 변경되게 구현
-![년월일상세](https://user-images.githubusercontent.com/110235270/218685092-d6b29b19-3ca3-4927-a9ae-a6cc2c1f9d44.gif)
+<img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/110235270/218685092-d6b29b19-3ca3-4927-a9ae-a6cc2c1f9d44.gif">  
+
 
 
 ***
