@@ -32,7 +32,7 @@
 ***
 
 ### ✨ADMIN-FLOW
-![밀키트_admin_flow](https://user-images.githubusercontent.com/117332944/218390592-3a0826d6-6212-4bc6-9ad4-2b79a6a3355a.JPG)  
+![어드민플로우](https://user-images.githubusercontent.com/110235270/219039118-5f36d236-5d3b-45a1-85df-c311a38db64e.jpg)
 
 ***
 
