@@ -27,7 +27,7 @@
 ***
 
 ### ✨USER-FLOW
-![밀키트_user_flow](https://user-images.githubusercontent.com/117332944/218390528-75983d08-d9a3-41ad-9954-17bef1dcfb92.jpg)  
+![유저플로우](https://user-images.githubusercontent.com/110235270/219033791-78c7bc1d-8220-4887-86de-b9169a6de0cc.jpg)
 
 ***
 
