@@ -399,10 +399,9 @@
 - 일부 선택 or 전체 선택하여 삭제 
 - 문의글의 경우, 관리자가 답변을 쓸 수 있도록 댓글 입력/수정/삭제 기능 구현
 <img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/110235270/218756207-acc460dc-eb3e-4f9e-a539-b98299fe6459.gif">  
-***
 <br><br>
 
-
+***
 
 ### 5) 주문 관리
 
