@@ -131,8 +131,8 @@
 <br><br>
 
 
-### 6) 우편번호 검색 (다음 주소 API)
-- 다음 주소 API를 이용하여 실제 주소를 사용할 수 있도록 구현  
+### 6) 우편번호 검색 (카카오 우편번호 API)
+- 카카오 우편번호 API를 이용하여 실제 주소를 사용할 수 있도록 구현  
   → API에서 가져온 결과를 필요한 양식으로 form 안에 들어가게 하여 DB에 저장
 ![daum_zipcode_api](https://user-images.githubusercontent.com/117332944/218469125-531cbb81-c9dc-40c2-b6b0-2de81232866a.gif)
 
