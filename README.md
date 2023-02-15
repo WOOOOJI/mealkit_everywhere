@@ -243,6 +243,10 @@
 - 인기상품, 신상품 노출
 - 메인화면에 실시간으로 현재 팔린 제품 수와 회원수를 AJAX를 통해 노출
 
+<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218914203-62db5e24-1326-4489-9493-8c8b7651a61e.gif">
+<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218914231-eb5ae9ee-0dd1-4b91-b809-08aeb5f27547.gif">
+<img width="100%" alt="itemmanage" src="https://user-images.githubusercontent.com/115512265/218914241-197fe814-723c-4d76-bc42-3daeee6af3eb.gif">
+
 ***
 <br><br>
 
