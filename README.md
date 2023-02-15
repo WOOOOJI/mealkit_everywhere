@@ -95,7 +95,8 @@ DEV : 이상아, 한승우
 - NAVER CLOVA Chatbot API를 활용하여 1:1 문의 등을 처리  
 - 딥러닝 학습을 하여 가르치지 않은 대화도 가능
 - 링크 답변을 통해 고객에게 직관적인 사이트 이용 경험을 전달  
-![1](https://user-images.githubusercontent.com/114971312/218621174-7ab664ac-6421-43d7-9c13-7f9c179c97ad.JPG) 
+<img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/114971312/218621174-7ab664ac-6421-43d7-9c13-7f9c179c97ad.JPG"> 
+
   
 ![FINAL 시연 영상 - 4K mov_000279333-min](https://user-images.githubusercontent.com/114971312/218620626-d9855862-8de3-4535-af29-3ccf397d5224.gif)
 ![FINAL 시연 영상 - 4K mov_000294966](https://user-images.githubusercontent.com/114971312/218620635-8f4133c4-4c6f-4282-8c4b-0545f7a138ff.gif)
