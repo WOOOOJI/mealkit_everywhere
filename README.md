@@ -37,7 +37,7 @@
 ***
 
 ### ✨시스템 구성도
-![시스템구성도](https://user-images.githubusercontent.com/115512265/218945543-fa513ae3-1d37-499f-8552-466fb2b140cb.png)
+![시스템구성도](https://user-images.githubusercontent.com/115512265/218958553-8e517cc1-291e-4fcf-9199-757e3dc33877.png)
 
   
 ***  
