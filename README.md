@@ -62,7 +62,7 @@
 ***
 
 ### ✨개발 환경 및 수행 도구
-![도구](https://user-images.githubusercontent.com/110235270/218677946-98c1cd8b-a008-41ee-a4a0-783dda5d7f3e.png)
+![개발도구](https://user-images.githubusercontent.com/117332944/218966045-e3c5f1d9-8de8-4ccf-a33c-d100cd194806.png)
 
 ***
 
