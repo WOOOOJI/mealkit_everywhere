@@ -256,9 +256,19 @@ DEV : 이상아, 한승우
 
 
 ### 4) 레플리케이션(Replication)
-- Replica DBMS에서 Master DBMS로 부터 전달받은 Binary log를 자동으로 데이터로 반영(백업).
-- DB서버의 이중화(Master, Replica) 를 통해 부하 및 장애 방지.
-- ![다운로드 (1)](https://user-images.githubusercontent.com/115512265/218648416-29daf2da-2974-42c2-9509-c0e5d2021b6b.png)
+- Replica DBMS에서 Master DBMS로 부터 전달받은 Binary log를 자동으로 데이터로 반영(백업)
+- DB서버의 이중화(Master, Replica) 를 통해 부하 및 장애 방지
+![다운로드 (1)](https://user-images.githubusercontent.com/115512265/218648416-29daf2da-2974-42c2-9509-c0e5d2021b6b.png)
+
+
+***
+<br><br>
+
+
+### 5) RWD 반응형 웹페이지
+- 다양한 사용 환경을 고려한 Responsive Web Design 웹페이지
+![_Mealkit_ 웹 개발 소개연상 - 4K mov_000337066](https://user-images.githubusercontent.com/114971312/219311550-1215d77b-ebb3-4c1e-9d52-25197247470c.gif)
+
 
 
 ***
