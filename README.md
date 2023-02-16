@@ -56,14 +56,14 @@ DEV : 이상아, 한승우
 
 ***
 
-<br><br>
-
 ### ✨DB 설계
 ![밀키트 쇼핑몰](https://user-images.githubusercontent.com/117332944/218619937-f4350539-3c01-48bc-966e-7930759e1389.png)
 
 ***
 
-### ✨WBS
+### ✨WBS  
+<br>
+
 **🔗[WBS 보러가기](https://docs.google.com/spreadsheets/d/189ZZKjUHNqMd7KinS7MKgbGLZvjOy8vEU_ur2jmIbVE/edit?usp=sharing)**  
   
   
