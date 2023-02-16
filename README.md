@@ -73,8 +73,8 @@ DEV : 이상아, 한승우
 ***
 
 ### ✨개발 환경 및 수행 도구
+<img width="634" alt="스크린샷 2023-02-16 오후 9 47 19" src="https://user-images.githubusercontent.com/115512265/219368819-304509f4-7cdb-40a0-ada3-29305b153e73.png">
 ![개발도구](https://user-images.githubusercontent.com/117332944/219248953-8078a028-2ca4-4336-b361-169071fd5538.png)
-![수행도구](https://user-images.githubusercontent.com/110235270/219308141-2fcc4a5e-74b2-46ea-b93a-9bc381dda9be.png)
 
 
 ***
