@@ -64,7 +64,7 @@ DEV : 이상아, 한승우
 ### ✨WBS  
 <br>
 
-**🔗[WBS 보러가기](https://docs.google.com/spreadsheets/d/189ZZKjUHNqMd7KinS7MKgbGLZvjOy8vEU_ur2jmIbVE/edit?usp=sharing)**  
+**🔗[WBS 보러가기](https://docs.google.com/spreadsheets/d/10XEy3CGtHanto6_02__epn6dyyra8y609xpw5IACge8/edit?usp=share_link)**  
   
   
 ![WBS](https://user-images.githubusercontent.com/114971312/219013252-c8087339-d870-40ba-beaf-fe3589e11542.JPG)
