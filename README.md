@@ -49,6 +49,8 @@ DEV : 이상아, 한승우
 ***  
   
 ### ✨로드밸런싱 구성도
+<br>
+
 ![스크린샷 2023-02-15 오후 2 57 32](https://user-images.githubusercontent.com/115512265/218944883-b72bdf5f-9547-41a9-825e-41b089673117.png)
 
 
@@ -93,10 +95,7 @@ DEV : 이상아, 한승우
 
 # 4. 프로젝트 핵심 기능 ✅
 
-
-## 사용자 페이지 😃
-
-  
+## 사용자 페이지 😃  
   
 ### 1) 챗봇(Chatbot) 
 - NAVER CLOVA Chatbot API를 활용하여 1:1 문의 등을 처리  
@@ -133,10 +132,9 @@ DEV : 이상아, 한승우
   ![카카오](https://user-images.githubusercontent.com/110235270/218476026-ffb0e851-fa6d-467e-98b3-cb0d7eab194b.gif)
 
   
-
+***
 <br><br>
 
-***
 
 ### 4) 상품 상세
 - 상품에 해당하는 전체 후기의 평균 평점 출력  
@@ -151,11 +149,13 @@ DEV : 이상아, 한승우
 ***
 <br><br>
 
+
 ### 5) 배송 조회 (스마트택배 API)
 - 스마트택배 API를 활용한 배송조회 기능
 - 사용자의 주문리스트에 운송장번호를 hidden으로 넣어놔서 조회버튼을 누름과 동시에 운송장번호를 가지고 자동으로 조회가능.  
 
 ![FINAL 시연 영상 - 4K mov_000269666](https://user-images.githubusercontent.com/114971312/218614121-be281a12-920e-4300-a1c0-787884ab4116.gif)
+
 
 ***
 <br><br>
@@ -165,6 +165,7 @@ DEV : 이상아, 한승우
 - 카카오 우편번호 API를 이용하여 실제 주소를 사용할 수 있도록 구현  
   → API에서 가져온 결과를 필요한 양식으로 form 안에 들어가게 하여 DB에 저장
 ![daum_zipcode_api](https://user-images.githubusercontent.com/117332944/218469125-531cbb81-c9dc-40c2-b6b0-2de81232866a.gif)
+
 
 ***
 <br><br>
@@ -217,7 +218,7 @@ DEV : 이상아, 한승우
 
 
 
-## ✨ 기타   
+## 🎸기타   
 
 ### 1) 로드밸런싱
 
@@ -226,7 +227,6 @@ DEV : 이상아, 한승우
 
 ![스크린샷 2023-02-15 오후 2 56 21](https://user-images.githubusercontent.com/115512265/218944745-56ef97c0-c34f-41da-9cb3-26eb5eed6db9.png)
 ![스크린샷 2023-02-15 오후 2 57 32](https://user-images.githubusercontent.com/115512265/218944883-b72bdf5f-9547-41a9-825e-41b089673117.png)
-
 
 
 ***
@@ -239,6 +239,7 @@ DEV : 이상아, 한승우
 ![bcrypt_db_sql](https://user-images.githubusercontent.com/117332944/218470004-facf7933-fb91-47bd-b6ef-8849f71656c0.png)  
 - 사용자가 입력한 비밀번호를 Bcrypt hash algorithm 적용 후 DB에 저장된 암호와 match하여 확인  
 - Bcrypt hash algorithm 적용 시 임의의 salt를 생성하기 때문에 같은 입력값에 대해서 매번 다른 결과를 반환하여 강력한 보안 가능  
+
 
 ***
 <br><br>
@@ -260,10 +261,6 @@ DEV : 이상아, 한승우
 - ![다운로드 (1)](https://user-images.githubusercontent.com/115512265/218648416-29daf2da-2974-42c2-9509-c0e5d2021b6b.png)
 
 
-
-
-
-
 ***
 <br><br>
 
@@ -271,9 +268,7 @@ DEV : 이상아, 한승우
 
 # **일반 기능** ✅
 
-
-### 사용자 페이지 😃
-
+## 사용자 페이지 😃
 
 ### 1) 메인페이지
 - 상단 메뉴바와 하단 푸터를 통한 접근성 향상
@@ -364,11 +359,10 @@ DEV : 이상아, 한승우
 
 
 ***
-<br><br>
+<br><br><br>
 
 
 ## 관리자 페이지 🧐
-
 
 ### 1) 상품 관리  
 - 필터와 정렬을 중복으로 적용하여 상품 조회 가능
@@ -379,6 +373,7 @@ DEV : 이상아, 한승우
 ![image](https://user-images.githubusercontent.com/117332944/218489047-f4afb805-8e16-4e31-9519-94ff35b0d414.png)
 
 - 상품 삭제 시 실제로 데이터를 삭제하면 여러 문제가 발생할 수 있기 때문에 테이블의 'deleted' 필드를 'Y'으로 변경하게 구현
+
 
 ***
 <br><br>
@@ -401,6 +396,7 @@ DEV : 이상아, 한승우
 - 중복된 파일명이 있을 경우 뒤에 숫자를 계속하여 추가하는 식으로 재귀함수로 구현 (ex: (1), (2), (3))
 <img width="100%" alt="boardmanage" src="https://user-images.githubusercontent.com/117332944/218490427-2e2e4f9a-0800-4c98-942f-335ac4cdaf40.gif"> 
 
+
 ***
 <br><br>
 
@@ -410,9 +406,12 @@ DEV : 이상아, 한승우
 - 일부 선택 or 전체 선택하여 삭제 
 - 문의글의 경우, 관리자가 답변을 쓸 수 있도록 댓글 입력/수정/삭제 기능 구현
 <img width="100%" alt="addrAddDel" src="https://user-images.githubusercontent.com/110235270/218756207-acc460dc-eb3e-4f9e-a539-b98299fe6459.gif">  
-<br><br>
+
 
 ***
+<br><br>
+
+
 
 ### 5) 주문 관리
 
@@ -423,7 +422,6 @@ DEV : 이상아, 한승우
 - 사용자의 환불요청 내용을 보고 처리할 수 있음.
 
 <img width="100%" alt="orderManage" src="https://user-images.githubusercontent.com/115512265/218656591-688fa477-1085-41c5-b595-779b48230eda.gif">
-
 
 
 ***
