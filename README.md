@@ -63,6 +63,8 @@ DEV : 이상아, 한승우
 
 ### ✨WBS
 **🔗[WBS 보러가기](https://docs.google.com/spreadsheets/d/189ZZKjUHNqMd7KinS7MKgbGLZvjOy8vEU_ur2jmIbVE/edit?usp=sharing)**  
+  
+  
 ![WBS](https://user-images.githubusercontent.com/114971312/219013252-c8087339-d870-40ba-beaf-fe3589e11542.JPG)
 
 
@@ -77,7 +79,7 @@ DEV : 이상아, 한승우
 <br><br>
 
 
-# 3. 프로젝트 역할분담
+# 3. 프로젝트 역할분담 👥
 
 |이름|역할|
 |--|--| 
@@ -89,10 +91,10 @@ DEV : 이상아, 한승우
 
 <br><br>
 
-# 4. 프로젝트 핵심 기능
+# 4. 프로젝트 핵심 기능 ✅
 
 
-##  ✨사용자 페이지
+## 사용자 페이지 😃
 
   
   
@@ -168,7 +170,7 @@ DEV : 이상아, 한승우
 <br><br>
 
 
-# ✨관리자 페이지
+## 관리자 페이지 🧐
 ### 1) 실시간 통계
 - 당일 시간대별 실시간 데이터와 누적 데이터 표시
 - Jquery를 활용한 AJAX 통신과, JS의 SET INTERVAL 함수를 활용하여 실시간 통계 구현
@@ -267,10 +269,10 @@ DEV : 이상아, 한승우
 
 
 
-# ✨**일반 기능**  
+# **일반 기능** ✅
 
 
-### ✨사용자 페이지
+### 사용자 페이지 😃
 
 
 ### 1) 메인페이지
@@ -365,7 +367,7 @@ DEV : 이상아, 한승우
 <br><br>
 
 
-# ✨관리자 페이지  
+## 관리자 페이지 🧐
 
 
 ### 1) 상품 관리  
@@ -428,7 +430,7 @@ DEV : 이상아, 한승우
 <br><br>
 
 
-## 6. Troubleshooting
+## 6. Troubleshooting ⁉️
 
 |&nbsp;&nbsp;Name&nbsp;&nbsp;|Issues|Problem solving|
 |:--:|--|--|
