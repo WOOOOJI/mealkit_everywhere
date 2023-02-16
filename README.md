@@ -1,22 +1,27 @@
-# Mealkit-Everywhere🍲
+# Mealkit-Everywhere 🍲
 PM (Project Manager) : 김기태  <br>
 PL (Project Leader) : 연우진 <br>
 DEV : 이상아, 한승우  
 기간: 2023.01.06~2023.02.17  
-🔗[웹 페이지 시연영상](https://youtu.be/oRULA-Fp-iE)  
+<br>
+💿[웹 페이지 시연영상](https://youtu.be/oRULA-Fp-iE)  
 🔗[노션 링크](https://www.notion.so/246758c62a5b4e728cd50f89d021ba07?v=78f471175d4a49ea93b0195f26fa602a&pvs=4)  
 
-<br><br>
+<br>
+
+![스크린샷 2023-02-16 오전 9 52 30](https://user-images.githubusercontent.com/115512265/219229858-d5a6b191-fc8e-460f-ac60-5dcee7a6eb56.png)
+
+<br>
 
 # 1. 프로젝트 주제 및 기획의도
-- **주제**  
+BBB 주제❗️
 매출 분석 통계 기능과 Chatbot을 활용한 Spring boot 기반의 밀키트 쇼핑 웹 서비스 개발
 
-- #### 기획의도  
-1. 통계 기능을 통해 판매 동향 파악 및 분석하여 기존의 사이트와 차별화  
-2. 반응형 웹 서비스와 네이버 AI Chat Bot Service, 카카오 및 다양한 api를 활용
-3. 소비자 페이지와 관리자 페이지 별도 개발 및 페이지 간 적절히 연동
-4. 사용자의 편의를 고려한 화면구성과 기능 구현
+
+- ### 기획의도 및 차별화❗️
+1. 관리자가 판매데이터로부터 통계화 된 매출차트를 가지고, 효율적이면서 편리하게 세일즈 전략을 세울 수 있도록 도와주는 웹사이트 개발
+2. CLOVA AI Chatbot을 활용한 사용자 1대1 문의 시스템을 구축함으로써, 관리자가 사이트를 편하게 운영할 수 있는 기회요소 마련
+3. Load Balancing & Replication 을 설계하여 원활한 웹서비스 제공
 
 
 <br><br>
