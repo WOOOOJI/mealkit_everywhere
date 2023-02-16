@@ -73,7 +73,7 @@ DEV : 이상아, 한승우
 ***
 
 ### ✨개발 환경 및 수행 도구
-![c980fb4d62723c67](https://user-images.githubusercontent.com/110235270/219045369-23ce90e5-384e-49a1-a908-c312777a0907.png)
+![개발도구](https://user-images.githubusercontent.com/117332944/219248953-8078a028-2ca4-4336-b361-169071fd5538.png)
 
 
 ***
@@ -226,7 +226,6 @@ DEV : 이상아, 한승우
 - 로드밸런싱(Round Robin Algorithm)을 통해 총 3대의 서버에 트래픽 부하 분산 처리
 
 ![스크린샷 2023-02-15 오후 2 56 21](https://user-images.githubusercontent.com/115512265/218944745-56ef97c0-c34f-41da-9cb3-26eb5eed6db9.png)
-![스크린샷 2023-02-15 오후 2 57 32](https://user-images.githubusercontent.com/115512265/218944883-b72bdf5f-9547-41a9-825e-41b089673117.png)
 
 
 ***
