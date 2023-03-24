@@ -1,6 +1,5 @@
 # Mealkit-Everywhere 🍲
 PM (Project Manager) : 김기태  <br>
-PL (Project Leader) : 연우진 <br>
 DEV : 이상아, 한승우  
 기간: 2023.01.06~2023.02.17  
 <br>
